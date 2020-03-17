@@ -88,7 +88,7 @@ public class Executors {
     public static ExecutorService newFixedThreadPool(int nThreads) {
         return new ThreadPoolExecutor(nThreads, nThreads,
                                       0L, TimeUnit.MILLISECONDS,
-                                      new LinkedBlockingQueue<Runnable>());
+                                      new LinkedBlockingQueue<Runnable>()); //这里的队列是无解队列
     }
 
     /**
