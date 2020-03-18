@@ -10,9 +10,9 @@ import java.util.concurrent.*;
  */
 public class ForkJoinDemo {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        TaskDemo taskDemo = new TaskDemo(1,100);
+        TaskDemo taskDemo = new TaskDemo(0,100);
         ForkJoinTask<Integer> fork = taskDemo.fork();
-        Integer integer = fork.get();
+        Integer integer = fork.join();
         System.out.println(integer);
 
 //        ForkJoinPool f = new ForkJoinPool();
@@ -41,7 +41,7 @@ public class ForkJoinDemo {
                 }
                 return sum;
             }else{
-                int i = (end - start) / 2;
+                int i = (end + start) / 2;
                 TaskDemo t1 = new TaskDemo(start,i);
                 TaskDemo t2 = new TaskDemo(i,end);
                     t1.fork();
