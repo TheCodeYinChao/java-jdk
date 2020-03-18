@@ -72,4 +72,8 @@ public class Demo {
 
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+    }
 }
