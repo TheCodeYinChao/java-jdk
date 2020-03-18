@@ -2,12 +2,13 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <option name="BUILD_PROCESS_HEAP_SIZE" value="1024" />
-    <option name="BUILD_PROCESS_ADDITIONAL_VM_OPTIONS" value="-ea -Xmx2048m" />
+    <option name="BUILD_PROCESS_ADDITIONAL_VM_OPTIONS" value="-ea -Xmx1024m" />
+    <excludeFromCompile>
+      <directory url="file://C:/Program Files/Java/jdk1.8.0_171" includeSubdirectories="true" />
+    </excludeFromCompile>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
-      <module name="java-jdk" target="1.8" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8" />
   </component>
 </project>

@@ -90,7 +90,7 @@ public class FutureTask<V> implements RunnableFuture<V> {
      * NEW -> INTERRUPTING -> INTERRUPTED
      */
     private volatile int state;
-    private static final int NEW          = 0;
+    private static final int NEW          = 0; //标识当前任务的各种状态
     private static final int COMPLETING   = 1;
     private static final int NORMAL       = 2;
     private static final int EXCEPTIONAL  = 3;
@@ -99,7 +99,7 @@ public class FutureTask<V> implements RunnableFuture<V> {
     private static final int INTERRUPTED  = 6;
 
     /** The underlying callable; nulled out after running */
-    private Callable<V> callable;
+    private Callable<V> callable;  //最后执行 call（）
     /** The result to return or exception to throw from get() */
     private Object outcome; // non-volatile, protected by state reads/writes
     /** The thread running the callable; CASed during run() */
@@ -188,7 +188,7 @@ public class FutureTask<V> implements RunnableFuture<V> {
     public V get() throws InterruptedException, ExecutionException {
         int s = state;
         if (s <= COMPLETING)
-            s = awaitDone(false, 0L);
+            s = awaitDone(false, 0L); //当获取任务 是 如果 任务 处于未完成状态 这时候 则 阻塞等待唤醒
         return report(s);
     }
 
@@ -369,7 +369,7 @@ public class FutureTask<V> implements RunnableFuture<V> {
                     Thread t = q.thread;
                     if (t != null) {
                         q.thread = null;
-                        LockSupport.unpark(t);
+                        LockSupport.unpark(t); //执行完成唤醒主线程
                     }
                     WaitNode next = q.next;
                     if (next == null)
@@ -416,7 +416,7 @@ public class FutureTask<V> implements RunnableFuture<V> {
                 q = new WaitNode();
             else if (!queued)
                 queued = UNSAFE.compareAndSwapObject(this, waitersOffset,
-                                                     q.next = waiters, q);
+                                                     q.next = waiters, q); //将获取值的线程封装成等待节点 并发获取值时 会形成等待节点的链 通过原子操作等待节点的值来形成链
             else if (timed) {
                 nanos = deadline - System.nanoTime();
                 if (nanos <= 0L) {

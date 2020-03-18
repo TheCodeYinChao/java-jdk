@@ -245,16 +245,16 @@ public class ObjectInputStream
     }
 
     static {
-        /* Setup access so sun.misc can invoke package private functions. */
-        SharedSecrets.setJavaOISAccess(new JavaOISAccess() {
-            public void setObjectInputFilter(ObjectInputStream stream, ObjectInputFilter filter) {
-                stream.setInternalObjectInputFilter(filter);
-            }
-
-            public ObjectInputFilter getObjectInputFilter(ObjectInputStream stream) {
-                return stream.getInternalObjectInputFilter();
-            }
-        });
+        /* Setup access so sun.misc can invoke package private functions. 这块对于不同的jdk版本中 会有异常 因为不做java对象的流传输线注释掉 */
+//        SharedSecrets.setJavaOISAccess(new JavaOISAccess() {
+//            public void setObjectInputFilter(ObjectInputStream stream, ObjectInputFilter filter) {
+//                stream.setInternalObjectInputFilter(filter);
+//            }
+//
+//            public ObjectInputFilter getObjectInputFilter(ObjectInputStream stream) {
+//                return stream.getInternalObjectInputFilter();
+//            }
+//        });
     }
 
     /*
