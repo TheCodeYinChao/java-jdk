@@ -7,6 +7,7 @@ import java.util.concurrent.*;
  * date: 2020/3/17 18:19 <br>
  * author: zyc <br>
  * version: 1.0 <br>
+ * <a href="https://blog.csdn.net/lh87522/article/details/45973861" > 关于fork join使用时的相关问题 </a>
  */
 public class ForkJoinDemo {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -41,6 +42,12 @@ public class ForkJoinDemo {
                 }
                 return sum;
             }else{
+                /**
+                 * //坑, 当节点 分配无效时 会报出
+                 * Could not initialize class java.util.concurrent.locks.AbstractQueuedSynchronizer$Node
+                 * 我这里计算时开始用减法 会导致 start > end 值
+                 * 同时递归时可能导致栈的溢出，需要着情 设置我们的栈空间
+                 */
                 int i = (end + start) / 2;
                 TaskDemo t1 = new TaskDemo(start,i);
                 TaskDemo t2 = new TaskDemo(i,end);

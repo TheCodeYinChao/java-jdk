@@ -10,6 +10,7 @@ public class DemoField {
     static Integer a=1;
 
     public static void main(String[] args) {
+        //很蛋疼的写法
         for(Integer b = null, q = a, s; q != null; q = s){
             System.out.println(q);
             System.out.println(a);
