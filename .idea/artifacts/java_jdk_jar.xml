@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="java-jdk:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/java_jdk_jar</output-path>
-    <root id="archive" name="java-jdk.jar">
-      <element id="module-output" name="java-jdk" />
-      <element id="extracted-dir" path="C:/Program Files/Java/jdk1.8.0_171/lib/tools.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>

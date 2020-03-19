@@ -6,6 +6,9 @@
     <excludeFromCompile>
       <directory url="file://C:/Program Files/Java/jdk1.8.0_171" includeSubdirectories="true" />
     </excludeFromCompile>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+    </annotationProcessing>
     <bytecodeTargetLevel target="8" />
   </component>
 </project>

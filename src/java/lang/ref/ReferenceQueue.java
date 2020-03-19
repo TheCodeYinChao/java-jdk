@@ -28,7 +28,7 @@ package java.lang.ref;
 /**
  * Reference queues, to which registered reference objects are appended by the
  * garbage collector after the appropriate reachability changes are detected.
- *
+ * 承装 重写 finalize() 执行的对象
  * @author   Mark Reinhold
  * @since    1.2
  */

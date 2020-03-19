@@ -51,10 +51,11 @@ public class ForkJoinDemo {
                 int i = (end + start) / 2;
                 TaskDemo t1 = new TaskDemo(start,i);
                 TaskDemo t2 = new TaskDemo(i,end);
-                    t1.fork();
-                    t2.fork();
+                t1.fork();
+                t2.fork();
                 return t1.join() + t2.join();
             }
         }
     }
+
 }
