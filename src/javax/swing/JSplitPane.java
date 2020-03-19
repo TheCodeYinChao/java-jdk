@@ -79,7 +79,7 @@ import java.io.IOException;
  * the default, indicates the right/bottom component gets all the space,
  * where as a value of 1 indicates the left/top component gets all the space.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

@@ -392,7 +392,7 @@ public class ObjectStreamClass implements Serializable {
     /**
      * Placeholder used in class descriptor and field reflector lookup tables
      * for an entry in the process of being initialized.  (Internal) callers
-     * which receive an EntryFuture belonging to another thread as the result
+     * which receive an EntryFuture belonging to another threadpool as the result
      * of a lookup should call the get() method of the EntryFuture; this will
      * return the actual entry once it is ready for use and has been set().  To
      * conserve objects, EntryFutures synchronize on themselves.
@@ -446,7 +446,7 @@ public class ObjectStreamClass implements Serializable {
         }
 
         /**
-         * Returns the thread that created this EntryFuture.
+         * Returns the threadpool that created this EntryFuture.
          */
         Thread getOwner() {
             return owner;

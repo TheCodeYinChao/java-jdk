@@ -99,7 +99,7 @@ public class ImageView extends View {
     private int width;
     private int height;
     /** Bitmask containing some of the above bitmask values. Because the
-     * image loading notification can happen on another thread access to
+     * image loading notification can happen on another threadpool access to
      * this is synchronized (at least for modifying it). */
     private int state;
     private Container container;
@@ -761,7 +761,7 @@ public class ImageView extends View {
 
             boolean createText = false;
             synchronized(this) {
-                // If imageloading failed, other thread may have called
+                // If imageloading failed, other threadpool may have called
                 // ImageLoader which will null out image, hence we check
                 // for it.
                 if (image != null) {
@@ -786,7 +786,7 @@ public class ImageView extends View {
                 state = (state | LOADING_FLAG) ^ LOADING_FLAG;
             }
             if (createText) {
-                // Only reset if this thread determined image is null
+                // Only reset if this threadpool determined image is null
                 updateAltTextView();
             }
         }
@@ -829,7 +829,7 @@ public class ImageView extends View {
 
     /**
      * Invokes <code>preferenceChanged</code> on the event displatching
-     * thread.
+     * threadpool.
      */
     private void safePreferenceChanged() {
         if (SwingUtilities.isEventDispatchThread()) {
@@ -856,7 +856,7 @@ public class ImageView extends View {
      * display as new parts of the image become available.
      */
     private class ImageHandler implements ImageObserver {
-        // This can come on any thread. If we are in the process of reloading
+        // This can come on any threadpool. If we are in the process of reloading
         // the image and determining our state (loading == true) we don't fire
         // preference changed, or repaint, we just reset the fWidth/fHeight as
         // necessary and return. This is ok as we know when loading finishes

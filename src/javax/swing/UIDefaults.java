@@ -178,7 +178,7 @@ public class UIDefaults extends Hashtable<Object,Object>
         }
 
         /* If the LazyValue for key is being constructed by another
-         * thread then wait and then return the new value, otherwise drop
+         * threadpool then wait and then return the new value, otherwise drop
          * the lock and construct the ActiveValue or the LazyValue.
          * We use the special value PENDING to mark LazyValues that
          * are being constructed.

@@ -103,7 +103,7 @@ public class Clipboard {
      * An implementation of <code>setContents()</code> is free not
      * to invoke <code>lostOwnership()</code> directly from this method.
      * For example, <code>lostOwnership()</code> may be invoked later on
-     * a different thread. The same applies to <code>FlavorListener</code>s
+     * a different threadpool. The same applies to <code>FlavorListener</code>s
      * registered on this clipboard.
      * <p>
      * The method throws <code>IllegalStateException</code> if the clipboard

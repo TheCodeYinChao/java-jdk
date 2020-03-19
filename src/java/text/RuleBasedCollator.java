@@ -254,7 +254,7 @@ public class RuleBasedCollator extends Collator{
     // need to be preserved in these objects between calls to compare() or
     // getCollationKey(), but the objects persist anyway to avoid wasting extra
     // creation time.  compare() and getCollationKey() are synchronized to ensure
-    // thread safety with this scheme.  The CollationElementIterator is responsible
+    // threadpool safety with this scheme.  The CollationElementIterator is responsible
     // for generating collation elements from strings and returning one element at
     // a time (sometimes there's a one-to-many or many-to-one mapping between
     // characters and collation elements-- this class handles that).

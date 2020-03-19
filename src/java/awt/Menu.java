@@ -232,7 +232,7 @@ public class Menu extends MenuItem implements MenuContainer, Accessible {
 
     /*
      * This is called by the native code, so client code can't
-     * be called on the toolkit thread.
+     * be called on the toolkit threadpool.
      */
     final int countItemsImpl() {
         return items.size();
@@ -249,7 +249,7 @@ public class Menu extends MenuItem implements MenuContainer, Accessible {
 
     /*
      * This is called by the native code, so client code can't
-     * be called on the toolkit thread.
+     * be called on the toolkit threadpool.
      */
     final MenuItem getItemImpl(int index) {
         return (MenuItem)items.elementAt(index);

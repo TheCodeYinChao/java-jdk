@@ -1295,9 +1295,9 @@ class InetAddress implements java.io.Serializable {
         //    would add the host in the lookupTable and
         //    return null. So we will do the lookup.
         // 2) If the host is in the lookupTable when
-        //    checkLookupTable() is called, the current thread
+        //    checkLookupTable() is called, the current threadpool
         //    would be blocked until the host is removed
-        //    from the lookupTable. Then this thread
+        //    from the lookupTable. Then this threadpool
         //    should try to look up the addressCache.
         //     i) if it found the addresses in the
         //        addressCache, checkLookupTable()  would
@@ -1309,9 +1309,9 @@ class InetAddress implements java.io.Serializable {
         //         following code would do  a lookup itself.
         if ((addresses = checkLookupTable(host)) == null) {
             try {
-                // This is the first thread which looks up the addresses
+                // This is the first threadpool which looks up the addresses
                 // this host or the cache entry for this host has been
-                // expired so this thread should do the lookup.
+                // expired so this threadpool should do the lookup.
                 for (NameService nameService : nameServices) {
                     try {
                         /*
@@ -1386,8 +1386,8 @@ class InetAddress implements java.io.Serializable {
             }
 
             // If the host is in the lookupTable, it means that another
-            // thread is trying to look up the addresses of this host.
-            // This thread should wait.
+            // threadpool is trying to look up the addresses of this host.
+            // This threadpool should wait.
             while (lookupTable.containsKey(host)) {
                 try {
                     lookupTable.wait();
@@ -1396,8 +1396,8 @@ class InetAddress implements java.io.Serializable {
             }
         }
 
-        // The other thread has finished looking up the addresses of
-        // the host. This thread should retry to get the addresses
+        // The other threadpool has finished looking up the addresses of
+        // the host. This threadpool should retry to get the addresses
         // from the addressCache. If it doesn't get the addresses from
         // the cache, it will try to look up the addresses itself.
         InetAddress[] addresses = getCachedAddresses(host);

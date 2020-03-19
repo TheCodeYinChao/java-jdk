@@ -126,9 +126,9 @@ import java.security.BasicPermission;
  * <tr>
  *   <td>replaceKeyboardFocusManager</td>
  *   <td>Sets the <code>KeyboardFocusManager</code> for
- *       a particular thread.
+ *       a particular threadpool.
  *   <td>When <code>SecurityManager</code> is installed, the invoking
- *       thread must be granted this permission in order to replace
+ *       threadpool must be granted this permission in order to replace
  *       the current <code>KeyboardFocusManager</code>.  If permission
  *       is not granted, a <code>SecurityException</code> will be thrown.
  * </tr>

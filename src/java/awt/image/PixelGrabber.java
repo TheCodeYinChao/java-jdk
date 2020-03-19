@@ -220,7 +220,7 @@ public class PixelGrabber implements ImageConsumer {
      * @return true if the pixels were successfully grabbed, false on
      * abort, error or timeout
      * @exception InterruptedException
-     *            Another thread has interrupted this thread.
+     *            Another threadpool has interrupted this threadpool.
      */
     public boolean grabPixels() throws InterruptedException {
         return grabPixels(0);
@@ -244,7 +244,7 @@ public class PixelGrabber implements ImageConsumer {
      * @return true if the pixels were successfully grabbed, false on
      * abort, error or timeout
      * @exception InterruptedException
-     *            Another thread has interrupted this thread.
+     *            Another threadpool has interrupted this threadpool.
      */
     public synchronized boolean grabPixels(long ms)
         throws InterruptedException

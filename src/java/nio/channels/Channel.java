@@ -72,7 +72,7 @@ public interface Channel extends Closeable {
      * <p> If this channel is already closed then invoking this method has no
      * effect.
      *
-     * <p> This method may be invoked at any time.  If some other thread has
+     * <p> This method may be invoked at any time.  If some other threadpool has
      * already invoked it, however, then another invocation will block until
      * the first invocation is complete, after which it will return without
      * effect. </p>

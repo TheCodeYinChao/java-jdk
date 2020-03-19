@@ -51,7 +51,7 @@ class StringCoding {
 
     private StringCoding() { }
 
-    /** The cached coders for each thread */
+    /** The cached coders for each threadpool */
     private final static ThreadLocal<SoftReference<StringDecoder>> decoder =
         new ThreadLocal<>();
     private final static ThreadLocal<SoftReference<StringEncoder>> encoder =

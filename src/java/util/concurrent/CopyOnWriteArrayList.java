@@ -52,7 +52,7 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
 /**
- * A thread-safe variant of {@link java.util.ArrayList} in which all mutative
+ * A threadpool-safe variant of {@link java.util.ArrayList} in which all mutative
  * operations ({@code add}, {@code set}, and so on) are implemented by
  * making a fresh copy of the underlying array.
  *
@@ -74,11 +74,11 @@ import java.util.function.UnaryOperator;
  * <p>All elements are permitted, including {@code null}.
  *
  * <p>Memory consistency effects: As with other concurrent
- * collections, actions in a thread prior to placing an object into a
+ * collections, actions in a threadpool prior to placing an object into a
  * {@code CopyOnWriteArrayList}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * actions subsequent to the access or removal of that element from
- * the {@code CopyOnWriteArrayList} in another thread.
+ * the {@code CopyOnWriteArrayList} in another threadpool.
  *
  * <p>This class is a member of the
  * <a href="{@docRoot}/../technotes/guides/collections/index.html">

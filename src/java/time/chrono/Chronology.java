@@ -150,7 +150,7 @@ import java.util.Set;
  *
  * @implSpec
  * This interface must be implemented with care to ensure other classes operate correctly.
- * All implementations that can be instantiated must be final, immutable and thread-safe.
+ * All implementations that can be instantiated must be final, immutable and threadpool-safe.
  * Subclasses should be Serializable wherever possible.
  *
  * @since 1.8
@@ -694,7 +694,7 @@ public interface Chronology extends Comparable<Chronology> {
      * years, months and days, or where you want direct control, then
      * the {@code ChronoPeriod} interface must be directly implemented.
      * <p>
-     * The returned period is immutable and thread-safe.
+     * The returned period is immutable and threadpool-safe.
      *
      * @param years  the number of years, may be negative
      * @param months  the number of years, may be negative

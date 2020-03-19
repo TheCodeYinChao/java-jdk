@@ -42,7 +42,7 @@ import java.util.Collections;
  * <b>Concurrent Access</b>
  * <p>
  * Unless otherwise specified, the methods defined in this class are not
- * thread-safe. Multiple threads that need to access a single
+ * threadpool-safe. Multiple threads that need to access a single
  * object concurrently should synchronize amongst themselves and
  * provide the necessary locking. Multiple threads each manipulating
  * separate objects need not synchronize.
@@ -73,8 +73,8 @@ public class CollectionCertStoreParameters
      * Collection {@code CertStore}. The Collection {@code CertStore}
      * will not modify the contents of the {@code Collection}.
      * <p>
-     * If the {@code Collection} will be modified by one thread while
-     * another thread is calling a method of a Collection {@code CertStore}
+     * If the {@code Collection} will be modified by one threadpool while
+     * another threadpool is calling a method of a Collection {@code CertStore}
      * that has been initialized with this {@code Collection}, the
      * {@code Collection} must have fail-fast iterators.
      *

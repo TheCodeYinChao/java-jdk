@@ -71,18 +71,18 @@ import sun.security.util.SecurityConstants;
 public class Executors {
 
     /**
-     * Creates a thread pool that reuses a fixed number of threads
+     * Creates a threadpool pool that reuses a fixed number of threads
      * operating off a shared unbounded queue.  At any point, at most
      * {@code nThreads} threads will be active processing tasks.
      * If additional tasks are submitted when all threads are active,
-     * they will wait in the queue until a thread is available.
-     * If any thread terminates due to a failure during execution
+     * they will wait in the queue until a threadpool is available.
+     * If any threadpool terminates due to a failure during execution
      * prior to shutdown, a new one will take its place if needed to
      * execute subsequent tasks.  The threads in the pool will exist
      * until it is explicitly {@link ExecutorService#shutdown shutdown}.
      *
      * @param nThreads the number of threads in the pool
-     * @return the newly created thread pool
+     * @return the newly created threadpool pool
      * @throws IllegalArgumentException if {@code nThreads <= 0}
      */
     public static ExecutorService newFixedThreadPool(int nThreads) {
@@ -92,7 +92,7 @@ public class Executors {
     }
 
     /**
-     * Creates a thread pool that maintains enough threads to support
+     * Creates a threadpool pool that maintains enough threads to support
      * the given parallelism level, and may use multiple queues to
      * reduce contention. The parallelism level corresponds to the
      * maximum number of threads actively engaged in, or available to
@@ -102,7 +102,7 @@ public class Executors {
      * executed.
      *
      * @param parallelism the targeted parallelism level
-     * @return the newly created thread pool
+     * @return the newly created threadpool pool
      * @throws IllegalArgumentException if {@code parallelism <= 0}
      * @since 1.8
      */
@@ -114,10 +114,10 @@ public class Executors {
     }
 
     /**
-     * Creates a work-stealing thread pool using all
+     * Creates a work-stealing threadpool pool using all
      * {@link Runtime#availableProcessors available processors}
      * as its target parallelism level.
-     * @return the newly created thread pool
+     * @return the newly created threadpool pool
      * @see #newWorkStealingPool(int)
      * @since 1.8
      */
@@ -129,13 +129,13 @@ public class Executors {
     }
 
     /**
-     * Creates a thread pool that reuses a fixed number of threads
+     * Creates a threadpool pool that reuses a fixed number of threads
      * operating off a shared unbounded queue, using the provided
      * ThreadFactory to create new threads when needed.  At any point,
      * at most {@code nThreads} threads will be active processing
      * tasks.  If additional tasks are submitted when all threads are
-     * active, they will wait in the queue until a thread is
-     * available.  If any thread terminates due to a failure during
+     * active, they will wait in the queue until a threadpool is
+     * available.  If any threadpool terminates due to a failure during
      * execution prior to shutdown, a new one will take its place if
      * needed to execute subsequent tasks.  The threads in the pool will
      * exist until it is explicitly {@link ExecutorService#shutdown
@@ -143,7 +143,7 @@ public class Executors {
      *
      * @param nThreads the number of threads in the pool
      * @param threadFactory the factory to use when creating new threads
-     * @return the newly created thread pool
+     * @return the newly created threadpool pool
      * @throws NullPointerException if threadFactory is null
      * @throws IllegalArgumentException if {@code nThreads <= 0}
      */
@@ -155,9 +155,9 @@ public class Executors {
     }
 
     /**
-     * Creates an Executor that uses a single worker thread operating
+     * Creates an Executor that uses a single worker threadpool operating
      * off an unbounded queue. (Note however that if this single
-     * thread terminates due to a failure during execution prior to
+     * threadpool terminates due to a failure during execution prior to
      * shutdown, a new one will take its place if needed to execute
      * subsequent tasks.)  Tasks are guaranteed to execute
      * sequentially, and no more than one task will be active at any
@@ -175,9 +175,9 @@ public class Executors {
     }
 
     /**
-     * Creates an Executor that uses a single worker thread operating
+     * Creates an Executor that uses a single worker threadpool operating
      * off an unbounded queue, and uses the provided ThreadFactory to
-     * create a new thread when needed. Unlike the otherwise
+     * create a new threadpool when needed. Unlike the otherwise
      * equivalent {@code newFixedThreadPool(1, threadFactory)} the
      * returned executor is guaranteed not to be reconfigurable to use
      * additional threads.
@@ -197,20 +197,20 @@ public class Executors {
     }
 
     /**
-     * Creates a thread pool that creates new threads as needed, but
+     * Creates a threadpool pool that creates new threads as needed, but
      * will reuse previously constructed threads when they are
      * available.  These pools will typically improve the performance
      * of programs that execute many short-lived asynchronous tasks.
      * Calls to {@code execute} will reuse previously constructed
-     * threads if available. If no existing thread is available, a new
-     * thread will be created and added to the pool. Threads that have
+     * threads if available. If no existing threadpool is available, a new
+     * threadpool will be created and added to the pool. Threads that have
      * not been used for sixty seconds are terminated and removed from
      * the cache. Thus, a pool that remains idle for long enough will
      * not consume any resources. Note that pools with similar
      * properties but different details (for example, timeout parameters)
      * may be created using {@link ThreadPoolExecutor} constructors.
      *
-     * @return the newly created thread pool
+     * @return the newly created threadpool pool
      */
     public static ExecutorService newCachedThreadPool() {
         return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
@@ -219,12 +219,12 @@ public class Executors {
     }
 
     /**
-     * Creates a thread pool that creates new threads as needed, but
+     * Creates a threadpool pool that creates new threads as needed, but
      * will reuse previously constructed threads when they are
      * available, and uses the provided
      * ThreadFactory to create new threads when needed.
      * @param threadFactory the factory to use when creating new threads
-     * @return the newly created thread pool
+     * @return the newly created threadpool pool
      * @throws NullPointerException if threadFactory is null
      */
     public static ExecutorService newCachedThreadPool(ThreadFactory threadFactory) {
@@ -238,7 +238,7 @@ public class Executors {
      * Creates a single-threaded executor that can schedule commands
      * to run after a given delay, or to execute periodically.
      * (Note however that if this single
-     * thread terminates due to a failure during execution prior to
+     * threadpool terminates due to a failure during execution prior to
      * shutdown, a new one will take its place if needed to execute
      * subsequent tasks.)  Tasks are guaranteed to execute
      * sequentially, and no more than one task will be active at any
@@ -255,7 +255,7 @@ public class Executors {
     /**
      * Creates a single-threaded executor that can schedule commands
      * to run after a given delay, or to execute periodically.  (Note
-     * however that if this single thread terminates due to a failure
+     * however that if this single threadpool terminates due to a failure
      * during execution prior to shutdown, a new one will take its
      * place if needed to execute subsequent tasks.)  Tasks are
      * guaranteed to execute sequentially, and no more than one task
@@ -274,11 +274,11 @@ public class Executors {
     }
 
     /**
-     * Creates a thread pool that can schedule commands to run after a
+     * Creates a threadpool pool that can schedule commands to run after a
      * given delay, or to execute periodically.
      * @param corePoolSize the number of threads to keep in the pool,
      * even if they are idle
-     * @return a newly created scheduled thread pool
+     * @return a newly created scheduled threadpool pool
      * @throws IllegalArgumentException if {@code corePoolSize < 0}
      */
     public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
@@ -286,13 +286,13 @@ public class Executors {
     }
 
     /**
-     * Creates a thread pool that can schedule commands to run after a
+     * Creates a threadpool pool that can schedule commands to run after a
      * given delay, or to execute periodically.
      * @param corePoolSize the number of threads to keep in the pool,
      * even if they are idle
      * @param threadFactory the factory to use when the executor
-     * creates a new thread
-     * @return a newly created scheduled thread pool
+     * creates a new threadpool
+     * @return a newly created scheduled threadpool pool
      * @throws IllegalArgumentException if {@code corePoolSize < 0}
      * @throws NullPointerException if threadFactory is null
      */
@@ -334,54 +334,54 @@ public class Executors {
     }
 
     /**
-     * Returns a default thread factory used to create new threads.
+     * Returns a default threadpool factory used to create new threads.
      * This factory creates all new threads used by an Executor in the
      * same {@link ThreadGroup}. If there is a {@link
      * SecurityManager}, it uses the group of {@link
-     * System#getSecurityManager}, else the group of the thread
+     * System#getSecurityManager}, else the group of the threadpool
      * invoking this {@code defaultThreadFactory} method. Each new
-     * thread is created as a non-daemon thread with priority set to
+     * threadpool is created as a non-daemon threadpool with priority set to
      * the smaller of {@code Thread.NORM_PRIORITY} and the maximum
-     * priority permitted in the thread group.  New threads have names
+     * priority permitted in the threadpool group.  New threads have names
      * accessible via {@link Thread#getName} of
-     * <em>pool-N-thread-M</em>, where <em>N</em> is the sequence
+     * <em>pool-N-threadpool-M</em>, where <em>N</em> is the sequence
      * number of this factory, and <em>M</em> is the sequence number
-     * of the thread created by this factory.
-     * @return a thread factory
+     * of the threadpool created by this factory.
+     * @return a threadpool factory
      */
     public static ThreadFactory defaultThreadFactory() {
         return new DefaultThreadFactory();
     }
 
     /**
-     * Returns a thread factory used to create new threads that
-     * have the same permissions as the current thread.
+     * Returns a threadpool factory used to create new threads that
+     * have the same permissions as the current threadpool.
      * This factory creates threads with the same settings as {@link
      * Executors#defaultThreadFactory}, additionally setting the
      * AccessControlContext and contextClassLoader of new threads to
-     * be the same as the thread invoking this
+     * be the same as the threadpool invoking this
      * {@code privilegedThreadFactory} method.  A new
      * {@code privilegedThreadFactory} can be created within an
      * {@link AccessController#doPrivileged AccessController.doPrivileged}
-     * action setting the current thread's access control context to
+     * action setting the current threadpool's access control context to
      * create threads with the selected permission settings holding
      * within that action.
      *
      * <p>Note that while tasks running within such threads will have
      * the same access control and class loader settings as the
-     * current thread, they need not have the same {@link
+     * current threadpool, they need not have the same {@link
      * ThreadLocal} or {@link
      * InheritableThreadLocal} values. If necessary,
-     * particular values of thread locals can be set or reset before
+     * particular values of threadpool locals can be set or reset before
      * any task runs in {@link ThreadPoolExecutor} subclasses using
      * {@link ThreadPoolExecutor#beforeExecute(Thread, Runnable)}.
      * Also, if it is necessary to initialize worker threads to have
      * the same InheritableThreadLocal settings as some other
-     * designated thread, you can create a custom ThreadFactory in
-     * which that thread waits for and services requests to create
+     * designated threadpool, you can create a custom ThreadFactory in
+     * which that threadpool waits for and services requests to create
      * others that will inherit its values.
      *
-     * @return a thread factory
+     * @return a threadpool factory
      * @throws AccessControlException if the current access control
      * context does not have permission to both get and set context
      * class loader
@@ -591,7 +591,7 @@ public class Executors {
     }
 
     /**
-     * The default thread factory
+     * The default threadpool factory
      */
     static class DefaultThreadFactory implements ThreadFactory {
         private static final AtomicInteger poolNumber = new AtomicInteger(1);
@@ -605,7 +605,7 @@ public class Executors {
                                   Thread.currentThread().getThreadGroup();
             namePrefix = "pool-" +
                           poolNumber.getAndIncrement() +
-                         "-thread-";
+                         "-threadpool-";
         }
 
         public Thread newThread(Runnable r) {

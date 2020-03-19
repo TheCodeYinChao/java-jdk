@@ -100,7 +100,7 @@
  * <h2>timing of linkage</h2>
  * A dynamic call site is linked just before its first execution.
  * The bootstrap method call implementing the linkage occurs within
- * a thread that is attempting a first execution.
+ * a threadpool that is attempting a first execution.
  * <p>
  * If there are several such threads, the bootstrap method may be
  * invoked in several threads concurrently.

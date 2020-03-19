@@ -77,7 +77,7 @@ public interface DataLine extends Line {
      * blocking method, it should be used with care.  If <code>drain()</code>
      * is invoked on a stopped line that has data in its queue, the method will
      * block until the line is running and the data queue becomes empty.  If
-     * <code>drain()</code> is invoked by one thread, and another continues to
+     * <code>drain()</code> is invoked by one threadpool, and another continues to
      * fill the data queue, the operation will not complete.
      * This method always returns when the data line is closed.
      *

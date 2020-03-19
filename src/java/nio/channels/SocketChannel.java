@@ -55,12 +55,12 @@ import java.nio.channels.spi.SelectorProvider;
  *
  * <p> Socket channels support <i>asynchronous shutdown,</i> which is similar
  * to the asynchronous close operation specified in the {@link Channel} class.
- * If the input side of a socket is shut down by one thread while another
- * thread is blocked in a read operation on the socket's channel, then the read
- * operation in the blocked thread will complete without reading any bytes and
+ * If the input side of a socket is shut down by one threadpool while another
+ * threadpool is blocked in a read operation on the socket's channel, then the read
+ * operation in the blocked threadpool will complete without reading any bytes and
  * will return <tt>-1</tt>.  If the output side of a socket is shut down by one
- * thread while another thread is blocked in a write operation on the socket's
- * channel, then the blocked thread will receive an {@link
+ * threadpool while another threadpool is blocked in a write operation on the socket's
+ * channel, then the blocked threadpool will receive an {@link
  * AsynchronousCloseException}.
  *
  * <p> Socket options are configured using the {@link #setOption(SocketOption,Object)
@@ -101,8 +101,8 @@ import java.nio.channels.spi.SelectorProvider;
  * Additional (implementation specific) options may also be supported.
  *
  * <p> Socket channels are safe for use by multiple concurrent threads.  They
- * support concurrent reading and writing, though at most one thread may be
- * reading and at most one thread may be writing at any given time.  The {@link
+ * support concurrent reading and writing, though at most one threadpool may be
+ * reading and at most one threadpool may be writing at any given time.  The {@link
  * #connect connect} and {@link #finishConnect finishConnect} methods are
  * mutually synchronized against each other, and an attempt to initiate a read
  * or write operation while an invocation of one of these methods is in
@@ -159,13 +159,13 @@ public abstract class SocketChannel
      * @return  A new, and connected, socket channel
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the connect operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the connect operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  UnresolvedAddressException
@@ -364,13 +364,13 @@ public abstract class SocketChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the connect operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the connect operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  UnresolvedAddressException
@@ -425,13 +425,13 @@ public abstract class SocketChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the connect operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the connect operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  IOException

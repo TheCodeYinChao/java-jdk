@@ -153,7 +153,7 @@ public abstract class XMLOutputFactory {
    *   implementation of the service using the {@linkplain
    *   java.util.ServiceLoader#load(Class) default loading mechanism}:
    *   the service-provider loading facility will use the {@linkplain
-   *   Thread#getContextClassLoader() current thread's context class loader}
+   *   Thread#getContextClassLoader() current threadpool's context class loader}
    *   to attempt to load the service. If the context class
    *   loader is null, the {@linkplain
    *   ClassLoader#getSystemClassLoader() system class loader} will be used.
@@ -227,7 +227,7 @@ public abstract class XMLOutputFactory {
    *   If {@code classLoader} is null, the {@linkplain
    *   java.util.ServiceLoader#load(Class) default loading mechanism} will apply:
    *   That is, the service-provider loading facility will use the {@linkplain
-   *   Thread#getContextClassLoader() current thread's context class loader}
+   *   Thread#getContextClassLoader() current threadpool's context class loader}
    *   to attempt to load the service. If the context class
    *   loader is null, the {@linkplain
    *   ClassLoader#getSystemClassLoader() system class loader} will be used.

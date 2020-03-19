@@ -69,18 +69,18 @@ import java.util.Collections;
  *
  * </ul>
  *
- * <p> An {@code AsynchronousFileChannel} is associated with a thread pool to
+ * <p> An {@code AsynchronousFileChannel} is associated with a threadpool pool to
  * which tasks are submitted to handle I/O events and dispatch to completion
  * handlers that consume the results of I/O operations on the channel. The
  * completion handler for an I/O operation initiated on a channel is guaranteed
- * to be invoked by one of the threads in the thread pool (This ensures that the
- * completion handler is run by a thread with the expected <em>identity</em>).
- * Where an I/O operation completes immediately, and the initiating thread is
- * itself a thread in the thread pool, then the completion handler may be invoked
- * directly by the initiating thread. When an {@code AsynchronousFileChannel} is
- * created without specifying a thread pool then the channel is associated with
- * a system-dependent default thread pool that may be shared with other
- * channels. The default thread pool is configured by the system properties
+ * to be invoked by one of the threads in the threadpool pool (This ensures that the
+ * completion handler is run by a threadpool with the expected <em>identity</em>).
+ * Where an I/O operation completes immediately, and the initiating threadpool is
+ * itself a threadpool in the threadpool pool, then the completion handler may be invoked
+ * directly by the initiating threadpool. When an {@code AsynchronousFileChannel} is
+ * created without specifying a threadpool pool then the channel is associated with
+ * a system-dependent default threadpool pool that may be shared with other
+ * channels. The default threadpool pool is configured by the system properties
  * defined by the {@link AsynchronousChannelGroup} class.
  *
  * <p> Channels of this type are safe for use by multiple concurrent threads. The
@@ -196,7 +196,7 @@ public abstract class AsynchronousFileChannel
      * The nature of these tasks is highly implementation specific and so care
      * should be taken when configuring the {@code Executor}. Minimally it
      * should support an unbounded work queue and should not run tasks on the
-     * caller thread of the {@link ExecutorService#execute execute} method.
+     * caller threadpool of the {@link ExecutorService#execute execute} method.
      * Shutting down the executor service while the channel is open results in
      * unspecified behavior.
      *
@@ -212,8 +212,8 @@ public abstract class AsynchronousFileChannel
      * @param   options
      *          Options specifying how the file is opened
      * @param   executor
-     *          The thread pool or {@code null} to associate the channel with
-     *          the default thread pool
+     *          The threadpool pool or {@code null} to associate the channel with
+     *          the default threadpool pool
      * @param   attrs
      *          An optional list of file attributes to set atomically when
      *          creating the file
@@ -264,7 +264,7 @@ public abstract class AsynchronousFileChannel
      * where {@code opts} is a {@code Set} containing the options specified to
      * this method.
      *
-     * <p> The resulting channel is associated with default thread pool to which
+     * <p> The resulting channel is associated with default threadpool pool to which
      * tasks are submitted to handle I/O events and dispatch to completion
      * handlers that consume the result of asynchronous operations performed on
      * the resulting channel.
@@ -410,8 +410,8 @@ public abstract class AsynchronousFileChannel
      *
      * <p> Some operating systems do not support a mechanism to acquire a file
      * lock in an asynchronous manner. Consequently an implementation may
-     * acquire the file lock in a background thread or from a task executed by
-     * a thread in the associated thread pool. If there are many lock operations
+     * acquire the file lock in a background threadpool or from a task executed by
+     * a threadpool in the associated threadpool pool. If there are many lock operations
      * outstanding then it may consume threads in the Java virtual machine for
      * indefinite periods.
      *
@@ -588,7 +588,7 @@ public abstract class AsynchronousFileChannel
      *          If this channel is closed
      * @throws  OverlappingFileLockException
      *          If a lock that overlaps the requested region is already held by
-     *          this Java virtual machine, or if another thread is already
+     *          this Java virtual machine, or if another threadpool is already
      *          blocked in this method and is attempting to lock an overlapping
      *          region of the same file
      * @throws  NonReadableChannelException
@@ -623,7 +623,7 @@ public abstract class AsynchronousFileChannel
      *          If this channel is closed
      * @throws  OverlappingFileLockException
      *          If a lock that overlaps the requested region is already held by
-     *          this Java virtual machine, or if another thread is already
+     *          this Java virtual machine, or if another threadpool is already
      *          blocked in this method and is attempting to lock an overlapping
      *          region
      * @throws  NonWritableChannelException

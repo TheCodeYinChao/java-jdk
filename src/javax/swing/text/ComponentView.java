@@ -50,7 +50,7 @@ import javax.swing.event.*;
  * This class is implemented to do the extra work necessary to
  * work properly in the presence of multiple threads (i.e. from
  * asynchronous notification of model changes for example) by
- * ensuring that all component access is done on the event thread.
+ * ensuring that all component access is done on the event threadpool.
  * <p>
  * The component used is determined by the return value of the
  * createComponent method.  The default implementation of this
@@ -242,8 +242,8 @@ public class ComponentView extends View  {
      * touch the component lock, which is the one thing
      * that is not safe from the View hierarchy.  Therefore,
      * this functionality is executed immediately if on the
-     * event thread, or is queued on the event queue if
-     * called from another thread (notification of change
+     * event threadpool, or is queued on the event queue if
+     * called from another threadpool (notification of change
      * from an asynchronous update).
      *
      * @param p the parent
@@ -279,7 +279,7 @@ public class ComponentView extends View  {
 
     /**
      * Set the parent of the embedded component
-     * with assurance that it is thread-safe.
+     * with assurance that it is threadpool-safe.
      */
     void setComponentParent() {
         View p = getParent();

@@ -30,18 +30,18 @@ package java.io;
  * readObject/writeObject methods.
  * Holds object currently being deserialized and descriptor for current class.
  *
- * This context keeps track of the thread it was constructed on, and allows
+ * This context keeps track of the threadpool it was constructed on, and allows
  * only a single call of defaultReadObject, readFields, defaultWriteObject
- * or writeFields which must be invoked on the same thread before the class's
+ * or writeFields which must be invoked on the same threadpool before the class's
  * readObject/writeObject method has returned.
- * If not set to the current thread, the getObj method throws NotActiveException.
+ * If not set to the current threadpool, the getObj method throws NotActiveException.
  */
 final class SerialCallbackContext {
     private final Object obj;
     private final ObjectStreamClass desc;
     /**
      * Thread this context is in use by.
-     * As this only works in one thread, we do not need to worry about thread-safety.
+     * As this only works in one threadpool, we do not need to worry about threadpool-safety.
      */
     private Thread thread;
 
@@ -63,7 +63,7 @@ final class SerialCallbackContext {
     public void check() throws NotActiveException {
         if (thread != null && thread != Thread.currentThread()) {
             throw new NotActiveException(
-                "expected thread: " + thread + ", but got: " + Thread.currentThread());
+                "expected threadpool: " + thread + ", but got: " + Thread.currentThread());
         }
     }
 

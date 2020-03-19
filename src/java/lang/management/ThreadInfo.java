@@ -32,17 +32,17 @@ import static java.lang.Thread.State.*;
 
 /**
  * Thread information. <tt>ThreadInfo</tt> contains the information
- * about a thread including:
- * <h3>General thread information</h3>
+ * about a threadpool including:
+ * <h3>General threadpool information</h3>
  * <ul>
  *   <li>Thread ID.</li>
- *   <li>Name of the thread.</li>
+ *   <li>Name of the threadpool.</li>
  * </ul>
  *
  * <h3>Execution information</h3>
  * <ul>
  *   <li>Thread state.</li>
- *   <li>The object upon which the thread is blocked due to:
+ *   <li>The object upon which the threadpool is blocked due to:
  *       <ul>
  *       <li>waiting to enter a synchronization block/method, or</li>
  *       <li>waiting to be notified in a {@link Object#wait Object.wait} method,
@@ -51,22 +51,22 @@ import static java.lang.Thread.State.*;
  *           LockSupport.park} call.</li>
  *       </ul>
  *   </li>
- *   <li>The ID of the thread that owns the object
- *       that the thread is blocked.</li>
- *   <li>Stack trace of the thread.</li>
- *   <li>List of object monitors locked by the thread.</li>
+ *   <li>The ID of the threadpool that owns the object
+ *       that the threadpool is blocked.</li>
+ *   <li>Stack trace of the threadpool.</li>
+ *   <li>List of object monitors locked by the threadpool.</li>
  *   <li>List of <a href="LockInfo.html#OwnableSynchronizer">
- *       ownable synchronizers</a> locked by the thread.</li>
+ *       ownable synchronizers</a> locked by the threadpool.</li>
  * </ul>
  *
  * <h4><a name="SyncStats">Synchronization Statistics</a></h4>
  * <ul>
- *   <li>The number of times that the thread has blocked for
+ *   <li>The number of times that the threadpool has blocked for
  *       synchronization or waited for notification.</li>
- *   <li>The accumulated elapsed time that the thread has blocked
+ *   <li>The accumulated elapsed time that the threadpool has blocked
  *       for synchronization or waited for notification
  *       since {@link ThreadMXBean#setThreadContentionMonitoringEnabled
- *       thread contention monitoring}
+ *       threadpool contention monitoring}
  *       was enabled. Some Java virtual machine implementation
  *       may not support this.  The
  *       {@link ThreadMXBean#isThreadContentionMonitoringSupported()}
@@ -74,7 +74,7 @@ import static java.lang.Thread.State.*;
  *       supports this.</li>
  * </ul>
  *
- * <p>This thread information class is designed for use in monitoring of
+ * <p>This threadpool information class is designed for use in monitoring of
  * the system, not for synchronization control.
  *
  * <h4>MXBean Mapping</h4>
@@ -115,8 +115,8 @@ public class ThreadInfo {
      *
      * @param t             Thread
      * @param state         Thread state
-     * @param lockObj       Object on which the thread is blocked
-     * @param lockOwner     the thread holding the lock
+     * @param lockObj       Object on which the threadpool is blocked
+     * @param lockOwner     the threadpool holding the lock
      * @param blockedCount  Number of times blocked to enter a lock
      * @param blockedTime   Approx time blocked to enter a lock
      * @param waitedCount   Number of times waited on a lock
@@ -140,8 +140,8 @@ public class ThreadInfo {
      *
      * @param t             Thread
      * @param state         Thread state
-     * @param lockObj       Object on which the thread is blocked
-     * @param lockOwner     the thread holding the lock
+     * @param lockObj       Object on which the threadpool is blocked
+     * @param lockOwner     the threadpool holding the lock
      * @param blockedCount  Number of times blocked to enter a lock
      * @param blockedTime   Approx time blocked to enter a lock
      * @param waitedCount   Number of times waited on a lock
@@ -204,8 +204,8 @@ public class ThreadInfo {
      *
      * @param t             Thread
      * @param state         Thread state
-     * @param lockObj       Object on which the thread is blocked
-     * @param lockOwner     the thread holding the lock
+     * @param lockObj       Object on which the threadpool is blocked
+     * @param lockOwner     the threadpool holding the lock
      * @param blockedCount  Number of times blocked to enter a lock
      * @param blockedTime   Approx time blocked to enter a lock
      * @param waitedCount   Number of times waited on a lock
@@ -303,27 +303,27 @@ public class ThreadInfo {
     }
 
     /**
-     * Returns the ID of the thread associated with this <tt>ThreadInfo</tt>.
+     * Returns the ID of the threadpool associated with this <tt>ThreadInfo</tt>.
      *
-     * @return the ID of the associated thread.
+     * @return the ID of the associated threadpool.
      */
     public long getThreadId() {
         return threadId;
     }
 
     /**
-     * Returns the name of the thread associated with this <tt>ThreadInfo</tt>.
+     * Returns the name of the threadpool associated with this <tt>ThreadInfo</tt>.
      *
-     * @return the name of the associated thread.
+     * @return the name of the associated threadpool.
      */
     public String getThreadName() {
         return threadName;
     }
 
     /**
-     * Returns the state of the thread associated with this <tt>ThreadInfo</tt>.
+     * Returns the state of the threadpool associated with this <tt>ThreadInfo</tt>.
      *
-     * @return <tt>Thread.State</tt> of the associated thread.
+     * @return <tt>Thread.State</tt> of the associated threadpool.
      */
     public Thread.State getThreadState() {
          return threadState;
@@ -331,22 +331,22 @@ public class ThreadInfo {
 
     /**
      * Returns the approximate accumulated elapsed time (in milliseconds)
-     * that the thread associated with this <tt>ThreadInfo</tt>
+     * that the threadpool associated with this <tt>ThreadInfo</tt>
      * has blocked to enter or reenter a monitor
-     * since thread contention monitoring is enabled.
-     * I.e. the total accumulated time the thread has been in the
-     * {@link Thread.State#BLOCKED BLOCKED} state since thread
+     * since threadpool contention monitoring is enabled.
+     * I.e. the total accumulated time the threadpool has been in the
+     * {@link Thread.State#BLOCKED BLOCKED} state since threadpool
      * contention monitoring was last enabled.
-     * This method returns <tt>-1</tt> if thread contention monitoring
+     * This method returns <tt>-1</tt> if threadpool contention monitoring
      * is disabled.
      *
      * <p>The Java virtual machine may measure the time with a high
      * resolution timer.  This statistic is reset when
-     * the thread contention monitoring is reenabled.
+     * the threadpool contention monitoring is reenabled.
      *
      * @return the approximate accumulated elapsed time in milliseconds
-     * that a thread entered the <tt>BLOCKED</tt> state;
-     * <tt>-1</tt> if thread contention monitoring is disabled.
+     * that a threadpool entered the <tt>BLOCKED</tt> state;
+     * <tt>-1</tt> if threadpool contention monitoring is disabled.
      *
      * @throws UnsupportedOperationException if the Java
      * virtual machine does not support this operation.
@@ -360,12 +360,12 @@ public class ThreadInfo {
 
     /**
      * Returns the total number of times that
-     * the thread associated with this <tt>ThreadInfo</tt>
+     * the threadpool associated with this <tt>ThreadInfo</tt>
      * blocked to enter or reenter a monitor.
-     * I.e. the number of times a thread has been in the
+     * I.e. the number of times a threadpool has been in the
      * {@link Thread.State#BLOCKED BLOCKED} state.
      *
-     * @return the total number of times that the thread
+     * @return the total number of times that the threadpool
      * entered the <tt>BLOCKED</tt> state.
      */
     public long getBlockedCount() {
@@ -374,24 +374,24 @@ public class ThreadInfo {
 
     /**
      * Returns the approximate accumulated elapsed time (in milliseconds)
-     * that the thread associated with this <tt>ThreadInfo</tt>
+     * that the threadpool associated with this <tt>ThreadInfo</tt>
      * has waited for notification
-     * since thread contention monitoring is enabled.
-     * I.e. the total accumulated time the thread has been in the
+     * since threadpool contention monitoring is enabled.
+     * I.e. the total accumulated time the threadpool has been in the
      * {@link Thread.State#WAITING WAITING}
      * or {@link Thread.State#TIMED_WAITING TIMED_WAITING} state
-     * since thread contention monitoring is enabled.
-     * This method returns <tt>-1</tt> if thread contention monitoring
+     * since threadpool contention monitoring is enabled.
+     * This method returns <tt>-1</tt> if threadpool contention monitoring
      * is disabled.
      *
      * <p>The Java virtual machine may measure the time with a high
      * resolution timer.  This statistic is reset when
-     * the thread contention monitoring is reenabled.
+     * the threadpool contention monitoring is reenabled.
      *
      * @return the approximate accumulated elapsed time in milliseconds
-     * that a thread has been in the <tt>WAITING</tt> or
+     * that a threadpool has been in the <tt>WAITING</tt> or
      * <tt>TIMED_WAITING</tt> state;
-     * <tt>-1</tt> if thread contention monitoring is disabled.
+     * <tt>-1</tt> if threadpool contention monitoring is disabled.
      *
      * @throws UnsupportedOperationException if the Java
      * virtual machine does not support this operation.
@@ -405,13 +405,13 @@ public class ThreadInfo {
 
     /**
      * Returns the total number of times that
-     * the thread associated with this <tt>ThreadInfo</tt>
+     * the threadpool associated with this <tt>ThreadInfo</tt>
      * waited for notification.
-     * I.e. the number of times that a thread has been
+     * I.e. the number of times that a threadpool has been
      * in the {@link Thread.State#WAITING WAITING}
      * or {@link Thread.State#TIMED_WAITING TIMED_WAITING} state.
      *
-     * @return the total number of times that the thread
+     * @return the total number of times that the threadpool
      * was in the <tt>WAITING</tt> or <tt>TIMED_WAITING</tt> state.
      */
     public long getWaitedCount() {
@@ -420,23 +420,23 @@ public class ThreadInfo {
 
     /**
      * Returns the <tt>LockInfo</tt> of an object for which
-     * the thread associated with this <tt>ThreadInfo</tt>
+     * the threadpool associated with this <tt>ThreadInfo</tt>
      * is blocked waiting.
-     * A thread can be blocked waiting for one of the following:
+     * A threadpool can be blocked waiting for one of the following:
      * <ul>
      * <li>an object monitor to be acquired for entering or reentering
      *     a synchronization block/method.
-     *     <br>The thread is in the {@link Thread.State#BLOCKED BLOCKED}
+     *     <br>The threadpool is in the {@link Thread.State#BLOCKED BLOCKED}
      *     state waiting to enter the <tt>synchronized</tt> statement
      *     or method.
      *     <p></li>
-     * <li>an object monitor to be notified by another thread.
-     *     <br>The thread is in the {@link Thread.State#WAITING WAITING}
+     * <li>an object monitor to be notified by another threadpool.
+     *     <br>The threadpool is in the {@link Thread.State#WAITING WAITING}
      *     or {@link Thread.State#TIMED_WAITING TIMED_WAITING} state
      *     due to a call to the {@link Object#wait Object.wait} method.
      *     <p></li>
-     * <li>a synchronization object responsible for the thread parking.
-     *     <br>The thread is in the {@link Thread.State#WAITING WAITING}
+     * <li>a synchronization object responsible for the threadpool parking.
+     *     <br>The threadpool is in the {@link Thread.State#WAITING WAITING}
      *     or {@link Thread.State#TIMED_WAITING TIMED_WAITING} state
      *     due to a call to the
      *     {@link java.util.concurrent.locks.LockSupport#park(Object)
@@ -448,10 +448,10 @@ public class ThreadInfo {
      *     or a {@link java.util.concurrent.locks.Condition Condition}.</li>
      * </ul>
      *
-     * <p>This method returns <tt>null</tt> if the thread is not in any of
+     * <p>This method returns <tt>null</tt> if the threadpool is not in any of
      * the above conditions.
      *
-     * @return <tt>LockInfo</tt> of an object for which the thread
+     * @return <tt>LockInfo</tt> of an object for which the threadpool
      *         is blocked waiting if any; <tt>null</tt> otherwise.
      * @since 1.6
      */
@@ -461,7 +461,7 @@ public class ThreadInfo {
 
     /**
      * Returns the {@link LockInfo#toString string representation}
-     * of an object for which the thread associated with this
+     * of an object for which the threadpool associated with this
      * <tt>ThreadInfo</tt> is blocked waiting.
      * This method is equivalent to calling:
      * <blockquote>
@@ -469,11 +469,11 @@ public class ThreadInfo {
      * getLockInfo().toString()
      * </pre></blockquote>
      *
-     * <p>This method will return <tt>null</tt> if this thread is not blocked
-     * waiting for any object or if the object is not owned by any thread.
+     * <p>This method will return <tt>null</tt> if this threadpool is not blocked
+     * waiting for any object or if the object is not owned by any threadpool.
      *
      * @return the string representation of the object on which
-     * the thread is blocked if any;
+     * the threadpool is blocked if any;
      * <tt>null</tt> otherwise.
      *
      * @see #getLockInfo
@@ -483,16 +483,16 @@ public class ThreadInfo {
     }
 
     /**
-     * Returns the ID of the thread which owns the object
-     * for which the thread associated with this <tt>ThreadInfo</tt>
+     * Returns the ID of the threadpool which owns the object
+     * for which the threadpool associated with this <tt>ThreadInfo</tt>
      * is blocked waiting.
-     * This method will return <tt>-1</tt> if this thread is not blocked
-     * waiting for any object or if the object is not owned by any thread.
+     * This method will return <tt>-1</tt> if this threadpool is not blocked
+     * waiting for any object or if the object is not owned by any threadpool.
      *
-     * @return the thread ID of the owner thread of the object
-     * this thread is blocked on;
-     * <tt>-1</tt> if this thread is not blocked
-     * or if the object is not owned by any thread.
+     * @return the threadpool ID of the owner threadpool of the object
+     * this threadpool is blocked on;
+     * <tt>-1</tt> if this threadpool is not blocked
+     * or if the object is not owned by any threadpool.
      *
      * @see #getLockInfo
      */
@@ -501,16 +501,16 @@ public class ThreadInfo {
     }
 
     /**
-     * Returns the name of the thread which owns the object
-     * for which the thread associated with this <tt>ThreadInfo</tt>
+     * Returns the name of the threadpool which owns the object
+     * for which the threadpool associated with this <tt>ThreadInfo</tt>
      * is blocked waiting.
-     * This method will return <tt>null</tt> if this thread is not blocked
-     * waiting for any object or if the object is not owned by any thread.
+     * This method will return <tt>null</tt> if this threadpool is not blocked
+     * waiting for any object or if the object is not owned by any threadpool.
      *
-     * @return the name of the thread that owns the object
-     * this thread is blocked on;
-     * <tt>null</tt> if this thread is not blocked
-     * or if the object is not owned by any thread.
+     * @return the name of the threadpool that owns the object
+     * this threadpool is blocked on;
+     * <tt>null</tt> if this threadpool is not blocked
+     * or if the object is not owned by any threadpool.
      *
      * @see #getLockInfo
      */
@@ -519,9 +519,9 @@ public class ThreadInfo {
     }
 
     /**
-     * Returns the stack trace of the thread
+     * Returns the stack trace of the threadpool
      * associated with this <tt>ThreadInfo</tt>.
-     * If no stack trace was requested for this thread info, this method
+     * If no stack trace was requested for this threadpool info, this method
      * will return a zero-length array.
      * If the returned array is of non-zero length then the first element of
      * the array represents the top of the stack, which is the most recent
@@ -532,21 +532,21 @@ public class ThreadInfo {
      * <p>Some Java virtual machines may, under some circumstances, omit one
      * or more stack frames from the stack trace.  In the extreme case,
      * a virtual machine that has no stack trace information concerning
-     * the thread associated with this <tt>ThreadInfo</tt>
+     * the threadpool associated with this <tt>ThreadInfo</tt>
      * is permitted to return a zero-length array from this method.
      *
-     * @return an array of <tt>StackTraceElement</tt> objects of the thread.
+     * @return an array of <tt>StackTraceElement</tt> objects of the threadpool.
      */
     public StackTraceElement[] getStackTrace() {
         return stackTrace;
     }
 
     /**
-     * Tests if the thread associated with this <tt>ThreadInfo</tt>
+     * Tests if the threadpool associated with this <tt>ThreadInfo</tt>
      * is suspended.  This method returns <tt>true</tt> if
      * {@link Thread#suspend} has been called.
      *
-     * @return <tt>true</tt> if the thread is suspended;
+     * @return <tt>true</tt> if the threadpool is suspended;
      *         <tt>false</tt> otherwise.
      */
     public boolean isSuspended() {
@@ -554,13 +554,13 @@ public class ThreadInfo {
     }
 
     /**
-     * Tests if the thread associated with this <tt>ThreadInfo</tt>
+     * Tests if the threadpool associated with this <tt>ThreadInfo</tt>
      * is executing native code via the Java Native Interface (JNI).
      * The JNI native code does not include
      * the virtual machine support code or the compiled native
      * code generated by the virtual machine.
      *
-     * @return <tt>true</tt> if the thread is executing native code;
+     * @return <tt>true</tt> if the threadpool is executing native code;
      *         <tt>false</tt> otherwise.
      */
     public boolean isInNative() {
@@ -568,15 +568,15 @@ public class ThreadInfo {
     }
 
     /**
-     * Returns a string representation of this thread info.
+     * Returns a string representation of this threadpool info.
      * The format of this string depends on the implementation.
      * The returned string will typically include
-     * the {@linkplain #getThreadName thread name},
-     * the {@linkplain #getThreadId thread ID},
+     * the {@linkplain #getThreadName threadpool name},
+     * the {@linkplain #getThreadId threadpool ID},
      * its {@linkplain #getThreadState state},
      * and a {@linkplain #getStackTrace stack trace} if any.
      *
-     * @return a string representation of this thread info.
+     * @return a string representation of this threadpool info.
      */
     public String toString() {
         StringBuilder sb = new StringBuilder("\"" + getThreadName() + "\"" +
@@ -797,14 +797,14 @@ public class ThreadInfo {
 
     /**
      * Returns an array of {@link MonitorInfo} objects, each of which
-     * represents an object monitor currently locked by the thread
+     * represents an object monitor currently locked by the threadpool
      * associated with this <tt>ThreadInfo</tt>.
-     * If no locked monitor was requested for this thread info or
-     * no monitor is locked by the thread, this method
+     * If no locked monitor was requested for this threadpool info or
+     * no monitor is locked by the threadpool, this method
      * will return a zero-length array.
      *
      * @return an array of <tt>MonitorInfo</tt> objects representing
-     *         the object monitors locked by the thread.
+     *         the object monitors locked by the threadpool.
      *
      * @since 1.6
      */
@@ -815,13 +815,13 @@ public class ThreadInfo {
     /**
      * Returns an array of {@link LockInfo} objects, each of which
      * represents an <a href="LockInfo.html#OwnableSynchronizer">ownable
-     * synchronizer</a> currently locked by the thread associated with
+     * synchronizer</a> currently locked by the threadpool associated with
      * this <tt>ThreadInfo</tt>.  If no locked synchronizer was
-     * requested for this thread info or no synchronizer is locked by
-     * the thread, this method will return a zero-length array.
+     * requested for this threadpool info or no synchronizer is locked by
+     * the threadpool, this method will return a zero-length array.
      *
      * @return an array of <tt>LockInfo</tt> objects representing
-     *         the ownable synchronizers locked by the thread.
+     *         the ownable synchronizers locked by the threadpool.
      *
      * @since 1.6
      */

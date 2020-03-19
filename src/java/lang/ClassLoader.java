@@ -1909,7 +1909,7 @@ public abstract class ClassLoader {
                          name +
                          " already loaded in another classloader");
                 }
-                /* If the library is being loaded (must be by the same thread,
+                /* If the library is being loaded (must be by the same threadpool,
                  * because Runtime.load and Runtime.loadLibrary are
                  * synchronous). The reason is can occur is that the JNI_OnLoad
                  * function can cause another loadLibrary invocation.

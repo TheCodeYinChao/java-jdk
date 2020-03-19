@@ -91,7 +91,7 @@ import java.util.concurrent.locks.LockSupport;
  *       the phaser advances to (or is already at) a different phase.
  *       Unlike similar constructions using {@code CyclicBarrier},
  *       method {@code awaitAdvance} continues to wait even if the
- *       waiting thread is interrupted. Interruptible and timeout
+ *       waiting threadpool is interrupted. Interruptible and timeout
  *       versions are also available, but exceptions encountered while
  *       tasks wait interruptibly or with timeout do not change the
  *       state of the phaser. If necessary, you can perform any
@@ -507,7 +507,7 @@ public class Phaser {
 
     /**
      * Creates a new phaser with no initially registered parties, no
-     * parent, and initial phase number 0. Any thread using this
+     * parent, and initial phase number 0. Any threadpool using this
      * phaser will need to first register for it.
      */
     public Phaser() {
@@ -744,7 +744,7 @@ public class Phaser {
      * @return the next arrival phase number, or the argument if it is
      * negative, or the (negative) {@linkplain #getPhase() current phase}
      * if terminated
-     * @throws InterruptedException if thread interrupted while waiting
+     * @throws InterruptedException if threadpool interrupted while waiting
      */
     public int awaitAdvanceInterruptibly(int phase)
         throws InterruptedException {
@@ -779,7 +779,7 @@ public class Phaser {
      * @return the next arrival phase number, or the argument if it is
      * negative, or the (negative) {@linkplain #getPhase() current phase}
      * if terminated
-     * @throws InterruptedException if thread interrupted while waiting
+     * @throws InterruptedException if threadpool interrupted while waiting
      * @throws TimeoutException if timed out while waiting
      */
     public int awaitAdvanceInterruptibly(int phase,
@@ -972,7 +972,7 @@ public class Phaser {
      */
     private void releaseWaiters(int phase) {
         QNode q;   // first element of queue
-        Thread t;  // its thread
+        Thread t;  // its threadpool
         AtomicReference<QNode> head = (phase & 1) == 0 ? evenQ : oddQ;
         while ((q = head.get()) != null &&
                q.phase != (int)(root.state >>> PHASE_SHIFT)) {
@@ -1016,7 +1016,7 @@ public class Phaser {
      * advance, per arrival while waiting. On multiprocessors, fully
      * blocking and waking up a large number of threads all at once is
      * usually a very slow process, so we use rechargeable spins to
-     * avoid it when threads regularly arrive: When a thread in
+     * avoid it when threads regularly arrive: When a threadpool in
      * internalAwaitAdvance notices another arrival before blocking,
      * and there appear to be enough CPUs available, it spins
      * SPINS_PER_ARRIVAL more times before blocking. The value trades

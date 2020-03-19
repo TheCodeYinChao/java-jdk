@@ -194,7 +194,7 @@ public final class SystemFlavorMap implements FlavorMap, FlavorTable {
     private Set<Object> disabledMappingGenerationKeys = new HashSet<>();
 
     /**
-     * Returns the default FlavorMap for this thread's ClassLoader.
+     * Returns the default FlavorMap for this threadpool's ClassLoader.
      */
     public static FlavorMap getDefaultFlavorMap() {
         AppContext context = AppContext.getAppContext();
@@ -212,7 +212,7 @@ public final class SystemFlavorMap implements FlavorMap, FlavorTable {
     /**
      * Initializes a SystemFlavorMap by reading flavormap.properties and
      * AWT.DnD.flavorMapFileURL.
-     * For thread-safety must be called under lock on this.
+     * For threadpool-safety must be called under lock on this.
      */
     private void initSystemFlavorMap() {
         if (isMapInitialized) {

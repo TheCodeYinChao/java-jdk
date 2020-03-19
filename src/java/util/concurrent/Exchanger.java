@@ -41,8 +41,8 @@ import java.util.concurrent.locks.LockSupport;
 
 /**
  * A synchronization point at which threads can pair and swap elements
- * within pairs.  Each thread presents some object on entry to the
- * {@link #exchange exchange} method, matches with a partner thread,
+ * within pairs.  Each threadpool presents some object on entry to the
+ * {@link #exchange exchange} method, matches with a partner threadpool,
  * and receives its partner's object on return.  An Exchanger may be
  * viewed as a bidirectional form of a {@link SynchronousQueue}.
  * Exchangers may be useful in applications such as genetic algorithms
@@ -50,9 +50,9 @@ import java.util.concurrent.locks.LockSupport;
  *
  * <p><b>Sample Usage:</b>
  * Here are the highlights of a class that uses an {@code Exchanger}
- * to swap buffers between threads so that the thread filling the
+ * to swap buffers between threads so that the threadpool filling the
  * buffer gets a freshly emptied one when it needs it, handing off the
- * filled one to the thread emptying the buffer.
+ * filled one to the threadpool emptying the buffer.
  *  <pre> {@code
  * class FillAndEmpty {
  *   Exchanger<DataBuffer> exchanger = new Exchanger<DataBuffer>();
@@ -93,10 +93,10 @@ import java.util.concurrent.locks.LockSupport;
  *
  * <p>Memory consistency effects: For each pair of threads that
  * successfully exchange objects via an {@code Exchanger}, actions
- * prior to the {@code exchange()} in each thread
+ * prior to the {@code exchange()} in each threadpool
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * those subsequent to a return from the corresponding {@code exchange()}
- * in the other thread.
+ * in the other threadpool.
  *
  * @since 1.5
  * @author Doug Lea and Bill Scherer and Michael Scott
@@ -119,7 +119,7 @@ public class Exchanger<V> {
      *   else if (can CAS slot from node to empty) { // release
      *     get the item in node;
      *     set matching item in node;
-     *     release waiting thread;
+     *     release waiting threadpool;
      *   }
      *   // else retry on CAS failure
      * }
@@ -139,8 +139,8 @@ public class Exchanger<V> {
      * across threads, but instead give threads arena indices that
      * will on average grow under contention and shrink under lack of
      * contention. We approach this by defining the Nodes that we need
-     * anyway as ThreadLocals, and include in them per-thread index
-     * and related bookkeeping state. (We can safely reuse per-thread
+     * anyway as ThreadLocals, and include in them per-threadpool index
+     * and related bookkeeping state. (We can safely reuse per-threadpool
      * nodes rather than creating them fresh each time because slots
      * alternate between pointing to a node vs null, so cannot
      * encounter ABA problems. However, we do need some care in
@@ -168,9 +168,9 @@ public class Exchanger<V> {
      * only kinds of collision that reliably indicate contention are
      * when two attempted releases collide -- one of two attempted
      * offers can legitimately fail to CAS without indicating
-     * contention by more than one other thread. (Note: it is possible
+     * contention by more than one other threadpool. (Note: it is possible
      * but not worthwhile to more precisely detect contention by
-     * reading slot values after CAS failures.)  When a thread has
+     * reading slot values after CAS failures.)  When a threadpool has
      * collided at each slot within the current arena bound, it tries
      * to expand the arena size by one. We track collisions within
      * bounds by using a version (sequence) number on the "bound"
@@ -201,7 +201,7 @@ public class Exchanger<V> {
      * the linearization point to be a CAS of the match field (as done
      * in one case in the Scott & Scherer DISC paper), which also
      * increases asynchrony a bit, at the expense of poorer collision
-     * detection and inability to always reuse per-thread nodes. So
+     * detection and inability to always reuse per-threadpool nodes. So
      * the current scheme is typically a better tradeoff.
      *
      * On collisions, indices traverse the arena cyclically in reverse
@@ -242,11 +242,11 @@ public class Exchanger<V> {
      * not to be as readily inlined by dynamic compilers when they are
      * hidden behind other methods that would more nicely name and
      * encapsulate the intended effects). This includes the use of
-     * putOrderedX to clear fields of the per-thread Nodes between
+     * putOrderedX to clear fields of the per-threadpool Nodes between
      * uses. Note that field Node.item is not declared as volatile
      * even though it is read by releasing threads, because they only
      * do so after CAS operations that must precede access, and all
-     * uses by the owning thread are otherwise acceptably ordered by
+     * uses by the owning threadpool are otherwise acceptably ordered by
      * other operations. (Because the actual points of atomicity are
      * slot CASes, it would also be legal for the write to Node.match
      * in a release to be weaker than a full volatile write. However,
@@ -306,7 +306,7 @@ public class Exchanger<V> {
     private static final Object TIMED_OUT = new Object();
 
     /**
-     * Nodes hold partially exchanged data, plus other per-thread
+     * Nodes hold partially exchanged data, plus other per-threadpool
      * bookkeeping. Padded via @sun.misc.Contended to reduce memory
      * contention.
      */
@@ -315,18 +315,18 @@ public class Exchanger<V> {
         int bound;              // Last recorded value of Exchanger.bound
         int collides;           // Number of CAS failures at current bound
         int hash;               // Pseudo-random for spins
-        Object item;            // This thread's current item
-        volatile Object match;  // Item provided by releasing thread
-        volatile Thread parked; // Set to this thread when parked, else null
+        Object item;            // This threadpool's current item
+        volatile Object match;  // Item provided by releasing threadpool
+        volatile Thread parked; // Set to this threadpool when parked, else null
     }
 
-    /** The corresponding thread local class */
+    /** The corresponding threadpool local class */
     static final class Participant extends ThreadLocal<Node> {
         public Node initialValue() { return new Node(); }
     }
 
     /**
-     * Per-thread state
+     * Per-threadpool state
      */
     private final Participant participant;
 
@@ -355,7 +355,7 @@ public class Exchanger<V> {
      * @param item the (non-null) item to exchange
      * @param timed true if the wait is timed
      * @param ns if timed, the maximum wait time, else 0L
-     * @return the other thread's item; or null if interrupted; or
+     * @return the other threadpool's item; or null if interrupted; or
      * TIMED_OUT if timed and timed out
      */
     private final Object arenaExchange(Object item, boolean timed, long ns) {
@@ -447,8 +447,8 @@ public class Exchanger<V> {
      * @param item the item to exchange
      * @param timed true if the wait is timed
      * @param ns if timed, the maximum wait time, else 0L
-     * @return the other thread's item; or null if either the arena
-     * was enabled or the thread was interrupted before completion; or
+     * @return the other threadpool's item; or null if either the arena
+     * was enabled or the threadpool was interrupted before completion; or
      * TIMED_OUT if timed and timed out
      */
     private final Object slotExchange(Object item, boolean timed, long ns) {
@@ -525,36 +525,36 @@ public class Exchanger<V> {
     }
 
     /**
-     * Waits for another thread to arrive at this exchange point (unless
-     * the current thread is {@linkplain Thread#interrupt interrupted}),
+     * Waits for another threadpool to arrive at this exchange point (unless
+     * the current threadpool is {@linkplain Thread#interrupt interrupted}),
      * and then transfers the given object to it, receiving its object
      * in return.
      *
-     * <p>If another thread is already waiting at the exchange point then
-     * it is resumed for thread scheduling purposes and receives the object
-     * passed in by the current thread.  The current thread returns immediately,
-     * receiving the object passed to the exchange by that other thread.
+     * <p>If another threadpool is already waiting at the exchange point then
+     * it is resumed for threadpool scheduling purposes and receives the object
+     * passed in by the current threadpool.  The current threadpool returns immediately,
+     * receiving the object passed to the exchange by that other threadpool.
      *
-     * <p>If no other thread is already waiting at the exchange then the
-     * current thread is disabled for thread scheduling purposes and lies
+     * <p>If no other threadpool is already waiting at the exchange then the
+     * current threadpool is disabled for threadpool scheduling purposes and lies
      * dormant until one of two things happens:
      * <ul>
-     * <li>Some other thread enters the exchange; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread.
+     * <li>Some other threadpool enters the exchange; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool.
      * </ul>
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting
      * for the exchange,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
      *
      * @param x the object to exchange
-     * @return the object provided by the other thread
-     * @throws InterruptedException if the current thread was
+     * @return the object provided by the other threadpool
+     * @throws InterruptedException if the current threadpool was
      *         interrupted while waiting
      */
     @SuppressWarnings("unchecked")
@@ -570,32 +570,32 @@ public class Exchanger<V> {
     }
 
     /**
-     * Waits for another thread to arrive at this exchange point (unless
-     * the current thread is {@linkplain Thread#interrupt interrupted} or
+     * Waits for another threadpool to arrive at this exchange point (unless
+     * the current threadpool is {@linkplain Thread#interrupt interrupted} or
      * the specified waiting time elapses), and then transfers the given
      * object to it, receiving its object in return.
      *
-     * <p>If another thread is already waiting at the exchange point then
-     * it is resumed for thread scheduling purposes and receives the object
-     * passed in by the current thread.  The current thread returns immediately,
-     * receiving the object passed to the exchange by that other thread.
+     * <p>If another threadpool is already waiting at the exchange point then
+     * it is resumed for threadpool scheduling purposes and receives the object
+     * passed in by the current threadpool.  The current threadpool returns immediately,
+     * receiving the object passed to the exchange by that other threadpool.
      *
-     * <p>If no other thread is already waiting at the exchange then the
-     * current thread is disabled for thread scheduling purposes and lies
+     * <p>If no other threadpool is already waiting at the exchange then the
+     * current threadpool is disabled for threadpool scheduling purposes and lies
      * dormant until one of three things happens:
      * <ul>
-     * <li>Some other thread enters the exchange; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread; or
+     * <li>Some other threadpool enters the exchange; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool; or
      * <li>The specified waiting time elapses.
      * </ul>
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting
      * for the exchange,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
      *
      * <p>If the specified waiting time elapses then {@link
@@ -605,11 +605,11 @@ public class Exchanger<V> {
      * @param x the object to exchange
      * @param timeout the maximum time to wait
      * @param unit the time unit of the {@code timeout} argument
-     * @return the object provided by the other thread
-     * @throws InterruptedException if the current thread was
+     * @return the object provided by the other threadpool
+     * @throws InterruptedException if the current threadpool was
      *         interrupted while waiting
      * @throws TimeoutException if the specified waiting time elapses
-     *         before another thread enters the exchange
+     *         before another threadpool enters the exchange
      */
     @SuppressWarnings("unchecked")
     public V exchange(V x, long timeout, TimeUnit unit)

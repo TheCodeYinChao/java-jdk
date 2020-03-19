@@ -40,10 +40,10 @@ import org.xml.sax.SAXNotSupportedException;
  * <p>A processor that checks an XML document against {@link Schema}.</p>
  *
  * <p>
- * A validator object is not thread-safe and not reentrant.
+ * A validator object is not threadpool-safe and not reentrant.
  * In other words, it is the application's responsibility to make
  * sure that one {@link Validator} object is not used from
- * more than one thread at any given time, and while the <code>validate</code>
+ * more than one threadpool at any given time, and while the <code>validate</code>
  * method is invoked, applications may not recursively call
  * the <code>validate</code> method.
  * <p>

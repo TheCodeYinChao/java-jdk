@@ -251,7 +251,7 @@ public class CachedXPathAPI
    *  XPath namespace prefixes are resolved from the namespaceNode.
    *  The implementation of this is a little slow, since it creates
    *  a number of objects each time it is called.  This could be optimized
-   *  to keep the same objects around, but then thread-safety issues would arise.
+   *  to keep the same objects around, but then threadpool-safety issues would arise.
    *
    *  @param contextNode The node to start searching from.
    *  @param str A valid XPath string.
@@ -299,7 +299,7 @@ public class CachedXPathAPI
    *   XPath namespace prefixes are resolved from the namespaceNode.
    *   The implementation of this is a little slow, since it creates
    *   a number of objects each time it is called.  This could be optimized
-   *   to keep the same objects around, but then thread-safety issues would arise.
+   *   to keep the same objects around, but then threadpool-safety issues would arise.
    *
    *   @param contextNode The node to start searching from.
    *   @param str A valid XPath string.

@@ -80,7 +80,7 @@ public abstract class TransformerFactory {
      *   implementation of the service using the {@linkplain
      *   java.util.ServiceLoader#load(Class) default loading mechanism}:
      *   the service-provider loading facility will use the {@linkplain
-     *   Thread#getContextClassLoader() current thread's context class loader}
+     *   Thread#getContextClassLoader() current threadpool's context class loader}
      *   to attempt to load the service. If the context class
      *   loader is null, the {@linkplain
      *   ClassLoader#getSystemClassLoader() system class loader} will be used.
@@ -189,7 +189,7 @@ public abstract class TransformerFactory {
      * i.e. the "<em>identity transform</em>".</p>
      *
      * @return A Transformer object that may be used to perform a transformation
-     * in a single thread, never null.
+     * in a single threadpool, never null.
      *
      * @throws TransformerConfigurationException When it is not
      *   possible to create a <code>Transformer</code> instance.

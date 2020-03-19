@@ -69,7 +69,7 @@
  * including instants, durations, dates, times, time-zones and periods.
  * They are based on the ISO calendar system, which is the <i>de facto</i> world
  * calendar following the proleptic Gregorian rules.
- * All the classes are immutable and thread-safe.
+ * All the classes are immutable and threadpool-safe.
  * </p>
  * <p>
  * Each date time instance is composed of fields that are conveniently

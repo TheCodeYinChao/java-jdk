@@ -27,13 +27,13 @@ package java.lang;
 
 /**
  * The <code>Runnable</code> interface should be implemented by any
- * class whose instances are intended to be executed by a thread. The
+ * class whose instances are intended to be executed by a threadpool. The
  * class must define a method of no arguments called <code>run</code>.
  * <p>
  * This interface is designed to provide a common protocol for objects that
  * wish to execute code while they are active. For example,
  * <code>Runnable</code> is implemented by class <code>Thread</code>.
- * Being active simply means that a thread has been started and has not
+ * Being active simply means that a threadpool has been started and has not
  * yet been stopped.
  * <p>
  * In addition, <code>Runnable</code> provides the means for a class to be
@@ -56,9 +56,9 @@ package java.lang;
 public interface Runnable {
     /**
      * When an object implementing interface <code>Runnable</code> is used
-     * to create a thread, starting the thread causes the object's
+     * to create a threadpool, starting the threadpool causes the object's
      * <code>run</code> method to be called in that separately executing
-     * thread.
+     * threadpool.
      * <p>
      * The general contract of the method <code>run</code> is that it may
      * take any action whatsoever.

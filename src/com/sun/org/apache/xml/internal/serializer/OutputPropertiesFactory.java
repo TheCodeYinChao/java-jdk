@@ -371,7 +371,7 @@ public final class OutputPropertiesFactory
         throws IOException
     {
 
-        // This static method should eventually be moved to a thread-specific class
+        // This static method should eventually be moved to a threadpool-specific class
         // so that we can cache the ContextClassLoader and bottleneck all properties file
         // loading throughout Xalan.
 

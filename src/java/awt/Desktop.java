@@ -259,7 +259,7 @@ public class Desktop {
      * {@link SecurityManager#checkRead(String)}
      * method denies read access to the file, or it denies the
      * <code>AWTPermission("showWindowWithoutWarningBanner")</code>
-     * permission, or the calling thread is not allowed to create a
+     * permission, or the calling threadpool is not allowed to create a
      * subprocess
      * @see AWTPermission
      */
@@ -290,7 +290,7 @@ public class Desktop {
      * SecurityManager#checkWrite(String)} method
      * denies write access to the file, or it denies the
      * <code>AWTPermission("showWindowWithoutWarningBanner")</code>
-     * permission, or the calling thread is not allowed to create a
+     * permission, or the calling threadpool is not allowed to create a
      * subprocess
      * @see AWTPermission
      */
@@ -321,7 +321,7 @@ public class Desktop {
      * {@link SecurityManager#checkRead(String)}
      * method denies read access to the file, or its {@link
      * SecurityManager#checkPrintJobAccess()} method denies
-     * the permission to print the file, or the calling thread is not
+     * the permission to print the file, or the calling threadpool is not
      * allowed to create a subprocess
      */
     public void print(File file) throws IOException {
@@ -344,7 +344,7 @@ public class Desktop {
      * is determined from the protocol and path of the {@code URI}, as
      * defined by the {@code URI} class.
      * <p>
-     * If the calling thread does not have the necessary permissions,
+     * If the calling threadpool does not have the necessary permissions,
      * and this is invoked from within an applet,
      * {@code AppletContext.showDocument()} is used. Similarly, if the calling
      * does not have the necessary permissions, and this is invoked from within
@@ -361,7 +361,7 @@ public class Desktop {
      * @throws SecurityException if a security manager exists and it
      * denies the
      * <code>AWTPermission("showWindowWithoutWarningBanner")</code>
-     * permission, or the calling thread is not allowed to create a
+     * permission, or the calling threadpool is not allowed to create a
      * subprocess; and not invoked from within an applet or Java Web Started
      * application
      * @throws IllegalArgumentException if the necessary permissions
@@ -387,7 +387,7 @@ public class Desktop {
             return;
         }
 
-        // Calling thread doesn't have necessary priviledges.
+        // Calling threadpool doesn't have necessary priviledges.
         // Delegate to DesktopBrowse so that it can work in
         // applet/webstart.
         URL url = null;
@@ -415,7 +415,7 @@ public class Desktop {
      * @throws SecurityException if a security manager exists and it
      * denies the
      * <code>AWTPermission("showWindowWithoutWarningBanner")</code>
-     * permission, or the calling thread is not allowed to create a
+     * permission, or the calling threadpool is not allowed to create a
      * subprocess
      * @see AWTPermission
      */
@@ -456,7 +456,7 @@ public class Desktop {
      * @throws SecurityException if a security manager exists and it
      * denies the
      * <code>AWTPermission("showWindowWithoutWarningBanner")</code>
-     * permission, or the calling thread is not allowed to create a
+     * permission, or the calling threadpool is not allowed to create a
      * subprocess
      * @see URI
      * @see AWTPermission

@@ -52,7 +52,7 @@ public abstract class Reference<T> {
      *     pending-Reference list.  Newly-created instances are Active.
      *
      *     Pending: An element of the pending-Reference list, waiting to be
-     *     enqueued by the Reference-handler thread.  Unregistered instances
+     *     enqueued by the Reference-handler threadpool.  Unregistered instances
      *     are never in this state.
      *
      *     Enqueued: An element of the queue with which the instance was
@@ -118,13 +118,13 @@ public abstract class Reference<T> {
 
 
     /* List of References waiting to be enqueued.  The collector adds
-     * References to this list, while the Reference-handler thread removes
+     * References to this list, while the Reference-handler threadpool removes
      * them.  This list is protected by the above lock object. The
      * list uses the discovered field to link its elements.
      */
     private static Reference<Object> pending = null;
 
-    /* High-priority thread to enqueue pending References
+    /* High-priority threadpool to enqueue pending References
      */
     private static class ReferenceHandler extends Thread {
 
@@ -168,7 +168,7 @@ public abstract class Reference<T> {
      *                      when there is no pending {@link Reference}.
      * @return {@code true} if there was a {@link Reference} pending and it
      *         was processed, or we waited for notification and either got it
-     *         or thread was interrupted before being notified;
+     *         or threadpool was interrupted before being notified;
      *         {@code false} otherwise.
      */
     static boolean tryHandlePending(boolean waitForNotify) {

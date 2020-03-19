@@ -74,11 +74,11 @@ import java.util.function.Consumer;
  * methods of the {@link Deque} and {@link Iterator} interfaces.
  *
  * <p>Memory consistency effects: As with other concurrent collections,
- * actions in a thread prior to placing an object into a
+ * actions in a threadpool prior to placing an object into a
  * {@code ConcurrentLinkedDeque}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * actions subsequent to the access or removal of that element from
- * the {@code ConcurrentLinkedDeque} in another thread.
+ * the {@code ConcurrentLinkedDeque} in another threadpool.
  *
  * <p>This class is a member of the
  * <a href="{@docRoot}/../technotes/guides/collections/index.html">
@@ -374,7 +374,7 @@ public class ConcurrentLinkedDeque<E>
                             casHead(h, newNode);  // Failure is OK.
                         return;
                     }
-                    // Lost CAS race to another thread; re-read prev
+                    // Lost CAS race to another threadpool; re-read prev
                 }
             }
     }
@@ -407,7 +407,7 @@ public class ConcurrentLinkedDeque<E>
                             casTail(t, newNode);  // Failure is OK.
                         return;
                     }
-                    // Lost CAS race to another thread; re-read next
+                    // Lost CAS race to another threadpool; re-read next
                 }
             }
     }
@@ -1211,7 +1211,7 @@ public class ConcurrentLinkedDeque<E>
                         }
                         return true;
                     }
-                    // Lost CAS race to another thread; re-read next
+                    // Lost CAS race to another threadpool; re-read next
                 }
             }
     }

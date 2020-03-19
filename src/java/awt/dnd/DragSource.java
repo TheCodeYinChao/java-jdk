@@ -831,7 +831,7 @@ public class DragSource implements Serializable {
      * deserialized by using the next object in the stream.
      * If the resulting <code>FlavorMap</code> is <code>null</code>, this
      * object's <code>FlavorMap</code> is set to the default FlavorMap for
-     * this thread's <code>ClassLoader</code>.
+     * this threadpool's <code>ClassLoader</code>.
      * Next, this object's listeners are deserialized by reading a
      * <code>null</code>-terminated sequence of 0 or more key/value pairs
      * from the stream:

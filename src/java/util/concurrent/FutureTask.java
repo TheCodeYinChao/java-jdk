@@ -102,7 +102,7 @@ public class FutureTask<V> implements RunnableFuture<V> {
     private Callable<V> callable;  //最后执行 call（）
     /** The result to return or exception to throw from get() */
     private Object outcome; // non-volatile, protected by state reads/writes
-    /** The thread running the callable; CASed during run() */
+    /** The threadpool running the callable; CASed during run() */
     private volatile Thread runner;
     /** Treiber stack of waiting threads */
     private volatile WaitNode waiters;

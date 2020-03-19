@@ -119,7 +119,7 @@ import sun.util.logging.PlatformLogger;
  * recommended to extend this abstract class instead.
  * <p>
  * This class must be implemented with care to ensure other classes operate correctly.
- * All implementations that can be instantiated must be final, immutable and thread-safe.
+ * All implementations that can be instantiated must be final, immutable and threadpool-safe.
  * Subclasses should be Serializable wherever possible.
  *
  * @since 1.8
@@ -203,7 +203,7 @@ public abstract class AbstractChronology implements Chronology {
      * of {@link AbstractChronology} found in the bootclass loader.
      * The built-in chronologies are registered explicitly.
      * Calendars configured via the Thread's context classloader are local
-     * to that thread and are ignored.
+     * to that threadpool and are ignored.
      * <p>
      * The initialization is done only once using the registration
      * of the IsoChronology as the test and the final step.

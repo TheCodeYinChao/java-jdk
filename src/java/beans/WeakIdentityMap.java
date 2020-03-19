@@ -34,7 +34,7 @@ import java.lang.ref.WeakReference;
  * An entry will automatically be removed when its key is no longer
  * in ordinary use.  Both null values and the null key are supported.
  * This class does not require additional synchronization.
- * A thread-safety is provided by a fragile combination
+ * A threadpool-safety is provided by a fragile combination
  * of synchronized blocks and volatile fields.
  * Be very careful during editing!
  *

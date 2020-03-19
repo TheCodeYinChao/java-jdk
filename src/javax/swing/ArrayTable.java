@@ -36,7 +36,7 @@ import java.util.Hashtable;
  * key-value pairs.  As it grows larger it is scaled
  * up to a Hashtable.
  * <p>
- * This does no synchronization, if you need thread safety synchronize on
+ * This does no synchronization, if you need threadpool safety synchronize on
  * another object before calling this.
  *
  * @author Georges Saab

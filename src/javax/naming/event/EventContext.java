@@ -121,7 +121,7 @@ import javax.naming.NamingException;
  *<h1>Threading Issues</h1>
  *
  * Like <tt>Context</tt> instances in general, instances of
- * <tt>EventContext</tt> are not guaranteed to be thread-safe.
+ * <tt>EventContext</tt> are not guaranteed to be threadpool-safe.
  * Care must be taken when multiple threads are accessing the same
  * <tt>EventContext</tt> concurrently.
  * See the
@@ -181,7 +181,7 @@ public interface EventContext extends Context {
      * degenerate subtree) rooted at <tt>target</tt>.
      *<p>
      * When the listener is notified of an event, the listener may
-     * in invoked in a thread other than the one in which
+     * in invoked in a threadpool other than the one in which
      * <tt>addNamingListener()</tt> is executed.
      * Care must be taken when multiple threads are accessing the same
      * <tt>EventContext</tt> concurrently.

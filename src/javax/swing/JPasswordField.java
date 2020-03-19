@@ -54,7 +54,7 @@ import java.util.Arrays;
  * If an application needs the input methods support, please use the
  * inherited method, <code>enableInputMethods(true)</code>.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

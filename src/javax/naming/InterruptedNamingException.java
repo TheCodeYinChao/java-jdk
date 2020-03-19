@@ -28,7 +28,7 @@ package javax.naming;
 /**
   * This exception is thrown when the naming operation
   * being invoked has been interrupted. For example, an application
-  * might interrupt a thread that is performing a search. If the
+  * might interrupt a threadpool that is performing a search. If the
   * search supports being interrupted, it will throw
   * InterruptedNamingException. Whether an operation is interruptible
   * and when depends on its implementation (as provided by the

@@ -117,11 +117,11 @@ public interface ScriptEngineFactory {
      * with respect to concurrent execution of scripts and maintenance of state is also defined.
      * These values for the <code><b>THREADING</b></code> key are:<br><br>
      * <ul>
-     * <li><code>null</code> - The engine implementation is not thread safe, and cannot
+     * <li><code>null</code> - The engine implementation is not threadpool safe, and cannot
      * be used to execute scripts concurrently on multiple threads.
      * <li><code>&quot;MULTITHREADED&quot;</code> - The engine implementation is internally
-     * thread-safe and scripts may execute concurrently although effects of script execution
-     * on one thread may be visible to scripts on other threads.
+     * threadpool-safe and scripts may execute concurrently although effects of script execution
+     * on one threadpool may be visible to scripts on other threads.
      * <li><code>&quot;THREAD-ISOLATED&quot;</code> - The implementation satisfies the requirements
      * of &quot;MULTITHREADED&quot;, and also, the engine maintains independent values
      * for symbols in scripts executing on different threads.

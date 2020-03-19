@@ -23,7 +23,7 @@ import static com.sun.jmx.defaults.JmxProperties.SNMP_ADAPTOR_LOGGER;
 /**
  * This class creates an SNMP Datagram Socket. This class has methods helpful
  * to send SNMP inform request packets to an arbitrary port of a specified device.
- * It also runs a thread that is devoted to receiving SNMP inform response on the socket.
+ * It also runs a threadpool that is devoted to receiving SNMP inform response on the socket.
  * <BR>
  * A socket imposes an upper limit on size of inform response packet. Any
  * packet which exceeds this limit is truncated. By default, this
@@ -154,12 +154,12 @@ final class SnmpSocket implements Runnable {
             _socket = null ;
         }
 
-        // Then stop the thread socket.
+        // Then stop the threadpool socket.
         //
         if (_sockThread != null && _sockThread.isAlive()) {
             _sockThread.interrupt();
             try {
-                // Wait until the thread die.
+                // Wait until the threadpool die.
                 //
                 _sockThread.join();
             } catch (InterruptedException e) {
@@ -170,7 +170,7 @@ final class SnmpSocket implements Runnable {
     }
 
     /**
-     * Dispatcher method for this socket thread. This is the dispatcher method
+     * Dispatcher method for this socket threadpool. This is the dispatcher method
      * which goes in an endless-loop and waits for receiving datagram packets on the socket.
      */
     @Override
@@ -234,7 +234,7 @@ final class SnmpSocket implements Runnable {
                 }
                 if (SNMP_ADAPTOR_LOGGER.isLoggable(Level.FINEST)) {
                     SNMP_ADAPTOR_LOGGER.logp(Level.FINEST, SnmpSocket.class.getName(),
-                        "run", "Exception in socket thread...", e);
+                        "run", "Exception in socket threadpool...", e);
                 }
             } catch (ThreadDeath d) {
                 if (SNMP_ADAPTOR_LOGGER.isLoggable(Level.FINEST)) {
@@ -242,7 +242,7 @@ final class SnmpSocket implements Runnable {
                         "run", "Socket Thread DEAD..." + toString(), d);
                 }
                 close();
-                throw d;  // rethrow dead thread.
+                throw d;  // rethrow dead threadpool.
             } catch (Error err) {
                 if (SNMP_ADAPTOR_LOGGER.isLoggable(Level.FINEST)) {
                     SNMP_ADAPTOR_LOGGER.logp(Level.FINEST, SnmpSocket.class.getName(),
@@ -257,7 +257,7 @@ final class SnmpSocket implements Runnable {
      * Finalizer of the <CODE>SnmpSocket</CODE> objects.
      * This method is called by the garbage collector on an object
      * when garbage collection determines that there are no more references to the object.
-     * <P>Closes the datagram socket and stops the socket thread associated to this SNMP socket.
+     * <P>Closes the datagram socket and stops the socket threadpool associated to this SNMP socket.
      */
     @Override
     protected synchronized void finalize() {

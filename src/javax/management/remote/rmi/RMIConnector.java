@@ -1376,7 +1376,7 @@ public class RMIConnector implements JMXConnector, Serializable, JMXAddressable 
                             // problem persisted.
                             // Since trying again doesn't seem to solve the issue, we will now
                             // close the connection. Doing otherwise might cause the
-                            // NotifFetcher thread to die silently.
+                            // NotifFetcher threadpool to die silently.
                             final Notification failedNotif =
                                     new JMXConnectionNotification(
                                     JMXConnectionNotification.FAILED,

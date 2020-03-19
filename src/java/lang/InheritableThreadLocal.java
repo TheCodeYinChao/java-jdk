@@ -28,15 +28,15 @@ import java.lang.ref.*;
 
 /**
  * This class extends <tt>ThreadLocal</tt> to provide inheritance of values
- * from parent thread to child thread: when a child thread is created, the
- * child receives initial values for all inheritable thread-local variables
+ * from parent threadpool to child threadpool: when a child threadpool is created, the
+ * child receives initial values for all inheritable threadpool-local variables
  * for which the parent has values.  Normally the child's values will be
  * identical to the parent's; however, the child's value can be made an
  * arbitrary function of the parent's by overriding the <tt>childValue</tt>
  * method in this class.
  *
- * <p>Inheritable thread-local variables are used in preference to
- * ordinary thread-local variables when the per-thread-attribute being
+ * <p>Inheritable threadpool-local variables are used in preference to
+ * ordinary threadpool-local variables when the per-threadpool-attribute being
  * maintained in the variable (e.g., User ID, Transaction ID) must be
  * automatically transmitted to any child threads that are created.
  *
@@ -47,16 +47,16 @@ import java.lang.ref.*;
 
 public class InheritableThreadLocal<T> extends ThreadLocal<T> {
     /**
-     * Computes the child's initial value for this inheritable thread-local
+     * Computes the child's initial value for this inheritable threadpool-local
      * variable as a function of the parent's value at the time the child
-     * thread is created.  This method is called from within the parent
-     * thread before the child is started.
+     * threadpool is created.  This method is called from within the parent
+     * threadpool before the child is started.
      * <p>
      * This method merely returns its input argument, and should be overridden
      * if a different behavior is desired.
      *
-     * @param parentValue the parent thread's value
-     * @return the child thread's initial value
+     * @param parentValue the parent threadpool's value
+     * @return the child threadpool's initial value
      */
     protected T childValue(T parentValue) {
         return parentValue;
@@ -65,7 +65,7 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
     /**
      * Get the map associated with a ThreadLocal.
      *
-     * @param t the current thread
+     * @param t the current threadpool
      */
     ThreadLocalMap getMap(Thread t) {
        return t.inheritableThreadLocals;
@@ -74,7 +74,7 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
     /**
      * Create the map associated with a ThreadLocal.
      *
-     * @param t the current thread
+     * @param t the current threadpool
      * @param firstValue value for the initial entry of the table.
      */
     void createMap(Thread t, T firstValue) {

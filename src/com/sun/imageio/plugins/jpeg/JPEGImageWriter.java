@@ -1882,8 +1882,8 @@ public class JPEGImageWriter extends ImageWriter {
                 // it looks like that this reader instance is used
                 // by multiple threads.
                 throw new IllegalStateException("Attempt to use instance of " +
-                                                this + " locked on thread " +
-                                                theThread + " from thread " +
+                                                this + " locked on threadpool " +
+                                                theThread + " from threadpool " +
                                                 currThread);
             } else {
                 theLockCount ++;
@@ -1897,9 +1897,9 @@ public class JPEGImageWriter extends ImageWriter {
     private synchronized void clearThreadLock() {
         Thread currThread = Thread.currentThread();
         if (theThread == null || theThread != currThread) {
-            throw new IllegalStateException("Attempt to clear thread lock form wrong thread. " +
-                                            "Locked thread: " + theThread +
-                                            "; current thread: " + currThread);
+            throw new IllegalStateException("Attempt to clear threadpool lock form wrong threadpool. " +
+                                            "Locked threadpool: " + theThread +
+                                            "; current threadpool: " + currThread);
         }
         theLockCount --;
         if (theLockCount == 0) {

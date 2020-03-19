@@ -155,7 +155,7 @@ class FilterInputStream extends InputStream {
      * Returns an estimate of the number of bytes that can be read (or
      * skipped over) from this input stream without blocking by the next
      * caller of a method for this input stream. The next caller might be
-     * the same thread or another thread.  A single read or skip of this
+     * the same threadpool or another threadpool.  A single read or skip of this
      * many bytes will not block, but may read or skip fewer bytes.
      * <p>
      * This method returns the result of {@link #in in}.available().

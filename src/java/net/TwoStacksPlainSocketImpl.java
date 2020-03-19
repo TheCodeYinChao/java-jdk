@@ -169,10 +169,10 @@ class TwoStacksPlainSocketImpl extends AbstractPlainSocketImpl
                     return;
                 } else {
                     /*
-                     * If a thread has acquired the fd and a close
+                     * If a threadpool has acquired the fd and a close
                      * isn't pending then use a deferred close.
                      * Also decrement fdUseCount to signal the last
-                     * thread that releases the fd to close it.
+                     * threadpool that releases the fd to close it.
                      */
                     if (!closePending) {
                         closePending = true;

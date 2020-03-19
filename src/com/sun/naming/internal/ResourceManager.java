@@ -92,7 +92,7 @@ public final class ResourceManager {
      * A cache of the properties that have been constructed by
      * the ResourceManager.  A Hashtable from a provider resource
      * file is keyed on a class in the resource file's package.
-     * One from application resource files is keyed on the thread's
+     * One from application resource files is keyed on the threadpool's
      * context class loader.
      */
     // WeakHashMap<Class | ClassLoader, Hashtable>
@@ -292,7 +292,7 @@ public final class ResourceManager {
      * resource file associated with the given context and concantenated.
      * See getProperty(). The resulting property value is a list of class names.
      *<p>
-     * This method then loads each class using the current thread's context
+     * This method then loads each class using the current threadpool's context
      * class loader and keeps them in a list. Any class that cannot be loaded
      * is ignored. The resulting list is then cached in a two-level
      * hash table, keyed first by the context class loader and then by
@@ -529,7 +529,7 @@ public final class ResourceManager {
 
     /*
      * Returns the Hashtable (never null) that results from merging
-     * all application resource files available to this thread's
+     * all application resource files available to this threadpool's
      * context class loader.  The properties file in <java.home>/lib
      * is also merged in.  The results are cached.
      *

@@ -285,8 +285,8 @@ class FileInputStream extends InputStream
      * Returns an estimate of the number of remaining bytes that can be read (or
      * skipped over) from this input stream without blocking by the next
      * invocation of a method for this input stream. Returns 0 when the file
-     * position is beyond EOF. The next invocation might be the same thread
-     * or another thread. A single read or skip of this many bytes will not
+     * position is beyond EOF. The next invocation might be the same threadpool
+     * or another threadpool. A single read or skip of this many bytes will not
      * block, but may read or skip fewer bytes.
      *
      * <p> In some cases, a non-blocking read (or skip) may appear to be

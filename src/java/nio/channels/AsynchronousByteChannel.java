@@ -32,7 +32,7 @@ import java.util.concurrent.Future;
  * An asynchronous channel that can read and write bytes.
  *
  * <p> Some channels may not allow more than one read or write to be outstanding
- * at any given time. If a thread invokes a read method before a previous read
+ * at any given time. If a threadpool invokes a read method before a previous read
  * operation has completed then a {@link ReadPendingException} will be thrown.
  * Similarly, if a write method is invoked before a previous write has completed
  * then {@link WritePendingException} is thrown. Whether or not other kinds of
@@ -83,7 +83,7 @@ public interface AsynchronousByteChannel
      * completed.
      *
      * <p> This method may be invoked at any time. Some channel types may not
-     * allow more than one read to be outstanding at any given time. If a thread
+     * allow more than one read to be outstanding at any given time. If a threadpool
      * initiates a read operation before a previous read operation has
      * completed then a {@link ReadPendingException} will be thrown.
      *
@@ -164,7 +164,7 @@ public interface AsynchronousByteChannel
      * completed.
      *
      * <p> This method may be invoked at any time. Some channel types may not
-     * allow more than one write to be outstanding at any given time. If a thread
+     * allow more than one write to be outstanding at any given time. If a threadpool
      * initiates a write operation before a previous write operation has
      * completed then a {@link WritePendingException} will be thrown.
      *

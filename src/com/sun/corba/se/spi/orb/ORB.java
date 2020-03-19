@@ -236,7 +236,7 @@ public abstract class ORB extends com.sun.corba.se.org.omg.CORBA.ORB
     }
 
     /**
-     * Returns the Presentation Manager for the current thread group, using the ThreadGroup-specific
+     * Returns the Presentation Manager for the current threadpool group, using the ThreadGroup-specific
      * AppContext to hold it. Creates and records one if needed.
      */
     public static PresentationManager getPresentationManager()

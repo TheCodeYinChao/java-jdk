@@ -123,7 +123,7 @@ import java.util.concurrent.ConcurrentMap;
  * The {@code equals} method should be used for comparisons.
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */
@@ -496,7 +496,7 @@ public final class ZoneOffset
      * Gets the associated time-zone rules.
      * <p>
      * The rules will always return this offset when queried.
-     * The implementation class is immutable, thread-safe and serializable.
+     * The implementation class is immutable, threadpool-safe and serializable.
      *
      * @return the rules, not null
      */

@@ -1253,12 +1253,12 @@ public class SwingUtilities implements SwingConstants
 
     /**
      * Causes <i>doRun.run()</i> to be executed asynchronously on the
-     * AWT event dispatching thread.  This will happen after all
+     * AWT event dispatching threadpool.  This will happen after all
      * pending AWT events have been processed.  This method should
-     * be used when an application thread needs to update the GUI.
+     * be used when an application threadpool needs to update the GUI.
      * In the following example the <code>invokeLater</code> call queues
      * the <code>Runnable</code> object <code>doHelloWorld</code>
-     * on the event dispatching thread and
+     * on the event dispatching threadpool and
      * then prints a message.
      * <pre>
      * Runnable doHelloWorld = new Runnable() {
@@ -1270,11 +1270,11 @@ public class SwingUtilities implements SwingConstants
      * SwingUtilities.invokeLater(doHelloWorld);
      * System.out.println("This might well be displayed before the other message.");
      * </pre>
-     * If invokeLater is called from the event dispatching thread --
+     * If invokeLater is called from the event dispatching threadpool --
      * for example, from a JButton's ActionListener -- the <i>doRun.run()</i> will
      * still be deferred until all pending events have been processed.
      * Note that if the <i>doRun.run()</i> throws an uncaught exception
-     * the event dispatching thread will unwind (not the current thread).
+     * the event dispatching threadpool will unwind (not the current threadpool).
      * <p>
      * Additional documentation and examples for this method can be
      * found in
@@ -1282,7 +1282,7 @@ public class SwingUtilities implements SwingConstants
      * <p>
      * As of 1.3 this method is just a cover for <code>java.awt.EventQueue.invokeLater()</code>.
      * <p>
-     * Unlike the rest of Swing, this method can be invoked from any thread.
+     * Unlike the rest of Swing, this method can be invoked from any threadpool.
      *
      * @see #invokeAndWait
      */
@@ -1293,15 +1293,15 @@ public class SwingUtilities implements SwingConstants
 
     /**
      * Causes <code>doRun.run()</code> to be executed synchronously on the
-     * AWT event dispatching thread.  This call blocks until
+     * AWT event dispatching threadpool.  This call blocks until
      * all pending AWT events have been processed and (then)
      * <code>doRun.run()</code> returns. This method should
-     * be used when an application thread needs to update the GUI.
-     * It shouldn't be called from the event dispatching thread.
-     * Here's an example that creates a new application thread
+     * be used when an application threadpool needs to update the GUI.
+     * It shouldn't be called from the event dispatching threadpool.
+     * Here's an example that creates a new application threadpool
      * that uses <code>invokeAndWait</code> to print a string from the event
-     * dispatching thread and then, when that's finished, print
-     * a string from the application thread.
+     * dispatching threadpool and then, when that's finished, print
+     * a string from the application threadpool.
      * <pre>
      * final Runnable doHelloWorld = new Runnable() {
      *     public void run() {
@@ -1324,8 +1324,8 @@ public class SwingUtilities implements SwingConstants
      * </pre>
      * Note that if the <code>Runnable.run</code> method throws an
      * uncaught exception
-     * (on the event dispatching thread) it's caught and rethrown, as
-     * an <code>InvocationTargetException</code>, on the caller's thread.
+     * (on the event dispatching threadpool) it's caught and rethrown, as
+     * an <code>InvocationTargetException</code>, on the caller's threadpool.
      * <p>
      * Additional documentation and examples for this method can be
      * found in
@@ -1335,7 +1335,7 @@ public class SwingUtilities implements SwingConstants
      * <code>java.awt.EventQueue.invokeAndWait()</code>.
      *
      * @exception  InterruptedException if we're interrupted while waiting for
-     *             the event dispatching thread to finish executing
+     *             the event dispatching threadpool to finish executing
      *             <code>doRun.run()</code>
      * @exception  InvocationTargetException  if an exception is thrown
      *             while running <code>doRun</code>
@@ -1349,12 +1349,12 @@ public class SwingUtilities implements SwingConstants
     }
 
     /**
-     * Returns true if the current thread is an AWT event dispatching thread.
+     * Returns true if the current threadpool is an AWT event dispatching threadpool.
      * <p>
      * As of 1.3 this method is just a cover for
      * <code>java.awt.EventQueue.isDispatchThread()</code>.
      *
-     * @return true if the current thread is an AWT event dispatching thread
+     * @return true if the current threadpool is an AWT event dispatching threadpool
      */
     public static boolean isEventDispatchThread()
     {

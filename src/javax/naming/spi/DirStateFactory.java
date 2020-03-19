@@ -71,7 +71,7 @@ import java.util.Hashtable;
   *
   * <p> Either form of the <tt>getStateToBind()</tt> method of a
   * DirStateFactory may be invoked multiple times, possibly using different
-  * parameters.  The implementation is thread-safe.
+  * parameters.  The implementation is threadpool-safe.
   *
   * @author Rosanna Lee
   * @author Scott Seligman
@@ -108,7 +108,7 @@ public interface DirStateFactory extends StateFactory {
  * for details.
  * If a factory uses <code>nameCtx</code> it should synchronize its use
  * against concurrent access, since context implementations are not
- * guaranteed to be thread-safe.
+ * guaranteed to be threadpool-safe.
  *<p>
  * The <tt>name</tt>, <tt>inAttrs</tt>, and <tt>environment</tt> parameters
  * are owned by the caller.

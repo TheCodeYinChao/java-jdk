@@ -38,7 +38,7 @@ import sun.awt.AppContext;
 
 
 /**
- * Internal class to manage all Timers using one thread.
+ * Internal class to manage all Timers using one threadpool.
  * TimerQueue manages a queue of Timers. The Timers are chained
  * together in a linked list sorted by the order in which they will expire.
  *
@@ -70,7 +70,7 @@ class TimerQueue implements Runnable
     public TimerQueue() {
         super();
         queue = new DelayQueue<DelayedTimer>();
-        // Now start the TimerQueue thread.
+        // Now start the TimerQueue threadpool.
         runningLock = new ReentrantLock();
         startIfNeeded();
     }

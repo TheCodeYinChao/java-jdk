@@ -45,9 +45,9 @@ import org.xml.sax.SAXParseException;
  * representations of schemas and prepares them for validation.
  *
  * <p>
- * The {@link SchemaFactory} class is not thread-safe. In other words,
+ * The {@link SchemaFactory} class is not threadpool-safe. In other words,
  * it is the application's responsibility to ensure that at most
- * one thread is using a {@link SchemaFactory} object at any
+ * one threadpool is using a {@link SchemaFactory} object at any
  * given moment. Implementations are encouraged to mark methods
  * as <code>synchronized</code> to protect themselves from broken clients.
  *
@@ -55,7 +55,7 @@ import org.xml.sax.SAXParseException;
  * {@link SchemaFactory} is not re-entrant. While one of the
  * <code>newSchema</code> methods is being invoked, applications
  * may not attempt to recursively invoke the <code>newSchema</code> method,
- * even from the same thread.
+ * even from the same threadpool.
  *
  * <h2><a name="schemaLanguage"></a>Schema Language</h2>
  * <p>
@@ -151,7 +151,7 @@ public abstract class SchemaFactory {
      *   implementation of the service using the {@linkplain
      *   java.util.ServiceLoader#load(Class) default loading mechanism}:
      *   the service-provider loading facility will use the {@linkplain
-     *   Thread#getContextClassLoader() current thread's context class loader}
+     *   Thread#getContextClassLoader() current threadpool's context class loader}
      *   to attempt to load the service. If the context class
      *   loader is null, the {@linkplain
      *   ClassLoader#getSystemClassLoader() system class loader} will be used.

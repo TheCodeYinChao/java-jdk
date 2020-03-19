@@ -53,7 +53,7 @@ import java.util.Arrays;
  * <h3> Thread safety </h3>
  *
  * A SerialArray is not safe for use by multiple concurrent threads.  If a
- * SerialArray is to be used by more than one thread then access to the
+ * SerialArray is to be used by more than one threadpool then access to the
  * SerialArray should be controlled by appropriate synchronization.
  *
  */

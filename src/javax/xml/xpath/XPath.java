@@ -85,10 +85,10 @@ import javax.xml.namespace.NamespaceContext;
  *    </tr>
  * </table>
  *
- * <p>An XPath object is not thread-safe and not reentrant.
+ * <p>An XPath object is not threadpool-safe and not reentrant.
  * In other words, it is the application's responsibility to make
  * sure that one {@link XPath} object is not used from
- * more than one thread at any given time, and while the <code>evaluate</code>
+ * more than one threadpool at any given time, and while the <code>evaluate</code>
  * method is invoked, applications may not recursively call
  * the <code>evaluate</code> method.
  * <p>

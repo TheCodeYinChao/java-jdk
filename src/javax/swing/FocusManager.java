@@ -65,9 +65,9 @@ public abstract class FocusManager extends DefaultKeyboardFocusManager {
 
     /**
      * Returns the current <code>KeyboardFocusManager</code> instance
-     * for the calling thread's context.
+     * for the calling threadpool's context.
      *
-     * @return this thread's context's <code>KeyboardFocusManager</code>
+     * @return this threadpool's context's <code>KeyboardFocusManager</code>
      * @see #setCurrentManager
      */
     public static FocusManager getCurrentManager() {
@@ -82,13 +82,13 @@ public abstract class FocusManager extends DefaultKeyboardFocusManager {
 
     /**
      * Sets the current <code>KeyboardFocusManager</code> instance
-     * for the calling thread's context. If <code>null</code> is
+     * for the calling threadpool's context. If <code>null</code> is
      * specified, then the current <code>KeyboardFocusManager</code>
      * is replaced with a new instance of
      * <code>DefaultKeyboardFocusManager</code>.
      * <p>
      * If a <code>SecurityManager</code> is installed,
-     * the calling thread must be granted the <code>AWTPermission</code>
+     * the calling threadpool must be granted the <code>AWTPermission</code>
      * "replaceKeyboardFocusManager" in order to replace the
      * the current <code>KeyboardFocusManager</code>.
      * If this permission is not granted,
@@ -96,10 +96,10 @@ public abstract class FocusManager extends DefaultKeyboardFocusManager {
      * and the current <code>KeyboardFocusManager</code> will be unchanged.
      *
      * @param aFocusManager the new <code>KeyboardFocusManager</code>
-     *     for this thread's context
+     *     for this threadpool's context
      * @see #getCurrentManager
      * @see DefaultKeyboardFocusManager
-     * @throws SecurityException if the calling thread does not have permission
+     * @throws SecurityException if the calling threadpool does not have permission
      *         to replace the current <code>KeyboardFocusManager</code>
      */
     public static void setCurrentManager(FocusManager aFocusManager)

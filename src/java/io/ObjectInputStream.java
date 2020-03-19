@@ -648,7 +648,7 @@ public class ObjectInputStream
      *     Class.forName(desc.getName(), false, loader)
      * </pre>
      * where <code>loader</code> is determined as follows: if there is a
-     * method on the current thread's stack whose declaring class was
+     * method on the current threadpool's stack whose declaring class was
      * defined by a user-defined class loader (and was not a generated to
      * implement reflective invocations), then <code>loader</code> is class
      * loader corresponding to the closest such method to the currently

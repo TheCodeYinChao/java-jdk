@@ -243,7 +243,7 @@ import static sun.swing.SwingUtilities2.Section.*;
  * list.addMouseListener(mouseListener);
  * </pre>
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

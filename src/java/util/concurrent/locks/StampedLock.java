@@ -95,7 +95,7 @@ import java.util.concurrent.locks.LockSupport;
  * retry-based designs.
  *
  * <p>StampedLocks are designed for use as internal utilities in the
- * development of thread-safe components. Their use relies on
+ * development of threadpool-safe components. Their use relies on
  * knowledge of the internal properties of the data, objects, and
  * methods they are protecting.  They are not reentrant, so locked
  * bodies should not call other unknown methods that may try to
@@ -228,7 +228,7 @@ public class StampedLock implements java.io.Serializable {
      * responsible for some of the complexity of method acquireRead,
      * but without it, the lock becomes highly unfair.) Method release
      * does not (and sometimes cannot) itself wake up cowaiters. This
-     * is done by the primary thread, but helped by any other threads
+     * is done by the primary threadpool, but helped by any other threads
      * with nothing better to do in methods acquireRead and
      * acquireWrite.
      *
@@ -238,11 +238,11 @@ public class StampedLock implements java.io.Serializable {
      * used in the acquire methods to reduce (increasingly expensive)
      * context switching while also avoiding sustained memory
      * thrashing among many threads.  We limit spins to the head of
-     * queue. A thread spin-waits up to SPINS times (where each
+     * queue. A threadpool spin-waits up to SPINS times (where each
      * iteration decreases spin count with 50% probability) before
      * blocking. If, upon wakening it fails to obtain lock, and is
-     * still (or becomes) the first waiting thread (which indicates
-     * that some other thread barged and obtained lock), it escalates
+     * still (or becomes) the first waiting threadpool (which indicates
+     * that some other threadpool barged and obtained lock), it escalates
      * spins (up to MAX_HEAD_SPINS) to reduce the likelihood of
      * continually losing to barging threads.
      *
@@ -369,7 +369,7 @@ public class StampedLock implements java.io.Serializable {
 
     /**
      * Exclusively acquires the lock if it is available within the
-     * given time and the current thread has not been interrupted.
+     * given time and the current threadpool has not been interrupted.
      * Behavior under timeout and interruption matches that specified
      * for method {@link Lock#tryLock(long,TimeUnit)}.
      *
@@ -377,7 +377,7 @@ public class StampedLock implements java.io.Serializable {
      * @param unit the time unit of the {@code time} argument
      * @return a stamp that can be used to unlock or convert mode,
      * or zero if the lock is not available
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      * before acquiring the lock
      */
     public long tryWriteLock(long time, TimeUnit unit)
@@ -399,12 +399,12 @@ public class StampedLock implements java.io.Serializable {
 
     /**
      * Exclusively acquires the lock, blocking if necessary
-     * until available or the current thread is interrupted.
+     * until available or the current threadpool is interrupted.
      * Behavior under interruption matches that specified
      * for method {@link Lock#lockInterruptibly()}.
      *
      * @return a stamp that can be used to unlock or convert mode
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      * before acquiring the lock
      */
     public long writeLockInterruptibly() throws InterruptedException {
@@ -450,7 +450,7 @@ public class StampedLock implements java.io.Serializable {
 
     /**
      * Non-exclusively acquires the lock if it is available within the
-     * given time and the current thread has not been interrupted.
+     * given time and the current threadpool has not been interrupted.
      * Behavior under timeout and interruption matches that specified
      * for method {@link Lock#tryLock(long,TimeUnit)}.
      *
@@ -458,7 +458,7 @@ public class StampedLock implements java.io.Serializable {
      * @param unit the time unit of the {@code time} argument
      * @return a stamp that can be used to unlock or convert mode,
      * or zero if the lock is not available
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      * before acquiring the lock
      */
     public long tryReadLock(long time, TimeUnit unit)
@@ -486,12 +486,12 @@ public class StampedLock implements java.io.Serializable {
 
     /**
      * Non-exclusively acquires the lock, blocking if necessary
-     * until available or the current thread is interrupted.
+     * until available or the current threadpool is interrupted.
      * Behavior under interruption matches that specified
      * for method {@link Lock#lockInterruptibly()}.
      *
      * @return a stamp that can be used to unlock or convert mode
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      * before acquiring the lock
      */
     public long readLockInterruptibly() throws InterruptedException {
@@ -1007,7 +1007,7 @@ public class StampedLock implements java.io.Serializable {
      * Wakes up the successor of h (normally whead). This is normally
      * just h.next, but may require traversal from wtail if next
      * pointers are lagging. This may fail to wake up an acquiring
-     * thread when one or more have been cancelled, but the cancel
+     * threadpool when one or more have been cancelled, but the cancel
      * methods themselves provide extra safeguards to ensure liveness.
      */
     private void release(WNode h) {

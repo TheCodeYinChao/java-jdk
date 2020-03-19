@@ -28,7 +28,7 @@ package java.lang.invoke;
 /**
  * A {@code VolatileCallSite} is a {@link CallSite} whose target acts like a volatile variable.
  * An {@code invokedynamic} instruction linked to a {@code VolatileCallSite} sees updates
- * to its call site target immediately, even if the update occurs in another thread.
+ * to its call site target immediately, even if the update occurs in another threadpool.
  * There may be a performance penalty for such tight coupling between threads.
  * <p>
  * Unlike {@code MutableCallSite}, there is no
@@ -70,9 +70,9 @@ public class VolatileCallSite extends CallSite {
      * The interactions of {@code getTarget} with memory are the same
      * as of a read from a {@code volatile} field.
      * <p>
-     * In particular, the current thread is required to issue a fresh
+     * In particular, the current threadpool is required to issue a fresh
      * read of the target from memory, and must not fail to see
-     * a recent update to the target by another thread.
+     * a recent update to the target by another threadpool.
      *
      * @return the linkage state of this call site, a method handle which can change over time
      * @see #setTarget

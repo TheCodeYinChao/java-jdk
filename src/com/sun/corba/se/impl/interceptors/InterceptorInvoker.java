@@ -489,7 +489,7 @@ public class InterceptorInvoker {
             }
             finally {
                 // The remaining points, ServantManager and Servant
-                // all run in the same logical thread.
+                // all run in the same logical threadpool.
                 current.popSlotTable( );
                 // Now TSC and RSC are equivalent.
             }

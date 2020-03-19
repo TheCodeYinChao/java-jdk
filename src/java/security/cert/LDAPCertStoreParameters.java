@@ -35,7 +35,7 @@ package java.security.cert;
  * <b>Concurrent Access</b>
  * <p>
  * Unless otherwise specified, the methods defined in this class are not
- * thread-safe. Multiple threads that need to access a single
+ * threadpool-safe. Multiple threads that need to access a single
  * object concurrently should synchronize amongst themselves and
  * provide the necessary locking. Multiple threads each manipulating
  * separate objects need not synchronize.

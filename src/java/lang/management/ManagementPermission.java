@@ -46,7 +46,7 @@ package java.lang.management;
  *   <td>Ability to control the runtime characteristics of the Java virtual
  *       machine, for example, enabling and disabling the verbose output for
  *       the class loading or memory system, setting the threshold of a memory
- *       pool, and enabling and disabling the thread contention monitoring
+ *       pool, and enabling and disabling the threadpool contention monitoring
  *       support. Some actions controlled by this permission can disclose
  *       information about the running application, like the -verbose:class
  *       flag.
@@ -60,7 +60,7 @@ package java.lang.management;
  * <tr>
  *   <td>monitor</td>
  *   <td>Ability to retrieve runtime information about
- *       the Java virtual machine such as thread
+ *       the Java virtual machine such as threadpool
  *       stack trace, a list of all loaded class names, and input arguments
  *       to the Java virtual machine.</td>
  *   <td>This allows malicious code to monitor runtime information and

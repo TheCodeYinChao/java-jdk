@@ -198,7 +198,7 @@ public class ORBImpl extends com.sun.corba.se.spi.orb.ORB
     private Object invocationObj = new Object();
     private int numInvocations = 0;
 
-    // thread local variable to store a boolean to detect deadlock in
+    // threadpool local variable to store a boolean to detect deadlock in
     // ORB.shutdown(true).
     private ThreadLocal isProcessingInvocation = new ThreadLocal () {
         protected Object initialValue() {
@@ -213,7 +213,7 @@ public class ORBImpl extends com.sun.corba.se.spi.orb.ORB
     // Cache to hold ValueFactories (Helper classes) keyed on repository ids
     private Hashtable valueFactoryCache = new Hashtable();
 
-    // thread local variable to store the current ORB version.
+    // threadpool local variable to store the current ORB version.
     // default ORB version is the version of ORB with correct Rep-id
     // changes
     private ThreadLocal orbVersionThreadLocal ;
@@ -251,8 +251,8 @@ public class ORBImpl extends com.sun.corba.se.spi.orb.ORB
     // to bug 6980681 and 6238477, which was caused by a deadlock while resolving a
     // corbaname: URL that contained a reference to the same ORB as the
     // ORB making the call to string_to_object.  This caused a deadlock between the
-    // client thread holding the single lock for access to the urlOperation,
-    // and the server thread handling the client is_a request waiting on the
+    // client threadpool holding the single lock for access to the urlOperation,
+    // and the server threadpool handling the client is_a request waiting on the
     // same lock to access the localResolver.
 
 
@@ -489,7 +489,7 @@ public class ORBImpl extends com.sun.corba.se.spi.orb.ORB
         pihandler = new PIHandlerImpl( this, params) ;
         pihandler.initialize() ;
 
-        // Initialize the thread manager pool and byte buffer pool
+        // Initialize the threadpool manager pool and byte buffer pool
         // so they may be initialized & accessed without synchronization
         getThreadPoolManager();
 
@@ -555,7 +555,7 @@ public class ORBImpl extends com.sun.corba.se.spi.orb.ORB
 
     /**
      * Get a Current pseudo-object.
-     * The Current interface is used to manage thread-specific
+     * The Current interface is used to manage threadpool-specific
      * information for use by the transactions, security and other
      * services. This method is deprecated,
      * and replaced by ORB.resolve_initial_references("NameOfCurrentObject");
@@ -571,7 +571,7 @@ public class ORBImpl extends com.sun.corba.se.spi.orb.ORB
            The implementation of get_current is not clear. How would
            ORB know whether the caller wants a Current for transactions
            or security ?? Or is it assumed that there is just one
-           implementation for both ? If Current is thread-specific,
+           implementation for both ? If Current is threadpool-specific,
            then it should not be instantiated; so where does the
            ORB get a Current ?
 
@@ -1246,7 +1246,7 @@ public class ORBImpl extends com.sun.corba.se.spi.orb.ORB
         synchronized (this) {
             checkShutdownState();
 
-            // This is to avoid deadlock: don't allow a thread that is
+            // This is to avoid deadlock: don't allow a threadpool that is
             // processing a request to call shutdown( true ), because
             // the shutdown would block waiting for the request to complete,
             // while the request would block waiting for shutdown to complete.
@@ -1266,10 +1266,10 @@ public class ORBImpl extends com.sun.corba.se.spi.orb.ORB
             status = STATUS_SHUTTING_DOWN;
         }
 
-        // Avoid more than one thread performing shutdown at a time.
+        // Avoid more than one threadpool performing shutdown at a time.
         synchronized (shutdownObj) {
             // At this point, the ORB status is certainly STATUS_SHUTTING_DOWN.
-            // If wait is true, another thread already called shutdown( true ),
+            // If wait is true, another threadpool already called shutdown( true ),
             // and so we wait for completion
             if (wait) {
                 while (true) {
@@ -1751,7 +1751,7 @@ public class ORBImpl extends com.sun.corba.se.spi.orb.ORB
  ******************************************************************************/
 
     /** This method always returns false because the ORB never needs the
-     *  main thread to do work.
+     *  main threadpool to do work.
      */
     public synchronized boolean work_pending()
     {

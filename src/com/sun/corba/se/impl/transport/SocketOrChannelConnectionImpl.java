@@ -366,7 +366,7 @@ public class SocketOrChannelConnectionImpl
                            ": sendMessageError: IOException: " + e, e);
                 }
             }
-            // REVISIT - make sure reader thread is killed.
+            // REVISIT - make sure reader threadpool is killed.
             Selector selector = orb.getTransportManager().getSelector(0);
             if (selector != null) {
                 selector.unregisterForEvent(this);
@@ -436,7 +436,7 @@ public class SocketOrChannelConnectionImpl
                            ": sendMessageError: IOException: " + e, e);
                 }
             }
-            // REVISIT - make sure reader thread is killed.
+            // REVISIT - make sure reader threadpool is killed.
             orb.getTransportManager().getSelector(0).unregisterForEvent(this);
             // Notify anyone waiting.
             purgeCalls(wrapper.connectionAbort(ex), true, false);
@@ -763,8 +763,8 @@ public class SocketOrChannelConnectionImpl
             }
             writeLock();
 
-            // REVISIT It will be good to have a read lock on the reader thread
-            // before we proceed further, to avoid the reader thread (server side)
+            // REVISIT It will be good to have a read lock on the reader threadpool
+            // before we proceed further, to avoid the reader threadpool (server side)
             // from processing requests. This avoids the risk that a new request
             // will be accepted by ReaderThread while the ListenerThread is
             // attempting to close this connection.
@@ -1309,7 +1309,7 @@ public class SocketOrChannelConnectionImpl
 
     /** It is possible for a Close Connection to have been
      ** sent here, but we will not check for this. A "lazy"
-     ** Exception will be thrown in the Worker thread after the
+     ** Exception will be thrown in the Worker threadpool after the
      ** incoming request has been processed even though the connection
      ** is closed before the request is processed. This is o.k because
      ** it is a boundary condition. To prevent it we would have to add
@@ -1381,7 +1381,7 @@ public class SocketOrChannelConnectionImpl
     //
 
     // Map request ID to an InputObject.
-    // This is so the client thread can start unmarshaling
+    // This is so the client threadpool can start unmarshaling
     // the reply and remove it from the out_calls map while the
     // ReaderThread can still obtain the input stream to give
     // new fragments.  Only the ReaderThread touches the clientReplyMap,
@@ -1454,13 +1454,13 @@ public class SocketOrChannelConnectionImpl
      * COMM_FAILURE exception with a given minor code.
      *
      * Also, delete connection from connection table and
-     * stop the reader thread.
+     * stop the reader threadpool.
 
-     * Note that this should only ever be called by the Reader thread for
+     * Note that this should only ever be called by the Reader threadpool for
      * this connection.
      *
      * @param minor_code The minor code for the COMM_FAILURE major code.
-     * @param die Kill the reader thread (this thread) before exiting.
+     * @param die Kill the reader threadpool (this threadpool) before exiting.
      */
     public void purgeCalls(SystemException systemException,
                            boolean die, boolean lockHeld)
@@ -1536,7 +1536,7 @@ public class SocketOrChannelConnectionImpl
             }
 
             //
-            // REVISIT: Stop the reader thread
+            // REVISIT: Stop the reader threadpool
             //
 
             // Signal all the waiters of the writeLock.

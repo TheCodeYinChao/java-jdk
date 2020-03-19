@@ -3322,12 +3322,12 @@ public class BigDecimal extends Number implements Comparable<BigDecimal> {
     }
 
     // Private class to build a string representation for BigDecimal object.
-    // "StringBuilderHelper" is constructed as a thread local variable so it is
-    // thread safe. The StringBuilder field acts as a buffer to hold the temporary
+    // "StringBuilderHelper" is constructed as a threadpool local variable so it is
+    // threadpool safe. The StringBuilder field acts as a buffer to hold the temporary
     // representation of BigDecimal. The cmpCharArray holds all the characters for
     // the compact representation of BigDecimal (except for '-' sign' if it is
     // negative) if its intCompact field is not INFLATED. It is shared by all
-    // calls to toString() and its variants in that particular thread.
+    // calls to toString() and its variants in that particular threadpool.
     static class StringBuilderHelper {
         final StringBuilder sb;    // Placeholder for BigDecimal string
         final char[] cmpCharArray; // character array to place the intCompact

@@ -36,8 +36,8 @@
 package java.util.concurrent;
 
 /**
- * Exception thrown when a thread tries to wait upon a barrier that is
- * in a broken state, or which enters the broken state while the thread
+ * Exception thrown when a threadpool tries to wait upon a barrier that is
+ * in a broken state, or which enters the broken state while the threadpool
  * is waiting.
  *
  * @see CyclicBarrier

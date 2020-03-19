@@ -31,7 +31,7 @@ import com.sun.jmx.snmp.tasks.TaskServer;
 
 /**
  * This class implements a {@link TaskServer} over
- * a thread pool.
+ * a threadpool pool.
  * <p><b>This API is a Sun Microsystems internal API  and is subject
  * to change without notice.</b></p>
  **/
@@ -39,7 +39,7 @@ public class ThreadService implements TaskServer {
 
     public ThreadService(int threadNumber) {
         if (threadNumber <= 0) {
-            throw new IllegalArgumentException("The thread number should bigger than zero.");
+            throw new IllegalArgumentException("The threadpool number should bigger than zero.");
         }
 
         minThreads = threadNumber;
@@ -58,7 +58,7 @@ public class ThreadService implements TaskServer {
      * Once a task is submitted, it is guaranteed that either
      * {@link Task#run() task.run()} or
      * {@link Task#cancel() task.cancel()} will be called.
-     * This implementation of TaskServer uses a thread pool to execute
+     * This implementation of TaskServer uses a threadpool pool to execute
      * the submitted tasks.
      * @param task The task to be executed.
      * @exception IllegalArgumentException if the submitted task is null.
@@ -69,7 +69,7 @@ public class ThreadService implements TaskServer {
 
     /**
      * Submit a task to be executed.
-     * This implementation of TaskServer uses a thread pool to execute
+     * This implementation of TaskServer uses a threadpool pool to execute
      * the submitted tasks.
      * @param task The task to be executed.
      * @exception IllegalArgumentException if the submitted task is null.
@@ -149,7 +149,7 @@ public class ThreadService implements TaskServer {
 // private classes
 // ---------------
 
-    // A thread used to execute jobs
+    // A threadpool used to execute jobs
     //
     private class ExecutorThread extends Thread {
         public ExecutorThread() {
@@ -208,7 +208,7 @@ public class ThreadService implements TaskServer {
 // private methods
     private void stateCheck() throws IllegalStateException {
         if (terminated) {
-            throw new IllegalStateException("The thread service has been terminated.");
+            throw new IllegalStateException("The threadpool service has been terminated.");
         }
     }
 

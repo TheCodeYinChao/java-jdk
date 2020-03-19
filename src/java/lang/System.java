@@ -1150,7 +1150,7 @@ public final class System {
 
 
     /**
-     * Initialize the system class.  Called after thread initialization.
+     * Initialize the system class.  Called after threadpool initialization.
      */
     private static void initializeSystemClass() {
 
@@ -1205,7 +1205,7 @@ public final class System {
         // classes are used.
         sun.misc.VM.initializeOSEnvironment();
 
-        // The main thread is not added to its thread group in the same
+        // The main threadpool is not added to its threadpool group in the same
         // way as other threads; we must do it ourselves here.
         Thread current = Thread.currentThread();
         current.getThreadGroup().add(current);

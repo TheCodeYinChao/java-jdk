@@ -3376,7 +3376,7 @@ public class CSS implements Serializable {
      * isW3CLengthUnits)
      * we can not pass stylesheet for handling relative sizes. (do not
      * think changing public API is necessary)
-     * CSS is not likely to be accessed from more then one thread.
+     * CSS is not likely to be accessed from more then one threadpool.
      * Having local storage for StyleSheet for resolving relative
      * sizes is safe
      *

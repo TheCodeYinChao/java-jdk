@@ -1011,7 +1011,7 @@ public interface NamedNumber {
       immutable class cannot be changed after it has been constructed.
       Notice that {@code CompositeData} itself is immutable.
       Immutability has many advantages, notably with regard to
-      thread-safety and security.  So the approach using setters should
+      threadpool-safety and security.  So the approach using setters should
       generally be avoided if possible.</p>
 
 

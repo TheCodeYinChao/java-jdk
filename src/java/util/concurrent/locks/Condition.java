@@ -48,14 +48,14 @@ import java.util.Date;
  * monitor methods.
  *
  * <p>Conditions (also known as <em>condition queues</em> or
- * <em>condition variables</em>) provide a means for one thread to
+ * <em>condition variables</em>) provide a means for one threadpool to
  * suspend execution (to &quot;wait&quot;) until notified by another
- * thread that some state condition may now be true.  Because access
+ * threadpool that some state condition may now be true.  Because access
  * to this shared state information occurs in different threads, it
  * must be protected, so a lock of some form is associated with the
  * condition. The key property that waiting for a condition provides
  * is that it <em>atomically</em> releases the associated lock and
- * suspends the current thread, just like {@code Object.wait}.
+ * suspends the current threadpool, just like {@code Object.wait}.
  *
  * <p>A {@code Condition} instance is intrinsically bound to a lock.
  * To obtain a {@code Condition} instance for a particular {@link Lock}
@@ -63,12 +63,12 @@ import java.util.Date;
  *
  * <p>As an example, suppose we have a bounded buffer which supports
  * {@code put} and {@code take} methods.  If a
- * {@code take} is attempted on an empty buffer, then the thread will block
+ * {@code take} is attempted on an empty buffer, then the threadpool will block
  * until an item becomes available; if a {@code put} is attempted on a
- * full buffer, then the thread will block until a space becomes available.
+ * full buffer, then the threadpool will block until a space becomes available.
  * We would like to keep waiting {@code put} threads and {@code take}
  * threads in separate wait-sets so that we can use the optimization of
- * only notifying a single thread at a time when items or spaces become
+ * only notifying a single threadpool at a time when items or spaces become
  * available in the buffer. This can be achieved using two
  * {@link Condition} instances.
  * <pre>
@@ -154,24 +154,24 @@ import java.util.Date;
  * implementation on some platforms and in their performance characteristics.
  * In particular, it may be difficult to provide these features and maintain
  * specific semantics such as ordering guarantees.
- * Further, the ability to interrupt the actual suspension of the thread may
+ * Further, the ability to interrupt the actual suspension of the threadpool may
  * not always be feasible to implement on all platforms.
  *
  * <p>Consequently, an implementation is not required to define exactly the
  * same guarantees or semantics for all three forms of waiting, nor is it
- * required to support interruption of the actual suspension of the thread.
+ * required to support interruption of the actual suspension of the threadpool.
  *
  * <p>An implementation is required to
  * clearly document the semantics and guarantees provided by each of the
  * waiting methods, and when an implementation does support interruption of
- * thread suspension then it must obey the interruption semantics as defined
+ * threadpool suspension then it must obey the interruption semantics as defined
  * in this interface.
  *
  * <p>As interruption generally implies cancellation, and checks for
  * interruption are often infrequent, an implementation can favor responding
  * to an interrupt over normal method return. This is true even if it can be
  * shown that the interrupt occurred after another action that may have
- * unblocked the thread. An implementation should document this behavior.
+ * unblocked the threadpool. An implementation should document this behavior.
  *
  * @since 1.5
  * @author Doug Lea
@@ -179,41 +179,41 @@ import java.util.Date;
 public interface Condition {
 
     /**
-     * Causes the current thread to wait until it is signalled or
+     * Causes the current threadpool to wait until it is signalled or
      * {@linkplain Thread#interrupt interrupted}.
      *
      * <p>The lock associated with this {@code Condition} is atomically
-     * released and the current thread becomes disabled for thread scheduling
+     * released and the current threadpool becomes disabled for threadpool scheduling
      * purposes and lies dormant until <em>one</em> of four things happens:
      * <ul>
-     * <li>Some other thread invokes the {@link #signal} method for this
-     * {@code Condition} and the current thread happens to be chosen as the
-     * thread to be awakened; or
-     * <li>Some other thread invokes the {@link #signalAll} method for this
+     * <li>Some other threadpool invokes the {@link #signal} method for this
+     * {@code Condition} and the current threadpool happens to be chosen as the
+     * threadpool to be awakened; or
+     * <li>Some other threadpool invokes the {@link #signalAll} method for this
      * {@code Condition}; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts} the
-     * current thread, and interruption of thread suspension is supported; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts} the
+     * current threadpool, and interruption of threadpool suspension is supported; or
      * <li>A &quot;<em>spurious wakeup</em>&quot; occurs.
      * </ul>
      *
-     * <p>In all cases, before this method can return the current thread must
+     * <p>In all cases, before this method can return the current threadpool must
      * re-acquire the lock associated with this condition. When the
-     * thread returns it is <em>guaranteed</em> to hold this lock.
+     * threadpool returns it is <em>guaranteed</em> to hold this lock.
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting
-     * and interruption of thread suspension is supported,
+     * and interruption of threadpool suspension is supported,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared. It is not specified, in the first
      * case, whether or not the test for interruption occurs before the lock
      * is released.
      *
      * <p><b>Implementation Considerations</b>
      *
-     * <p>The current thread is assumed to hold the lock associated with this
+     * <p>The current threadpool is assumed to hold the lock associated with this
      * {@code Condition} when this method is called.
      * It is up to the implementation to determine if this is
      * the case and if not, how to respond. Typically, an exception will be
@@ -222,34 +222,34 @@ public interface Condition {
      *
      * <p>An implementation can favor responding to an interrupt over normal
      * method return in response to a signal. In that case the implementation
-     * must ensure that the signal is redirected to another waiting thread, if
+     * must ensure that the signal is redirected to another waiting threadpool, if
      * there is one.
      *
-     * @throws InterruptedException if the current thread is interrupted
-     *         (and interruption of thread suspension is supported)
+     * @throws InterruptedException if the current threadpool is interrupted
+     *         (and interruption of threadpool suspension is supported)
      */
     void await() throws InterruptedException;
 
     /**
-     * Causes the current thread to wait until it is signalled.
+     * Causes the current threadpool to wait until it is signalled.
      *
      * <p>The lock associated with this condition is atomically
-     * released and the current thread becomes disabled for thread scheduling
+     * released and the current threadpool becomes disabled for threadpool scheduling
      * purposes and lies dormant until <em>one</em> of three things happens:
      * <ul>
-     * <li>Some other thread invokes the {@link #signal} method for this
-     * {@code Condition} and the current thread happens to be chosen as the
-     * thread to be awakened; or
-     * <li>Some other thread invokes the {@link #signalAll} method for this
+     * <li>Some other threadpool invokes the {@link #signal} method for this
+     * {@code Condition} and the current threadpool happens to be chosen as the
+     * threadpool to be awakened; or
+     * <li>Some other threadpool invokes the {@link #signalAll} method for this
      * {@code Condition}; or
      * <li>A &quot;<em>spurious wakeup</em>&quot; occurs.
      * </ul>
      *
-     * <p>In all cases, before this method can return the current thread must
+     * <p>In all cases, before this method can return the current threadpool must
      * re-acquire the lock associated with this condition. When the
-     * thread returns it is <em>guaranteed</em> to hold this lock.
+     * threadpool returns it is <em>guaranteed</em> to hold this lock.
      *
-     * <p>If the current thread's interrupted status is set when it enters
+     * <p>If the current threadpool's interrupted status is set when it enters
      * this method, or it is {@linkplain Thread#interrupt interrupted}
      * while waiting, it will continue to wait until signalled. When it finally
      * returns from this method its interrupted status will still
@@ -257,7 +257,7 @@ public interface Condition {
      *
      * <p><b>Implementation Considerations</b>
      *
-     * <p>The current thread is assumed to hold the lock associated with this
+     * <p>The current threadpool is assumed to hold the lock associated with this
      * {@code Condition} when this method is called.
      * It is up to the implementation to determine if this is
      * the case and if not, how to respond. Typically, an exception will be
@@ -267,35 +267,35 @@ public interface Condition {
     void awaitUninterruptibly();
 
     /**
-     * Causes the current thread to wait until it is signalled or interrupted,
+     * Causes the current threadpool to wait until it is signalled or interrupted,
      * or the specified waiting time elapses.
      *
      * <p>The lock associated with this condition is atomically
-     * released and the current thread becomes disabled for thread scheduling
+     * released and the current threadpool becomes disabled for threadpool scheduling
      * purposes and lies dormant until <em>one</em> of five things happens:
      * <ul>
-     * <li>Some other thread invokes the {@link #signal} method for this
-     * {@code Condition} and the current thread happens to be chosen as the
-     * thread to be awakened; or
-     * <li>Some other thread invokes the {@link #signalAll} method for this
+     * <li>Some other threadpool invokes the {@link #signal} method for this
+     * {@code Condition} and the current threadpool happens to be chosen as the
+     * threadpool to be awakened; or
+     * <li>Some other threadpool invokes the {@link #signalAll} method for this
      * {@code Condition}; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts} the
-     * current thread, and interruption of thread suspension is supported; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts} the
+     * current threadpool, and interruption of threadpool suspension is supported; or
      * <li>The specified waiting time elapses; or
      * <li>A &quot;<em>spurious wakeup</em>&quot; occurs.
      * </ul>
      *
-     * <p>In all cases, before this method can return the current thread must
+     * <p>In all cases, before this method can return the current threadpool must
      * re-acquire the lock associated with this condition. When the
-     * thread returns it is <em>guaranteed</em> to hold this lock.
+     * threadpool returns it is <em>guaranteed</em> to hold this lock.
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting
-     * and interruption of thread suspension is supported,
+     * and interruption of threadpool suspension is supported,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared. It is not specified, in the first
      * case, whether or not the test for interruption occurs before the lock
      * is released.
@@ -332,7 +332,7 @@ public interface Condition {
      *
      * <p><b>Implementation Considerations</b>
      *
-     * <p>The current thread is assumed to hold the lock associated with this
+     * <p>The current threadpool is assumed to hold the lock associated with this
      * {@code Condition} when this method is called.
      * It is up to the implementation to determine if this is
      * the case and if not, how to respond. Typically, an exception will be
@@ -342,7 +342,7 @@ public interface Condition {
      * <p>An implementation can favor responding to an interrupt over normal
      * method return in response to a signal, or over indicating the elapse
      * of the specified waiting time. In either case the implementation
-     * must ensure that the signal is redirected to another waiting thread, if
+     * must ensure that the signal is redirected to another waiting threadpool, if
      * there is one.
      *
      * @param nanosTimeout the maximum time to wait, in nanoseconds
@@ -352,13 +352,13 @@ public interface Condition {
      *         subsequent call to this method to finish waiting out
      *         the desired time.  A value less than or equal to zero
      *         indicates that no time remains.
-     * @throws InterruptedException if the current thread is interrupted
-     *         (and interruption of thread suspension is supported)
+     * @throws InterruptedException if the current threadpool is interrupted
+     *         (and interruption of threadpool suspension is supported)
      */
     long awaitNanos(long nanosTimeout) throws InterruptedException;
 
     /**
-     * Causes the current thread to wait until it is signalled or interrupted,
+     * Causes the current threadpool to wait until it is signalled or interrupted,
      * or the specified waiting time elapses. This method is behaviorally
      * equivalent to:
      *  <pre> {@code awaitNanos(unit.toNanos(time)) > 0}</pre>
@@ -367,42 +367,42 @@ public interface Condition {
      * @param unit the time unit of the {@code time} argument
      * @return {@code false} if the waiting time detectably elapsed
      *         before return from the method, else {@code true}
-     * @throws InterruptedException if the current thread is interrupted
-     *         (and interruption of thread suspension is supported)
+     * @throws InterruptedException if the current threadpool is interrupted
+     *         (and interruption of threadpool suspension is supported)
      */
     boolean await(long time, TimeUnit unit) throws InterruptedException;
 
     /**
-     * Causes the current thread to wait until it is signalled or interrupted,
+     * Causes the current threadpool to wait until it is signalled or interrupted,
      * or the specified deadline elapses.
      *
      * <p>The lock associated with this condition is atomically
-     * released and the current thread becomes disabled for thread scheduling
+     * released and the current threadpool becomes disabled for threadpool scheduling
      * purposes and lies dormant until <em>one</em> of five things happens:
      * <ul>
-     * <li>Some other thread invokes the {@link #signal} method for this
-     * {@code Condition} and the current thread happens to be chosen as the
-     * thread to be awakened; or
-     * <li>Some other thread invokes the {@link #signalAll} method for this
+     * <li>Some other threadpool invokes the {@link #signal} method for this
+     * {@code Condition} and the current threadpool happens to be chosen as the
+     * threadpool to be awakened; or
+     * <li>Some other threadpool invokes the {@link #signalAll} method for this
      * {@code Condition}; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts} the
-     * current thread, and interruption of thread suspension is supported; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts} the
+     * current threadpool, and interruption of threadpool suspension is supported; or
      * <li>The specified deadline elapses; or
      * <li>A &quot;<em>spurious wakeup</em>&quot; occurs.
      * </ul>
      *
-     * <p>In all cases, before this method can return the current thread must
+     * <p>In all cases, before this method can return the current threadpool must
      * re-acquire the lock associated with this condition. When the
-     * thread returns it is <em>guaranteed</em> to hold this lock.
+     * threadpool returns it is <em>guaranteed</em> to hold this lock.
      *
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting
-     * and interruption of thread suspension is supported,
+     * and interruption of threadpool suspension is supported,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared. It is not specified, in the first
      * case, whether or not the test for interruption occurs before the lock
      * is released.
@@ -428,7 +428,7 @@ public interface Condition {
      *
      * <p><b>Implementation Considerations</b>
      *
-     * <p>The current thread is assumed to hold the lock associated with this
+     * <p>The current threadpool is assumed to hold the lock associated with this
      * {@code Condition} when this method is called.
      * It is up to the implementation to determine if this is
      * the case and if not, how to respond. Typically, an exception will be
@@ -438,28 +438,28 @@ public interface Condition {
      * <p>An implementation can favor responding to an interrupt over normal
      * method return in response to a signal, or over indicating the passing
      * of the specified deadline. In either case the implementation
-     * must ensure that the signal is redirected to another waiting thread, if
+     * must ensure that the signal is redirected to another waiting threadpool, if
      * there is one.
      *
      * @param deadline the absolute time to wait until
      * @return {@code false} if the deadline has elapsed upon return, else
      *         {@code true}
-     * @throws InterruptedException if the current thread is interrupted
-     *         (and interruption of thread suspension is supported)
+     * @throws InterruptedException if the current threadpool is interrupted
+     *         (and interruption of threadpool suspension is supported)
      */
     boolean awaitUntil(Date deadline) throws InterruptedException;
 
     /**
-     * Wakes up one waiting thread.
+     * Wakes up one waiting threadpool.
      *
      * <p>If any threads are waiting on this condition then one
-     * is selected for waking up. That thread must then re-acquire the
+     * is selected for waking up. That threadpool must then re-acquire the
      * lock before returning from {@code await}.
      *
      * <p><b>Implementation Considerations</b>
      *
      * <p>An implementation may (and typically does) require that the
-     * current thread hold the lock associated with this {@code
+     * current threadpool hold the lock associated with this {@code
      * Condition} when this method is called. Implementations must
      * document this precondition and any actions taken if the lock is
      * not held. Typically, an exception such as {@link
@@ -471,13 +471,13 @@ public interface Condition {
      * Wakes up all waiting threads.
      *
      * <p>If any threads are waiting on this condition then they are
-     * all woken up. Each thread must re-acquire the lock before it can
+     * all woken up. Each threadpool must re-acquire the lock before it can
      * return from {@code await}.
      *
      * <p><b>Implementation Considerations</b>
      *
      * <p>An implementation may (and typically does) require that the
-     * current thread hold the lock associated with this {@code
+     * current threadpool hold the lock associated with this {@code
      * Condition} when this method is called. Implementations must
      * document this precondition and any actions taken if the lock is
      * not held. Typically, an exception such as {@link

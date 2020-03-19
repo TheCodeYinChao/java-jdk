@@ -244,7 +244,7 @@ public class ServerNotifForwarder {
                 set.toArray(candidates);
             }
             // We don't synchronize on targetedNotifs, because it is a local
-            // variable of our caller and no other thread can see it.
+            // variable of our caller and no other threadpool can see it.
             for (IdAndFilter idaf : candidates) {
                 final NotificationFilter nf = idaf.getFilter();
                 if (nf == null || nf.isNotificationEnabled(notif)) {

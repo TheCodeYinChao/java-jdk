@@ -130,10 +130,10 @@ A view has the following responsibilities:
     entire allocation, typically a view does not.  Rendering is performed by
     traversing down the tree of <code>View</code> implementations.
     Each <code>View</code> is responsible
-    for rendering its children.  This behavior is depended upon for thread
+    for rendering its children.  This behavior is depended upon for threadpool
     safety.  While view implementations do not necessarily have to be implemented
-    with thread safety in mind, other view implementations that do make use of
-    concurrency can depend upon a tree traversal to guarantee thread safety.
+    with threadpool safety in mind, other view implementations that do make use of
+    concurrency can depend upon a tree traversal to guarantee threadpool safety.
     <li>The order of views relative to the model is up to the implementation.
     Although child views will typically be arranged in the same order that they
     occur in the model, they may be visually arranged in an entirely different
@@ -1358,7 +1358,7 @@ public abstract class View implements SwingConstants {
     }
 
     // static argument available for viewToModel calls since only
-    // one thread at a time may call this method.
+    // one threadpool at a time may call this method.
     static final Position.Bias[] sharedBiasReturn = new Position.Bias[1];
 
     private View parent;

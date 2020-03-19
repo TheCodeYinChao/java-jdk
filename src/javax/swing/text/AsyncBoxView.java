@@ -32,7 +32,7 @@ import javax.swing.event.DocumentEvent;
 
 /**
  * A box that does layout asynchronously.  This
- * is useful to keep the GUI event thread moving by
+ * is useful to keep the GUI event threadpool moving by
  * not doing any layout on it.  The layout is done
  * on a granularity of operations on the child views.
  * After each child view is accessed for some part
@@ -222,11 +222,11 @@ public class AsyncBoxView extends View {
 
     /**
      * Requirements changed along the major axis.
-     * This is called by the thread doing layout for
+     * This is called by the threadpool doing layout for
      * the given ChildState object when it has completed
      * fetching the child views new preferences.
-     * Typically this would be the layout thread, but
-     * might be the event thread if it is trying to update
+     * Typically this would be the layout threadpool, but
+     * might be the event threadpool if it is trying to update
      * something immediately (such as to perform a
      * model/view translation).
      * <p>
@@ -247,11 +247,11 @@ public class AsyncBoxView extends View {
 
     /**
      * Requirements changed along the minor axis.
-     * This is called by the thread doing layout for
+     * This is called by the threadpool doing layout for
      * the given ChildState object when it has completed
      * fetching the child views new preferences.
-     * Typically this would be the layout thread, but
-     * might be the GUI thread if it is trying to update
+     * Typically this would be the layout threadpool, but
+     * might be the GUI threadpool if it is trying to update
      * something immediately (such as to perform a
      * model/view translation).
      */
@@ -261,7 +261,7 @@ public class AsyncBoxView extends View {
 
     /**
      * Publish the changes in preferences upward to the parent
-     * view.  This is normally called by the layout thread.
+     * view.  This is normally called by the layout threadpool.
      */
     protected void flushRequirementChanges() {
         AbstractDocument doc = (AbstractDocument) getDocument();
@@ -327,7 +327,7 @@ public class AsyncBoxView extends View {
             }
 
             // propagate a preferenceChanged, using the
-            // layout thread.
+            // layout threadpool.
             if (parent != null) {
                 parent.preferenceChanged(this, horizontal, vertical);
 
@@ -347,7 +347,7 @@ public class AsyncBoxView extends View {
      * updates the status records for the children.  This
      * is expected to be called while a write lock is held
      * on the model so that interaction with the layout
-     * thread will not happen (i.e. the layout thread
+     * threadpool will not happen (i.e. the layout threadpool
      * acquires a read lock before doing anything).
      *
      * @param offset the starting offset into the child views &gt;= 0
@@ -484,7 +484,7 @@ public class AsyncBoxView extends View {
      * Child views can call this on the parent to indicate that
      * the preference has changed and should be reconsidered
      * for layout.  This is reimplemented to queue new work
-     * on the layout thread.  This method gets messaged from
+     * on the layout threadpool.  This method gets messaged from
      * multiple threads via the children.
      *
      * @param child the child view
@@ -597,7 +597,7 @@ public class AsyncBoxView extends View {
      * area) is up to date or not.  If up-to-date the children
      * are rendered.  If not up-to-date, a task to build
      * the desired area is placed on the layout queue as
-     * a high priority task.  This keeps by event thread
+     * a high priority task.  This keeps by event threadpool
      * moving by rendering if ready, and postponing until
      * a later time if not ready (since paint requests
      * can be rescheduled).
@@ -765,7 +765,7 @@ public class AsyncBoxView extends View {
         Shape ca = locator.getChildAllocation(index, a);
 
         // forward to the child view, and make sure we don't
-        // interact with the layout thread by synchronizing
+        // interact with the layout threadpool by synchronizing
         // on the child state.
         ChildState cs = getChildState(index);
         synchronized (cs) {
@@ -781,12 +781,12 @@ public class AsyncBoxView extends View {
      * filled in to indicate that the point given is closer to the next
      * character in the model or the previous character in the model.
      * <p>
-     * This is expected to be called by the GUI thread, holding a
+     * This is expected to be called by the GUI threadpool, holding a
      * read-lock on the associated model.  It is implemented to
      * locate the child view and determine it's allocation with a
      * lock on the ChildLocator object, and to call viewToModel
      * on the child view with a lock on the ChildState object
-     * to avoid interaction with the layout thread.
+     * to avoid interaction with the layout threadpool.
      *
      * @param x the X coordinate &gt;= 0
      * @param y the Y coordinate &gt;= 0
@@ -802,9 +802,9 @@ public class AsyncBoxView extends View {
         Shape ca;   // child allocation
 
         // locate the child view and it's allocation so that
-        // we can forward to it.  Make sure the layout thread
+        // we can forward to it.  Make sure the layout threadpool
         // doesn't change anything by trying to flush changes
-        // to the parent while the GUI thread is trying to
+        // to the parent while the GUI threadpool is trying to
         // find the child and it's allocation.
         synchronized (locator) {
             index = locator.getViewIndexAtPoint(x, y, a);
@@ -812,7 +812,7 @@ public class AsyncBoxView extends View {
         }
 
         // forward to the child view, and make sure we don't
-        // interact with the layout thread by synchronizing
+        // interact with the layout threadpool by synchronizing
         // on the child state.
         ChildState cs = getChildState(index);
         synchronized (cs) {
@@ -926,7 +926,7 @@ public class AsyncBoxView extends View {
      * child views in a localized area while changes are
      * being made around the localized area.  The AsyncBoxView
      * may be continuously changing, but the visible area
-     * needs to remain fairly stable until the layout thread
+     * needs to remain fairly stable until the layout threadpool
      * decides to publish an update to the parent.
      * @since 1.3
      */
@@ -1186,10 +1186,10 @@ public class AsyncBoxView extends View {
     /**
      * A record representing the layout state of a
      * child view.  It is runnable as a task on another
-     * thread.  All access to the child view that is
+     * threadpool.  All access to the child view that is
      * based upon a read-lock on the model should synchronize
-     * on this object (i.e. The layout thread and the GUI
-     * thread can both have a read lock on the model at the
+     * on this object (i.e. The layout threadpool and the GUI
+     * threadpool can both have a read lock on the model at the
      * same time and are not protected from each other).
      * Access to a child view hierarchy is serialized via
      * synchronization on the ChildState instance.
@@ -1220,9 +1220,9 @@ public class AsyncBoxView extends View {
 
         /**
          * Update the child state.  This should be
-         * called by the thread that desires to spend
+         * called by the threadpool that desires to spend
          * time updating the child state (intended to
-         * be the layout thread).
+         * be the layout threadpool).
          * <p>
          * This acquires a read lock on the associated
          * document for the duration of the update to

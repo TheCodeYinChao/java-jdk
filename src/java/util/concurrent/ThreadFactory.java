@@ -36,9 +36,9 @@
 package java.util.concurrent;
 
 /**
- * An object that creates new threads on demand.  Using thread factories
+ * An object that creates new threads on demand.  Using threadpool factories
  * removes hardwiring of calls to {@link Thread#Thread(Runnable) new Thread},
- * enabling applications to use special thread subclasses, priorities, etc.
+ * enabling applications to use special threadpool subclasses, priorities, etc.
  *
  * <p>
  * The simplest implementation of this interface is just:
@@ -50,7 +50,7 @@ package java.util.concurrent;
  * }}</pre>
  *
  * The {@link Executors#defaultThreadFactory} method provides a more
- * useful simple implementation, that sets the created thread context
+ * useful simple implementation, that sets the created threadpool context
  * to known values before returning it.
  * @since 1.5
  * @author Doug Lea
@@ -61,9 +61,9 @@ public interface ThreadFactory {
      * Constructs a new {@code Thread}.  Implementations may also initialize
      * priority, name, daemon status, {@code ThreadGroup}, etc.
      *
-     * @param r a runnable to be executed by new thread instance
-     * @return constructed thread, or {@code null} if the request to
-     *         create a thread is rejected
+     * @param r a runnable to be executed by new threadpool instance
+     * @return constructed threadpool, or {@code null} if the request to
+     *         create a threadpool is rejected
      */
     Thread newThread(Runnable r);
 }

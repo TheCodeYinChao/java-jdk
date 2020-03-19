@@ -87,7 +87,7 @@ class ApplicationShutdownHooks {
         return hooks.remove(hook) != null;
     }
 
-    /* Iterates over all application hooks creating a new thread for each
+    /* Iterates over all application hooks creating a new threadpool for each
      * to run in. Hooks are run concurrently and this method waits for
      * them to finish.
      */

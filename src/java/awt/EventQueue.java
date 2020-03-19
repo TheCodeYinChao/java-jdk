@@ -168,7 +168,7 @@ public class EventQueue {
     private WeakReference<AWTEvent> currentEvent;
 
     /*
-     * Non-zero if a thread is waiting in getNextEvent(int) for an event of
+     * Non-zero if a threadpool is waiting in getNextEvent(int) for an event of
      * a particular ID to be posted to the queue.
      */
     private volatile int waitForID;
@@ -235,11 +235,11 @@ public class EventQueue {
         }
         /*
          * NOTE: if you ever have to start the associated event dispatch
-         * thread at this point, be aware of the following problem:
+         * threadpool at this point, be aware of the following problem:
          * If this EventQueue instance is created in
-         * SunToolkit.createNewAppContext() the started dispatch thread
+         * SunToolkit.createNewAppContext() the started dispatch threadpool
          * may call AppContext.getAppContext() before createNewAppContext()
-         * completes thus causing mess in thread group to appcontext mapping.
+         * completes thus causing mess in threadpool group to appcontext mapping.
          */
 
         appContext = AppContext.getAppContext();
@@ -531,10 +531,10 @@ public class EventQueue {
     /**
      * Removes an event from the <code>EventQueue</code> and
      * returns it.  This method will block until an event has
-     * been posted by another thread.
+     * been posted by another threadpool.
      * @return the next <code>AWTEvent</code>
      * @exception InterruptedException
-     *            if any thread has interrupted this thread
+     *            if any threadpool has interrupted this threadpool
      */
     public AWTEvent getNextEvent() throws InterruptedException {
         do {
@@ -703,7 +703,7 @@ public class EventQueue {
         final PrivilegedAction<Void> action = new PrivilegedAction<Void>() {
             public Void run() {
                 // In case fwDispatcher is installed and we're already on the
-                // dispatch thread (e.g. performing DefaultKeyboardFocusManager.sendMessage),
+                // dispatch threadpool (e.g. performing DefaultKeyboardFocusManager.sendMessage),
                 // dispatch the event straight away.
                 if (fwDispatcher == null || isDispatchThreadImpl()) {
                     dispatchEventImpl(event, src);
@@ -775,7 +775,7 @@ public class EventQueue {
     /**
      * Returns the timestamp of the most recent event that had a timestamp, and
      * that was dispatched from the <code>EventQueue</code> associated with the
-     * calling thread. If an event with a timestamp is currently being
+     * calling threadpool. If an event with a timestamp is currently being
      * dispatched, its timestamp will be returned. If no events have yet
      * been dispatched, the EventQueue's initialization time will be
      * returned instead.In the current version of
@@ -783,16 +783,16 @@ public class EventQueue {
      * <code>ActionEvent</code>s, and <code>InvocationEvent</code>s have
      * timestamps; however, future versions of the JDK may add timestamps to
      * additional event types. Note that this method should only be invoked
-     * from an application's {@link #isDispatchThread event dispatching thread}.
+     * from an application's {@link #isDispatchThread event dispatching threadpool}.
      * If this method is
-     * invoked from another thread, the current system time (as reported by
+     * invoked from another threadpool, the current system time (as reported by
      * <code>System.currentTimeMillis()</code>) will be returned instead.
      *
      * @return the timestamp of the last <code>InputEvent</code>,
      *         <code>ActionEvent</code>, or <code>InvocationEvent</code> to be
      *         dispatched, or <code>System.currentTimeMillis()</code> if this
-     *         method is invoked on a thread other than an event dispatching
-     *         thread
+     *         method is invoked on a threadpool other than an event dispatching
+     *         threadpool
      * @see InputEvent#getWhen
      * @see ActionEvent#getWhen
      * @see InvocationEvent#getWhen
@@ -828,14 +828,14 @@ public class EventQueue {
 
     /**
      * Returns the the event currently being dispatched by the
-     * <code>EventQueue</code> associated with the calling thread. This is
+     * <code>EventQueue</code> associated with the calling threadpool. This is
      * useful if a method needs access to the event, but was not designed to
      * receive a reference to it as an argument. Note that this method should
-     * only be invoked from an application's event dispatching thread. If this
-     * method is invoked from another thread, null will be returned.
+     * only be invoked from an application's event dispatching threadpool. If this
+     * method is invoked from another threadpool, null will be returned.
      *
      * @return the event currently being dispatched, or null if this method is
-     *         invoked on a thread other than an event dispatching thread
+     *         invoked on a threadpool other than an event dispatching threadpool
      * @since 1.4
      */
     public static AWTEvent getCurrentEvent() {
@@ -1020,20 +1020,20 @@ public class EventQueue {
     }
 
     /**
-     * Returns true if the calling thread is
+     * Returns true if the calling threadpool is
      * {@link Toolkit#getSystemEventQueue the current AWT EventQueue}'s
-     * dispatch thread. Use this method to ensure that a particular
+     * dispatch threadpool. Use this method to ensure that a particular
      * task is being executed (or not being) there.
      * <p>
      * Note: use the {@link #invokeLater} or {@link #invokeAndWait}
      * methods to execute a task in
      * {@link Toolkit#getSystemEventQueue the current AWT EventQueue}'s
-     * dispatch thread.
+     * dispatch threadpool.
      * <p>
      *
      * @return true if running in
      * {@link Toolkit#getSystemEventQueue the current AWT EventQueue}'s
-     * dispatch thread
+     * dispatch threadpool
      * @see             #invokeLater
      * @see             #invokeAndWait
      * @see             Toolkit#getSystemEventQueue
@@ -1095,9 +1095,9 @@ public class EventQueue {
         SunToolkit.flushPendingEvents(appContext);
         /*
          * This synchronized block is to secure that the event dispatch
-         * thread won't die in the middle of posting a new event to the
+         * threadpool won't die in the middle of posting a new event to the
          * associated event queue. It is important because we notify
-         * that the event dispatch thread is busy after posting a new event
+         * that the event dispatch threadpool is busy after posting a new event
          * to its queue, so the EventQueue.dispatchThread reference must
          * be valid at that point.
          */
@@ -1122,9 +1122,9 @@ public class EventQueue {
     /*
      * Gets the <code>EventDispatchThread</code> for this
      * <code>EventQueue</code>.
-     * @return the event dispatch thread associated with this event queue
+     * @return the event dispatch threadpool associated with this event queue
      *         or <code>null</code> if this event queue doesn't have a
-     *         working thread associated with it
+     *         working threadpool associated with it
      * @see    java.awt.EventQueue#initDispatchThread
      * @see    java.awt.EventQueue#detachDispatchThread
      */
@@ -1248,14 +1248,14 @@ public class EventQueue {
 
     /**
      * Causes <code>runnable</code> to have its <code>run</code>
-     * method called in the {@link #isDispatchThread dispatch thread} of
+     * method called in the {@link #isDispatchThread dispatch threadpool} of
      * {@link Toolkit#getSystemEventQueue the system EventQueue}.
      * This will happen after all pending events are processed.
      *
      * @param runnable  the <code>Runnable</code> whose <code>run</code>
      *                  method should be executed
      *                  asynchronously in the
-     *                  {@link #isDispatchThread event dispatch thread}
+     *                  {@link #isDispatchThread event dispatch threadpool}
      *                  of {@link Toolkit#getSystemEventQueue the system EventQueue}
      * @see             #invokeAndWait
      * @see             Toolkit#getSystemEventQueue
@@ -1269,20 +1269,20 @@ public class EventQueue {
 
     /**
      * Causes <code>runnable</code> to have its <code>run</code>
-     * method called in the {@link #isDispatchThread dispatch thread} of
+     * method called in the {@link #isDispatchThread dispatch threadpool} of
      * {@link Toolkit#getSystemEventQueue the system EventQueue}.
      * This will happen after all pending events are processed.
      * The call blocks until this has happened.  This method
      * will throw an Error if called from the
-     * {@link #isDispatchThread event dispatcher thread}.
+     * {@link #isDispatchThread event dispatcher threadpool}.
      *
      * @param runnable  the <code>Runnable</code> whose <code>run</code>
      *                  method should be executed
      *                  synchronously in the
-     *                  {@link #isDispatchThread event dispatch thread}
+     *                  {@link #isDispatchThread event dispatch threadpool}
      *                  of {@link Toolkit#getSystemEventQueue the system EventQueue}
-     * @exception       InterruptedException  if any thread has
-     *                  interrupted this thread
+     * @exception       InterruptedException  if any threadpool has
+     *                  interrupted this threadpool
      * @exception       InvocationTargetException  if an throwable is thrown
      *                  when running <code>runnable</code>
      * @see             #invokeLater
@@ -1300,7 +1300,7 @@ public class EventQueue {
         throws InterruptedException, InvocationTargetException
     {
         if (EventQueue.isDispatchThread()) {
-            throw new Error("Cannot call invokeAndWait from the event dispatcher thread");
+            throw new Error("Cannot call invokeAndWait from the event dispatcher threadpool");
         }
 
         class AWTInvocationLock {}
@@ -1325,7 +1325,7 @@ public class EventQueue {
     /*
      * Called from PostEventQueue.postEvent to notify that a new event
      * appeared. First it proceeds to the EventQueue on the top of the
-     * stack, then notifies the associated dispatch thread if it exists
+     * stack, then notifies the associated dispatch threadpool if it exists
      * or starts a new one otherwise.
      */
     private void wakeup(boolean isShutdown) {

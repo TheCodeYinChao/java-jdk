@@ -95,7 +95,7 @@ import java.util.Objects;
  * Information about the local-time can be obtained using methods on the time-zone.
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @serial Document the delegation of this class in the serialized-form specification.
  * @param <D> the concrete type for the date of this date-time

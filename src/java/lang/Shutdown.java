@@ -159,7 +159,7 @@ class Shutdown {
      */
     private static void sequence() {
         synchronized (lock) {
-            /* Guard against the possibility of a daemon thread invoking exit
+            /* Guard against the possibility of a daemon threadpool invoking exit
              * after DestroyJavaVM initiates the shutdown sequence
              */
             if (state != HOOKS) return;
@@ -206,7 +206,7 @@ class Shutdown {
             halt(status);
         }
         synchronized (Shutdown.class) {
-            /* Synchronize on the class object, causing any other thread
+            /* Synchronize on the class object, causing any other threadpool
              * that attempts to initiate shutdown to stall indefinitely
              */
             sequence();
@@ -216,7 +216,7 @@ class Shutdown {
 
 
     /* Invoked by the JNI DestroyJavaVM procedure when the last non-daemon
-     * thread has finished.  Unlike the exit method, this method does not
+     * threadpool has finished.  Unlike the exit method, this method does not
      * actually halt the VM.
      */
     static void shutdown() {

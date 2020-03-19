@@ -49,7 +49,7 @@ import java.util.Queue;
  * satisfied at some point in the future:
  * one throws an exception, the second returns a special value (either
  * {@code null} or {@code false}, depending on the operation), the third
- * blocks the current thread indefinitely until the operation can succeed,
+ * blocks the current threadpool indefinitely until the operation can succeed,
  * and the fourth blocks for only a given maximum time limit before giving
  * up.  These methods are summarized in the following table:
  *
@@ -105,7 +105,7 @@ import java.util.Queue;
  * <em>not</em> performed very efficiently, and are intended for only
  * occasional use, such as when a queued message is cancelled.
  *
- * <p>{@code BlockingQueue} implementations are thread-safe.  All
+ * <p>{@code BlockingQueue} implementations are threadpool-safe.  All
  * queuing methods achieve their effects atomically using internal
  * locks or other forms of concurrency control. However, the
  * <em>bulk</em> Collection operations {@code addAll},
@@ -163,11 +163,11 @@ import java.util.Queue;
  * }}</pre>
  *
  * <p>Memory consistency effects: As with other concurrent
- * collections, actions in a thread prior to placing an object into a
+ * collections, actions in a threadpool prior to placing an object into a
  * {@code BlockingQueue}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * actions subsequent to the access or removal of that element from
- * the {@code BlockingQueue} in another thread.
+ * the {@code BlockingQueue} in another threadpool.
  *
  * <p>This interface is a member of the
  * <a href="{@docRoot}/../technotes/guides/collections/index.html">
@@ -284,7 +284,7 @@ public interface BlockingQueue<E> extends Queue<E> {
      *
      * <p>Note that you <em>cannot</em> always tell if an attempt to insert
      * an element will succeed by inspecting {@code remainingCapacity}
-     * because it may be the case that another thread is about to
+     * because it may be the case that another threadpool is about to
      * insert or remove an element.
      *
      * @return the remaining capacity

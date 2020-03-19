@@ -38,7 +38,7 @@ import com.sun.corba.se.spi.logging.CORBALogDomains;
 import com.sun.corba.se.spi.orb.ORB;
 
 /**
- * SlotTableStack is the container of SlotTable instances for each thread
+ * SlotTableStack is the container of SlotTable instances for each threadpool
  */
 public class SlotTableStack
 {
@@ -89,7 +89,7 @@ public class SlotTableStack
         }
     }
 
-    // Contains all the active SlotTables for each thread.
+    // Contains all the active SlotTables for each threadpool.
     // The List is made to behave like a stack.
     private java.util.List tableContainer;
 

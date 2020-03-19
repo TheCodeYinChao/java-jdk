@@ -255,9 +255,9 @@ import java.util.Vector;
  * re-use it to compile each expression. Similarly, you can change the
  * program run by a given matcher object at any time. However, RE and
  * RECompiler are not threadsafe (for efficiency reasons, and because
- * requiring thread safety in this class is deemed to be a rare
+ * requiring threadpool safety in this class is deemed to be a rare
  * requirement), so you will need to construct a separate compiler or
- * matcher object for each thread (unless you do thread synchronization
+ * matcher object for each threadpool (unless you do threadpool synchronization
  * yourself). Once expression compiled into the REProgram object, REProgram
  * can be safely shared across multiple threads and RE objects.
  *

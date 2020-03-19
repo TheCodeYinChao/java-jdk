@@ -81,7 +81,7 @@ import java.io.IOException;
  * Do not use <code>setVisible</code> directly on a tab component to make it visible,
  * use <code>setSelectedComponent</code> or <code>setSelectedIndex</code> methods instead.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

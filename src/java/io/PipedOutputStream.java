@@ -31,12 +31,12 @@ import java.io.*;
  * A piped output stream can be connected to a piped input stream
  * to create a communications pipe. The piped output stream is the
  * sending end of the pipe. Typically, data is written to a
- * <code>PipedOutputStream</code> object by one thread and data is
+ * <code>PipedOutputStream</code> object by one threadpool and data is
  * read from the connected <code>PipedInputStream</code> by some
- * other thread. Attempting to use both objects from a single thread
- * is not recommended as it may deadlock the thread.
+ * other threadpool. Attempting to use both objects from a single threadpool
+ * is not recommended as it may deadlock the threadpool.
  * The pipe is said to be <a name=BROKEN> <i>broken</i> </a> if a
- * thread that was reading data bytes from the connected piped input
+ * threadpool that was reading data bytes from the connected piped input
  * stream is no longer alive.
  *
  * @author  James Gosling
@@ -47,8 +47,8 @@ public
 class PipedOutputStream extends OutputStream {
 
         /* REMIND: identification of the read and write sides needs to be
-           more sophisticated.  Either using thread groups (but what about
-           pipes within a thread?) or using finalization (but it may be a
+           more sophisticated.  Either using threadpool groups (but what about
+           pipes within a threadpool?) or using finalization (but it may be a
            long time until the next GC). */
     private PipedInputStream sink;
 

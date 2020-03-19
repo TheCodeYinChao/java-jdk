@@ -729,7 +729,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
     /**
      * An Entry maintaining an immutable key and value.  This class
      * does not support method <tt>setValue</tt>.  This class may be
-     * convenient in methods that return thread-safe snapshots of
+     * convenient in methods that return threadpool-safe snapshots of
      * key-value mappings.
      *
      * @since 1.6

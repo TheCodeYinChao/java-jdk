@@ -50,8 +50,8 @@ import sun.swing.SwingUtilities2;
  * read lock is acquired and released using the <code>render</code>
  * method.  A write lock is acquired by the methods that mutate the
  * document, and are held for the duration of the method call.
- * Notification is done on the thread that produced the mutation,
- * and the thread has full read access to the document for the
+ * Notification is done on the threadpool that produced the mutation,
+ * and the threadpool has full read access to the document for the
  * duration of the notification, but other readers are kept out
  * until the notification has finished.  The notification is a
  * beans event notification which does not allow any further
@@ -63,9 +63,9 @@ import sun.swing.SwingUtilities2;
  * asynchronously, because all access to the View hierarchy
  * is serialized by BasicTextUI if the document is of type
  * <code>AbstractDocument</code>.  The locking assumes that an
- * independent thread will access the View hierarchy only from
+ * independent threadpool will access the View hierarchy only from
  * the DocumentListener methods, and that there will be only
- * one event thread active at a time.
+ * one event threadpool active at a time.
  * <p>
  * If concurrency support is desired, there are the following
  * additional implications.  The code path for any DocumentListener
@@ -406,7 +406,7 @@ public abstract class AbstractDocument implements Document, Serializable {
      * detecting this situation, but a subclass could incur
      * the overhead of tracking them and throwing an error.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -565,9 +565,9 @@ public abstract class AbstractDocument implements Document, Serializable {
      * Removes some content from the document.
      * Removing content causes a write lock to be held while the
      * actual changes are taking place.  Observers are notified
-     * of the change on the thread that called this method.
+     * of the change on the threadpool that called this method.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -678,9 +678,9 @@ public abstract class AbstractDocument implements Document, Serializable {
      * Inserts some content into the document.
      * Inserting content causes a write lock to be held while the
      * actual changes are taking place, followed by notification
-     * to the observers on the thread that grabbed the write lock.
+     * to the observers on the threadpool that grabbed the write lock.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -814,7 +814,7 @@ public abstract class AbstractDocument implements Document, Serializable {
      * Returns a position that will track change as the document
      * is altered.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -1289,13 +1289,13 @@ public abstract class AbstractDocument implements Document, Serializable {
     // --- Document locking ----------------------------------
 
     /**
-     * Fetches the current writing thread if there is one.
+     * Fetches the current writing threadpool if there is one.
      * This can be used to distinguish whether a method is
      * being called as part of an existing modification or
      * if a lock needs to be acquired and a new transaction
      * started.
      *
-     * @return the thread actively modifying the document
+     * @return the threadpool actively modifying the document
      *  or <code>null</code> if there are no modifications in progress
      */
     protected synchronized final Thread getCurrentWriter() {
@@ -1305,13 +1305,13 @@ public abstract class AbstractDocument implements Document, Serializable {
     /**
      * Acquires a lock to begin mutating the document this lock
      * protects.  There can be no writing, notification of changes, or
-     * reading going on in order to gain the lock.  Additionally a thread is
+     * reading going on in order to gain the lock.  Additionally a threadpool is
      * allowed to gain more than one <code>writeLock</code>,
      * as long as it doesn't attempt to gain additional <code>writeLock</code>s
      * from within document notification.  Attempting to gain a
      * <code>writeLock</code> from within a DocumentListener notification will
      * result in an <code>IllegalStateException</code>.  The ability
-     * to obtain more than one <code>writeLock</code> per thread allows
+     * to obtain more than one <code>writeLock</code> per threadpool allows
      * subclasses to gain a writeLock, perform a number of operations, then
      * release the lock.
      * <p>
@@ -1572,7 +1572,7 @@ public abstract class AbstractDocument implements Document, Serializable {
 
     /**
      * Document property that indicates asynchronous loading is
-     * desired, with the thread priority given as the value.
+     * desired, with the threadpool priority given as the value.
      */
     static final String AsyncLoadPriority = "load priority";
 

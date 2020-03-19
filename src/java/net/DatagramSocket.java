@@ -64,7 +64,7 @@ import java.security.PrivilegedExceptionAction;
  * @since JDK1.0
  */
 public
-class DatagramSocket implements java.io.Closeable {
+class DatagramSocket implements java.io.Closeable { //udp
     /**
      * Various states of this socket.
      */
@@ -1217,7 +1217,7 @@ class DatagramSocket implements java.io.Closeable {
     /**
      * Closes this datagram socket.
      * <p>
-     * Any thread currently blocked in {@link #receive} upon this socket
+     * Any threadpool currently blocked in {@link #receive} upon this socket
      * will throw a {@link SocketException}.
      *
      * <p> If this socket has an associated channel then the channel is closed

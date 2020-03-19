@@ -40,7 +40,7 @@ import java.util.*;
  * <h3> Thread safety </h3>
  *
  * A SerialRef is not safe for use by multiple concurrent threads.  If a
- * SerialRef is to be used by more than one thread then access to the SerialRef
+ * SerialRef is to be used by more than one threadpool then access to the SerialRef
  * should be controlled by appropriate synchronization.
  *
  */

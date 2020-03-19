@@ -185,7 +185,7 @@ public class SynthTextFieldUI extends BasicTextFieldUI implements SynthUI {
      * Paints the specified component.
      * <p>This is routed to the {@link #paintSafely} method under
      * the guarantee that the model does not change from the view of this
-     * thread while it is rendering (if the associated model is
+     * threadpool while it is rendering (if the associated model is
      * derived from {@code AbstractDocument}).  This enables the
      * model to potentially be updated asynchronously.
      *

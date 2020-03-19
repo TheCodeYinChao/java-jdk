@@ -49,7 +49,7 @@ import javax.naming.*;
   *<p>
   * The <tt>getObjectInstance()</tt> method of an object factory may
   * be invoked multiple times, possibly using different parameters.
-  * The implementation is thread-safe.
+  * The implementation is threadpool-safe.
   *<p>
   * The mention of URL in the documentation for this class refers to
   * a URL string as defined by RFC 1738 and its related RFCs. It is
@@ -148,7 +148,7 @@ public interface ObjectFactory {
  * <code>name</code> parameter should be null.
  * If a factory uses <code>nameCtx</code> it should synchronize its use
  * against concurrent access, since context implementations are not
- * guaranteed to be thread-safe.
+ * guaranteed to be threadpool-safe.
  * <p>
  *
  * @param obj The possibly null object containing location or reference

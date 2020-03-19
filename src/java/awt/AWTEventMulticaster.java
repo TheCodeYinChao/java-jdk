@@ -34,7 +34,7 @@ import java.util.EventListener;
 
 
 /**
- * {@code AWTEventMulticaster} implements efficient and thread-safe multi-cast
+ * {@code AWTEventMulticaster} implements efficient and threadpool-safe multi-cast
  * event dispatching for the AWT events defined in the {@code java.awt.event}
  * package.
  * <p>

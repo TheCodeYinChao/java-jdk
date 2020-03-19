@@ -38,7 +38,7 @@ package java.util.concurrent;
 /**
  * An object that executes submitted {@link Runnable} tasks. This
  * interface provides a way of decoupling task submission from the
- * mechanics of how each task will be run, including details of thread
+ * mechanics of how each task will be run, including details of threadpool
  * use, scheduling, etc.  An {@code Executor} is normally used
  * instead of explicitly creating threads. For example, rather than
  * invoking {@code new Thread(new(RunnableTask())).start()} for each
@@ -54,7 +54,7 @@ package java.util.concurrent;
  * However, the {@code Executor} interface does not strictly
  * require that execution be asynchronous. In the simplest case, an
  * executor can run the submitted task immediately in the caller's
- * thread:
+ * threadpool:
  *
  *  <pre> {@code
  * class DirectExecutor implements Executor {
@@ -63,8 +63,8 @@ package java.util.concurrent;
  *   }
  * }}</pre>
  *
- * More typically, tasks are executed in some thread other
- * than the caller's thread.  The executor below spawns a new thread
+ * More typically, tasks are executed in some threadpool other
+ * than the caller's threadpool.  The executor below spawns a new threadpool
  * for each task.
  *
  *  <pre> {@code
@@ -114,13 +114,13 @@ package java.util.concurrent;
  * The {@code Executor} implementations provided in this package
  * implement {@link ExecutorService}, which is a more extensive
  * interface.  The {@link ThreadPoolExecutor} class provides an
- * extensible thread pool implementation. The {@link Executors} class
+ * extensible threadpool pool implementation. The {@link Executors} class
  * provides convenient factory methods for these Executors.
  *
- * <p>Memory consistency effects: Actions in a thread prior to
+ * <p>Memory consistency effects: Actions in a threadpool prior to
  * submitting a {@code Runnable} object to an {@code Executor}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
- * its execution begins, perhaps in another thread.
+ * its execution begins, perhaps in another threadpool.
  *
  * @since 1.5
  * @author Doug Lea
@@ -129,8 +129,8 @@ public interface Executor {
 
     /**
      * Executes the given command at some time in the future.  The command
-     * may execute in a new thread, in a pooled thread, or in the calling
-     * thread, at the discretion of the {@code Executor} implementation.
+     * may execute in a new threadpool, in a pooled threadpool, or in the calling
+     * threadpool, at the discretion of the {@code Executor} implementation.
      *
      * @param command the runnable task
      * @throws RejectedExecutionException if this task cannot be

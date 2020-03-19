@@ -53,7 +53,7 @@ public abstract class ClassValue<T> {
     /**
      * Computes the given class's derived value for this {@code ClassValue}.
      * <p>
-     * This method will be invoked within the first thread that accesses
+     * This method will be invoked within the first threadpool that accesses
      * the value with the {@link #get get} method.
      * <p>
      * Normally, this method is invoked at most once per class,
@@ -105,7 +105,7 @@ public abstract class ClassValue<T> {
         if (match(e))
             // invariant:  No false positive matches.  False negatives are OK if rare.
             // The key fact that makes this work: if this.version == e.version,
-            // then this thread has a right to observe (final) e.value.
+            // then this threadpool has a right to observe (final) e.value.
             return e.value();
         // The fast path can fail for any of these reasons:
         // 1. no entry has been computed yet
@@ -129,12 +129,12 @@ public abstract class ClassValue<T> {
      * uninitialized (or removed) states are numbered with even numbers,
      * while initialized (or re-initialized) states have odd numbers.
      * <p>
-     * When a thread {@code T} removes a class value in state {@code 2N},
+     * When a threadpool {@code T} removes a class value in state {@code 2N},
      * nothing happens, since the class value is already uninitialized.
      * Otherwise, the state is advanced atomically to {@code 2N+1}.
      * <p>
-     * When a thread {@code T} queries a class value in state {@code 2N},
-     * the thread first attempts to initialize the class value to state {@code 2N+1}
+     * When a threadpool {@code T} queries a class value in state {@code 2N},
+     * the threadpool first attempts to initialize the class value to state {@code 2N+1}
      * by invoking {@code computeValue} and installing the resulting value.
      * <p>
      * When {@code T} attempts to install the newly computed value,
@@ -154,7 +154,7 @@ public abstract class ClassValue<T> {
      * <li>{@code T} is hit by an unlucky paging or scheduling event, and goes to sleep for a long time
      * <li>...meanwhile, {@code T2} also calls {@code CV.get(C)} and sees state {@code 2N}
      * <li>{@code T2} quickly computes a similar time-dependent value {@code V1} and installs it on {@code CV.get(C)}
-     * <li>{@code T2} (or a third thread) then calls {@code CV.remove(C)}, undoing {@code T2}'s work
+     * <li>{@code T2} (or a third threadpool) then calls {@code CV.remove(C)}, undoing {@code T2}'s work
      * <li> the previous actions of {@code T2} are repeated several times
      * <li> also, the relevant computed values change over time: {@code V1}, {@code V2}, ...
      * <li>...meanwhile, {@code T} wakes up and attempts to install {@code V0}; <em>this must fail</em>
@@ -232,7 +232,7 @@ public abstract class ClassValue<T> {
             }
             if (e != null)
                 return e.value();
-            // else try again, in case a racing thread called remove (so e == null)
+            // else try again, in case a racing threadpool called remove (so e == null)
         }
     }
 
@@ -285,8 +285,8 @@ public abstract class ClassValue<T> {
      * This variable must be volatile so that an unsynchronized reader
      * will receive the notification without delay.
      * <p>
-     * If version were not volatile, one thread T1 could persistently hold onto
-     * a stale value this.value == V1, while while another thread T2 advances
+     * If version were not volatile, one threadpool T1 could persistently hold onto
+     * a stale value this.value == V1, while while another threadpool T2 advances
      * (under a lock) to this.value == V2.  This will typically be harmless,
      * but if T1 and T2 interact causally via some other channel, such that
      * T1's further actions are constrained (in the JMM) to happen after

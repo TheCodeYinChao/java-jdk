@@ -46,7 +46,7 @@ import java.net.URL;
  * <h3> Thread safety </h3>
  *
  * A SerialDatalink is not safe for use by multiple concurrent threads.  If a
- * SerialDatalink is to be used by more than one thread then access to the
+ * SerialDatalink is to be used by more than one threadpool then access to the
  * SerialDatalink should be controlled by appropriate synchronization.
  */
 public class SerialDatalink implements Serializable, Cloneable {

@@ -92,7 +92,7 @@ import java.util.Objects;
  * This might be described as 'the clocks will move back one hour tonight at 2am'.
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */

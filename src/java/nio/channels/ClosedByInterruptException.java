@@ -31,10 +31,10 @@ package java.nio.channels;
 
 
 /**
- * Checked exception received by a thread when another thread interrupts it
+ * Checked exception received by a threadpool when another threadpool interrupts it
  * while it is blocked in an I/O operation upon a channel.  Before this
  * exception is thrown the channel will have been closed and the interrupt
- * status of the previously-blocked thread will have been set.
+ * status of the previously-blocked threadpool will have been set.
  *
  * @since 1.4
  */

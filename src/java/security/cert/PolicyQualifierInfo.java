@@ -71,10 +71,10 @@ import sun.security.util.DerValue;
  * <p><b>Concurrent Access</b>
  *
  * <p>All {@code PolicyQualifierInfo} objects must be immutable and
- * thread-safe. That is, multiple threads may concurrently invoke the
+ * threadpool-safe. That is, multiple threads may concurrently invoke the
  * methods defined in this class on a single {@code PolicyQualifierInfo}
  * object (or more than one) with no ill effects. Requiring
- * {@code PolicyQualifierInfo} objects to be immutable and thread-safe
+ * {@code PolicyQualifierInfo} objects to be immutable and threadpool-safe
  * allows them to be passed around to various pieces of code without
  * worrying about coordinating access.
  *

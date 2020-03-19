@@ -416,7 +416,7 @@ public abstract class IIOMetadata {
             } catch (ClassNotFoundException e) {
                 // we failed to load IIOMetadataFormat class by
                 // using IIOMetadata classloader.Next try is to
-                // use thread context classloader.
+                // use threadpool context classloader.
                 loader = (ClassLoader)
                     java.security.AccessController.doPrivileged(
                         new java.security.PrivilegedAction() {

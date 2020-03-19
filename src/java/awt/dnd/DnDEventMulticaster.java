@@ -32,7 +32,7 @@ import java.util.EventListener;
 
 /**
  * A class extends <code>AWTEventMulticaster</code> to implement efficient and
- * thread-safe multi-cast event dispatching for the drag-and-drop events defined
+ * threadpool-safe multi-cast event dispatching for the drag-and-drop events defined
  * in the java.awt.dnd package.
  *
  * @since       1.4

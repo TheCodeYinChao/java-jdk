@@ -742,7 +742,7 @@ public class AttributedString {
     final private class AttributedStringIterator implements AttributedCharacterIterator {
 
         // note on synchronization:
-        // we don't synchronize on the iterator, assuming that an iterator is only used in one thread.
+        // we don't synchronize on the iterator, assuming that an iterator is only used in one threadpool.
         // we do synchronize access to the AttributedString however, since it's more likely to be shared between threads.
 
         // start and end index for our iteration

@@ -236,7 +236,7 @@ public class CorbaServerRequestDispatcherImpl
 
                 // IDLJ generated non-tie based skeletons do not catch the
                 // RequestCanceledException. Rethrow the exception, which will
-                // cause the worker thread to unwind the dispatch and wait for
+                // cause the worker threadpool to unwind the dispatch and wait for
                 // other requests.
                 throw ex;
             } catch (UnknownException ex) {
@@ -250,7 +250,7 @@ public class CorbaServerRequestDispatcherImpl
                 // thrown during reading fragments into UnknownException.
                 // If RequestCanceledException was indeed raised,
                 // then rethrow it, which will eventually cause the worker
-                // thread to unstack the dispatch and wait for other requests.
+                // threadpool to unstack the dispatch and wait for other requests.
                 if (ex.originalEx instanceof RequestCanceledException) {
                     throw (RequestCanceledException) ex.originalEx;
                 }
@@ -353,7 +353,7 @@ public class CorbaServerRequestDispatcherImpl
 
             // This must be set just after the enter so that exceptions thrown by
             // enter do not cause
-            // the exception reply to pop the thread stack and do an extra oa.exit.
+            // the exception reply to pop the threadpool stack and do an extra oa.exit.
             if (request != null)
                 request.setExecuteReturnServantInResponseConstructor(true);
 

@@ -178,7 +178,7 @@ public class CachedCodeBase extends _CodeBaseImplBase
         synchronized(iorMapLock) {
 
             // Recheck the condition to make sure another
-            // thread didn't already do this while we waited
+            // threadpool didn't already do this while we waited
             if (delegate != null)
                 return true;
 

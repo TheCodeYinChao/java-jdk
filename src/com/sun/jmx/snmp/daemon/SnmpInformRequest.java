@@ -49,11 +49,11 @@ import com.sun.jmx.snmp.SnmpPduRequestType;
  * <P>
  * The inform request object provides the method, {@link #waitForCompletion waitForCompletion(long time)},
  * which enables a user to operate in a synchronous mode with an inform request.
- * This is done by blocking the user thread for the desired time interval.
- * The user thread gets notified whenever a request reaches completion, independently of the status of the response.
+ * This is done by blocking the user threadpool for the desired time interval.
+ * The user threadpool gets notified whenever a request reaches completion, independently of the status of the response.
  * <P>
  * If an {@link SnmpInformHandler inform callback} is provided when sending the inform request,
- * the user operates in an asynchronous mode with the inform request. The user thread is not blocked
+ * the user operates in an asynchronous mode with the inform request. The user threadpool is not blocked
  * and the specific inform callback implementation provided by the user is invoked when the inform response is received.
  *
  * <P>
@@ -370,8 +370,8 @@ public class SnmpInformRequest implements SnmpDefinitions {
     /**
      * Used in synchronous mode only.
      * Provides a hook that enables a synchronous operation on a previously sent inform request.
-     * Only one inform request can be in synchronous mode on a given thread.
-     * The blocked thread is notified when the inform request state reaches completion.
+     * Only one inform request can be in synchronous mode on a given threadpool.
+     * The blocked threadpool is notified when the inform request state reaches completion.
      * If the inform request is not active, the method returns immediately.
      * The user must get the error status of the inform request to determine the
      * exact status of the request.
@@ -385,14 +385,14 @@ public class SnmpInformRequest implements SnmpDefinitions {
             return true;
 
         if (informSession.thisSessionContext()) {
-            // We can manipulate callback safely as we are in session thread.
+            // We can manipulate callback safely as we are in session threadpool.
             //
             SnmpInformHandler savedCallback = callback;
             callback = null;
             informSession.waitForResponse(this, time);
             callback = savedCallback;
         } else {
-            // This is being done from a different thread. So notifyClient will do the notification.
+            // This is being done from a different threadpool. So notifyClient will do the notification.
             //
             synchronized (this) {
                 SnmpInformHandler savedCallback = callback ;
@@ -725,7 +725,7 @@ public class SnmpInformRequest implements SnmpDefinitions {
     /**
      * Sends the prepared PDU packet to the manager and updates the data structure
      * to expect a response. It acquires a lock on the socket to prevent a case
-     * where a response arrives before this thread could insert the
+     * where a response arrives before this threadpool could insert the
      * request into the wait queue.
      * @exception IOException Signals that an I/O exception of some sort has occurred.
      */
@@ -1014,7 +1014,7 @@ public class SnmpInformRequest implements SnmpDefinitions {
     private void stopRequest() {
 
         // Remove the clause synchronized of the stopRequest method.
-        // Synchronization is isolated as possible to avoid thread lock.
+        // Synchronization is isolated as possible to avoid threadpool lock.
         // Note: the method removeRequest from SendQ is synchronized.
         // fix bug jaw.00392.B
         //

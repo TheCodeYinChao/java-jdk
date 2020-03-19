@@ -61,7 +61,7 @@ import java.util.Hashtable;
   *<p>
   * The <tt>getStateToBind()</tt> method of a state factory may
   * be invoked multiple times, possibly using different parameters.
-  * The implementation is thread-safe.
+  * The implementation is threadpool-safe.
   *<p>
   * <tt>StateFactory</tt> is intended for use with service providers
   * that implement only the <tt>Context</tt> interface.
@@ -108,7 +108,7 @@ public interface StateFactory {
  * for details.
  * If a factory uses <code>nameCtx</code> it should synchronize its use
  * against concurrent access, since context implementations are not
- * guaranteed to be thread-safe.
+ * guaranteed to be threadpool-safe.
  * <p>
  * The <tt>name</tt> and <tt>environment</tt> parameters
  * are owned by the caller.

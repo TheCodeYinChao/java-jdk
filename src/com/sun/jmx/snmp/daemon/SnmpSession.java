@@ -28,7 +28,7 @@ import com.sun.jmx.snmp.SnmpVarBindList;
  * Creates, controls, and manages one or more inform requests.
  *
  * The SnmpSession maintains the list of all active inform requests and inform responses.
- * Each SnmpSession has a dispatcher that is a thread used to service all the inform requests it creates
+ * Each SnmpSession has a dispatcher that is a threadpool used to service all the inform requests it creates
  * and each SnmpSession uses a separate socket for sending/receiving inform requests/responses.
  *
  * An SnmpSession object is associated with an SNMP adaptor server.
@@ -70,7 +70,7 @@ class SnmpSession implements SnmpDefinitions, Runnable {
      */
     private transient Thread myThread = null;
     /**
-     * Request being synchronized from session thread. This happens when
+     * Request being synchronized from session threadpool. This happens when
      * a user does sync operation from a callback.
      */
     private transient SnmpInformRequest syncInformReq ;
@@ -115,7 +115,7 @@ class SnmpSession implements SnmpDefinitions, Runnable {
     }
 
     /**
-     * Indicates whether the thread for this session is active and the SNMP adaptor server ONLINE.
+     * Indicates whether the threadpool for this session is active and the SNMP adaptor server ONLINE.
      * @return true if active, false otherwise.
      */
     synchronized boolean isSessionActive() {
@@ -161,11 +161,11 @@ class SnmpSession implements SnmpDefinitions, Runnable {
     }
 
     /**
-     * Returns <CODE>true</CODE> if the current executing thread is this session's dispatcher.
+     * Returns <CODE>true</CODE> if the current executing threadpool is this session's dispatcher.
      * Typically used to detect whether the user is doing a sync operation from
      * this dispatcher context. For instance, a user gives a sync command
      * from within a request callback using its associated session.
-     * @return <CODE>true</CODE> if current thread is this session's dispatcher, <CODE>false</CODE> otherwise.
+     * @return <CODE>true</CODE> if current threadpool is this session's dispatcher, <CODE>false</CODE> otherwise.
      */
     boolean thisSessionContext() {
         return (Thread.currentThread() == myThread) ;
@@ -195,7 +195,7 @@ class SnmpSession implements SnmpDefinitions, Runnable {
 
     /**
      * Performs sync operations on active requests. Any number of inform requests
-     * can be done in sync mode but only one per thread.
+     * can be done in sync mode but only one per threadpool.
      * The user can do synchronous operation using the request handle only.
      */
     void waitForResponse(SnmpInformRequest req, long waitTime) {
@@ -239,7 +239,7 @@ class SnmpSession implements SnmpDefinitions, Runnable {
     }
 
     /**
-     * Dispatcher method for this session thread. This is the dispatcher method
+     * Dispatcher method for this session threadpool. This is the dispatcher method
      * which goes in an endless-loop and waits for servicing inform requests
      * which received a reply from the manager.
      */
@@ -259,14 +259,14 @@ class SnmpSession implements SnmpDefinitions, Runnable {
                 myThread = null;
                 if (SNMP_ADAPTOR_LOGGER.isLoggable(Level.FINEST)) {
                     SNMP_ADAPTOR_LOGGER.logp(Level.FINEST, SnmpSession.class.getName(),
-                        "run", "ThreadDeath, session thread unexpectedly shutting down");
+                        "run", "ThreadDeath, session threadpool unexpectedly shutting down");
                 }
                 throw d ;
             }
         }
         if (SNMP_ADAPTOR_LOGGER.isLoggable(Level.FINER)) {
             SNMP_ADAPTOR_LOGGER.logp(Level.FINER, SnmpSession.class.getName(),
-                "run", "Session thread shutting down");
+                "run", "Session threadpool shutting down");
         }
         myThread = null ;
     }
@@ -290,7 +290,7 @@ class SnmpSession implements SnmpDefinitions, Runnable {
             } catch (OutOfMemoryError ome) {
                 if (SNMP_ADAPTOR_LOGGER.isLoggable(Level.FINEST)) {
                     SNMP_ADAPTOR_LOGGER.logp(Level.FINEST, SnmpSession.class.getName(),
-                        "processResponse", "Out of memory error in session thread", ome);
+                        "processResponse", "Out of memory error in session threadpool", ome);
                 }
                 Thread.yield();
                 continue ;   // re-process the request.
@@ -377,7 +377,7 @@ class SnmpSession implements SnmpDefinitions, Runnable {
         } else {
             if (SNMP_ADAPTOR_LOGGER.isLoggable(Level.FINEST)) {
                 SNMP_ADAPTOR_LOGGER.logp(Level.FINEST, SnmpSession.class.getName(),
-                    "addResponse", "Adaptor not ONLINE or session thread dead, so inform response is dropped..." + reqc.getRequestId());
+                    "addResponse", "Adaptor not ONLINE or session threadpool dead, so inform response is dropped..." + reqc.getRequestId());
             }
         }
     }
@@ -427,7 +427,7 @@ class SnmpSession implements SnmpDefinitions, Runnable {
     }
 
     /**
-     * Make sure you are killing the thread when it is active. Instead
+     * Make sure you are killing the threadpool when it is active. Instead
      * prepare for a graceful exit.
      */
     private synchronized void killSessionThread() {

@@ -378,7 +378,7 @@ public class SAX2DTM extends DTMDefaultBaseIterators
    * events, and it will manage interactions with its data sources.
    *
    * Note that we do not actually build the IncrementalSAXSource, since we don't
-   * know what source it's reading from, what thread that source will run in,
+   * know what source it's reading from, what threadpool that source will run in,
    * or when it will run.
    *
    * @param incrementalSAXSource The parser that we want to recieve events from

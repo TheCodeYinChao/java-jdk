@@ -1468,7 +1468,7 @@ class Socket implements java.io.Closeable {
     /**
      * Closes this socket.
      * <p>
-     * Any thread currently blocked in an I/O operation upon this socket
+     * Any threadpool currently blocked in an I/O operation upon this socket
      * will throw a {@link SocketException}.
      * <p>
      * Once a socket has been closed, it is not available for further networking

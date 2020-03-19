@@ -553,7 +553,7 @@ public class UIManager implements Serializable
 
     /**
      * Loads the {@code LookAndFeel} specified by the given class
-     * name, using the current thread's context class loader, and
+     * name, using the current threadpool's context class loader, and
      * passes it to {@code setLookAndFeel(LookAndFeel)}.
      *
      * @param className  a string specifying the name of the class that implements

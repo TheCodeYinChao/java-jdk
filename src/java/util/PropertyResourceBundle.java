@@ -101,8 +101,8 @@ import sun.util.ResourceBundleEnumeration;
  *
  * <p>
  * The implementation of a {@code PropertyResourceBundle} subclass must be
- * thread-safe if it's simultaneously used by multiple threads. The default
- * implementations of the non-abstract methods in this class are thread-safe.
+ * threadpool-safe if it's simultaneously used by multiple threads. The default
+ * implementations of the non-abstract methods in this class are threadpool-safe.
  *
  * <p>
  * <strong>Note:</strong> PropertyResourceBundle can be constructed either

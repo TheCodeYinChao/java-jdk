@@ -91,7 +91,7 @@ import sun.util.calendar.CalendarDate;
  * dates before Meiji 6, January 1 are not supported.
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */

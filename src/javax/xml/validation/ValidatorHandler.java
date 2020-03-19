@@ -35,10 +35,10 @@ import org.xml.sax.SAXNotSupportedException;
  * Streaming validator that works on SAX stream.
  *
  * <p>
- * A {@link ValidatorHandler} object is not thread-safe and not reentrant.
+ * A {@link ValidatorHandler} object is not threadpool-safe and not reentrant.
  * In other words, it is the application's responsibility to make
  * sure that one {@link ValidatorHandler} object is not used from
- * more than one thread at any given time.
+ * more than one threadpool at any given time.
  *
  * <p>
  * {@link ValidatorHandler} checks if the SAX events follow

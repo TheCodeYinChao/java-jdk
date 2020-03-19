@@ -69,7 +69,7 @@ package java.time.format;
  * See {@link DateTimeFormatterBuilder} for usage.
  *
  * @implSpec
- * This is an immutable and thread-safe enum.
+ * This is an immutable and threadpool-safe enum.
  *
  * @since 1.8
  */

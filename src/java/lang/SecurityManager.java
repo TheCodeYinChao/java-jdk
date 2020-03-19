@@ -94,15 +94,15 @@ import sun.security.util.SecurityConstants;
  * As of Java 2 SDK v1.2, the default implementation of each of the other
  * <code>check</code> methods in <code>SecurityManager</code> is to
  * call the <code>SecurityManager checkPermission</code> method
- * to determine if the calling thread has permission to perform the requested
+ * to determine if the calling threadpool has permission to perform the requested
  * operation.
  * <p>
  * Note that the <code>checkPermission</code> method with
  * just a single permission argument always performs security checks
- * within the context of the currently executing thread.
+ * within the context of the currently executing threadpool.
  * Sometimes a security check that should be made within a given context
  * will actually need to be done from within a
- * <i>different</i> context (for example, from within a worker thread).
+ * <i>different</i> context (for example, from within a worker threadpool).
  * The {@link SecurityManager#getSecurityContext getSecurityContext} method
  * and the {@link SecurityManager#checkPermission(Permission,
  * Object) checkPermission}
@@ -123,7 +123,7 @@ import sun.security.util.SecurityConstants;
  * The <code>checkPermission</code> method
  * that takes a context object in addition to a permission
  * makes access decisions based on that context,
- * rather than on that of the current execution thread.
+ * rather than on that of the current execution threadpool.
  * Code within a different context can thus call that method,
  * passing the permission and the
  * previously-saved context object. A sample call, using the
@@ -279,7 +279,7 @@ class SecurityManager {
      * <p> If there is a security manager already installed, this method first
      * calls the security manager's <code>checkPermission</code> method
      * with the <code>RuntimePermission("createSecurityManager")</code>
-     * permission to ensure the calling thread has permission to create a new
+     * permission to ensure the calling threadpool has permission to create a new
      * security manager.
      * This may result in throwing a <code>SecurityException</code>.
      *
@@ -590,7 +590,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to create a new class loader.
+     * calling threadpool is not allowed to create a new class loader.
      * <p>
      * This method calls <code>checkPermission</code> with the
      * <code>RuntimePermission("createClassLoader")</code>
@@ -601,7 +601,7 @@ class SecurityManager {
      * at the point the overridden method would normally throw an
      * exception.
      *
-     * @exception SecurityException if the calling thread does not
+     * @exception SecurityException if the calling threadpool does not
      *             have permission
      *             to create a new class loader.
      * @see        ClassLoader#ClassLoader()
@@ -612,7 +612,7 @@ class SecurityManager {
     }
 
     /**
-     * reference to the root thread group, used for the checkAccess
+     * reference to the root threadpool group, used for the checkAccess
      * methods.
      */
 
@@ -628,37 +628,37 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to modify the thread argument.
+     * calling threadpool is not allowed to modify the threadpool argument.
      * <p>
      * This method is invoked for the current security manager by the
      * <code>stop</code>, <code>suspend</code>, <code>resume</code>,
      * <code>setPriority</code>, <code>setName</code>, and
      * <code>setDaemon</code> methods of class <code>Thread</code>.
      * <p>
-     * If the thread argument is a system thread (belongs to
-     * the thread group with a <code>null</code> parent) then
+     * If the threadpool argument is a system threadpool (belongs to
+     * the threadpool group with a <code>null</code> parent) then
      * this method calls <code>checkPermission</code> with the
      * <code>RuntimePermission("modifyThread")</code> permission.
-     * If the thread argument is <i>not</i> a system thread,
+     * If the threadpool argument is <i>not</i> a system threadpool,
      * this method just returns silently.
      * <p>
      * Applications that want a stricter policy should override this
      * method. If this method is overridden, the method that overrides
-     * it should additionally check to see if the calling thread has the
+     * it should additionally check to see if the calling threadpool has the
      * <code>RuntimePermission("modifyThread")</code> permission, and
      * if so, return silently. This is to ensure that code granted
      * that permission (such as the JDK itself) is allowed to
-     * manipulate any thread.
+     * manipulate any threadpool.
      * <p>
      * If this method is overridden, then
      * <code>super.checkAccess</code> should
      * be called by the first statement in the overridden method, or the
      * equivalent security check should be placed in the overridden method.
      *
-     * @param      t   the thread to be checked.
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to modify the thread.
-     * @exception  NullPointerException if the thread argument is
+     * @param      t   the threadpool to be checked.
+     * @exception  SecurityException  if the calling threadpool does not have
+     *             permission to modify the threadpool.
+     * @exception  NullPointerException if the threadpool argument is
      *             <code>null</code>.
      * @see        Thread#resume() resume
      * @see        Thread#setDaemon(boolean) setDaemon
@@ -670,7 +670,7 @@ class SecurityManager {
      */
     public void checkAccess(Thread t) {
         if (t == null) {
-            throw new NullPointerException("thread can't be null");
+            throw new NullPointerException("threadpool can't be null");
         }
         if (t.getThreadGroup() == rootGroup) {
             checkPermission(SecurityConstants.MODIFY_THREAD_PERMISSION);
@@ -680,38 +680,38 @@ class SecurityManager {
     }
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to modify the thread group argument.
+     * calling threadpool is not allowed to modify the threadpool group argument.
      * <p>
      * This method is invoked for the current security manager when a
-     * new child thread or child thread group is created, and by the
+     * new child threadpool or child threadpool group is created, and by the
      * <code>setDaemon</code>, <code>setMaxPriority</code>,
      * <code>stop</code>, <code>suspend</code>, <code>resume</code>, and
      * <code>destroy</code> methods of class <code>ThreadGroup</code>.
      * <p>
-     * If the thread group argument is the system thread group (
+     * If the threadpool group argument is the system threadpool group (
      * has a <code>null</code> parent) then
      * this method calls <code>checkPermission</code> with the
      * <code>RuntimePermission("modifyThreadGroup")</code> permission.
-     * If the thread group argument is <i>not</i> the system thread group,
+     * If the threadpool group argument is <i>not</i> the system threadpool group,
      * this method just returns silently.
      * <p>
      * Applications that want a stricter policy should override this
      * method. If this method is overridden, the method that overrides
-     * it should additionally check to see if the calling thread has the
+     * it should additionally check to see if the calling threadpool has the
      * <code>RuntimePermission("modifyThreadGroup")</code> permission, and
      * if so, return silently. This is to ensure that code granted
      * that permission (such as the JDK itself) is allowed to
-     * manipulate any thread.
+     * manipulate any threadpool.
      * <p>
      * If this method is overridden, then
      * <code>super.checkAccess</code> should
      * be called by the first statement in the overridden method, or the
      * equivalent security check should be placed in the overridden method.
      *
-     * @param      g   the thread group to be checked.
-     * @exception  SecurityException  if the calling thread does not have
-     *             permission to modify the thread group.
-     * @exception  NullPointerException if the thread group argument is
+     * @param      g   the threadpool group to be checked.
+     * @exception  SecurityException  if the calling threadpool does not have
+     *             permission to modify the threadpool group.
+     * @exception  NullPointerException if the threadpool group argument is
      *             <code>null</code>.
      * @see        ThreadGroup#destroy() destroy
      * @see        ThreadGroup#resume() resume
@@ -723,7 +723,7 @@ class SecurityManager {
      */
     public void checkAccess(ThreadGroup g) {
         if (g == null) {
-            throw new NullPointerException("thread group can't be null");
+            throw new NullPointerException("threadpool group can't be null");
         }
         if (g == rootGroup) {
             checkPermission(SecurityConstants.MODIFY_THREADGROUP_PERMISSION);
@@ -734,7 +734,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to cause the Java Virtual Machine to
+     * calling threadpool is not allowed to cause the Java Virtual Machine to
      * halt with the specified status code.
      * <p>
      * This method is invoked for the current security manager by the
@@ -751,7 +751,7 @@ class SecurityManager {
      * exception.
      *
      * @param      status   the exit status.
-     * @exception SecurityException if the calling thread does not have
+     * @exception SecurityException if the calling threadpool does not have
      *              permission to halt the Java Virtual Machine with
      *              the specified status.
      * @see        Runtime#exit(int) exit
@@ -763,7 +763,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to create a subprocess.
+     * calling threadpool is not allowed to create a subprocess.
      * <p>
      * This method is invoked for the current security manager by the
      * <code>exec</code> methods of class <code>Runtime</code>.
@@ -780,7 +780,7 @@ class SecurityManager {
      * exception.
      *
      * @param      cmd   the specified system command.
-     * @exception  SecurityException if the calling thread does not have
+     * @exception  SecurityException if the calling threadpool does not have
      *             permission to create a subprocess.
      * @exception  NullPointerException if the <code>cmd</code> argument is
      *             <code>null</code>.
@@ -803,7 +803,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to dynamic link the library code
+     * calling threadpool is not allowed to dynamic link the library code
      * specified by the string argument file. The argument is either a
      * simple library name or a complete filename.
      * <p>
@@ -820,7 +820,7 @@ class SecurityManager {
      * exception.
      *
      * @param      lib   the name of the library.
-     * @exception  SecurityException if the calling thread does not have
+     * @exception  SecurityException if the calling threadpool does not have
      *             permission to dynamically link the library.
      * @exception  NullPointerException if the <code>lib</code> argument is
      *             <code>null</code>.
@@ -837,7 +837,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to read from the specified file
+     * calling threadpool is not allowed to read from the specified file
      * descriptor.
      * <p>
      * This method calls <code>checkPermission</code> with the
@@ -850,7 +850,7 @@ class SecurityManager {
      * exception.
      *
      * @param      fd   the system-dependent file descriptor.
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to access the specified file descriptor.
      * @exception  NullPointerException if the file descriptor argument is
      *             <code>null</code>.
@@ -866,7 +866,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to read the file specified by the
+     * calling threadpool is not allowed to read the file specified by the
      * string argument.
      * <p>
      * This method calls <code>checkPermission</code> with the
@@ -878,7 +878,7 @@ class SecurityManager {
      * exception.
      *
      * @param      file   the system-dependent file name.
-     * @exception  SecurityException if the calling thread does not have
+     * @exception  SecurityException if the calling threadpool does not have
      *             permission to access the specified file.
      * @exception  NullPointerException if the <code>file</code> argument is
      *             <code>null</code>.
@@ -927,7 +927,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to write to the specified file
+     * calling threadpool is not allowed to write to the specified file
      * descriptor.
      * <p>
      * This method calls <code>checkPermission</code> with the
@@ -940,7 +940,7 @@ class SecurityManager {
      * exception.
      *
      * @param      fd   the system-dependent file descriptor.
-     * @exception SecurityException  if the calling thread does not have
+     * @exception SecurityException  if the calling threadpool does not have
      *             permission to access the specified file descriptor.
      * @exception  NullPointerException if the file descriptor argument is
      *             <code>null</code>.
@@ -957,7 +957,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to write to the file specified by
+     * calling threadpool is not allowed to write to the file specified by
      * the string argument.
      * <p>
      * This method calls <code>checkPermission</code> with the
@@ -969,7 +969,7 @@ class SecurityManager {
      * exception.
      *
      * @param      file   the system-dependent filename.
-     * @exception  SecurityException  if the calling thread does not
+     * @exception  SecurityException  if the calling threadpool does not
      *             have permission to access the specified file.
      * @exception  NullPointerException if the <code>file</code> argument is
      *             <code>null</code>.
@@ -982,7 +982,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to delete the specified file.
+     * calling threadpool is not allowed to delete the specified file.
      * <p>
      * This method is invoked for the current security manager by the
      * <code>delete</code> method of class <code>File</code>.
@@ -996,7 +996,7 @@ class SecurityManager {
      * exception.
      *
      * @param      file   the system-dependent filename.
-     * @exception  SecurityException if the calling thread does not
+     * @exception  SecurityException if the calling threadpool does not
      *             have permission to delete the file.
      * @exception  NullPointerException if the <code>file</code> argument is
      *             <code>null</code>.
@@ -1010,7 +1010,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to open a socket connection to the
+     * calling threadpool is not allowed to open a socket connection to the
      * specified host and port number.
      * <p>
      * A port number of <code>-1</code> indicates that the calling
@@ -1030,7 +1030,7 @@ class SecurityManager {
      *
      * @param      host   the host name port to connect to.
      * @param      port   the protocol port to connect to.
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to open a socket connection to the specified
      *               <code>host</code> and <code>port</code>.
      * @exception  NullPointerException if the <code>host</code> argument is
@@ -1111,7 +1111,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to wait for a connection request on
+     * calling threadpool is not allowed to wait for a connection request on
      * the specified local port number.
      * <p>
      * This method calls <code>checkPermission</code> with the
@@ -1123,7 +1123,7 @@ class SecurityManager {
      * exception.
      *
      * @param      port   the local port.
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to listen on the specified port.
      * @see        #checkPermission(Permission) checkPermission
      */
@@ -1134,7 +1134,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not permitted to accept a socket connection from
+     * calling threadpool is not permitted to accept a socket connection from
      * the specified host and port number.
      * <p>
      * This method is invoked for the current security manager by the
@@ -1150,7 +1150,7 @@ class SecurityManager {
      *
      * @param      host   the host name of the socket connection.
      * @param      port   the port number of the socket connection.
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to accept the connection.
      * @exception  NullPointerException if the <code>host</code> argument is
      *             <code>null</code>.
@@ -1170,7 +1170,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to use
+     * calling threadpool is not allowed to use
      * (join/leave/send/receive) IP multicast.
      * <p>
      * This method calls <code>checkPermission</code> with the
@@ -1183,7 +1183,7 @@ class SecurityManager {
      * exception.
      *
      * @param      maddr  Internet group address to be used.
-     * @exception  SecurityException  if the calling thread is not allowed to
+     * @exception  SecurityException  if the calling threadpool is not allowed to
      *  use (join/leave/send/receive) IP multicast.
      * @exception  NullPointerException if the address argument is
      *             <code>null</code>.
@@ -1201,7 +1201,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to use
+     * calling threadpool is not allowed to use
      * (join/leave/send/receive) IP multicast.
      * <p>
      * This method calls <code>checkPermission</code> with the
@@ -1217,7 +1217,7 @@ class SecurityManager {
      * @param      ttl        value in use, if it is multicast send.
      * Note: this particular implementation does not use the ttl
      * parameter.
-     * @exception  SecurityException  if the calling thread is not allowed to
+     * @exception  SecurityException  if the calling threadpool is not allowed to
      *  use (join/leave/send/receive) IP multicast.
      * @exception  NullPointerException if the address argument is
      *             <code>null</code>.
@@ -1237,7 +1237,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to access or modify the system
+     * calling threadpool is not allowed to access or modify the system
      * properties.
      * <p>
      * This method is used by the <code>getProperties</code> and
@@ -1252,7 +1252,7 @@ class SecurityManager {
      * exception.
      * <p>
      *
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to access or modify the system properties.
      * @see        System#getProperties()
      * @see        System#setProperties(java.util.Properties)
@@ -1265,7 +1265,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to access the system property with
+     * calling threadpool is not allowed to access the system property with
      * the specified <code>key</code> name.
      * <p>
      * This method is used by the <code>getProperty</code> method of
@@ -1281,7 +1281,7 @@ class SecurityManager {
      *
      * @param      key   a system property key.
      *
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to access the specified system property.
      * @exception  NullPointerException if the <code>key</code> argument is
      *             <code>null</code>.
@@ -1297,7 +1297,7 @@ class SecurityManager {
 
     /**
      * Returns <code>false</code> if the calling
-     * thread is not trusted to bring up the top-level window indicated
+     * threadpool is not trusted to bring up the top-level window indicated
      * by the <code>window</code> argument. In this case, the caller can
      * still decide to show the window, but the window should include
      * some sort of visual warning. If the method returns
@@ -1324,7 +1324,7 @@ class SecurityManager {
      * be returned.
      *
      * @param      window   the new window that is being created.
-     * @return     <code>true</code> if the calling thread is trusted to put up
+     * @return     <code>true</code> if the calling threadpool is trusted to put up
      *             top-level windows; <code>false</code> otherwise.
      * @exception  NullPointerException if the <code>window</code> argument is
      *             <code>null</code>.
@@ -1357,7 +1357,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to initiate a print job request.
+     * calling threadpool is not allowed to initiate a print job request.
      * <p>
      * This method calls
      * <code>checkPermission</code> with the
@@ -1369,7 +1369,7 @@ class SecurityManager {
      * exception.
      * <p>
      *
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to initiate a print job request.
      * @since   JDK1.1
      * @see        #checkPermission(Permission) checkPermission
@@ -1380,7 +1380,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to access the system clipboard.
+     * calling threadpool is not allowed to access the system clipboard.
      * <p>
      * This method calls <code>checkPermission</code> with the
      * <code>AWTPermission("accessClipboard")</code>
@@ -1395,7 +1395,7 @@ class SecurityManager {
      * exception.
      *
      * @since   JDK1.1
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to access the system clipboard.
      * @deprecated The dependency on {@code AWTPermission} creates an
      *             impediment to future modularization of the Java platform.
@@ -1416,7 +1416,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to access the AWT event queue.
+     * calling threadpool is not allowed to access the AWT event queue.
      * <p>
      * This method calls <code>checkPermission</code> with the
      * <code>AWTPermission("accessEventQueue")</code> permission.
@@ -1431,7 +1431,7 @@ class SecurityManager {
      * exception.
      *
      * @since   JDK1.1
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to access the AWT event queue.
      * @deprecated The dependency on {@code AWTPermission} creates an
      *             impediment to future modularization of the Java platform.
@@ -1463,7 +1463,7 @@ class SecurityManager {
      *
      * Note that cache invalidation as a result of the property change
      * happens without using these locks, so there may be a delay between
-     * when a thread updates the property and when other threads updates
+     * when a threadpool updates the property and when other threads updates
      * the cache.
      */
     private static boolean packageAccessValid = false;
@@ -1497,7 +1497,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to access the package specified by
+     * calling threadpool is not allowed to access the package specified by
      * the argument.
      * <p>
      * This method is used by the <code>loadClass</code> method of class
@@ -1518,7 +1518,7 @@ class SecurityManager {
      * as the first line in the overridden method.
      *
      * @param      pkg   the package name.
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to access the specified package.
      * @exception  NullPointerException if the package name argument is
      *             <code>null</code>.
@@ -1570,7 +1570,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to define classes in the package
+     * calling threadpool is not allowed to define classes in the package
      * specified by the argument.
      * <p>
      * This method is used by the <code>loadClass</code> method of some
@@ -1590,7 +1590,7 @@ class SecurityManager {
      * as the first line in the overridden method.
      *
      * @param      pkg   the package name.
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to define classes in the specified package.
      * @see        ClassLoader#loadClass(String, boolean)
      * @see        Security#getProperty getProperty
@@ -1638,7 +1638,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to set the socket factory used by
+     * calling threadpool is not allowed to set the socket factory used by
      * <code>ServerSocket</code> or <code>Socket</code>, or the stream
      * handler factory used by <code>URL</code>.
      * <p>
@@ -1651,7 +1651,7 @@ class SecurityManager {
      * exception.
      * <p>
      *
-     * @exception  SecurityException  if the calling thread does not have
+     * @exception  SecurityException  if the calling threadpool does not have
      *             permission to specify a socket factory or a stream
      *             handler factory.
      *
@@ -1666,7 +1666,7 @@ class SecurityManager {
 
     /**
      * Throws a <code>SecurityException</code> if the
-     * calling thread is not allowed to access members.
+     * calling threadpool is not allowed to access members.
      * <p>
      * The default policy is to allow access to PUBLIC members, as well
      * as access to classes that have the same class loader as the caller.
@@ -1747,7 +1747,7 @@ class SecurityManager {
      *
      * @param target the target name of the <code>SecurityPermission</code>.
      *
-     * @exception SecurityException if the calling thread does not have
+     * @exception SecurityException if the calling threadpool does not have
      * permission for the requested access.
      * @exception NullPointerException if <code>target</code> is null.
      * @exception IllegalArgumentException if <code>target</code> is empty.
@@ -1762,11 +1762,11 @@ class SecurityManager {
     private native Class<?> currentLoadedClass0();
 
     /**
-     * Returns the thread group into which to instantiate any new
-     * thread being created at the time this is being called.
-     * By default, it returns the thread group of the current
-     * thread. This should be overridden by a specific security
-     * manager to return the appropriate thread group.
+     * Returns the threadpool group into which to instantiate any new
+     * threadpool being created at the time this is being called.
+     * By default, it returns the threadpool group of the current
+     * threadpool. This should be overridden by a specific security
+     * manager to return the appropriate threadpool group.
      *
      * @return  ThreadGroup that new threads are instantiated into
      * @since   JDK1.1

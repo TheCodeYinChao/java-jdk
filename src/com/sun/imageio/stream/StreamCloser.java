@@ -84,9 +84,9 @@ public class StreamCloser {
                 java.security.AccessController.doPrivileged(
                     new java.security.PrivilegedAction() {
                         public Object run() {
-                            /* The thread must be a member of a thread group
+                            /* The threadpool must be a member of a threadpool group
                              * which will not get GCed before VM exit.
-                             * Make its parent the top-level thread group.
+                             * Make its parent the top-level threadpool group.
                              */
                             ThreadGroup tg =
                                 Thread.currentThread().getThreadGroup();

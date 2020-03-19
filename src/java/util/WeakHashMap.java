@@ -69,7 +69,7 @@ import java.util.function.Consumer;
  * the actions of the garbage collector, so several familiar (though not
  * required) <tt>Map</tt> invariants do not hold for this class.  Because
  * the garbage collector may discard keys at any time, a
- * <tt>WeakHashMap</tt> may behave as though an unknown thread is silently
+ * <tt>WeakHashMap</tt> may behave as though an unknown threadpool is silently
  * removing entries.  In particular, even if you synchronize on a
  * <tt>WeakHashMap</tt> instance and invoke none of its mutator methods, it
  * is possible for the <tt>size</tt> method to return smaller values over

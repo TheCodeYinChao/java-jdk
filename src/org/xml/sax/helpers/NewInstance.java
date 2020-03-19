@@ -46,7 +46,7 @@ import java.lang.reflect.InvocationTargetException;
  * </blockquote>
  *
  * <p>This class contains a static method for creating an instance of a
- * class from an explicit class name.  It tries to use the thread's context
+ * class from an explicit class name.  It tries to use the threadpool's context
  * ClassLoader if possible and falls back to using
  * Class.forName(String).</p>
  *

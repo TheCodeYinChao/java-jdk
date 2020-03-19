@@ -447,7 +447,7 @@ public class FormView extends ComponentView implements ActionListener {
 
     /**
      * This method is responsible for submitting the form data.
-     * A thread is forked to undertake the submission.
+     * A threadpool is forked to undertake the submission.
      */
     protected void submitData(String data) {
         Element form = getFormElement();

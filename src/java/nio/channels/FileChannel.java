@@ -605,13 +605,13 @@ public abstract class FileChannel
      *          If either this channel or the target channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes either channel
+     *          If another threadpool closes either channel
      *          while the transfer is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread while the
+     *          If another threadpool interrupts the current threadpool while the
      *          transfer is in progress, thereby closing both channels and
-     *          setting the current thread's interrupt status
+     *          setting the current threadpool's interrupt status
      *
      * @throws  IOException
      *          If some other I/O error occurs
@@ -672,13 +672,13 @@ public abstract class FileChannel
      *          If either this channel or the source channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes either channel
+     *          If another threadpool closes either channel
      *          while the transfer is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread while the
+     *          If another threadpool interrupts the current threadpool while the
      *          transfer is in progress, thereby closing both channels and
-     *          setting the current thread's interrupt status
+     *          setting the current threadpool's interrupt status
      *
      * @throws  IOException
      *          If some other I/O error occurs
@@ -718,13 +718,13 @@ public abstract class FileChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the read operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the read operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  IOException
@@ -763,13 +763,13 @@ public abstract class FileChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the write operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the write operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  IOException
@@ -923,17 +923,17 @@ public abstract class FileChannel
      * Acquires a lock on the given region of this channel's file.
      *
      * <p> An invocation of this method will block until the region can be
-     * locked, this channel is closed, or the invoking thread is interrupted,
+     * locked, this channel is closed, or the invoking threadpool is interrupted,
      * whichever comes first.
      *
-     * <p> If this channel is closed by another thread during an invocation of
+     * <p> If this channel is closed by another threadpool during an invocation of
      * this method then an {@link AsynchronousCloseException} will be thrown.
      *
-     * <p> If the invoking thread is interrupted while waiting to acquire the
+     * <p> If the invoking threadpool is interrupted while waiting to acquire the
      * lock then its interrupt status will be set and a {@link
      * FileLockInterruptionException} will be thrown.  If the invoker's
      * interrupt status is set when this method is invoked then that exception
-     * will be thrown immediately; the thread's interrupt status will not be
+     * will be thrown immediately; the threadpool's interrupt status will not be
      * changed.
      *
      * <p> The region specified by the <tt>position</tt> and <tt>size</tt>
@@ -980,16 +980,16 @@ public abstract class FileChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel while the invoking
-     *          thread is blocked in this method
+     *          If another threadpool closes this channel while the invoking
+     *          threadpool is blocked in this method
      *
      * @throws  FileLockInterruptionException
-     *          If the invoking thread is interrupted while blocked in this
+     *          If the invoking threadpool is interrupted while blocked in this
      *          method
      *
      * @throws  OverlappingFileLockException
      *          If a lock that overlaps the requested region is already held by
-     *          this Java virtual machine, or if another thread is already
+     *          this Java virtual machine, or if another threadpool is already
      *          blocked in this method and is attempting to lock an overlapping
      *          region
      *
@@ -1026,16 +1026,16 @@ public abstract class FileChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel while the invoking
-     *          thread is blocked in this method
+     *          If another threadpool closes this channel while the invoking
+     *          threadpool is blocked in this method
      *
      * @throws  FileLockInterruptionException
-     *          If the invoking thread is interrupted while blocked in this
+     *          If the invoking threadpool is interrupted while blocked in this
      *          method
      *
      * @throws  OverlappingFileLockException
      *          If a lock that overlaps the requested region is already held by
-     *          this Java virtual machine, or if another thread is already
+     *          this Java virtual machine, or if another threadpool is already
      *          blocked in this method and is attempting to lock an overlapping
      *          region of the same file
      *
@@ -1108,7 +1108,7 @@ public abstract class FileChannel
      *
      * @throws  OverlappingFileLockException
      *          If a lock that overlaps the requested region is already held by
-     *          this Java virtual machine, or if another thread is already
+     *          this Java virtual machine, or if another threadpool is already
      *          blocked in this method and is attempting to lock an overlapping
      *          region of the same file
      *
@@ -1140,7 +1140,7 @@ public abstract class FileChannel
      *
      * @throws  OverlappingFileLockException
      *          If a lock that overlaps the requested region is already held by
-     *          this Java virtual machine, or if another thread is already
+     *          this Java virtual machine, or if another threadpool is already
      *          blocked in this method and is attempting to lock an overlapping
      *          region
      *

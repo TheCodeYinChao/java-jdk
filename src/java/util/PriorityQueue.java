@@ -61,7 +61,7 @@ import java.util.function.Consumer;
  * <p><strong>Note that this implementation is not synchronized.</strong>
  * Multiple threads should not access a {@code PriorityQueue}
  * instance concurrently if any of the threads modifies the queue.
- * Instead, use the thread-safe {@link
+ * Instead, use the threadpool-safe {@link
  * java.util.concurrent.PriorityBlockingQueue} class.
  *
  * <p>Implementation note: this implementation provides

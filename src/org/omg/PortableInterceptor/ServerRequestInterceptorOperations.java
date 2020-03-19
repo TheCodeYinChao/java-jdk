@@ -37,7 +37,7 @@ public interface ServerRequestInterceptorOperations  extends InterceptorOperatio
      * <p>
      * This interception point is called before the servant manager is called. 
      * Operation parameters are not yet available at this point. This 
-     * interception point may or may not execute in the same thread as 
+     * interception point may or may not execute in the same threadpool as
      * the target invocation. 
      * <p>
      * This interception point may throw a system exception. If it does, 
@@ -67,7 +67,7 @@ public interface ServerRequestInterceptorOperations  extends InterceptorOperatio
   /**
      * Allows an Interceptor to query request information after all the 
      * information, including operation parameters, are available. This 
-     * interception point shall execute in the same thread as the target 
+     * interception point shall execute in the same threadpool as the target
      * invocation.
      * <p>
      * In the DSI model, since the parameters are first available when 
@@ -109,7 +109,7 @@ public interface ServerRequestInterceptorOperations  extends InterceptorOperatio
      * Allows an Interceptor to query reply information and modify the 
      * reply service context after the target operation has been invoked 
      * and before the reply is returned to the client. This interception 
-     * point shall execute in the same thread as the target invocation. 
+     * point shall execute in the same threadpool as the target invocation.
      * <p>
      * This interception point may throw a system exception. If it does, 
      * no other Interceptors' <code>send_reply</code> operations are called. 
@@ -129,7 +129,7 @@ public interface ServerRequestInterceptorOperations  extends InterceptorOperatio
      * Allows an Interceptor to query the exception information and modify 
      * the reply service context before the exception is thrown to the client. 
      * When an exception occurs, this interception point is called. This 
-     * interception point shall execute in the same thread as the target 
+     * interception point shall execute in the same threadpool as the target
      * invocation. 
      * <p>
      * This interception point may throw a system exception. This has the 
@@ -170,7 +170,7 @@ public interface ServerRequestInterceptorOperations  extends InterceptorOperatio
      * request results in something other than a normal reply or an 
      * exception. For example, a request could result in a retry 
      * (e.g., a GIOP Reply with a <code>LOCATION_FORWARD</code> status was 
-     * received). This interception point shall execute in the same thread 
+     * received). This interception point shall execute in the same threadpool
      * as the target invocation. 
      * <p>
      * This interception point may throw a system exception. If it does, 

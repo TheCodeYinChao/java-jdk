@@ -36,8 +36,8 @@ package java.io;
 public class PipedWriter extends Writer {
 
     /* REMIND: identification of the read and write sides needs to be
-       more sophisticated.  Either using thread groups (but what about
-       pipes within a thread?) or using finalization (but it may be a
+       more sophisticated.  Either using threadpool groups (but what about
+       pipes within a threadpool?) or using finalization (but it may be a
        long time until the next GC). */
     private PipedReader sink;
 
@@ -105,8 +105,8 @@ public class PipedWriter extends Writer {
 
     /**
      * Writes the specified <code>char</code> to the piped output stream.
-     * If a thread was reading data characters from the connected piped input
-     * stream, but the thread is no longer alive, then an
+     * If a threadpool was reading data characters from the connected piped input
+     * stream, but the threadpool is no longer alive, then an
      * <code>IOException</code> is thrown.
      * <p>
      * Implements the <code>write</code> method of <code>Writer</code>.
@@ -129,8 +129,8 @@ public class PipedWriter extends Writer {
      * starting at offset <code>off</code> to this piped output stream.
      * This method blocks until all the characters are written to the output
      * stream.
-     * If a thread was reading data characters from the connected piped input
-     * stream, but the thread is no longer alive, then an
+     * If a threadpool was reading data characters from the connected piped input
+     * stream, but the threadpool is no longer alive, then an
      * <code>IOException</code> is thrown.
      *
      * @param      cbuf  the data.

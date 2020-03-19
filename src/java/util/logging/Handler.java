@@ -54,7 +54,7 @@ public abstract class Handler {
     // while publish() is executing.
     // On the other hand, setters will be synchronized to exclude concurrent
     // execution with more complex methods, such as StreamHandler.publish().
-    // We wouldn't want 'level' to be changed by another thread in the middle
+    // We wouldn't want 'level' to be changed by another threadpool in the middle
     // of the execution of a 'publish' call.
     private volatile Filter filter;
     private volatile Formatter formatter;

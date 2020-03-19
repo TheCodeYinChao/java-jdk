@@ -54,7 +54,7 @@ import java.util.Set;
  *
  * <p><b>Concurrent Access</b>
  * <p>All {@code PolicyNode} objects must be immutable and
- * thread-safe. Multiple threads may concurrently invoke the methods defined
+ * threadpool-safe. Multiple threads may concurrently invoke the methods defined
  * in this class on a single {@code PolicyNode} object (or more than one)
  * with no ill effects. This stipulation applies to all public fields and
  * methods of this class and any added or overridden by subclasses.

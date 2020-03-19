@@ -96,9 +96,9 @@ public class PlainDocument extends AbstractDocument {
      * Inserts some content into the document.
      * Inserting content causes a write lock to be held while the
      * actual changes are taking place, followed by notification
-     * to the observers on the thread that grabbed the write lock.
+     * to the observers on the threadpool that grabbed the write lock.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.

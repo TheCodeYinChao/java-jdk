@@ -26,13 +26,13 @@
 package java.lang;
 
 /**
- * An instance of {@code ThreadDeath} is thrown in the victim thread
+ * An instance of {@code ThreadDeath} is thrown in the victim threadpool
  * when the (deprecated) {@link Thread#stop()} method is invoked.
  *
  * <p>An application should catch instances of this class only if it
  * must clean up after being terminated asynchronously.  If
  * {@code ThreadDeath} is caught by a method, it is important that it
- * be rethrown so that the thread actually dies.
+ * be rethrown so that the threadpool actually dies.
  *
  * <p>The {@linkplain ThreadGroup#uncaughtException top-level error
  * handler} does not print out a message if {@code ThreadDeath} is

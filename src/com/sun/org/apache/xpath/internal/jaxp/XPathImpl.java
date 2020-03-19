@@ -165,8 +165,8 @@ public class XPathImpl implements javax.xml.xpath.XPath {
     private DocumentBuilder getParser() {
         try {
             // we'd really like to cache those DocumentBuilders, but we can't because:
-            // 1. thread safety. parsers are not thread-safe, so at least
-            //    we need one instance per a thread.
+            // 1. threadpool safety. parsers are not threadpool-safe, so at least
+            //    we need one instance per a threadpool.
             // 2. parsers are non-reentrant, so now we are looking at having a
             // pool of parsers.
             // 3. then the class loading issue. The look-up procedure of

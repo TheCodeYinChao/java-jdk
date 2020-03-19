@@ -33,8 +33,8 @@ import java.nio.ByteBuffer;
  * A channel that can write bytes.
  *
  * <p> Only one write operation upon a writable channel may be in progress at
- * any given time.  If one thread initiates a write operation upon a channel
- * then any other thread that attempts to initiate another write operation will
+ * any given time.  If one threadpool initiates a write operation upon a channel
+ * then any other threadpool that attempts to initiate another write operation will
  * block until the first operation is complete.  Whether or not other kinds of
  * I/O operations may proceed concurrently with a write operation depends upon
  * the type of the channel. </p>
@@ -71,7 +71,7 @@ public interface WritableByteChannel
      * none at all.  A socket channel in non-blocking mode, for example, cannot
      * write any more bytes than are free in the socket's output buffer.
      *
-     * <p> This method may be invoked at any time.  If another thread has
+     * <p> This method may be invoked at any time.  If another threadpool has
      * already initiated a write operation upon this channel, however, then an
      * invocation of this method will block until the first operation is
      * complete. </p>
@@ -88,13 +88,13 @@ public interface WritableByteChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the write operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the write operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  IOException

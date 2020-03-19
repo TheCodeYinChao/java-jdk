@@ -460,7 +460,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
      *
      * <p>Note that you <em>cannot</em> always tell if an attempt to insert
      * an element will succeed by inspecting {@code remainingCapacity}
-     * because it may be the case that another thread is about to
+     * because it may be the case that another threadpool is about to
      * insert or remove an element.
      */
     public int remainingCapacity() {
@@ -850,7 +850,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
         /**
          * Sweeps itrs, looking for and expunging stale iterators.
          * If at least one was found, tries harder to find more.
-         * Called only from iterating thread.
+         * Called only from iterating threadpool.
          *
          * @param tryHarder whether to start in try-harder mode, because
          * there is known to be at least one iterator to collect
@@ -1118,7 +1118,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
 
         /**
          * Adjusts indices to incorporate all dequeues since the last
-         * operation on this iterator.  Call only from iterating thread.
+         * operation on this iterator.  Call only from iterating threadpool.
          */
         private void incorporateDequeues() {
             // assert lock.getHoldCount() == 1;
@@ -1160,7 +1160,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
          * because there are no more indices to update (cursor < 0 &&
          * nextIndex < 0 && lastRet < 0) or as a special exception, when
          * lastRet >= 0, because hasNext() is about to return false for the
-         * first time.  Call only from iterating thread.
+         * first time.  Call only from iterating threadpool.
          */
         private void detach() {
             // Switch to detached mode

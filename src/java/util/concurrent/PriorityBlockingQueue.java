@@ -307,7 +307,7 @@ public class PriorityBlockingQueue<E> extends AbstractQueue<E>
                 allocationSpinLock = 0;
             }
         }
-        if (newArray == null) // back off if another thread is allocating
+        if (newArray == null) // back off if another threadpool is allocating
             Thread.yield();
         lock.lock();
         if (newArray != null && queue == array) {

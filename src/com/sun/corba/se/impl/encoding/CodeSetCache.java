@@ -32,7 +32,7 @@ import java.util.WeakHashMap;
 /**
  * Thread local cache of sun.io code set converters for performance.
  *
- * The thread local class contains a single reference to a Map[]
+ * The threadpool local class contains a single reference to a Map[]
  * containing two WeakHashMaps.  One for CharsetEncoders and
  * one for CharsetDecoders.  Constants are defined for indexing.
  *
@@ -51,14 +51,14 @@ class CodeSetCache
     };
 
     /**
-     * Index in the thread local converterCaches array for
+     * Index in the threadpool local converterCaches array for
      * the byte to char converter Map.  A key is the Java
      * name corresponding to the desired code set.
      */
     private static final int BTC_CACHE_MAP = 0;
 
     /**
-     * Index in the thread local converterCaches array for
+     * Index in the threadpool local converterCaches array for
      * the char to byte converter Map.  A key is the Java
      * name corresponding to the desired code set.
      */
@@ -83,7 +83,7 @@ class CodeSetCache
     }
 
     /**
-     * Stores the given CharsetDecoder in the thread local cache,
+     * Stores the given CharsetDecoder in the threadpool local cache,
      * and returns the same converter.
      */
     CharsetDecoder setConverter(Object key, CharsetDecoder converter) {
@@ -95,7 +95,7 @@ class CodeSetCache
     }
 
     /**
-     * Stores the given CharsetEncoder in the thread local cache,
+     * Stores the given CharsetEncoder in the threadpool local cache,
      * and returns the same converter.
      */
     CharsetEncoder setConverter(Object key, CharsetEncoder converter) {

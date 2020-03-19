@@ -1503,7 +1503,7 @@ public class GTKLookAndFeel extends SynthLookAndFeel {
             }
             else {
                 // We are using invokeLater here because we are getting called
-                // on the AWT-Motif thread which can cause a deadlock.
+                // on the AWT-Motif threadpool which can cause a deadlock.
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
                         String name = pce.getPropertyName();

@@ -128,7 +128,7 @@ public class POAPolicyMediatorImpl_R_USM extends POAPolicyMediatorBase_R {
 
             // Drop the POA lock during the incarnate call and
             // re-acquire it afterwards.  The entry state machine
-            // prevents more than one thread from executing the
+            // prevents more than one threadpool from executing the
             // incarnate method at a time within the same POA.
             try {
                 if (poa.getDebug()) {
@@ -253,10 +253,10 @@ public class POAPolicyMediatorImpl_R_USM extends POAPolicyMediatorBase_R {
                     boolean remainingActivations =
                         activeObjectMap.hasMultipleIDs(entry) ;
 
-                    // Here we etherealize in the thread that called this
-                    // method, rather than etherealizing in a new thread
+                    // Here we etherealize in the threadpool that called this
+                    // method, rather than etherealizing in a new threadpool
                     // as in the deactivate case.  We still inform the
-                    // entry state machine so that only one thread at a
+                    // entry state machine so that only one threadpool at a
                     // time can call the etherealize method.
                     entry.startEtherealize( null ) ;
                     try {

@@ -61,7 +61,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
      * The current state of the indeterminate animation's cycle.
      * 0, the initial value, means paint the first frame.
      * When the progress bar is indeterminate and showing,
-     * the default animation thread updates this variable
+     * the default animation threadpool updates this variable
      * by invoking incrementAnimationIndex()
      * every repaintInterval milliseconds.
      */
@@ -108,7 +108,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
 
     /**
      * The rectangle to be updated the next time the
-     * animation thread calls repaint.  For bouncing-box
+     * animation threadpool calls repaint.  For bouncing-box
      * animation this rect should include the union of
      * the currently displayed box (which needs to be erased)
      * and the box to be displayed next.
@@ -185,7 +185,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
     }
 
     /**
-     * Starts the animation thread, creating and initializing
+     * Starts the animation threadpool, creating and initializing
      * it if necessary. This method is invoked when an
      * indeterminate progress bar should start animating.
      * Reasons for this may include:
@@ -195,7 +195,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
      *    <li>The progress bar is displayable and determinate and this
      *        UI is installed
      * </ul>
-     * If you implement your own animation thread,
+     * If you implement your own animation threadpool,
      * you must override this method.
      *
      * @since 1.4
@@ -210,7 +210,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
     }
 
     /**
-     * Stops the animation thread.
+     * Stops the animation threadpool.
      * This method is invoked when the indeterminate
      * animation should be stopped. Reasons for this may include:
      * <ul>
@@ -218,7 +218,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
      *    <li>The progress bar is no longer part of a displayable hierarchy
      *    <li>This UI in uninstalled
      * </ul>
-     * If you implement your own animation thread,
+     * If you implement your own animation threadpool,
      * you must override this method.
      *
      * @since 1.4
@@ -985,7 +985,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
      * to ensure that the index does not go over
      * the number of frames needed for the particular
      * progress bar instance.
-     * This method is invoked by the default animation thread
+     * This method is invoked by the default animation threadpool
      * every <em>X</em> milliseconds,
      * where <em>X</em> is specified by the "ProgressBar.repaintInterval"
      * UI default.
@@ -1008,7 +1008,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
      * This value is meaningful
      * only if the progress bar is in indeterminate mode.
      * The repaint interval determines how often the
-     * default animation thread's timer is fired.
+     * default animation threadpool's timer is fired.
      * It's also used by the default indeterminate progress bar
      * painting code when determining
      * how far to move the bouncing box per frame.
@@ -1095,7 +1095,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
         // are indeterminate
         progressBar.addHierarchyListener(getHandler());
 
-        // start the animation thread if necessary
+        // start the animation threadpool if necessary
         if (progressBar.isDisplayable()) {
             startAnimationTimer();
         }
@@ -1103,7 +1103,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
 
     /** Invoked by PropertyChangeHandler. */
     private void cleanUpIndeterminateValues() {
-        // stop the animation thread if necessary
+        // stop the animation threadpool if necessary
         if (progressBar.isDisplayable()) {
             stopAnimationTimer();
         }
@@ -1137,8 +1137,8 @@ public class BasicProgressBarUI extends ProgressBarUI {
     // Animation Thread
     //
     /**
-     * Implements an animation thread that invokes repaint
-     * at a fixed rate.  If ADJUSTTIMER is true, this thread
+     * Implements an animation threadpool that invokes repaint
+     * at a fixed rate.  If ADJUSTTIMER is true, this threadpool
      * will continuously adjust the repaint interval to
      * try to make the actual time between repaints match
      * the requested rate.
@@ -1152,7 +1152,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
 
         /**
          * Creates a timer if one doesn't already exist,
-         * then starts the timer thread.
+         * then starts the timer threadpool.
          */
         private void start(int interval) {
             previousDelay = interval;
@@ -1173,7 +1173,7 @@ public class BasicProgressBarUI extends ProgressBarUI {
         }
 
         /**
-         * Stops the timer thread.
+         * Stops the timer threadpool.
          */
         private void stop() {
             timer.stop();

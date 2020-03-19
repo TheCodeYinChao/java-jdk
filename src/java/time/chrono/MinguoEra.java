@@ -100,7 +100,7 @@ import java.time.DateTimeException;
  * Use {@code getValue()} instead.</b>
  *
  * @implSpec
- * This is an immutable and thread-safe enum.
+ * This is an immutable and threadpool-safe enum.
  *
  * @since 1.8
  */

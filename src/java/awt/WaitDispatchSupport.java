@@ -37,9 +37,9 @@ import sun.awt.PeerEvent;
 import sun.util.logging.PlatformLogger;
 
 /**
- * This utility class is used to suspend execution on a thread
+ * This utility class is used to suspend execution on a threadpool
  * while still allowing {@code EventDispatchThread} to dispatch events.
- * The API methods of the class are thread-safe.
+ * The API methods of the class are threadpool-safe.
  *
  * @author Anton Tarasov, Artem Ananiev
  *
@@ -74,9 +74,9 @@ class WaitDispatchSupport implements SecondaryLoop {
 
     /**
      * Creates a {@code WaitDispatchSupport} instance to
-     * serve the given event dispatch thread.
+     * serve the given event dispatch threadpool.
      *
-     * @param dispatchThread An event dispatch thread that
+     * @param dispatchThread An event dispatch threadpool that
      *        should not stop dispatching events while waiting
      *
      * @since 1.7
@@ -87,9 +87,9 @@ class WaitDispatchSupport implements SecondaryLoop {
 
     /**
      * Creates a {@code WaitDispatchSupport} instance to
-     * serve the given event dispatch thread.
+     * serve the given event dispatch threadpool.
      *
-     * @param dispatchThread An event dispatch thread that
+     * @param dispatchThread An event dispatch threadpool that
      *        should not stop dispatching events while waiting
      * @param extCond A conditional object used to determine
      *        if the loop should be terminated
@@ -128,7 +128,7 @@ class WaitDispatchSupport implements SecondaryLoop {
 
     /**
      * Creates a {@code WaitDispatchSupport} instance to
-     * serve the given event dispatch thread.
+     * serve the given event dispatch threadpool.
      * <p>
      * The {@link EventFilter} is set on the {@code dispatchThread}
      * while waiting. The filter is removed on completion of the
@@ -136,7 +136,7 @@ class WaitDispatchSupport implements SecondaryLoop {
      * <p>
      *
      *
-     * @param dispatchThread An event dispatch thread that
+     * @param dispatchThread An event dispatch threadpool that
      *        should not stop dispatching events while waiting
      * @param filter {@code EventFilter} to be set
      * @param interval A time interval to wait for. Note that
@@ -187,13 +187,13 @@ class WaitDispatchSupport implements SecondaryLoop {
         };
 
         // We have two mechanisms for blocking: if we're on the
-        // dispatch thread, start a new event pump; if we're
-        // on any other thread, call wait() on the treelock
+        // dispatch threadpool, start a new event pump; if we're
+        // on any other threadpool, call wait() on the treelock
 
         Thread currentThread = Thread.currentThread();
         if (currentThread == dispatchThread) {
             if (log.isLoggable(PlatformLogger.Level.FINEST)) {
-                log.finest("On dispatch thread: " + dispatchThread);
+                log.finest("On dispatch threadpool: " + dispatchThread);
             }
             if (interval != 0) {
                 if (log.isLoggable(PlatformLogger.Level.FINEST)) {
@@ -232,7 +232,7 @@ class WaitDispatchSupport implements SecondaryLoop {
             });
         } else {
             if (log.isLoggable(PlatformLogger.Level.FINEST)) {
-                log.finest("On non-dispatch thread: " + currentThread);
+                log.finest("On non-dispatch threadpool: " + currentThread);
             }
             synchronized (getTreeLock()) {
                 if (filter != null) {

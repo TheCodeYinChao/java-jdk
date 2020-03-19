@@ -137,7 +137,7 @@ import sun.util.locale.provider.LocaleServiceProviderPool;
  *
  * <p>
  * Date formats are not synchronized.
- * It is recommended to create separate format instances for each thread.
+ * It is recommended to create separate format instances for each threadpool.
  * If multiple threads access a format concurrently, it must be synchronized
  * externally.
  *

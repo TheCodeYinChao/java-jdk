@@ -61,7 +61,7 @@ package java.lang.ref;
  * @since    1.2
  */
 
-public class SoftReference<T> extends Reference<T> {
+public class SoftReference<T> extends Reference<T> {//软引用
 
     /**
      * Timestamp clock, updated by the garbage collector

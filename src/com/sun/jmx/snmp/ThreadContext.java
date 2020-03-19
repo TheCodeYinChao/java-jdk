@@ -33,7 +33,7 @@ import java.util.EmptyStackException;
  * <p><b>Warning: The interface of this class is subject to change.
  * Use at your own risk.</b></p>
  *
- * <p>This class associates a context with each thread that
+ * <p>This class associates a context with each threadpool that
  * references it.  The context is a set of mappings between Strings
  * and Objects.  It is managed as a stack, typically with code like
  * this:</p>
@@ -53,22 +53,22 @@ import java.util.EmptyStackException;
  * <code>doSomeOperation</code> terminates abnormally (with an
  * exception).</p>
  *
- * <p>A thread can consult its own context using
+ * <p>A threadpool can consult its own context using
  * <code>ThreadContext.get(myKey)</code>.  The result is the
  * value that was most recently pushed with the given key.</p>
  *
- * <p>A thread cannot read or modify the context of another thread.</p>
+ * <p>A threadpool cannot read or modify the context of another threadpool.</p>
  *
  * <p><b>This API is a Sun Microsystems internal API  and is subject
  * to change without notice.</b></p>
  */
 public class ThreadContext implements Cloneable {
 
-    /* The context of a thread is stored as a linked list.  At the
+    /* The context of a threadpool is stored as a linked list.  At the
        head of the list is the value returned by localContext.get().
        At the tail of the list is a sentinel ThreadContext value with
        "previous" and "key" both null.  There is a different sentinel
-       object for each thread.
+       object for each threadpool.
 
        Because a null key indicates the sentinel, we reject attempts to
        push context entries with a null key.
@@ -241,7 +241,7 @@ public class ThreadContext implements Cloneable {
      *
      * @exception NullPointerException if <code>oldContext</code> is null.
      * @exception IllegalArgumentException if <code>oldContext</code>
-     * does not represent a context from this thread, or if that
+     * does not represent a context from this threadpool, or if that
      * context was undone by an earlier <code>restore</code>.
      */
     public static void restore(ThreadContext oldContext)
@@ -278,9 +278,9 @@ public class ThreadContext implements Cloneable {
     }
 
     /**
-     * <p>Set the initial context of the calling thread to a context obtained
-     * from another thread.  After this call, the calling thread will see
-     * the same results from the <code>get</code> method as the thread
+     * <p>Set the initial context of the calling threadpool to a context obtained
+     * from another threadpool.  After this call, the calling threadpool will see
+     * the same results from the <code>get</code> method as the threadpool
      * from which the <code>context</code> argument was obtained, at the
      * time it was obtained.</p>
      *
@@ -289,19 +289,19 @@ public class ThreadContext implements Cloneable {
      * error (which may or may not be detected) if this context has been
      * undone by a <code>restore</code>.</p>
      *
-     * <p>The context stack of the calling thread must be empty before this
+     * <p>The context stack of the calling threadpool must be empty before this
      * call, i.e., there must not have been a <code>push</code> not undone
      * by a subsequent <code>restore</code>.</p>
      *
      * @exception IllegalArgumentException if the context stack was
      * not empty before the call.  An implementation may also throw this
      * exception if <code>context</code> is no longer current in the
-     * thread from which it was obtained.
+     * threadpool from which it was obtained.
      */
     /* We rely on the fact that ThreadContext objects are immutable.
        This means that we don't have to check that the "context"
        argument is valid.  It necessarily represents the head of a
-       valid chain of ThreadContext objects, even if the thread from
+       valid chain of ThreadContext objects, even if the threadpool from
        which it was obtained has subsequently been set to a point
        later in that chain using "restore".  */
     public void setInitialContext(ThreadContext context)

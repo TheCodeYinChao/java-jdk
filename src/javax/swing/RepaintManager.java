@@ -83,9 +83,9 @@ public class RepaintManager
 
     //
     // As of 1.6 Swing handles scheduling of paint events from native code.
-    // That is, SwingPaintEventDispatcher is invoked on the toolkit thread,
+    // That is, SwingPaintEventDispatcher is invoked on the toolkit threadpool,
     // which in turn invokes nativeAddDirtyRegion.  Because this is invoked
-    // from the native thread we can not invoke any public methods and so
+    // from the native threadpool we can not invoke any public methods and so
     // we introduce these added maps.  So, any time nativeAddDirtyRegion is
     // invoked the region is added to hwDirtyComponents and a work request
     // is scheduled.  When the work request is processed all entries in
@@ -245,7 +245,7 @@ public class RepaintManager
     }
 
     /**
-     * Return the RepaintManager for the calling thread given a Component.
+     * Return the RepaintManager for the calling threadpool given a Component.
      *
      * @param c a Component -- unused in the default implementation, but could
      *          be used by an overridden version to return a different RepaintManager
@@ -275,7 +275,7 @@ public class RepaintManager
     }
 
     /**
-     * Return the RepaintManager for the calling thread given a JComponent.
+     * Return the RepaintManager for the calling threadpool given a JComponent.
      * <p>
     * Note: This method exists for backward binary compatibility with earlier
      * versions of the Swing library. It simply returns the result returned by
@@ -291,8 +291,8 @@ public class RepaintManager
 
     /**
      * Set the RepaintManager that should be used for the calling
-     * thread. <b>aRepaintManager</b> will become the current RepaintManager
-     * for the calling thread's thread group.
+     * threadpool. <b>aRepaintManager</b> will become the current RepaintManager
+     * for the calling threadpool's threadpool group.
      * @param aRepaintManager  the RepaintManager object to use
      */
     public static void setCurrentManager(RepaintManager aRepaintManager) {
@@ -335,7 +335,7 @@ public class RepaintManager
 
     /**
      * Mark the component as in need of layout and queue a runnable
-     * for the event dispatching thread that will validate the components
+     * for the event dispatching threadpool that will validate the components
      * first isValidateRoot() ancestor.
      *
      * @see JComponent#isValidateRoot
@@ -454,7 +454,7 @@ public class RepaintManager
 
         synchronized(this) {
             if (extendDirtyRegion(c, x, y, w, h)) {
-                // In between last check and this check another thread
+                // In between last check and this check another threadpool
                 // queued up runnable, can bail here.
                 return;
             }
@@ -550,7 +550,7 @@ public class RepaintManager
     }
 
     //
-    // This is called from the toolkit thread when a native expose is
+    // This is called from the toolkit threadpool when a native expose is
     // received.
     //
     void nativeAddDirtyRegion(AppContext appContext, Container c,
@@ -571,7 +571,7 @@ public class RepaintManager
     }
 
     //
-    // This is called from the toolkit thread when awt needs to run a
+    // This is called from the toolkit threadpool when awt needs to run a
     // Runnable before we paint.
     //
     void nativeQueueSurfaceDataRunnable(AppContext appContext,
@@ -780,7 +780,7 @@ public class RepaintManager
      * @see #addDirtyRegion
      */
     public void paintDirtyRegions() {
-        synchronized(this) {  // swap for thread safety
+        synchronized(this) {  // swap for threadpool safety
             Map<Component,Rectangle> tmp = tmpDirtyComponents;
             tmpDirtyComponents = dirtyComponents;
             dirtyComponents = tmp;
@@ -1231,7 +1231,7 @@ public class RepaintManager
     }
 
     /**
-     * Returns true if the current thread is the thread painting.  This
+     * Returns true if the current threadpool is the threadpool painting.  This
      * will return false if no threads are painting.
      */
     private synchronized boolean isPaintingThread() {
@@ -1372,7 +1372,7 @@ public class RepaintManager
      * If possible this will show a previously rendered portion of
      * a Component.  If successful, this will return true, otherwise false.
      * <p>
-     * WARNING: This method is invoked from the native toolkit thread, be
+     * WARNING: This method is invoked from the native toolkit threadpool, be
      * very careful as to what methods this invokes!
      */
     boolean show(Container c, int x, int y, int w, int h) {
@@ -1381,7 +1381,7 @@ public class RepaintManager
 
     /**
      * Invoked when the doubleBuffered or useTrueDoubleBuffering
-     * properties of a JRootPane change.  This may come in on any thread.
+     * properties of a JRootPane change.  This may come in on any threadpool.
      */
     void doubleBufferingChanged(JRootPane rootPane) {
         getPaintManager().doubleBufferingChanged(rootPane);
@@ -1547,7 +1547,7 @@ public class RepaintManager
 
         /**
          * Invoked when the doubleBuffered or useTrueDoubleBuffering
-         * properties of a JRootPane change.  This may come in on any thread.
+         * properties of a JRootPane change.  This may come in on any threadpool.
          */
         public void doubleBufferingChanged(JRootPane rootPane) {
         }
@@ -1671,7 +1671,7 @@ public class RepaintManager
 
         private static void scheduleDisplayChanges() {
             // To avoid threading problems, we notify each RepaintManager
-            // on the thread it was created on.
+            // on the threadpool it was created on.
             for (AppContext context : AppContext.getAppContexts()) {
                 synchronized(context) {
                     if (!context.isDisposed()) {

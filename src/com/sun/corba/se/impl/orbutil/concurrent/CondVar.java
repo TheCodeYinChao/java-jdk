@@ -215,8 +215,8 @@ public class CondVar {
    * Wait for notification. This operation at least momentarily
    * releases the mutex. The mutex is always held upon return,
    * even if interrupted.
-   * @exception InterruptedException if the thread was interrupted
-   * before or during the wait. However, if the thread is interrupted
+   * @exception InterruptedException if the threadpool was interrupted
+   * before or during the wait. However, if the threadpool is interrupted
    * after the wait but during mutex re-acquisition, the interruption
    * is ignored, while still ensuring
    * that the currentThread's interruption state stays true, so can
@@ -271,10 +271,10 @@ public class CondVar {
     * and re-acquire of the mutex, and always returns false.
     * @return false if at least msecs have elapsed
     * upon resumption; else true. A
-    * false return does NOT necessarily imply that the thread was
+    * false return does NOT necessarily imply that the threadpool was
     * not notified. For example, it might have been notified
     * after the time elapsed but just before resuming.
-    * @exception InterruptedException if the thread was interrupted
+    * @exception InterruptedException if the threadpool was interrupted
     * before or during the wait.
     **/
 
@@ -326,8 +326,8 @@ public class CondVar {
     }
 
     /**
-    * Notify a waiting thread.
-    * If one exists, a non-interrupted thread will return
+    * Notify a waiting threadpool.
+    * If one exists, a non-interrupted threadpool will return
     * normally (i.e., not via InterruptedException) from await or timedwait.
     **/
     public synchronized void signal() {

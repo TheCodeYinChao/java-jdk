@@ -133,7 +133,7 @@ import sun.security.jca.GetInstance.Instance;
  * </pre>
  *
  * <b>Concurrent Access</b>
- * <p>The static methods of this class are guaranteed to be thread-safe.
+ * <p>The static methods of this class are guaranteed to be threadpool-safe.
  * Multiple threads may concurrently invoke the static methods defined in this
  * class with no ill effects.
  *

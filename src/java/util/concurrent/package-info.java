@@ -47,11 +47,11 @@
  * <b>Interfaces.</b>
  *
  * {@link java.util.concurrent.Executor} is a simple standardized
- * interface for defining custom thread-like subsystems, including
- * thread pools, asynchronous I/O, and lightweight task frameworks.
+ * interface for defining custom threadpool-like subsystems, including
+ * threadpool pools, asynchronous I/O, and lightweight task frameworks.
  * Depending on which concrete Executor class is being used, tasks may
- * execute in a newly created thread, an existing task-execution thread,
- * or the thread calling {@link java.util.concurrent.Executor#execute
+ * execute in a newly created threadpool, an existing task-execution threadpool,
+ * or the threadpool calling {@link java.util.concurrent.Executor#execute
  * execute}, and may execute sequentially or concurrently.
  *
  * {@link java.util.concurrent.ExecutorService} provides a more
@@ -80,7 +80,7 @@
  *
  * Classes {@link java.util.concurrent.ThreadPoolExecutor} and
  * {@link java.util.concurrent.ScheduledThreadPoolExecutor}
- * provide tunable, flexible thread pools.
+ * provide tunable, flexible threadpool pools.
  *
  * //实例化常见的线程池的工厂
  * The {@link java.util.concurrent.Executors} class provides
@@ -103,7 +103,7 @@
  * <h2>Queues</h2>
  *
  * The {@link java.util.concurrent.ConcurrentLinkedQueue} class
- * supplies an efficient scalable thread-safe non-blocking FIFO（先进先出） queue.
+ * supplies an efficient scalable threadpool-safe non-blocking FIFO（先进先出） queue.
  * The {@link java.util.concurrent.ConcurrentLinkedDeque} class is(包含先进先出 还包头尾操作)
  * similar, but additionally supports the {@link java.util.Deque}
  * interface.
@@ -144,7 +144,7 @@
  * timed-out.  Implementations make a &quot;best effort&quot;
  * to detect time-outs as soon as possible after they occur.
  * However, an indefinite amount of time may elapse between a
- * time-out being detected and a thread actually executing
+ * time-out being detected and a threadpool actually executing
  * again after that time-out.  All methods that accept timeout
  * parameters treat values less than or equal to zero to mean
  * not to wait at all.  To wait "forever", you can use a value
@@ -198,7 +198,7 @@
  * {@code Collections.synchronizedMap(new HashMap())} are
  * synchronized.  But {@link
  * java.util.concurrent.ConcurrentHashMap} is "concurrent".  A
- * concurrent collection is thread-safe, but not governed by a
+ * concurrent collection is threadpool-safe, but not governed by a
  * single exclusion lock.  In the particular case of
  * ConcurrentHashMap, it safely permits any number of
  * concurrent reads as well as a tunable number of concurrent
@@ -230,23 +230,23 @@
  * <a href="https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html#jls-17.4.5">
  * Chapter 17 of the Java Language Specification</a> defines the
  * <i>happens-before</i> relation on memory operations such as reads and
- * writes of shared variables.  The results of a write by one thread are
- * guaranteed to be visible to a read by another thread only if the write
+ * writes of shared variables.  The results of a write by one threadpool are
+ * guaranteed to be visible to a read by another threadpool only if the write
  * operation <i>happens-before</i> the read operation.  The
  * {@code synchronized} and {@code volatile} constructs, as well as the
  * {@code Thread.start()} and {@code Thread.join()} methods, can form
  * <i>happens-before</i> relationships.  In particular:
  *
  * <ul>
- *   <li>Each action in a thread <i>happens-before</i> every action in that
- *   thread that comes later in the program's order.
+ *   <li>Each action in a threadpool <i>happens-before</i> every action in that
+ *   threadpool that comes later in the program's order.
  *
  *   <li>An unlock ({@code synchronized} block or method exit) of a
  *   monitor <i>happens-before</i> every subsequent lock ({@code synchronized}
  *   block or method entry) of that same monitor.  And because
  *   the <i>happens-before</i> relation is transitive, all actions
- *   of a thread prior to unlocking <i>happen-before</i> all actions
- *   subsequent to any thread locking that monitor.
+ *   of a threadpool prior to unlocking <i>happen-before</i> all actions
+ *   subsequent to any threadpool locking that monitor.
  *
  *   <li>A write to a {@code volatile} field <i>happens-before</i> every
  *   subsequent read of that same field.  Writes and reads of
@@ -254,11 +254,11 @@
  *   as entering and exiting monitors, but do <em>not</em> entail
  *   mutual exclusion locking.
  *
- *   <li>A call to {@code start} on a thread <i>happens-before</i> any
- *   action in the started thread.
+ *   <li>A call to {@code start} on a threadpool <i>happens-before</i> any
+ *   action in the started threadpool.
  *
- *   <li>All actions in a thread <i>happen-before</i> any other thread
- *   successfully returns from a {@code join} on that thread.
+ *   <li>All actions in a threadpool <i>happen-before</i> any other threadpool
+ *   successfully returns from a {@code join} on that threadpool.
  *
  * </ul>
  *
@@ -269,17 +269,17 @@
  *
  * <ul>
  *
- *   <li>Actions in a thread prior to placing an object into any concurrent
+ *   <li>Actions in a threadpool prior to placing an object into any concurrent
  *   collection <i>happen-before</i> actions subsequent to the access or
- *   removal of that element from the collection in another thread.
+ *   removal of that element from the collection in another threadpool.
  *
- *   <li>Actions in a thread prior to the submission of a {@code Runnable}
+ *   <li>Actions in a threadpool prior to the submission of a {@code Runnable}
  *   to an {@code Executor} <i>happen-before</i> its execution begins.
  *   Similarly for {@code Callables} submitted to an {@code ExecutorService}.
  *
  *   <li>Actions taken by the asynchronous computation represented by a
  *   {@code Future} <i>happen-before</i> actions subsequent to the
- *   retrieval of the result via {@code Future.get()} in another thread.
+ *   retrieval of the result via {@code Future.get()} in another threadpool.
  *
  *   <li>Actions prior to "releasing" synchronizer methods such as
  *   {@code Lock.unlock}, {@code Semaphore.release}, and
@@ -287,12 +287,12 @@
  *   subsequent to a successful "acquiring" method such as
  *   {@code Lock.lock}, {@code Semaphore.acquire},
  *   {@code Condition.await}, and {@code CountDownLatch.await} on the
- *   same synchronizer object in another thread.
+ *   same synchronizer object in another threadpool.
  *
  *   <li>For each pair of threads that successfully exchange objects via
  *   an {@code Exchanger}, actions prior to the {@code exchange()}
- *   in each thread <i>happen-before</i> those subsequent to the
- *   corresponding {@code exchange()} in another thread.
+ *   in each threadpool <i>happen-before</i> those subsequent to the
+ *   corresponding {@code exchange()} in another threadpool.
  *
  *   <li>Actions prior to calling {@code CyclicBarrier.await} and
  *   {@code Phaser.awaitAdvance} (as well as its variants)

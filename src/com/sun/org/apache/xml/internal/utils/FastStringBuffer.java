@@ -23,9 +23,9 @@
 package com.sun.org.apache.xml.internal.utils;
 
 /**
- * Bare-bones, unsafe, fast string buffer. No thread-safety, no
+ * Bare-bones, unsafe, fast string buffer. No threadpool-safety, no
  * parameter range checking, exposed fields. Note that in typical
- * applications, thread-safety of a StringBuffer is a somewhat
+ * applications, threadpool-safety of a StringBuffer is a somewhat
  * dubious concept in any case.
  * <p>
  * Note that Stree and DTM used a single FastStringBuffer as a string pool,

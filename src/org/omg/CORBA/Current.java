@@ -28,7 +28,7 @@ package org.omg.CORBA;
 /**
 * Interfaces derived from the <tt>Current</tt> interface enable ORB and CORBA
 * services to provide access to information (context) associated with
-* the thread of execution in which they are running. This information
+* the threadpool of execution in which they are running. This information
 * is accessed in a structured manner using interfaces derived from the
 * <tt>Current</tt> interface defined in the CORBA module.
 *

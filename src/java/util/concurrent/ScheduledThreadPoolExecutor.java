@@ -313,8 +313,8 @@ public class ScheduledThreadPoolExecutor
     /**
      * Main execution method for delayed or periodic tasks.  If pool
      * is shut down, rejects the task. Otherwise adds task to queue
-     * and starts a thread, if necessary, to run it.  (We cannot
-     * prestart the thread to run the task because the task (probably)
+     * and starts a threadpool, if necessary, to run it.  (We cannot
+     * prestart the threadpool to run the task because the task (probably)
      * shouldn't be run yet.)  If the pool is shut down while the task
      * is being added, cancel and remove it if required by state and
      * run-after-shutdown parameters.
@@ -438,7 +438,7 @@ public class ScheduledThreadPoolExecutor
      * @param corePoolSize the number of threads to keep in the pool, even
      *        if they are idle, unless {@code allowCoreThreadTimeOut} is set
      * @param threadFactory the factory to use when the executor
-     *        creates a new thread
+     *        creates a new threadpool
      * @throws IllegalArgumentException if {@code corePoolSize < 0}
      * @throws NullPointerException if {@code threadFactory} is null
      */
@@ -455,7 +455,7 @@ public class ScheduledThreadPoolExecutor
      * @param corePoolSize the number of threads to keep in the pool, even
      *        if they are idle, unless {@code allowCoreThreadTimeOut} is set
      * @param handler the handler to use when execution is blocked
-     *        because the thread bounds and queue capacities are reached
+     *        because the threadpool bounds and queue capacities are reached
      * @throws IllegalArgumentException if {@code corePoolSize < 0}
      * @throws NullPointerException if {@code handler} is null
      */
@@ -472,9 +472,9 @@ public class ScheduledThreadPoolExecutor
      * @param corePoolSize the number of threads to keep in the pool, even
      *        if they are idle, unless {@code allowCoreThreadTimeOut} is set
      * @param threadFactory the factory to use when the executor
-     *        creates a new thread
+     *        creates a new threadpool
      * @param handler the handler to use when execution is blocked
-     *        because the thread bounds and queue capacities are reached
+     *        because the threadpool bounds and queue capacities are reached
      * @throws IllegalArgumentException if {@code corePoolSize < 0}
      * @throws NullPointerException if {@code threadFactory} or
      *         {@code handler} is null
@@ -842,15 +842,15 @@ public class ScheduledThreadPoolExecutor
          * Thread designated to wait for the task at the head of the
          * queue.  This variant of the Leader-Follower pattern
          * (http://www.cs.wustl.edu/~schmidt/POSA/POSA2/) serves to
-         * minimize unnecessary timed waiting.  When a thread becomes
+         * minimize unnecessary timed waiting.  When a threadpool becomes
          * the leader, it waits only for the next delay to elapse, but
-         * other threads await indefinitely.  The leader thread must
-         * signal some other thread before returning from take() or
-         * poll(...), unless some other thread becomes leader in the
+         * other threads await indefinitely.  The leader threadpool must
+         * signal some other threadpool before returning from take() or
+         * poll(...), unless some other threadpool becomes leader in the
          * interim.  Whenever the head of the queue is replaced with a
          * task with an earlier expiration time, the leader field is
          * invalidated by being reset to null, and some waiting
-         * thread, but not necessarily the current leader, is
+         * threadpool, but not necessarily the current leader, is
          * signalled.  So waiting threads must be prepared to acquire
          * and lose leadership while waiting.
          */
@@ -858,7 +858,7 @@ public class ScheduledThreadPoolExecutor
 
         /**
          * Condition signalled when a newer task becomes available at the
-         * head of the queue or a new thread may need to become leader.
+         * head of the queue or a new threadpool may need to become leader.
          */
         private final Condition available = lock.newCondition();
 

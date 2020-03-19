@@ -53,7 +53,7 @@ import javax.print.attribute.PrintJobAttribute;
  * mutable; you can add {@link JobStateReason JobStateReason} objects to an
  * existing JobStateReasons object and remove them again. However, like class
  * {@link HashSet java.util.HashSet}, class JobStateReasons is not
- * multiple thread safe. If a JobStateReasons object will be used by multiple
+ * multiple threadpool safe. If a JobStateReasons object will be used by multiple
  * threads, be sure to synchronize its operations (e.g., using a synchronized
  * set view obtained from class {@link java.util.Collections
  * java.util.Collections}).

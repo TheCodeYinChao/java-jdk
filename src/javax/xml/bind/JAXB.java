@@ -125,7 +125,7 @@ public final class JAXB {
      *
      * <p>
      * We don't use locks to control access to {@link #cache}, but this code
-     * should be thread-safe thanks to the immutable {@link Cache} and {@code volatile}.
+     * should be threadpool-safe thanks to the immutable {@link Cache} and {@code volatile}.
      */
     private static <T> JAXBContext getContext(Class<T> type) throws JAXBException {
         WeakReference<Cache> c = cache;

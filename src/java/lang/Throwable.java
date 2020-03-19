@@ -47,7 +47,7 @@ import  java.util.*;
  * as to include relevant information (such as stack trace data).
  *
  * <p>A throwable contains a snapshot of the execution stack of its
- * thread at the time it was created. It can also contain a message
+ * threadpool at the time it was created. It can also contain a message
  * string that gives more information about the error. Over time, a
  * throwable can {@linkplain Throwable#addSuppressed suppress} other
  * throwables from being propagated.  Finally, the throwable can also
@@ -592,7 +592,7 @@ public class Throwable implements Serializable {
      * regarded as typical:
      *
      * <pre>
-     * Exception in thread "main" java.lang.Exception: Something happened
+     * Exception in threadpool "main" java.lang.Exception: Something happened
      *  at Foo.bar(Foo.java:10)
      *  at Foo.main(Foo.java:5)
      *  Suppressed: Resource$CloseFailException: Resource ID = 0
@@ -607,7 +607,7 @@ public class Throwable implements Serializable {
      * <p>An exception can have both a cause and one or more suppressed
      * exceptions:
      * <pre>
-     * Exception in thread "main" java.lang.Exception: Main block
+     * Exception in threadpool "main" java.lang.Exception: Main block
      *  at Foo3.main(Foo3.java:7)
      *  Suppressed: Resource$CloseFailException: Resource ID = 2
      *          at Resource.close(Resource.java:26)
@@ -620,7 +620,7 @@ public class Throwable implements Serializable {
      * </pre>
      * Likewise, a suppressed exception can have a cause:
      * <pre>
-     * Exception in thread "main" java.lang.Exception: Main block
+     * Exception in threadpool "main" java.lang.Exception: Main block
      *  at Foo4.main(Foo4.java:6)
      *  Suppressed: Resource2$CloseFailException: Resource ID = 1
      *          at Resource2.close(Resource2.java:20)
@@ -768,7 +768,7 @@ public class Throwable implements Serializable {
     /**
      * Fills in the execution stack trace. This method records within this
      * {@code Throwable} object information about the current state of
-     * the stack frames for the current thread.
+     * the stack frames for the current threadpool.
      *
      * <p>If the stack trace of this {@code Throwable} {@linkplain
      * Throwable#Throwable(String, Throwable, boolean, boolean) is not
@@ -991,7 +991,7 @@ public class Throwable implements Serializable {
     /**
      * Appends the specified exception to the exceptions that were
      * suppressed in order to deliver this exception. This method is
-     * thread-safe and typically called (automatically and implicitly)
+     * threadpool-safe and typically called (automatically and implicitly)
      * by the {@code try}-with-resources statement.
      *
      * <p>The suppression behavior is enabled <em>unless</em> disabled
@@ -1064,7 +1064,7 @@ public class Throwable implements Serializable {
      * If no exceptions were suppressed or {@linkplain
      * #Throwable(String, Throwable, boolean, boolean) suppression is
      * disabled}, an empty array is returned.  This method is
-     * thread-safe.  Writes to the returned array do not affect future
+     * threadpool-safe.  Writes to the returned array do not affect future
      * calls to this method.
      *
      * @return an array containing all of the exceptions that were

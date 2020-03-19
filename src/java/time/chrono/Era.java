@@ -96,7 +96,7 @@ import java.util.Locale;
  *
  * @implSpec
  * This interface must be implemented with care to ensure other classes operate correctly.
- * All implementations must be singletons - final, immutable and thread-safe.
+ * All implementations must be singletons - final, immutable and threadpool-safe.
  * It is recommended to use an enum whenever possible.
  *
  * @since 1.8

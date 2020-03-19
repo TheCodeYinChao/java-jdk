@@ -1654,7 +1654,7 @@ public class Window extends Container implements Accessible {
      * @param exclusionType the modal exclusion type for this window; a {@code null}
      *     value is equivalent to {@link Dialog.ModalExclusionType#NO_EXCLUDE
      *     NO_EXCLUDE}
-     * @throws SecurityException if the calling thread does not have permission
+     * @throws SecurityException if the calling threadpool does not have permission
      *     to set the modal exclusion property to the window with the given
      *     {@code exclusionType}
      * @see Dialog.ModalExclusionType
@@ -2200,7 +2200,7 @@ public class Window extends Container implements Accessible {
      * isn't supported for this window or this window's toolkit does not
      * support always-on-top windows, calling this method has no effect.
      * <p>
-     * If a SecurityManager is installed, the calling thread must be
+     * If a SecurityManager is installed, the calling threadpool must be
      * granted the AWTPermission "setWindowAlwaysOnTop" in
      * order to set the value of this property. If this
      * permission is not granted, this method will throw a
@@ -2209,7 +2209,7 @@ public class Window extends Container implements Accessible {
      *
      * @param alwaysOnTop true if the window should always be above other
      *        windows
-     * @throws SecurityException if the calling thread does not have
+     * @throws SecurityException if the calling threadpool does not have
      *         permission to set the value of always-on-top property
      *
      * @see #isAlwaysOnTop
@@ -3989,7 +3989,7 @@ public class Window extends Container implements Accessible {
      *
      * The method is used from the native code, or via AWTAccessor.
      *
-     * NOTE: this method is invoked on the toolkit thread, and therefore is not
+     * NOTE: this method is invoked on the toolkit threadpool, and therefore is not
      * supposed to become public/user-overridable.
      */
     private Point2D calculateSecurityWarningPosition(double x, double y,

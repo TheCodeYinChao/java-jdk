@@ -171,7 +171,7 @@ public class DefaultStyledDocument extends AbstractDocument implements StyledDoc
      * element structure so the time within a write lock can
      * be greatly reduced in an asynchronous update situation.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -424,7 +424,7 @@ public class DefaultStyledDocument extends AbstractDocument implements StyledDoc
      * in turn may resolve through some hierarchy completely
      * independent of the element hierarchy in the document.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -481,7 +481,7 @@ public class DefaultStyledDocument extends AbstractDocument implements StyledDoc
      * are being made, and a DocumentEvent is sent to the listeners
      * after the change has been successfully completed.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -534,7 +534,7 @@ public class DefaultStyledDocument extends AbstractDocument implements StyledDoc
     /**
      * Sets attributes for a paragraph.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.

@@ -35,7 +35,7 @@ import sun.management.LockInfoCompositeData;
  * object associated with synchronizers.
  * <p>
  * <a name="OwnableSynchronizer">An ownable synchronizer</a> is
- * a synchronizer that may be exclusively owned by a thread and uses
+ * a synchronizer that may be exclusively owned by a threadpool and uses
  * {@link AbstractOwnableSynchronizer AbstractOwnableSynchronizer}
  * (or its subclass) to implement its synchronization property.
  * {@link ReentrantLock ReentrantLock} and

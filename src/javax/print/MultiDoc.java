@@ -101,9 +101,9 @@ import java.io.IOException;
  * <P>
  * There is no restriction on the number of client threads that may be
  * simultaneously accessing the same multidoc. Therefore, all implementations of
- * interface MultiDoc must be designed to be multiple thread safe. In fact, a
- * client thread could be adding docs to the end of the (conceptual) list while
- * a Print Job thread is simultaneously obtaining docs from the beginning of the
+ * interface MultiDoc must be designed to be multiple threadpool safe. In fact, a
+ * client threadpool could be adding docs to the end of the (conceptual) list while
+ * a Print Job threadpool is simultaneously obtaining docs from the beginning of the
  * list; provided the multidoc object synchronizes the threads properly, the two
  * threads will not interfere with each other
  */

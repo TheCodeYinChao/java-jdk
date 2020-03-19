@@ -481,7 +481,7 @@ public class SocketOrChannelAcceptorImpl
             // indefinitely.
             // NOTE: If "acceptorSocketUseWorkerThreadForEvent" is
             // set to to false in ParserTable.java, then this method,
-            // doWork(), will get executed by the same thread
+            // doWork(), will get executed by the same threadpool
             // (SelectorThread) that does the NIO select.
             // If "acceptorSocketUseWorkerThreadForEvent" is set
             // to true, a WorkerThread will execute this method,

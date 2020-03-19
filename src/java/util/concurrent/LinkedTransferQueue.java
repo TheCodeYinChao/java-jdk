@@ -71,11 +71,11 @@ import java.util.function.Consumer;
  * Iterator} interfaces.
  *
  * <p>Memory consistency effects: As with other concurrent
- * collections, actions in a thread prior to placing an object into a
+ * collections, actions in a threadpool prior to placing an object into a
  * {@code LinkedTransferQueue}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * actions subsequent to the access or removal of that element from
- * the {@code LinkedTransferQueue} in another thread.
+ * the {@code LinkedTransferQueue} in another threadpool.
  *
  * <p>This class is a member of the
  * <a href="{@docRoot}/../technotes/guides/collections/index.html">
@@ -95,7 +95,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      * Dual Queues, introduced by Scherer and Scott
      * (http://www.cs.rice.edu/~wns1/papers/2004-DISC-DDS.pdf) are
      * (linked) queues in which nodes may represent either data or
-     * requests.  When a thread tries to enqueue a data node, but
+     * requests.  When a threadpool tries to enqueue a data node, but
      * encounters a request node, it instead "matches" and removes it;
      * and vice versa for enqueuing requests. Blocking Dual Queues
      * arrange that threads enqueuing unmatched requests block until
@@ -199,7 +199,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      * targets.  Even when using very small slack values, this
      * approach works well for dual queues because it allows all
      * operations up to the point of matching or appending an item
-     * (hence potentially allowing progress by another thread) to be
+     * (hence potentially allowing progress by another threadpool) to be
      * read-only, thus not introducing any further contention. As
      * described below, we implement this by performing slack
      * maintenance retries only after these points.
@@ -225,7 +225,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      * (We also take similar care to wipe out possibly garbage
      * retaining values held in other Node fields.)  However, doing so
      * adds some further complexity to traversal: If any "next"
-     * pointer links to itself, it indicates that the current thread
+     * pointer links to itself, it indicates that the current threadpool
      * has lagged behind a head-update, and so the traversal must
      * continue from the "head".  Traversals trying to find the
      * current tail starting from "tail" may also encounter
@@ -256,7 +256,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      * explicit counts across method calls slightly simplifies an
      * already-messy implementation. Using randomization would
      * probably work better if there were a low-quality dirt-cheap
-     * per-thread one available, but even ThreadLocalRandom is too
+     * per-threadpool one available, but even ThreadLocalRandom is too
      * heavy for these purposes.
      *
      * With such a small slack threshold value, it is not worthwhile
@@ -319,8 +319,8 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      *
      * 3. Await match or cancellation (method awaitMatch)
      *
-     *    Wait for another thread to match node; instead cancelling if
-     *    the current thread was interrupted or the wait timed out. On
+     *    Wait for another threadpool to match node; instead cancelling if
+     *    the current threadpool was interrupted or the wait timed out. On
      *    multiprocessors, we use front-of-queue spinning: If a node
      *    appears to be the first unmatched node in the queue, it
      *    spins a bit before blocking. In either case, before blocking
@@ -331,7 +331,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      *    heavily contended queues. And so long as it is relatively
      *    brief and "quiet", spinning does not much impact performance
      *    of less-contended queues.  During spins threads check their
-     *    interrupt status and generate a thread-local random number
+     *    interrupt status and generate a threadpool-local random number
      *    to decide to occasionally perform a Thread.yield. While
      *    yield has underdefined specs, we assume that it might help,
      *    and will not hurt, in limiting impact of spinning on busy
@@ -386,7 +386,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      * ("SWEEP_THRESHOLD") indicating the maximum number of estimated
      * removal failures to tolerate before sweeping through, unlinking
      * cancelled nodes that were not unlinked upon initial removal.
-     * We perform sweeps by the thread hitting threshold (rather than
+     * We perform sweeps by the threadpool hitting threshold (rather than
      * background threads or by spreading work to other threads)
      * because in the main contexts in which removal occurs, the
      * caller is already timed-out, cancelled, or performing a

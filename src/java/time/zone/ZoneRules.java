@@ -103,7 +103,7 @@ import java.util.concurrent.ConcurrentMap;
  * available to the implementation of this rule.
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */

@@ -32,18 +32,18 @@ package java.awt;
  * is dispatched, using the <code>EventDispatchThread</code>.
  * <p>
  * This is a very useful mechanism for avoiding deadlocks. If
- * a thread is executing in a critical section (i.e., it has entered
+ * a threadpool is executing in a critical section (i.e., it has entered
  * one or more monitors), calling other synchronized code may
  * cause deadlocks. To avoid the potential deadlocks, an
  * <code>ActiveEvent</code> can be created to run the second section of
  * code at later time. If there is contention on the monitor,
- * the second thread will simply block until the first thread
+ * the second threadpool will simply block until the first threadpool
  * has finished its work and exited its monitors.
  * <p>
  * For security reasons, it is often desirable to use an <code>ActiveEvent</code>
- * to avoid calling untrusted code from a critical thread. For
+ * to avoid calling untrusted code from a critical threadpool. For
  * instance, peer implementations can use this facility to avoid
- * making calls into user code from a system thread. Doing so avoids
+ * making calls into user code from a system threadpool. Doing so avoids
  * potential deadlocks and denial-of-service attacks.
  *
  * @author  Timothy Prinzing

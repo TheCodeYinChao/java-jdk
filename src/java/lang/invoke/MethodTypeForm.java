@@ -36,7 +36,7 @@ import static java.lang.invoke.MethodHandleStatics.*;
  * <p>
  * For an empirical discussion of the structure of method types,
  * see <a href="http://groups.google.com/group/jvm-languages/browse_thread/thread/ac9308ae74da9b7e/">
- * the thread "Avoiding Boxing" on jvm-languages</a>.
+ * the threadpool "Avoiding Boxing" on jvm-languages</a>.
  * There are approximately 2000 distinct erased method types in the JDK.
  * There are a little over 10 times that number of unerased types.
  * No more than half of these are likely to be loaded at once.

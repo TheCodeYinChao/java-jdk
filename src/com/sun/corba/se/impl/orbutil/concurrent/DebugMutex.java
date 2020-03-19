@@ -127,8 +127,8 @@ package com.sun.corba.se.impl.orbutil.concurrent;
  * }
  * </pre>
  * <p>
- * <p>This version adds some debugging capability: it will detect an attempt by a thread
- * that holds the lock to acquire it for a second time, and also an attempt by a thread that
+ * <p>This version adds some debugging capability: it will detect an attempt by a threadpool
+ * that holds the lock to acquire it for a second time, and also an attempt by a threadpool that
  * does not hold the mutex to release it.
  * @see Semaphore
  * <p>[<a href="http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/intro.html"> Introduction to this package. </a>]
@@ -148,7 +148,7 @@ public class DebugMutex implements Sync  {
       Thread thr = Thread.currentThread();
       if (holder_ == thr)
         throw new INTERNAL(
-            "Attempt to acquire Mutex by thread holding the Mutex" ) ;
+            "Attempt to acquire Mutex by threadpool holding the Mutex" ) ;
 
       try {
         while (inuse_) wait();
@@ -166,7 +166,7 @@ public class DebugMutex implements Sync  {
     Thread thr = Thread.currentThread();
     if (thr != holder_)
         throw new INTERNAL(
-            "Attempt to release Mutex by thread not holding the Mutex" ) ;
+            "Attempt to release Mutex by threadpool not holding the Mutex" ) ;
     holder_ = null;
     inuse_ = false;
     notify();

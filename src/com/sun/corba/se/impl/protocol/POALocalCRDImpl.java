@@ -131,7 +131,7 @@ public class POALocalCRDImpl extends LocalClientRequestDispatcherBase
             throw runexc ;
         } catch ( ThreadDeath ex ) {
             // ThreadDeath on the server side should not cause a client
-            // side thread death in the local case.  We want to preserve
+            // side threadpool death in the local case.  We want to preserve
             // this behavior for location transparency, so that a ThreadDeath
             // has the same affect in either the local or remote case.
             // The non-colocated case is handled in iiop.ORB.process, which

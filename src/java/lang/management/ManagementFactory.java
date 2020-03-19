@@ -330,7 +330,7 @@ public class ManagementFactory {
     }
 
     /**
-     * Returns the managed bean for the thread system of
+     * Returns the managed bean for the threadpool system of
      * the Java virtual machine.
      *
      * @return a {@link ThreadMXBean} object for the Java virtual machine.

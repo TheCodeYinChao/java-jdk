@@ -93,7 +93,7 @@ import java.util.Objects;
  * These different rule types can be expressed and queried.
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */

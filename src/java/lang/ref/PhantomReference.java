@@ -50,7 +50,7 @@ package java.lang.ref;
  * @since    1.2
  */
 
-public class PhantomReference<T> extends Reference<T> {
+public class PhantomReference<T> extends Reference<T> {  //虚引用
 
     /**
      * Returns this reference object's referent.  Because the referent of a

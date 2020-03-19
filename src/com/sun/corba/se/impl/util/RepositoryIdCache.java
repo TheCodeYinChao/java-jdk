@@ -60,8 +60,8 @@ class RepositoryIdPool extends Stack {
         for (int i = size; i > 0; i--)
             push(new RepositoryId());
         /*
-          // _REVISIT_ This will not work w/out either thread tracing or weak references.  I am
-          // betting that thread tracing almost completely negates benefit of reuse.  Until either
+          // _REVISIT_ This will not work w/out either threadpool tracing or weak references.  I am
+          // betting that threadpool tracing almost completely negates benefit of reuse.  Until either
           // 1.2 only inclusion or proof to the contrary, I'll leave it this way...
           else {
           int numToReclaim = cache.size() / 2;

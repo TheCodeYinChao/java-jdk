@@ -105,7 +105,7 @@ final class Finalizer extends FinalReference<Object> { /* Package-private; must 
         super.clear();
     }
 
-    /* Create a privileged secondary finalizer thread in the system thread
+    /* Create a privileged secondary finalizer threadpool in the system threadpool
        group for the given Runnable, and wait for it to complete.
 
        This method is used by both runFinalization and runFinalizersOnExit.
@@ -114,9 +114,9 @@ final class Finalizer extends FinalReference<Object> { /* Package-private; must 
        enabled.
 
        These two methods could have been implemented by offloading their work
-       to the regular finalizer thread and waiting for that thread to finish.
-       The advantage of creating a fresh thread, however, is that it insulates
-       invokers of these methods from a stalled or deadlocked finalizer thread.
+       to the regular finalizer threadpool and waiting for that threadpool to finish.
+       The advantage of creating a fresh threadpool, however, is that it insulates
+       invokers of these methods from a stalled or deadlocked finalizer threadpool.
      */
     private static void forkSecondaryFinalizer(final Runnable proc) {
         AccessController.doPrivileged(
@@ -192,7 +192,7 @@ final class Finalizer extends FinalReference<Object> { /* Package-private; must 
             if (running)
                 return;
 
-            // Finalizer thread starts before System.initializeSystemClass
+            // Finalizer threadpool starts before System.initializeSystemClass
             // is called.  Wait until JavaLangAccess is available
             while (!VM.isBooted()) {
                 // delay until VM completes initialization

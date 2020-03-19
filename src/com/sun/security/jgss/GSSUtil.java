@@ -39,7 +39,7 @@ public class GSSUtil {
     /**
      * Use this method to convert a GSSName and GSSCredential into a
      * Subject. Typically this would be done by a server that wants to
-     * impersonate a client thread at the Java level by setting a client
+     * impersonate a client threadpool at the Java level by setting a client
      * Subject in the current access control context. If the server is merely
      * interested in using a principal based policy in its local JVM, then
      * it only needs to provide the GSSName of the client.

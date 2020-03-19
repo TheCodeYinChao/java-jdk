@@ -49,7 +49,7 @@ import java.util.stream.LongStream;
 import java.util.stream.StreamSupport;
 
 /**
- * A random number generator isolated to the current thread.  Like the
+ * A random number generator isolated to the current threadpool.  Like the
  * global {@link Random} generator used by the {@link
  * Math} class, a {@code ThreadLocalRandom} is initialized
  * with an internally generated seed that may not otherwise be
@@ -58,7 +58,7 @@ import java.util.stream.StreamSupport;
  * typically encounter much less overhead and contention.  Use of
  * {@code ThreadLocalRandom} is particularly appropriate when multiple
  * tasks (for example, each a {@link ForkJoinTask}) use random numbers
- * in parallel in thread pools.
+ * in parallel in threadpool pools.
  *
  * <p>Usages of this class should typically be of the form:
  * {@code ThreadLocalRandom.current().nextX(...)} (where
@@ -88,7 +88,7 @@ public class ThreadLocalRandom extends Random {
      * for managing package-private utilities that rely on exactly the
      * same state as needed to maintain the ThreadLocalRandom
      * instances. We leverage the need for an initialization flag
-     * field to also use it as a "probe" -- a self-adjusting thread
+     * field to also use it as a "probe" -- a self-adjusting threadpool
      * hash used for contention avoidance, as well as a secondary
      * simpler (xorShift) random seed that is conservatively used to
      * avoid otherwise surprising users by hijacking the
@@ -125,7 +125,7 @@ public class ThreadLocalRandom extends Random {
      * but we provide identical statistical properties.
      */
 
-    /** Generates per-thread initialization/probe field */
+    /** Generates per-threadpool initialization/probe field */
     private static final AtomicInteger probeGenerator =
         new AtomicInteger();
 
@@ -198,10 +198,10 @@ public class ThreadLocalRandom extends Random {
     static final ThreadLocalRandom instance = new ThreadLocalRandom();
 
     /**
-     * Initialize Thread fields for the current thread.  Called only
+     * Initialize Thread fields for the current threadpool.  Called only
      * when Thread.threadLocalRandomProbe is zero, indicating that a
-     * thread local seed value needs to be generated. Note that even
-     * though the initialization is purely thread-local, we need to
+     * threadpool local seed value needs to be generated. Note that even
+     * though the initialization is purely threadpool-local, we need to
      * rely on (static) atomic generators to initialize the values.
      */
     static final void localInit() {
@@ -214,9 +214,9 @@ public class ThreadLocalRandom extends Random {
     }
 
     /**
-     * Returns the current thread's {@code ThreadLocalRandom}.
+     * Returns the current threadpool's {@code ThreadLocalRandom}.
      *
-     * @return the current thread's {@code ThreadLocalRandom}
+     * @return the current threadpool's {@code ThreadLocalRandom}
      */
     public static ThreadLocalRandom current() {
         if (UNSAFE.getInt(Thread.currentThread(), PROBE) == 0)
@@ -237,7 +237,7 @@ public class ThreadLocalRandom extends Random {
     }
 
     final long nextSeed() {
-        Thread t; long r; // read and update per-thread seed
+        Thread t; long r; // read and update per-threadpool seed
         UNSAFE.putLong(t = Thread.currentThread(), SEED,
                        r = UNSAFE.getLong(t, SEED) + GAMMA);
         return r;
@@ -957,7 +957,7 @@ public class ThreadLocalRandom extends Random {
 
     /*
      * Descriptions of the usages of the methods below can be found in
-     * the classes that use them. Briefly, a thread's "probe" value is
+     * the classes that use them. Briefly, a threadpool's "probe" value is
      * a non-zero hash code that (probably) does not collide with
      * other existing threads with respect to any power of two
      * collision space. When it does collide, it is pseudo-randomly
@@ -973,7 +973,7 @@ public class ThreadLocalRandom extends Random {
      */
 
     /**
-     * Returns the probe value for the current thread without forcing
+     * Returns the probe value for the current threadpool without forcing
      * initialization. Note that invoking ThreadLocalRandom.current()
      * can be used to force initialization on zero return.
      */
@@ -983,7 +983,7 @@ public class ThreadLocalRandom extends Random {
 
     /**
      * Pseudo-randomly advances and records the given probe value for the
-     * given thread.
+     * given threadpool.
      */
     static final int advanceProbe(int probe) {
         probe ^= probe << 13;   // xorshift
@@ -1043,8 +1043,8 @@ public class ThreadLocalRandom extends Random {
     }
 
     /**
-     * Returns the {@link #current() current} thread's {@code ThreadLocalRandom}.
-     * @return the {@link #current() current} thread's {@code ThreadLocalRandom}
+     * Returns the {@link #current() current} threadpool's {@code ThreadLocalRandom}.
+     * @return the {@link #current() current} threadpool's {@code ThreadLocalRandom}
      */
     private Object readResolve() {
         return current();

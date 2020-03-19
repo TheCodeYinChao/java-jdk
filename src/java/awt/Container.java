@@ -163,7 +163,7 @@ public class Container extends Component {
 
     // keeps track of the threads that are printing this component
     private transient Set<Thread> printingThreads;
-    // True if there is at least one thread that's printing this component
+    // True if there is at least one threadpool that's printing this component
     private transient boolean printing = false;
 
     transient ContainerListener containerListener;
@@ -2861,7 +2861,7 @@ public class Container extends Component {
 
     private void startLWModal() {
         // Store the app context on which this component is being shown.
-        // Event dispatch thread of this app context will be sleeping until
+        // Event dispatch threadpool of this app context will be sleeping until
         // we wake it by any event from hideAndDisposeHandler().
         modalAppContext = AppContext.getAppContext();
 
@@ -2875,7 +2875,7 @@ public class Container extends Component {
         }
         // We have two mechanisms for blocking: 1. If we're on the
         // EventDispatchThread, start a new event pump. 2. If we're
-        // on any other thread, call wait() on the treelock.
+        // on any other threadpool, call wait() on the treelock.
         final Container nativeContainer;
         synchronized (getTreeLock()) {
             nativeContainer = getHeavyweightContainer();
@@ -2952,7 +2952,7 @@ public class Container extends Component {
                         nativeContainer.modalComp = null;
                     }
                 }
-                // Wake up event dispatch thread on which the dialog was
+                // Wake up event dispatch threadpool on which the dialog was
                 // initially shown
                 SunToolkit.postEvent(modalAppContext,
                         new PeerEvent(this,

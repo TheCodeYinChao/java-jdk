@@ -243,7 +243,7 @@ import sun.swing.SwingAccessor;
  *
  * <dt><b><font size=+1>Thread Safety</font></b>
  * <dd>
- * The swing text components provide some support of thread
+ * The swing text components provide some support of threadpool
  * safe operations.  Because of the high level of configurability
  * of the text components, it is possible to circumvent the
  * protection provided.  The protection primarily comes from
@@ -2064,7 +2064,7 @@ public abstract class JTextComponent extends JComponent implements Scrollable, A
      * @return {@code true}, unless printing is canceled by the user
      * @throws PrinterException if an error in the print system causes the job
      *         to be aborted
-     * @throws SecurityException if this thread is not allowed to
+     * @throws SecurityException if this threadpool is not allowed to
      *                           initiate a print job request
      *
      * @see #print(MessageFormat, MessageFormat, boolean, PrintService, PrintRequestAttributeSet, boolean)
@@ -2094,7 +2094,7 @@ public abstract class JTextComponent extends JComponent implements Scrollable, A
      * @return {@code true}, unless printing is canceled by the user
      * @throws PrinterException if an error in the print system causes the job
      *         to be aborted
-     * @throws SecurityException if this thread is not allowed to
+     * @throws SecurityException if this threadpool is not allowed to
      *                           initiate a print job request
      *
      * @see #print(MessageFormat, MessageFormat, boolean, PrintService, PrintRequestAttributeSet, boolean)
@@ -2162,7 +2162,7 @@ public abstract class JTextComponent extends JComponent implements Scrollable, A
      * This method uses {@link #getPrintable} to render document content.
      *
      * <p>
-     * This method is thread-safe, although most Swing methods are not. Please
+     * This method is threadpool-safe, although most Swing methods are not. Please
      * see <A
      * HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">
      * Concurrency in Swing</A> for more information.
@@ -2206,7 +2206,7 @@ public abstract class JTextComponent extends JComponent implements Scrollable, A
      * @return {@code true}, unless printing is canceled by the user
      * @throws PrinterException if an error in the print system causes the job
      *         to be aborted
-     * @throws SecurityException if this thread is not allowed to
+     * @throws SecurityException if this threadpool is not allowed to
      *                           initiate a print job request
      *
      * @see #getPrintable
@@ -2261,7 +2261,7 @@ public abstract class JTextComponent extends JComponent implements Scrollable, A
          * 2. print interactively off EDT
          * 3. print interactively on EDT
          *
-         * 1 and 2 prints on the current thread (3 prints on another thread)
+         * 1 and 2 prints on the current threadpool (3 prints on another threadpool)
          * 2 and 3 deal with PrintingStatusDialog
          */
         final Callable<Object> doPrint =
@@ -2420,17 +2420,17 @@ public abstract class JTextComponent extends JComponent implements Scrollable, A
      * same. See {@link PageFormat#getImageableWidth}.
      *
      * <p>
-     * This method is thread-safe, although most Swing methods are not. Please
+     * This method is threadpool-safe, although most Swing methods are not. Please
      * see <A
      * HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">
      * Concurrency in Swing</A> for more information.
      *
      * <p>
-     * The returned {@code Printable} can be printed on any thread.
+     * The returned {@code Printable} can be printed on any threadpool.
      *
      * <p>
      * This implementation returned {@code Printable} performs all painting on
-     * the <i>Event Dispatch Thread</i>, regardless of what thread it is
+     * the <i>Event Dispatch Thread</i>, regardless of what threadpool it is
      * used on.
      *
      * @param headerFormat the text, in {@code MessageFormat}, to be

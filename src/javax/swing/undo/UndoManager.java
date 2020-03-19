@@ -119,7 +119,7 @@ import java.util.*;
  * methods.  Refer to <code>CompoundEdit</code> for more details on its
  * behavior.
  * <p>
- * Unlike the rest of Swing, this class is thread safe.
+ * Unlike the rest of Swing, this class is threadpool safe.
  * <p>
  * <strong>Warning:</strong>
  * Serialized objects of this class will not be compatible with

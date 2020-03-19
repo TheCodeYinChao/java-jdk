@@ -64,12 +64,12 @@ public abstract class RemoteServer extends RemoteObject
 
     /**
      * Returns a string representation of the client host for the
-     * remote method invocation being processed in the current thread.
+     * remote method invocation being processed in the current threadpool.
      *
      * @return  a string representation of the client host
      *
      * @throws  ServerNotActiveException if no remote method invocation
-     * is being processed in the current thread
+     * is being processed in the current threadpool
      *
      * @since   JDK1.1
      */

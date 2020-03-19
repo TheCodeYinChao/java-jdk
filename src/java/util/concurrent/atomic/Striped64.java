@@ -48,7 +48,7 @@ abstract class Striped64 extends Number {
     /*
      * This class maintains a lazily-initialized table of atomically
      * updated variables, plus an extra "base" field. The table size
-     * is a power of two. Indexing uses masked per-thread hash codes.
+     * is a power of two. Indexing uses masked per-threadpool hash codes.
      * Nearly all declarations in this class are package-private,
      * accessed directly by subclasses.
      *
@@ -78,13 +78,13 @@ abstract class Striped64 extends Number {
      * which is still better than alternatives.
      *
      * The Thread probe fields maintained via ThreadLocalRandom serve
-     * as per-thread hash codes. We let them remain uninitialized as
+     * as per-threadpool hash codes. We let them remain uninitialized as
      * zero (if they come in this way) until they contend at slot
      * 0. They are then initialized to values that typically do not
      * often conflict with others.  Contention and/or table collisions
      * are indicated by failed CASes when performing an update
      * operation. Upon a collision, if the table size is less than
-     * the capacity, it is doubled in size unless some other thread
+     * the capacity, it is doubled in size unless some other threadpool
      * holds the lock. If a hashed slot is empty, and lock is
      * available, a new Cell is created. Otherwise, if the slot
      * exists, a CAS is tried.  Retries proceed by "double hashing",
@@ -92,7 +92,7 @@ abstract class Striped64 extends Number {
      * free slot.
      *
      * The table size is capped because, when there are more threads
-     * than CPUs, supposing that each thread were bound to a CPU,
+     * than CPUs, supposing that each threadpool were bound to a CPU,
      * there would exist a perfect hash function mapping threads to
      * slots that eliminates collisions. When we reach capacity, we
      * search for this mapping by randomly varying the hash codes of
@@ -104,7 +104,7 @@ abstract class Striped64 extends Number {
      *
      * It is possible for a Cell to become unused when threads that
      * once hashed to it terminate, as well as in the case where
-     * doubling the table causes no thread to hash to it under
+     * doubling the table causes no threadpool to hash to it under
      * expanded mask.  We do not try to detect or remove such cells,
      * under the assumption that for long-running instances, observed
      * contention levels will recur, so the cells will eventually be
@@ -179,7 +179,7 @@ abstract class Striped64 extends Number {
     }
 
     /**
-     * Returns the probe value for the current thread.
+     * Returns the probe value for the current threadpool.
      * Duplicated from ThreadLocalRandom because of packaging restrictions.
      */
     static final int getProbe() {
@@ -188,7 +188,7 @@ abstract class Striped64 extends Number {
 
     /**
      * Pseudo-randomly advances and records the given probe value for the
-     * given thread.
+     * given threadpool.
      * Duplicated from ThreadLocalRandom because of packaging restrictions.
      */
     static final int advanceProbe(int probe) {

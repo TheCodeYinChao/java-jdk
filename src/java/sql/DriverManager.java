@@ -619,7 +619,7 @@ public class DriverManager {
         for (String aDriver : driversList) {
             try {
                 println("DriverManager.Initialize: loading " + aDriver);
-                Class.forName(aDriver, true,
+                Class.forName(aDriver, true, //找到 aDriver的类
                         ClassLoader.getSystemClassLoader());
             } catch (Exception ex) {
                 println("DriverManager.Initialize: load failed: " + ex);

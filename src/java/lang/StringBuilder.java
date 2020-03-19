@@ -31,7 +31,7 @@ package java.lang;
  * with {@code StringBuffer}, but with no guarantee of synchronization.
  * This class is designed for use as a drop-in replacement for
  * {@code StringBuffer} in places where the string buffer was being
- * used by a single thread (as is generally the case).   Where possible,
+ * used by a single threadpool (as is generally the case).   Where possible,
  * it is recommended that this class be used in preference to
  * {@code StringBuffer} as it will be faster under most implementations.
  *

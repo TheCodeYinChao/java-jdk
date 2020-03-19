@@ -35,7 +35,7 @@ import org.omg.CORBA.Any;
  * SlotTable is used internally by PICurrent to store the slot information.
  */
 public class SlotTable {
-    // The vector where all the slot data for the current thread is stored
+    // The vector where all the slot data for the current threadpool is stored
     private Any[] theSlotData;
 
     // Required for instantiating Any object.

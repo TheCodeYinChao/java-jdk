@@ -89,7 +89,7 @@ public class NamingManager {
      * an ObjectFactoryBuilder. Subsequent object factories will
      * be loaded and created using the installed builder.
      *<p>
-     * The builder can only be installed if the executing thread is allowed
+     * The builder can only be installed if the executing threadpool is allowed
      * (by the security manager's checkSetFactory() method) to do so.
      * Once installed, the builder cannot be replaced.
      *<p>
@@ -689,7 +689,7 @@ public class NamingManager {
      * Sets the InitialContextFactory builder to be builder.
      *
      *<p>
-     * The builder can only be installed if the executing thread is allowed by
+     * The builder can only be installed if the executing threadpool is allowed by
      * the security manager to do so. Once installed, the builder cannot
      * be replaced.
      * @param builder The initial context factory builder to install. If null,

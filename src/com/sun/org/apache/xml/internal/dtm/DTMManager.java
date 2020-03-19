@@ -32,7 +32,7 @@ import com.sun.org.apache.xml.internal.utils.XMLStringFactory;
  *  class. If the property is not defined, a platform default is be used.</p>
  *
  * <p>An instance of this class <emph>must</emph> be safe to use across
- * thread instances.  It is expected that a client will create a single instance
+ * threadpool instances.  It is expected that a client will create a single instance
  * of a DTMManager to use across multiple threads.  This will allow sharing
  * of DTMs across multiple processes.</p>
  *

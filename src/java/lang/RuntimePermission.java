@@ -80,22 +80,22 @@ import java.util.StringTokenizer;
  *
  * <tr>
  *   <td>setContextClassLoader</td>
- *   <td>Setting of the context class loader used by a thread</td>
+ *   <td>Setting of the context class loader used by a threadpool</td>
  *   <td>The context class loader is used by system code and extensions
  * when they need to lookup resources that might not exist in the system
  * class loader. Granting setContextClassLoader permission would allow
  * code to change which context class loader is used
- * for a particular thread, including system threads.</td>
+ * for a particular threadpool, including system threads.</td>
  * </tr>
  *
  * <tr>
  *   <td>enableContextClassLoaderOverride</td>
- *   <td>Subclass implementation of the thread context class loader methods</td>
+ *   <td>Subclass implementation of the threadpool context class loader methods</td>
  *   <td>The context class loader is used by system code and extensions
  * when they need to lookup resources that might not exist in the system
  * class loader. Granting enableContextClassLoaderOverride permission would allow
  * a subclass of Thread to override the methods that are used
- * to get or set the context class loader for a particular thread.</td>
+ * to get or set the context class loader for a particular threadpool.</td>
  * </tr>
  *
  * <tr>
@@ -177,26 +177,26 @@ import java.util.StringTokenizer;
  * <tt>setName</tt> and <tt>setUncaughtExceptionHandler</tt>
  * methods</td>
  * <td>This allows an attacker to modify the behaviour of
- * any thread in the system.</td>
+ * any threadpool in the system.</td>
  * </tr>
  *
  * <tr>
  *   <td>stopThread</td>
  *   <td>Stopping of threads via calls to the Thread <code>stop</code>
  * method</td>
- *   <td>This allows code to stop any thread in the system provided that it is
- * already granted permission to access that thread.
+ *   <td>This allows code to stop any threadpool in the system provided that it is
+ * already granted permission to access that threadpool.
  * This poses as a threat, because that code may corrupt the system by
  * killing existing threads.</td>
  * </tr>
  *
  * <tr>
  *   <td>modifyThreadGroup</td>
- *   <td>modification of thread groups, e.g., via calls to ThreadGroup
+ *   <td>modification of threadpool groups, e.g., via calls to ThreadGroup
  * <code>destroy</code>, <code>getParent</code>, <code>resume</code>,
  * <code>setDaemon</code>, <code>setMaxPriority</code>, <code>stop</code>,
  * and <code>suspend</code> methods</td>
- *   <td>This allows an attacker to create thread groups and
+ *   <td>This allows an attacker to create threadpool groups and
  * set their run priority.</td>
  * </tr>
  *
@@ -295,19 +295,19 @@ import java.util.StringTokenizer;
  *
  * <tr>
  *   <td>getStackTrace</td>
- *   <td>Retrieval of the stack trace information of another thread.</td>
+ *   <td>Retrieval of the stack trace information of another threadpool.</td>
  *   <td>This allows retrieval of the stack trace information of
- * another thread.  This might allow malicious code to monitor the
+ * another threadpool.  This might allow malicious code to monitor the
  * execution of threads and discover vulnerabilities in applications.</td>
  * </tr>
  *
  * <tr>
  *   <td>setDefaultUncaughtExceptionHandler</td>
- *   <td>Setting the default handler to be used when a thread
+ *   <td>Setting the default handler to be used when a threadpool
  *   terminates abruptly due to an uncaught exception</td>
  *   <td>This allows an attacker to register a malicious
  *   uncaught exception handler that could interfere with termination
- *   of a thread</td>
+ *   of a threadpool</td>
  * </tr>
  *
  * <tr>

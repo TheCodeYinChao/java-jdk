@@ -57,8 +57,8 @@ import java.util.*;
  * string representation with <code>toString()</code> returns the string
  * representation of its user object.
  * <p>
- * <b>This is not a thread safe class.</b>If you intend to use
- * a DefaultMutableTreeNode (or a tree of TreeNodes) in more than one thread, you
+ * <b>This is not a threadpool safe class.</b>If you intend to use
+ * a DefaultMutableTreeNode (or a tree of TreeNodes) in more than one threadpool, you
  * need to do your own synchronizing. A good convention to adopt is
  * synchronizing on the root node of a tree.
  * <p>

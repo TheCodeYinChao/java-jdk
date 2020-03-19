@@ -31,16 +31,16 @@ package javax.xml.xpath;
  *
  *<p>See {@link #newInstance(String uri)} for lookup mechanism.</p>
  *
- * <p>The {@link XPathFactory} class is not thread-safe. In other words,
+ * <p>The {@link XPathFactory} class is not threadpool-safe. In other words,
  * it is the application's responsibility to ensure that at most
- * one thread is using a {@link XPathFactory} object at any
+ * one threadpool is using a {@link XPathFactory} object at any
  * given moment. Implementations are encouraged to mark methods
  * as <code>synchronized</code> to protect themselves from broken clients.
  *
  * <p>{@link XPathFactory} is not re-entrant. While one of the
  * <code>newInstance</code> methods is being invoked, applications
  * may not attempt to recursively invoke a <code>newInstance</code> method,
- * even from the same thread.
+ * even from the same threadpool.
  *
  * @author  <a href="mailto:Norman.Walsh@Sun.com">Norman Walsh</a>
  * @author  <a href="mailto:Jeff.Suttor@Sun.com">Jeff Suttor</a>
@@ -126,7 +126,7 @@ public abstract class XPathFactory {
     *     implementation of the service using the {@linkplain
     *     java.util.ServiceLoader#load(Class) default loading mechanism}:
     *     the service-provider loading facility will use the {@linkplain
-    *     Thread#getContextClassLoader() current thread's context class loader}
+    *     Thread#getContextClassLoader() current threadpool's context class loader}
     *     to attempt to load the service. If the context class
     *     loader is null, the {@linkplain
     *     ClassLoader#getSystemClassLoader() system class loader} will be used.

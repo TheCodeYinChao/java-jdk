@@ -366,7 +366,7 @@ public abstract class MessageBase implements Message{
             msg10.GIOP_version = new GIOPVersion(buf.get(4), buf.get(5));
             msg10.byte_order = (buf.get(6) == LITTLE_ENDIAN_BIT);
             // 'request partitioning' not supported on GIOP version 1.0
-            // so just use the default thread pool, 0.
+            // so just use the default threadpool pool, 0.
             msg.threadPoolToUse = 0;
             msg10.message_type = buf.get(7);
             msg10.message_size = readSize(buf.get(8), buf.get(9), buf.get(10), buf.get(11),
@@ -377,7 +377,7 @@ public abstract class MessageBase implements Message{
             msg11.magic = magic;
             msg11.GIOP_version = new GIOPVersion(buf.get(4), buf.get(5));
             msg11.flags = (byte)(buf.get(6) & TRAILING_TWO_BIT_BYTE_MASK);
-            // IMPORTANT: For 'request partitioning', the thread pool to use
+            // IMPORTANT: For 'request partitioning', the threadpool pool to use
             //            information is stored in the leading 6 bits of byte 6.
             //
             // IMPORTANT: Request partitioning is a PROPRIETARY EXTENSION !!!
@@ -562,7 +562,7 @@ public abstract class MessageBase implements Message{
         }
 
         if (gv.supportsIORIIOPProfileComponents()) {
-            // add request partitioning thread pool to use info
+            // add request partitioning threadpool pool to use info
             int poolToUse = 0; // default pool
             IIOPProfileTemplate temp =
                 (IIOPProfileTemplate)profile.getTaggedProfileTemplate();

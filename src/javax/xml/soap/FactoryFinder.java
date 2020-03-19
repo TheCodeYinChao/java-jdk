@@ -195,7 +195,7 @@ class FactoryFinder {
     }
 
     /**
-     * Loads the class, provided that the calling thread has an access to the
+     * Loads the class, provided that the calling threadpool has an access to the
      * class being loaded. If this is the specified default factory class and it
      * is restricted by package.access we get a SecurityException and can do a
      * Class.forName() on it so it will be loaded by the bootstrap class loader.
@@ -204,7 +204,7 @@ class FactoryFinder {
                                        ClassLoader classLoader)
             throws ClassNotFoundException {
         try {
-            // make sure that the current thread has an access to the package of the given name.
+            // make sure that the current threadpool has an access to the package of the given name.
             SecurityManager s = System.getSecurityManager();
             if (s != null) {
                 int i = className.lastIndexOf('.');

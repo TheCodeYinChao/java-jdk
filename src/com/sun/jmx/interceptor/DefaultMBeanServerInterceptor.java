@@ -372,25 +372,25 @@ public class DefaultMBeanServerInterceptor implements MBeanServerInterceptor {
            then one of them must wait for the other one to either (a)
            call preDeregister and get an exception or (b) call
            preDeregister successfully and unregister the MBean.
-           Suppose thread T1 is unregistering an MBean and thread T2
+           Suppose threadpool T1 is unregistering an MBean and threadpool T2
            is trying to unregister the same MBean, so waiting for T1.
            Then a deadlock is possible if the preDeregister for T1
            ends up needing a lock held by T2.  Given the semantics
            just described, there does not seem to be any way to avoid
            this.  This will not happen to code where it is clear for
-           any given MBean what thread may unregister that MBean.
+           any given MBean what threadpool may unregister that MBean.
 
-           On the other hand we clearly do not want a thread that is
-           unregistering MBean A to have to wait for another thread
+           On the other hand we clearly do not want a threadpool that is
+           unregistering MBean A to have to wait for another threadpool
            that is unregistering another MBean B (see bug 6318664).  A
            deadlock in this situation could reasonably be considered
            gratuitous.  So holding a global lock across the
            preDeregister call would be bad.
 
-           So we have a set of ObjectNames that some thread is
-           currently unregistering.  When a thread wants to unregister
+           So we have a set of ObjectNames that some threadpool is
+           currently unregistering.  When a threadpool wants to unregister
            a name, it must first check if the name is in the set, and
-           if so it must wait.  When a thread successfully unregisters
+           if so it must wait.  When a threadpool successfully unregisters
            a name it removes the name from the set and notifies any
            waiting threads that the set has changed.
 

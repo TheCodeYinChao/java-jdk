@@ -161,7 +161,7 @@
  * </table></blockquote>
  *
  * <p> Multiplexed, non-blocking I/O, which is much more scalable than
- * thread-oriented, blocking I/O, is provided by <i>selectors</i>, <i>selectable
+ * threadpool-oriented, blocking I/O, is provided by <i>selectors</i>, <i>selectable
  * channels</i>, and <i>selection keys</i>.
  *
  * <p> A <a href="Selector.html"><i>selector</i></a> is a multiplexor of <a
@@ -188,7 +188,7 @@
  *
  * <p> That a selection key indicates that its channel is ready for some operation
  * is a hint, but not a guarantee, that such an operation can be performed by a
- * thread without causing the thread to block.  It is imperative that code that
+ * threadpool without causing the threadpool to block.  It is imperative that code that
  * performs multiplexed I/O be written so as to ignore these hints when they prove
  * to be incorrect.
  *

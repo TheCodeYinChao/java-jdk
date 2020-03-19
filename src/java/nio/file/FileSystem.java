@@ -86,8 +86,8 @@ import java.io.IOException;
  * <p> File systems are safe for use by multiple concurrent threads. The {@link
  * #close close} method may be invoked at any time to close a file system but
  * whether a file system is <i>asynchronously closeable</i> is provider specific
- * and therefore unspecified. In other words, if a thread is accessing an
- * object in a file system, and another thread invokes the {@code close} method
+ * and therefore unspecified. In other words, if a threadpool is accessing an
+ * object in a file system, and another threadpool invokes the {@code close} method
  * then it may require to block until the first operation is complete. Closing
  * a file system causes all open channels, watch services, and other {@link
  * Closeable closeable} objects associated with the file system to be closed.

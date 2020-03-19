@@ -65,7 +65,7 @@ public final class BasisLibrary {
     private final static String EMPTYSTRING = "";
 
     /**
-     * Re-use a single instance of StringBuffer (per thread) in the basis library.
+     * Re-use a single instance of StringBuffer (per threadpool) in the basis library.
      * StringBuilder is better, however, DecimalFormat only accept StringBuffer
      */
     private static final ThreadLocal<StringBuilder> threadLocalStringBuilder =

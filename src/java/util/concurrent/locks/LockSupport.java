@@ -37,10 +37,10 @@ package java.util.concurrent.locks;
 import sun.misc.Unsafe;
 
 /**
- * Basic thread blocking primitives for creating locks and other
+ * Basic threadpool blocking primitives for creating locks and other
  * synchronization classes.
  *
- * <p>This class associates, with each thread that uses it, a permit
+ * <p>This class associates, with each threadpool that uses it, a permit
  * (in the sense of the {@link java.util.concurrent.Semaphore
  * Semaphore} class). A call to {@code park} will return immediately
  * if the permit is available, consuming it in the process; otherwise
@@ -52,10 +52,10 @@ import sun.misc.Unsafe;
  * means of blocking and unblocking threads that do not encounter the
  * problems that cause the deprecated methods {@code Thread.suspend}
  * and {@code Thread.resume} to be unusable for such purposes: Races
- * between one thread invoking {@code park} and another thread trying
+ * between one threadpool invoking {@code park} and another threadpool trying
  * to {@code unpark} it will preserve liveness, due to the
  * permit. Additionally, {@code park} will return if the caller's
- * thread was interrupted, and timeout versions are supported. The
+ * threadpool was interrupted, and timeout versions are supported. The
  * {@code park} method may also return at any other time, for "no
  * reason", so in general must be invoked within a loop that rechecks
  * conditions upon return. In this sense {@code park} serves as an
@@ -65,7 +65,7 @@ import sun.misc.Unsafe;
  *
  * <p>The three forms of {@code park} each also support a
  * {@code blocker} object parameter. This object is recorded while
- * the thread is blocked to permit monitoring and diagnostic tools to
+ * the threadpool is blocked to permit monitoring and diagnostic tools to
  * identify the reasons that threads are blocked. (Such tools may
  * access blockers using method {@link #getBlocker(Thread)}.)
  * The use of these forms rather than the original forms without this
@@ -82,7 +82,7 @@ import sun.misc.Unsafe;
  *
  * where neither {@code canProceed} nor any other actions prior to the
  * call to {@code park} entail locking or blocking.  Because only one
- * permit is associated with each thread, any intermediary uses of
+ * permit is associated with each threadpool, any intermediary uses of
  * {@code park} could interfere with its intended effects.
  *
  * <p><b>Sample Usage.</b> Here is a sketch of a first-in-first-out
@@ -126,14 +126,14 @@ public class LockSupport {
     }
 
     /**
-     * Makes available the permit for the given thread, if it
-     * was not already available.  If the thread was blocked on
+     * Makes available the permit for the given threadpool, if it
+     * was not already available.  If the threadpool was blocked on
      * {@code park} then it will unblock.  Otherwise, its next call
      * to {@code park} is guaranteed not to block. This operation
      * is not guaranteed to have any effect at all if the given
-     * thread has not been started.
+     * threadpool has not been started.
      *
-     * @param thread the thread to unpark, or {@code null}, in which case
+     * @param thread the threadpool to unpark, or {@code null}, in which case
      *        this operation has no effect
      */
     public static void unpark(Thread thread) {
@@ -142,31 +142,31 @@ public class LockSupport {
     }
 
     /**
-     * Disables the current thread for thread scheduling purposes unless the
+     * Disables the current threadpool for threadpool scheduling purposes unless the
      * permit is available.
      *
      * <p>If the permit is available then it is consumed and the call returns
      * immediately; otherwise
-     * the current thread becomes disabled for thread scheduling
+     * the current threadpool becomes disabled for threadpool scheduling
      * purposes and lies dormant until one of three things happens:
      *
      * <ul>
-     * <li>Some other thread invokes {@link #unpark unpark} with the
-     * current thread as the target; or
+     * <li>Some other threadpool invokes {@link #unpark unpark} with the
+     * current threadpool as the target; or
      *
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool; or
      *
      * <li>The call spuriously (that is, for no reason) returns.
      * </ul>
      *
      * <p>This method does <em>not</em> report which of these caused the
      * method to return. Callers should re-check the conditions which caused
-     * the thread to park in the first place. Callers may also determine,
-     * for example, the interrupt status of the thread upon return.
+     * the threadpool to park in the first place. Callers may also determine,
+     * for example, the interrupt status of the threadpool upon return.
      *
      * @param blocker the synchronization object responsible for this
-     *        thread parking
+     *        threadpool parking
      * @since 1.6
      */
     public static void park(Object blocker) {
@@ -177,20 +177,20 @@ public class LockSupport {
     }
 
     /**
-     * Disables the current thread for thread scheduling purposes, for up to
+     * Disables the current threadpool for threadpool scheduling purposes, for up to
      * the specified waiting time, unless the permit is available.
      *
      * <p>If the permit is available then it is consumed and the call
-     * returns immediately; otherwise the current thread becomes disabled
-     * for thread scheduling purposes and lies dormant until one of four
+     * returns immediately; otherwise the current threadpool becomes disabled
+     * for threadpool scheduling purposes and lies dormant until one of four
      * things happens:
      *
      * <ul>
-     * <li>Some other thread invokes {@link #unpark unpark} with the
-     * current thread as the target; or
+     * <li>Some other threadpool invokes {@link #unpark unpark} with the
+     * current threadpool as the target; or
      *
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool; or
      *
      * <li>The specified waiting time elapses; or
      *
@@ -199,12 +199,12 @@ public class LockSupport {
      *
      * <p>This method does <em>not</em> report which of these caused the
      * method to return. Callers should re-check the conditions which caused
-     * the thread to park in the first place. Callers may also determine,
-     * for example, the interrupt status of the thread, or the elapsed time
+     * the threadpool to park in the first place. Callers may also determine,
+     * for example, the interrupt status of the threadpool, or the elapsed time
      * upon return.
      *
      * @param blocker the synchronization object responsible for this
-     *        thread parking
+     *        threadpool parking
      * @param nanos the maximum number of nanoseconds to wait
      * @since 1.6
      */
@@ -218,20 +218,20 @@ public class LockSupport {
     }
 
     /**
-     * Disables the current thread for thread scheduling purposes, until
+     * Disables the current threadpool for threadpool scheduling purposes, until
      * the specified deadline, unless the permit is available.
      *
      * <p>If the permit is available then it is consumed and the call
-     * returns immediately; otherwise the current thread becomes disabled
-     * for thread scheduling purposes and lies dormant until one of four
+     * returns immediately; otherwise the current threadpool becomes disabled
+     * for threadpool scheduling purposes and lies dormant until one of four
      * things happens:
      *
      * <ul>
-     * <li>Some other thread invokes {@link #unpark unpark} with the
-     * current thread as the target; or
+     * <li>Some other threadpool invokes {@link #unpark unpark} with the
+     * current threadpool as the target; or
      *
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts} the
-     * current thread; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts} the
+     * current threadpool; or
      *
      * <li>The specified deadline passes; or
      *
@@ -240,12 +240,12 @@ public class LockSupport {
      *
      * <p>This method does <em>not</em> report which of these caused the
      * method to return. Callers should re-check the conditions which caused
-     * the thread to park in the first place. Callers may also determine,
-     * for example, the interrupt status of the thread, or the current time
+     * the threadpool to park in the first place. Callers may also determine,
+     * for example, the interrupt status of the threadpool, or the current time
      * upon return.
      *
      * @param blocker the synchronization object responsible for this
-     *        thread parking
+     *        threadpool parking
      * @param deadline the absolute time, in milliseconds from the Epoch,
      *        to wait until
      * @since 1.6
@@ -261,10 +261,10 @@ public class LockSupport {
      * Returns the blocker object supplied to the most recent
      * invocation of a park method that has not yet unblocked, or null
      * if not blocked.  The value returned is just a momentary
-     * snapshot -- the thread may have since unblocked or blocked on a
+     * snapshot -- the threadpool may have since unblocked or blocked on a
      * different blocker object.
      *
-     * @param t the thread
+     * @param t the threadpool
      * @return the blocker
      * @throws NullPointerException if argument is null
      * @since 1.6
@@ -276,49 +276,49 @@ public class LockSupport {
     }
 
     /**
-     * Disables the current thread for thread scheduling purposes unless the
+     * Disables the current threadpool for threadpool scheduling purposes unless the
      * permit is available.
      *
      * <p>If the permit is available then it is consumed and the call
-     * returns immediately; otherwise the current thread becomes disabled
-     * for thread scheduling purposes and lies dormant until one of three
+     * returns immediately; otherwise the current threadpool becomes disabled
+     * for threadpool scheduling purposes and lies dormant until one of three
      * things happens:
      *
      * <ul>
      *
-     * <li>Some other thread invokes {@link #unpark unpark} with the
-     * current thread as the target; or
+     * <li>Some other threadpool invokes {@link #unpark unpark} with the
+     * current threadpool as the target; or
      *
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool; or
      *
      * <li>The call spuriously (that is, for no reason) returns.
      * </ul>
      *
      * <p>This method does <em>not</em> report which of these caused the
      * method to return. Callers should re-check the conditions which caused
-     * the thread to park in the first place. Callers may also determine,
-     * for example, the interrupt status of the thread upon return.
+     * the threadpool to park in the first place. Callers may also determine,
+     * for example, the interrupt status of the threadpool upon return.
      */
     public static void park() {
         UNSAFE.park(false, 0L);
     }
 
     /**
-     * Disables the current thread for thread scheduling purposes, for up to
+     * Disables the current threadpool for threadpool scheduling purposes, for up to
      * the specified waiting time, unless the permit is available.
      *
      * <p>If the permit is available then it is consumed and the call
-     * returns immediately; otherwise the current thread becomes disabled
-     * for thread scheduling purposes and lies dormant until one of four
+     * returns immediately; otherwise the current threadpool becomes disabled
+     * for threadpool scheduling purposes and lies dormant until one of four
      * things happens:
      *
      * <ul>
-     * <li>Some other thread invokes {@link #unpark unpark} with the
-     * current thread as the target; or
+     * <li>Some other threadpool invokes {@link #unpark unpark} with the
+     * current threadpool as the target; or
      *
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool; or
      *
      * <li>The specified waiting time elapses; or
      *
@@ -327,8 +327,8 @@ public class LockSupport {
      *
      * <p>This method does <em>not</em> report which of these caused the
      * method to return. Callers should re-check the conditions which caused
-     * the thread to park in the first place. Callers may also determine,
-     * for example, the interrupt status of the thread, or the elapsed time
+     * the threadpool to park in the first place. Callers may also determine,
+     * for example, the interrupt status of the threadpool, or the elapsed time
      * upon return.
      *
      * @param nanos the maximum number of nanoseconds to wait
@@ -339,20 +339,20 @@ public class LockSupport {
     }
 
     /**
-     * Disables the current thread for thread scheduling purposes, until
+     * Disables the current threadpool for threadpool scheduling purposes, until
      * the specified deadline, unless the permit is available.
      *
      * <p>If the permit is available then it is consumed and the call
-     * returns immediately; otherwise the current thread becomes disabled
-     * for thread scheduling purposes and lies dormant until one of four
+     * returns immediately; otherwise the current threadpool becomes disabled
+     * for threadpool scheduling purposes and lies dormant until one of four
      * things happens:
      *
      * <ul>
-     * <li>Some other thread invokes {@link #unpark unpark} with the
-     * current thread as the target; or
+     * <li>Some other threadpool invokes {@link #unpark unpark} with the
+     * current threadpool as the target; or
      *
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool; or
      *
      * <li>The specified deadline passes; or
      *
@@ -361,8 +361,8 @@ public class LockSupport {
      *
      * <p>This method does <em>not</em> report which of these caused the
      * method to return. Callers should re-check the conditions which caused
-     * the thread to park in the first place. Callers may also determine,
-     * for example, the interrupt status of the thread, or the current time
+     * the threadpool to park in the first place. Callers may also determine,
+     * for example, the interrupt status of the threadpool, or the current time
      * upon return.
      *
      * @param deadline the absolute time, in milliseconds from the Epoch,

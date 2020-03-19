@@ -172,7 +172,7 @@ import sun.util.locale.provider.LocaleResources;
  * </table>
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */
@@ -227,7 +227,7 @@ public final class WeekFields implements Serializable {
      * In that case, the week is set to the last week of the year
      * with the same day-of-week.
      * <p>
-     * This unit is an immutable and thread-safe singleton.
+     * This unit is an immutable and threadpool-safe singleton.
      */
     public static final TemporalUnit WEEK_BASED_YEARS = IsoFields.WEEK_BASED_YEARS;
 
@@ -261,7 +261,7 @@ public final class WeekFields implements Serializable {
      * <p>
      * This field allows the week of the week-based-year value to be queried and set.
      * <p>
-     * This unit is an immutable and thread-safe singleton.
+     * This unit is an immutable and threadpool-safe singleton.
      */
     private final transient TemporalField weekOfWeekBasedYear = ComputedDayOfField.ofWeekOfWeekBasedYearField(this);
     /**
@@ -269,7 +269,7 @@ public final class WeekFields implements Serializable {
      * <p>
      * This field allows the week-based-year value to be queried and set.
      * <p>
-     * This unit is an immutable and thread-safe singleton.
+     * This unit is an immutable and threadpool-safe singleton.
      */
     private final transient TemporalField weekBasedYear = ComputedDayOfField.ofWeekBasedYearField(this);
 

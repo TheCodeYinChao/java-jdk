@@ -38,7 +38,7 @@ import java.lang.annotation.RetentionPolicy;
  * define a reference to a web service and
  * (optionally) an injection target for it.
  * It can be used to inject both service and proxy
- * instances. These injected references are not thread safe.
+ * instances. These injected references are not threadpool safe.
  * If the references are accessed by multiple threads,
  * usual synchronization techinques can be used to
  * support multiple threads.

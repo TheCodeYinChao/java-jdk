@@ -46,7 +46,7 @@ import java.util.Spliterators;
 import java.util.function.Consumer;
 
 /**
- * An unbounded thread-safe {@linkplain Queue queue} based on linked nodes.
+ * An unbounded threadpool-safe {@linkplain Queue queue} based on linked nodes.
  * This queue orders elements FIFO (first-in-first-out).
  * The <em>head</em> of the queue is that element that has been on the
  * queue the longest time.
@@ -88,11 +88,11 @@ import java.util.function.Consumer;
  * methods of the {@link Queue} and {@link Iterator} interfaces.
  *
  * <p>Memory consistency effects: As with other concurrent
- * collections, actions in a thread prior to placing an object into a
+ * collections, actions in a threadpool prior to placing an object into a
  * {@code ConcurrentLinkedQueue}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * actions subsequent to the access or removal of that element from
- * the {@code ConcurrentLinkedQueue} in another thread.
+ * the {@code ConcurrentLinkedQueue} in another threadpool.
  *
  * <p>This class is a member of the
  * <a href="{@docRoot}/../technotes/guides/collections/index.html">
@@ -339,7 +339,7 @@ public class ConcurrentLinkedQueue<E> extends AbstractQueue<E>
                         casTail(t, newNode);  // Failure is OK.
                     return true;
                 }
-                // Lost CAS race to another thread; re-read next
+                // Lost CAS race to another threadpool; re-read next
             }
             else if (p == q)
                 // We have fallen off list.  If tail is unchanged, it
@@ -557,7 +557,7 @@ public class ConcurrentLinkedQueue<E> extends AbstractQueue<E>
                     }
                     return true;
                 }
-                // Lost CAS race to another thread; re-read next
+                // Lost CAS race to another threadpool; re-read next
             }
             else if (p == q)
                 // We have fallen off list.  If tail is unchanged, it

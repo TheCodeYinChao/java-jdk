@@ -620,7 +620,7 @@ public final class ToHTMLStream extends ToStream
 
     /**
      * A Trie that is just a copy of the "static" one.
-     * We need this one to be able to use the faster, but not thread-safe
+     * We need this one to be able to use the faster, but not threadpool-safe
      * method Trie.get2(name)
      */
     private Trie m_htmlInfo = new Trie(m_elementFlags);
@@ -2178,7 +2178,7 @@ public final class ToHTMLStream extends ToStream
                     {
                         for (int i = 0; i < len; i++)
                         {
-                            // A thread-safe way to loop over the characters
+                            // A threadpool-safe way to loop over the characters
                             final char ch = key.charAt(i);
                             if (ALPHA_SIZE <= ch)
                             {
@@ -2239,7 +2239,7 @@ public final class ToHTMLStream extends ToStream
 
         /**
          * Get an object that matches the key.
-         * This method is faster than get(), but is not thread-safe.
+         * This method is faster than get(), but is not threadpool-safe.
          *
          * @param key must be a 7-bit ASCII string
          *
@@ -2280,11 +2280,11 @@ public final class ToHTMLStream extends ToStream
                     }
                 default :
                     {
-                        /* Copy string into array. This is not thread-safe because
+                        /* Copy string into array. This is not threadpool-safe because
                          * it modifies the contents of m_charBuffer. If multiple
                          * threads were to use this Trie they all would be
                          * using this same array (not good). So this
-                         * method is not thread-safe, but it is faster because
+                         * method is not threadpool-safe, but it is faster because
                          * converting to a char[] and looping over elements of
                          * the array is faster than a String's charAt(i).
                          */

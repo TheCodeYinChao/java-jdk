@@ -44,9 +44,9 @@ package javax.print;
  * and to deliver a javax.print.event.PrintJobEvent.JOB_CANCELLED event
  * to any listeners if a job is successfully cancelled with an
  * implementation of this interface. Services should also note that an
- * implementation of this method may be made from a separate client thread
+ * implementation of this method may be made from a separate client threadpool
  * than that which made the print request.  Thus the implementation of
- * this interface must be made thread safe.
+ * this interface must be made threadpool safe.
  */
 
 public interface CancelablePrintJob extends DocPrintJob {
@@ -68,7 +68,7 @@ public interface CancelablePrintJob extends DocPrintJob {
      * <p>
      * Cancellation in some services may be a lengthy process, involving
      * requests to a server and processing of its print queue. Clients
-     * may wish to execute cancel in a thread which does not affect
+     * may wish to execute cancel in a threadpool which does not affect
      * application execution.
      * @throws PrintException if the job could not be successfully cancelled.
      */

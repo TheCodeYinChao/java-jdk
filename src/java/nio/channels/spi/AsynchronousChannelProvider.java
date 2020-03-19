@@ -167,7 +167,7 @@ public abstract class AsynchronousChannelProvider {
     }
 
     /**
-     * Constructs a new asynchronous channel group with a fixed thread pool.
+     * Constructs a new asynchronous channel group with a fixed threadpool pool.
      *
      * @param   nThreads
      *          The number of threads in the pool
@@ -187,10 +187,10 @@ public abstract class AsynchronousChannelProvider {
         openAsynchronousChannelGroup(int nThreads, ThreadFactory threadFactory) throws IOException;
 
     /**
-     * Constructs a new asynchronous channel group with the given thread pool.
+     * Constructs a new asynchronous channel group with the given threadpool pool.
      *
      * @param   executor
-     *          The thread pool
+     *          The threadpool pool
      * @param   initialSize
      *          A value {@code >=0} or a negative value for implementation
      *          specific default

@@ -70,7 +70,7 @@ package java.time.format;
  * This style is used to control how phase 2, resolving, happens.
  *
  * @implSpec
- * This is an immutable and thread-safe enum.
+ * This is an immutable and threadpool-safe enum.
  *
  * @since 1.8
  */

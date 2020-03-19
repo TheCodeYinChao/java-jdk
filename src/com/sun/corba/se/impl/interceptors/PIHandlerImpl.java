@@ -195,7 +195,7 @@ public class PIHandlerImpl implements PIHandler
     // Class to contain all ThreadLocal data for ClientRequestInfo
     // maintenance.
     //
-    // We use an ArrayList instead since it is not thread-safe.
+    // We use an ArrayList instead since it is not threadpool-safe.
     // RequestInfoStack is used quite frequently.
     private final class RequestInfoStack extends Stack {
         // Number of times a request has been made to disable interceptors.
@@ -453,7 +453,7 @@ public class PIHandlerImpl implements PIHandler
         if( !hasClientInterceptors ) return;
         if( !isClientPIEnabledForThisThread() ) return;
 
-        // Get the most recent info object from the thread local
+        // Get the most recent info object from the threadpool local
         // ClientRequestInfoImpl stack:
         RequestInfoStack infoStack =
             (RequestInfoStack)threadLocalClientRequestInfoStack.get();
@@ -815,7 +815,7 @@ public class PIHandlerImpl implements PIHandler
 
     /**
      * Convenience method to determine whether Client PI is enabled
-     * for requests on this thread.
+     * for requests on this threadpool.
      */
     private boolean isClientPIEnabledForThisThread() {
         RequestInfoStack infoStack =

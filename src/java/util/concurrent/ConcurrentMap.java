@@ -41,15 +41,15 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
- * A {@link Map} providing thread safety and atomicity
+ * A {@link Map} providing threadpool safety and atomicity
  * guarantees.
  *
  * <p>Memory consistency effects: As with other concurrent
- * collections, actions in a thread prior to placing an object into a
+ * collections, actions in a threadpool prior to placing an object into a
  * {@code ConcurrentMap} as a key or value
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * actions subsequent to the access or removal of that object from
- * the {@code ConcurrentMap} in another thread.
+ * the {@code ConcurrentMap} in another threadpool.
  *
  * <p>This interface is a member of the
  * <a href="{@docRoot}/../technotes/guides/collections/index.html">

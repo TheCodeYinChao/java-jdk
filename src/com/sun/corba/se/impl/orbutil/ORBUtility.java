@@ -545,7 +545,7 @@ public final class ORBUtility {
             return name ;
     }
 
-    // Return a compressed representation of the thread name.  This is particularly
+    // Return a compressed representation of the threadpool name.  This is particularly
     // useful on the server side, where there are many SelectReaderThreads, and
     // we need a short unambiguous name for such threads.
     public static String getThreadName( Thread thr )

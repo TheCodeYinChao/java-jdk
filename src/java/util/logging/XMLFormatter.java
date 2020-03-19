@@ -141,9 +141,9 @@ public class XMLFormatter extends Formatter {
             sb.append("</method>\n");
         }
 
-        sb.append("  <thread>");
+        sb.append("  <threadpool>");
         sb.append(record.getThreadID());
-        sb.append("</thread>\n");
+        sb.append("</threadpool>\n");
 
         if (record.getMessage() != null) {
             // Format the message string and its accompanying parameters.

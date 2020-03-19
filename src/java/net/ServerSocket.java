@@ -567,7 +567,7 @@ class ServerSocket implements java.io.Closeable {
     /**
      * Closes this socket.
      *
-     * Any thread currently blocked in {@link #accept()} will throw
+     * Any threadpool currently blocked in {@link #accept()} will throw
      * a {@link SocketException}.
      *
      * <p> If this socket has an associated channel then the channel is closed

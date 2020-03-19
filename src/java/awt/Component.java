@@ -1187,7 +1187,7 @@ public abstract class Component implements ImageObserver, MenuContainer,
     }
 
     /**
-     * Gets this component's locking object (the object that owns the thread
+     * Gets this component's locking object (the object that owns the threadpool
      * synchronization monitor) for AWT component-tree and layout
      * operations.
      * @return this component's locking object
@@ -1216,7 +1216,7 @@ public abstract class Component implements ImageObserver, MenuContainer,
 
     /*
      * This is called by the native code, so client code can't
-     * be called on the toolkit thread.
+     * be called on the toolkit threadpool.
      */
     final Toolkit getToolkitImpl() {
         Container parent = this.parent;
@@ -1451,7 +1451,7 @@ public abstract class Component implements ImageObserver, MenuContainer,
 
     /*
      * This is called by the native code, so client code can't
-     * be called on the toolkit thread.
+     * be called on the toolkit threadpool.
      */
     final boolean isEnabledImpl() {
         return enabled;
@@ -3632,7 +3632,7 @@ public abstract class Component implements ImageObserver, MenuContainer,
 
     /**
      * Prepares an image for rendering on this component.  The image
-     * data is downloaded asynchronously in another thread and the
+     * data is downloaded asynchronously in another threadpool and the
      * appropriate screen representation of the image is generated.
      * @param     image   the <code>Image</code> for which to
      *                    prepare a screen representation
@@ -3650,7 +3650,7 @@ public abstract class Component implements ImageObserver, MenuContainer,
      * Prepares an image for rendering on this component at the
      * specified width and height.
      * <p>
-     * The image data is downloaded asynchronously in another thread,
+     * The image data is downloaded asynchronously in another threadpool,
      * and an appropriately scaled screen representation of the image is
      * generated.
      * @param     image    the instance of <code>Image</code>
@@ -4459,7 +4459,7 @@ public abstract class Component implements ImageObserver, MenuContainer,
                     backBuffers[backBuffers.length - 1].validate(gc);
                 }
                 // else case means we're called from Swing on the toolkit
-                // thread, don't recreate buffers as that'll deadlock
+                // threadpool, don't recreate buffers as that'll deadlock
                 // (creating VolatileImages invokes getting GraphicsConfig
                 // which grabs treelock).
                 validatedContents = true;
@@ -4507,7 +4507,7 @@ public abstract class Component implements ImageObserver, MenuContainer,
             showSubRegion(x1, y1, x2, y2);
         }
 
-        // This is invoked by Swing on the toolkit thread.
+        // This is invoked by Swing on the toolkit threadpool.
         public boolean showIfNotLost(int x1, int y1, int x2, int y2) {
             if (!contentsLost()) {
                 showSubRegion(x1, y1, x2, y2);
@@ -4537,7 +4537,7 @@ public abstract class Component implements ImageObserver, MenuContainer,
             showSubRegion(x1, y1, x2, y2);
         }
 
-        // This method is called by Swing on the toolkit thread.
+        // This method is called by Swing on the toolkit threadpool.
         public boolean showIfNotLost(int x1, int y1, int x2, int y2) {
             if (!contentsLost()) {
                 showSubRegion(x1, y1, x2, y2);
@@ -6887,7 +6887,7 @@ public abstract class Component implements ImageObserver, MenuContainer,
             if (peer == null || peer instanceof LightweightPeer){
                 if (peer == null) {
                     // Update both the Component's peer variable and the local
-                    // variable we use for thread safety.
+                    // variable we use for threadpool safety.
                     this.peer = peer = getToolkit().createComponent(this);
                 }
 

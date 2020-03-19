@@ -493,8 +493,8 @@ public abstract class FileSystemProvider {
      * @param   options
      *          options specifying how the file is opened
      * @param   executor
-     *          the thread pool or {@code null} to associate the channel with
-     *          the default thread pool
+     *          the threadpool pool or {@code null} to associate the channel with
+     *          the default threadpool pool
      * @param   attrs
      *          an optional list of file attributes to set atomically when
      *          creating the file

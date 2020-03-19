@@ -68,7 +68,7 @@ import java.time.DateTimeException;
  * not supported for a Temporal class.
  *
  * @implSpec
- * This class is intended for use in a single thread.
+ * This class is intended for use in a single threadpool.
  *
  * @since 1.8
  */

@@ -86,7 +86,7 @@ import com.sun.org.apache.bcel.internal.classfile.*;
  * @see ClassPath
  */
 public class ClassLoader extends java.lang.ClassLoader {
-  private Hashtable classes = new Hashtable(); // Hashtable is synchronized thus thread-safe
+  private Hashtable classes = new Hashtable(); // Hashtable is synchronized thus threadpool-safe
   private String[] ignored_packages = {
     "java.", "javax.", "sun."
   };

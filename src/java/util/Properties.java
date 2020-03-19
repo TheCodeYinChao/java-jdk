@@ -107,7 +107,7 @@ import sun.util.spi.XmlPropertiesProvider;
  *    &lt;!ATTLIST entry key CDATA #REQUIRED&gt;
  * </pre>
  *
- * <p>This class is thread-safe: multiple threads can share a single
+ * <p>This class is threadpool-safe: multiple threads can share a single
  * <tt>Properties</tt> object without the need for external synchronization.
  *
  * @see <a href="../../../technotes/tools/solaris/native2ascii.html">native2ascii tool for Solaris</a>

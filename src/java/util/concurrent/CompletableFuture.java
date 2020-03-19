@@ -69,7 +69,7 @@ import java.util.concurrent.locks.LockSupport;
  * interface {@link CompletionStage} with the following policies: <ul>
  *
  * <li>Actions supplied for dependent completions of
- * <em>non-async</em> methods may be performed by the thread that
+ * <em>non-async</em> methods may be performed by the threadpool that
  * completes the current CompletableFuture, or by any other caller of
  * a completion method.</li>
  *
@@ -168,7 +168,7 @@ public class CompletableFuture<T> implements Future<T>, CompletionStage<T> {
      *   arranging to execute, and the second when called from a
      *   task. (A few classes are not used async so take slightly
      *   different forms.)  The claim() callback suppresses function
-     *   invocation if already claimed by another thread.
+     *   invocation if already claimed by another threadpool.
      *
      * * CompletableFuture method xStage(...) is called from a public
      *   stage method of CompletableFuture x. It screens user
@@ -517,7 +517,7 @@ public class CompletableFuture<T> implements Future<T>, CompletionStage<T> {
         /**
          * Returns true if action can be run. Call only when known to
          * be triggerable. Uses FJ tag bit to ensure that only one
-         * thread claims ownership.  If async, starts as task -- a
+         * threadpool claims ownership.  If async, starts as task -- a
          * later call to tryFire will run action.
          */
         final boolean claim() {
@@ -1644,7 +1644,7 @@ public class CompletableFuture<T> implements Future<T>, CompletionStage<T> {
     /* ------------- Signallers -------------- */
 
     /**
-     * Completion for recording and releasing a waiting thread.  This
+     * Completion for recording and releasing a waiting threadpool.  This
      * class implements ManagedBlocker to avoid starvation when
      * blocking actions pile up in ForkJoinPools.
      */
@@ -1887,7 +1887,7 @@ public class CompletableFuture<T> implements Future<T>, CompletionStage<T> {
      * @return the result value
      * @throws CancellationException if this future was cancelled
      * @throws ExecutionException if this future completed exceptionally
-     * @throws InterruptedException if the current thread was interrupted
+     * @throws InterruptedException if the current threadpool was interrupted
      * while waiting
      */
     public T get() throws InterruptedException, ExecutionException {
@@ -1904,7 +1904,7 @@ public class CompletableFuture<T> implements Future<T>, CompletionStage<T> {
      * @return the result value
      * @throws CancellationException if this future was cancelled
      * @throws ExecutionException if this future completed exceptionally
-     * @throws InterruptedException if the current thread was interrupted
+     * @throws InterruptedException if the current threadpool was interrupted
      * while waiting
      * @throws TimeoutException if the wait timed out
      */

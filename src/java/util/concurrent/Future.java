@@ -85,7 +85,7 @@ package java.util.concurrent;
  *
  * <p>Memory consistency effects: Actions taken by the asynchronous computation
  * <a href="package-summary.html#MemoryVisibility"> <i>happen-before</i></a>
- * actions following the corresponding {@code Future.get()} in another thread.
+ * actions following the corresponding {@code Future.get()} in another threadpool.
  *
  * @see FutureTask
  * @see Executor
@@ -102,14 +102,14 @@ public interface Future<V> {
      * and this task has not started when {@code cancel} is called,
      * this task should never run.  If the task has already started,
      * then the {@code mayInterruptIfRunning} parameter determines
-     * whether the thread executing this task should be interrupted in
+     * whether the threadpool executing this task should be interrupted in
      * an attempt to stop the task.
      *
      * <p>After this method returns, subsequent calls to {@link #isDone} will
      * always return {@code true}.  Subsequent calls to {@link #isCancelled}
      * will always return {@code true} if this method returned {@code true}.
      *
-     * @param mayInterruptIfRunning {@code true} if the thread executing this
+     * @param mayInterruptIfRunning {@code true} if the threadpool executing this
      * task should be interrupted; otherwise, in-progress tasks are allowed
      * to complete
      * @return {@code false} if the task could not be cancelled,
@@ -145,7 +145,7 @@ public interface Future<V> {
      * @throws CancellationException if the computation was cancelled
      * @throws ExecutionException if the computation threw an
      * exception
-     * @throws InterruptedException if the current thread was interrupted
+     * @throws InterruptedException if the current threadpool was interrupted
      * while waiting
      */
     V get() throws InterruptedException, ExecutionException;
@@ -160,7 +160,7 @@ public interface Future<V> {
      * @throws CancellationException if the computation was cancelled
      * @throws ExecutionException if the computation threw an
      * exception
-     * @throws InterruptedException if the current thread was interrupted
+     * @throws InterruptedException if the current threadpool was interrupted
      * while waiting
      * @throws TimeoutException if the wait timed out
      */

@@ -40,9 +40,9 @@ import com.sun.jmx.remote.util.ClassLogger;
  * sends notifications.</p>
  *
  * <p>By default, the notification dispatch model is synchronous.
- * That is, when a thread calls sendNotification, the
+ * That is, when a threadpool calls sendNotification, the
  * <code>NotificationListener.handleNotification</code> method of each listener
- * is called within that thread. You can override this default
+ * is called within that threadpool. You can override this default
  * by overriding <code>handleNotification</code> in a subclass, or by passing an
  * Executor to the constructor.</p>
  *
@@ -62,7 +62,7 @@ import com.sun.jmx.remote.util.ClassLogger;
 public class NotificationBroadcasterSupport implements NotificationEmitter {
     /**
      * Constructs a NotificationBroadcasterSupport where each listener is invoked by the
-     * thread sending the notification. This constructor is equivalent to
+     * threadpool sending the notification. This constructor is equivalent to
      * {@link NotificationBroadcasterSupport#NotificationBroadcasterSupport(Executor,
      * MBeanNotificationInfo[] info) NotificationBroadcasterSupport(null, null)}.
      */
@@ -76,7 +76,7 @@ public class NotificationBroadcasterSupport implements NotificationEmitter {
      * sendNotification} is called, a listener is selected if it was added with a null
      * {@link NotificationFilter}, or if {@link NotificationFilter#isNotificationEnabled
      * isNotificationEnabled} returns true for the notification being sent. The call to
-     * <code>NotificationFilter.isNotificationEnabled</code> takes place in the thread
+     * <code>NotificationFilter.isNotificationEnabled</code> takes place in the threadpool
      * that called <code>sendNotification</code>. Then, for each selected listener,
      * {@link Executor#execute executor.execute} is called with a command
      * that calls the <code>handleNotification</code> method.
@@ -84,7 +84,7 @@ public class NotificationBroadcasterSupport implements NotificationEmitter {
      * {@link NotificationBroadcasterSupport#NotificationBroadcasterSupport(Executor,
      * MBeanNotificationInfo[] info) NotificationBroadcasterSupport(executor, null)}.
      * @param executor an executor used by the method <code>sendNotification</code> to
-     * send each notification. If it is null, the thread calling <code>sendNotification</code>
+     * send each notification. If it is null, the threadpool calling <code>sendNotification</code>
      * will invoke the <code>handleNotification</code> method itself.
      * @since 1.6
      */
@@ -95,7 +95,7 @@ public class NotificationBroadcasterSupport implements NotificationEmitter {
     /**
      * <p>Constructs a NotificationBroadcasterSupport with information
      * about the notifications that may be sent.  Each listener is
-     * invoked by the thread sending the notification.  This
+     * invoked by the threadpool sending the notification.  This
      * constructor is equivalent to {@link
      * NotificationBroadcasterSupport#NotificationBroadcasterSupport(Executor,
      * MBeanNotificationInfo[] info)
@@ -127,7 +127,7 @@ public class NotificationBroadcasterSupport implements NotificationEmitter {
      * NotificationFilter#isNotificationEnabled isNotificationEnabled}
      * returns true for the notification being sent. The call to
      * <code>NotificationFilter.isNotificationEnabled</code> takes
-     * place in the thread that called
+     * place in the threadpool that called
      * <code>sendNotification</code>. Then, for each selected
      * listener, {@link Executor#execute executor.execute} is called
      * with a command that calls the <code>handleNotification</code>
@@ -140,7 +140,7 @@ public class NotificationBroadcasterSupport implements NotificationEmitter {
      *
      * @param executor an executor used by the method
      * <code>sendNotification</code> to send each notification. If it
-     * is null, the thread calling <code>sendNotification</code> will
+     * is null, the threadpool calling <code>sendNotification</code> will
      * invoke the <code>handleNotification</code> method itself.
      *
      * @param info an array indicating, for each notification this
@@ -256,7 +256,7 @@ public class NotificationBroadcasterSupport implements NotificationEmitter {
      * notification to that listener.  It can be overridden in
      * subclasses to change the behavior of notification delivery,
      * for instance to deliver the notification in a separate
-     * thread.</p>
+     * threadpool.</p>
      *
      * <p>The default implementation of this method is equivalent to
      * <pre>
@@ -332,7 +332,7 @@ public class NotificationBroadcasterSupport implements NotificationEmitter {
     private final MBeanNotificationInfo[] notifInfo;
 
     private final static Executor defaultExecutor = new Executor() {
-            // DirectExecutor using caller thread
+            // DirectExecutor using caller threadpool
             public void execute(Runnable r) {
                 r.run();
             }

@@ -43,20 +43,20 @@ import sun.security.util.SecurityConstants;
 
 
 /**
- * A <i>thread</i> is a thread of execution in a program. The Java
+ * A <i>threadpool</i> is a threadpool of execution in a program. The Java
  * Virtual Machine allows an application to have multiple threads of
  * execution running concurrently.
  * <p>
- * Every thread has a priority. Threads with higher priority are
- * executed in preference to threads with lower priority. Each thread
+ * Every threadpool has a priority. Threads with higher priority are
+ * executed in preference to threads with lower priority. Each threadpool
  * may or may not also be marked as a daemon. When code running in
- * some thread creates a new <code>Thread</code> object, the new
- * thread has its priority initially set equal to the priority of the
- * creating thread, and is a daemon thread if and only if the
- * creating thread is a daemon.
+ * some threadpool creates a new <code>Thread</code> object, the new
+ * threadpool has its priority initially set equal to the priority of the
+ * creating threadpool, and is a daemon threadpool if and only if the
+ * creating threadpool is a daemon.
  * <p>
  * When a Java Virtual Machine starts up, there is usually a single
- * non-daemon thread (which typically calls the method named
+ * non-daemon threadpool (which typically calls the method named
  * <code>main</code> of some designated class). The Java Virtual
  * Machine continues to execute threads until either of the following
  * occurs:
@@ -70,11 +70,11 @@ import sun.security.util.SecurityConstants;
  *     method.
  * </ul>
  * <p>
- * There are two ways to create a new thread of execution. One is to
+ * There are two ways to create a new threadpool of execution. One is to
  * declare a class to be a subclass of <code>Thread</code>. This
  * subclass should override the <code>run</code> method of class
  * <code>Thread</code>. An instance of the subclass can then be
- * allocated and started. For example, a thread that computes primes
+ * allocated and started. For example, a threadpool that computes primes
  * larger than a stated value could be written as follows:
  * <hr><blockquote><pre>
  *     class PrimeThread extends Thread {
@@ -90,13 +90,13 @@ import sun.security.util.SecurityConstants;
  *     }
  * </pre></blockquote><hr>
  * <p>
- * The following code would then create a thread and start it running:
+ * The following code would then create a threadpool and start it running:
  * <blockquote><pre>
  *     PrimeThread p = new PrimeThread(143);
  *     p.start();
  * </pre></blockquote>
  * <p>
- * The other way to create a thread is to declare a class that
+ * The other way to create a threadpool is to declare a class that
  * implements the <code>Runnable</code> interface. That class then
  * implements the <code>run</code> method. An instance of the class can
  * then be allocated, passed as an argument when creating
@@ -116,15 +116,15 @@ import sun.security.util.SecurityConstants;
  *     }
  * </pre></blockquote><hr>
  * <p>
- * The following code would then create a thread and start it running:
+ * The following code would then create a threadpool and start it running:
  * <blockquote><pre>
  *     PrimeRun p = new PrimeRun(143);
  *     new Thread(p).start();
  * </pre></blockquote>
  * <p>
- * Every thread has a name for identification purposes. More than
- * one thread may have the same name. If a name is not specified when
- * a thread is created, a new name is generated for it.
+ * Every threadpool has a name for identification purposes. More than
+ * one threadpool may have the same name. If a name is not specified when
+ * a threadpool is created, a new name is generated for it.
  * <p>
  * Unless otherwise noted, passing a {@code null} argument to a constructor
  * or method in this class will cause a {@link NullPointerException} to be
@@ -150,10 +150,10 @@ class Thread implements Runnable {
     private Thread         threadQ;
     private long           eetop;
 
-    /* Whether or not to single_step this thread. */
+    /* Whether or not to single_step this threadpool. */
     private boolean     single_step;
 
-    /* Whether or not the thread is a daemon thread. */
+    /* Whether or not the threadpool is a daemon threadpool. */
     private boolean     daemon = false;
 
     /* JVM state */
@@ -162,13 +162,13 @@ class Thread implements Runnable {
     /* What will be run. */
     private Runnable target;
 
-    /* The group of this thread */
+    /* The group of this threadpool */
     private ThreadGroup group;
 
-    /* The context ClassLoader for this thread */
+    /* The context ClassLoader for this threadpool */
     private ClassLoader contextClassLoader;
 
-    /* The inherited AccessControlContext of this thread */
+    /* The inherited AccessControlContext of this threadpool */
     private AccessControlContext inheritedAccessControlContext;
 
     /* For autonumbering anonymous threads. */
@@ -177,25 +177,25 @@ class Thread implements Runnable {
         return threadInitNumber++;
     }
 
-    /* ThreadLocal values pertaining to this thread. This map is maintained
+    /* ThreadLocal values pertaining to this threadpool. This map is maintained
      * by the ThreadLocal class. */
     ThreadLocal.ThreadLocalMap threadLocals = null;
 
     /*
-     * InheritableThreadLocal values pertaining to this thread. This map is
+     * InheritableThreadLocal values pertaining to this threadpool. This map is
      * maintained by the InheritableThreadLocal class.
      */
     ThreadLocal.ThreadLocalMap inheritableThreadLocals = null;
 
     /*
-     * The requested stack size for this thread, or 0 if the creator did
+     * The requested stack size for this threadpool, or 0 if the creator did
      * not specify a stack size.  It is up to the VM to do whatever it
      * likes with this number; some VMs will ignore it.
      */
     private long stackSize;
 
     /*
-     * JVM-private state that persists after native thread termination.
+     * JVM-private state that persists after native threadpool termination.
      */
     private long nativeParkEventPointer;
 
@@ -204,11 +204,11 @@ class Thread implements Runnable {
      */
     private long tid;
 
-    /* For generating thread ID */
+    /* For generating threadpool ID */
     private static long threadSeqNumber;
 
-    /* Java thread status for tools,
-     * initialized to indicate thread 'not yet started'
+    /* Java threadpool status for tools,
+     * initialized to indicate threadpool 'not yet started'
      */
 
     private volatile int threadStatus = 0;
@@ -226,9 +226,9 @@ class Thread implements Runnable {
      */
     volatile Object parkBlocker;
 
-    /* The object in which this thread is blocked in an interruptible I/O
+    /* The object in which this threadpool is blocked in an interruptible I/O
      * operation, if any.  The blocker's interrupt method should be invoked
-     * after setting this thread's interrupt status.
+     * after setting this threadpool's interrupt status.
      */
     private volatile Interruptible blocker;
     private final Object blockerLock = new Object();
@@ -242,29 +242,29 @@ class Thread implements Runnable {
     }
 
     /**
-     * The minimum priority that a thread can have.
+     * The minimum priority that a threadpool can have.
      */
     public final static int MIN_PRIORITY = 1;
 
    /**
-     * The default priority that is assigned to a thread.
+     * The default priority that is assigned to a threadpool.
      */
     public final static int NORM_PRIORITY = 5;
 
     /**
-     * The maximum priority that a thread can have.
+     * The maximum priority that a threadpool can have.
      */
     public final static int MAX_PRIORITY = 10;
 
     /**
-     * Returns a reference to the currently executing thread object.
+     * Returns a reference to the currently executing threadpool object.
      *
-     * @return  the currently executing thread.
+     * @return  the currently executing threadpool.
      */
     public static native Thread currentThread();
 
     /**
-     * A hint to the scheduler that the current thread is willing to yield
+     * A hint to the scheduler that the current threadpool is willing to yield
      * its current use of a processor. The scheduler is free to ignore this
      * hint.
      *
@@ -282,9 +282,9 @@ class Thread implements Runnable {
     public static native void yield();
 
     /**
-     * Causes the currently executing thread to sleep (temporarily cease
+     * Causes the currently executing threadpool to sleep (temporarily cease
      * execution) for the specified number of milliseconds, subject to
-     * the precision and accuracy of system timers and schedulers. The thread
+     * the precision and accuracy of system timers and schedulers. The threadpool
      * does not lose ownership of any monitors.
      *
      * @param  millis
@@ -294,17 +294,17 @@ class Thread implements Runnable {
      *          if the value of {@code millis} is negative
      *
      * @throws  InterruptedException
-     *          if any thread has interrupted the current thread. The
-     *          <i>interrupted status</i> of the current thread is
+     *          if any threadpool has interrupted the current threadpool. The
+     *          <i>interrupted status</i> of the current threadpool is
      *          cleared when this exception is thrown.
      */
     public static native void sleep(long millis) throws InterruptedException;
 
     /**
-     * Causes the currently executing thread to sleep (temporarily cease
+     * Causes the currently executing threadpool to sleep (temporarily cease
      * execution) for the specified number of milliseconds plus the specified
      * number of nanoseconds, subject to the precision and accuracy of system
-     * timers and schedulers. The thread does not lose ownership of any
+     * timers and schedulers. The threadpool does not lose ownership of any
      * monitors.
      *
      * @param  millis
@@ -318,8 +318,8 @@ class Thread implements Runnable {
      *          {@code nanos} is not in the range {@code 0-999999}
      *
      * @throws  InterruptedException
-     *          if any thread has interrupted the current thread. The
-     *          <i>interrupted status</i> of the current thread is
+     *          if any threadpool has interrupted the current threadpool. The
+     *          <i>interrupted status</i> of the current threadpool is
      *          cleared when this exception is thrown.
      */
     public static void sleep(long millis, int nanos)
@@ -355,12 +355,12 @@ class Thread implements Runnable {
      * @param g the Thread group
      * @param target the object whose run() method gets called
      * @param name the name of the new Thread
-     * @param stackSize the desired stack size for the new thread, or
+     * @param stackSize the desired stack size for the new threadpool, or
      *        zero to indicate that this parameter is to be ignored.
      * @param acc the AccessControlContext to inherit, or
      *            AccessController.getContext() if null
      * @param inheritThreadLocals if {@code true}, inherit initial values for
-     *            inheritable thread-locals from the constructing thread
+     *            inheritable threadpool-locals from the constructing threadpool
      */
     private void init(ThreadGroup g, Runnable target, String name,
                       long stackSize, AccessControlContext acc,
@@ -383,7 +383,7 @@ class Thread implements Runnable {
             }
 
             /* If the security doesn't have a strong opinion of the matter
-               use the parent thread group. */
+               use the parent threadpool group. */
             if (g == null) {
                 g = parent.getThreadGroup();
             }
@@ -421,7 +421,7 @@ class Thread implements Runnable {
         /* Stash the specified stack size in case the VM cares */
         this.stackSize = stackSize;
 
-        /* Set thread ID */
+        /* Set threadpool ID */
         tid = nextThreadID();
     }
 
@@ -456,7 +456,7 @@ class Thread implements Runnable {
      * {@code "Thread-"+}<i>n</i>, where <i>n</i> is an integer.
      *
      * @param  target
-     *         the object whose {@code run} method is invoked when this thread
+     *         the object whose {@code run} method is invoked when this threadpool
      *         is started. If {@code null}, this classes {@code run} method does
      *         nothing.
      */
@@ -480,20 +480,20 @@ class Thread implements Runnable {
      * {@code "Thread-"+}<i>n</i>, where <i>n</i> is an integer.
      *
      * @param  group
-     *         the thread group. If {@code null} and there is a security
+     *         the threadpool group. If {@code null} and there is a security
      *         manager, the group is determined by {@linkplain
      *         SecurityManager#getThreadGroup SecurityManager.getThreadGroup()}.
      *         If there is not a security manager or {@code
      *         SecurityManager.getThreadGroup()} returns {@code null}, the group
-     *         is set to the current thread's thread group.
+     *         is set to the current threadpool's threadpool group.
      *
      * @param  target
-     *         the object whose {@code run} method is invoked when this thread
-     *         is started. If {@code null}, this thread's run method is invoked.
+     *         the object whose {@code run} method is invoked when this threadpool
+     *         is started. If {@code null}, this threadpool's run method is invoked.
      *
      * @throws  SecurityException
-     *          if the current thread cannot create a thread in the specified
-     *          thread group
+     *          if the current threadpool cannot create a threadpool in the specified
+     *          threadpool group
      */
     public Thread(ThreadGroup group, Runnable target) {
         init(group, target, "Thread-" + nextThreadNum(), 0);
@@ -505,7 +505,7 @@ class Thread implements Runnable {
      * {@code (null, null, name)}.
      *
      * @param   name
-     *          the name of the new thread
+     *          the name of the new threadpool
      */
     public Thread(String name) {
         init(null, null, name, 0);
@@ -517,19 +517,19 @@ class Thread implements Runnable {
      * {@code (group, null, name)}.
      *
      * @param  group
-     *         the thread group. If {@code null} and there is a security
+     *         the threadpool group. If {@code null} and there is a security
      *         manager, the group is determined by {@linkplain
      *         SecurityManager#getThreadGroup SecurityManager.getThreadGroup()}.
      *         If there is not a security manager or {@code
      *         SecurityManager.getThreadGroup()} returns {@code null}, the group
-     *         is set to the current thread's thread group.
+     *         is set to the current threadpool's threadpool group.
      *
      * @param  name
-     *         the name of the new thread
+     *         the name of the new threadpool
      *
      * @throws  SecurityException
-     *          if the current thread cannot create a thread in the specified
-     *          thread group
+     *          if the current threadpool cannot create a threadpool in the specified
+     *          threadpool group
      */
     public Thread(ThreadGroup group, String name) {
         init(group, null, name, 0);
@@ -541,11 +541,11 @@ class Thread implements Runnable {
      * {@code (null, target, name)}.
      *
      * @param  target
-     *         the object whose {@code run} method is invoked when this thread
-     *         is started. If {@code null}, this thread's run method is invoked.
+     *         the object whose {@code run} method is invoked when this threadpool
+     *         is started. If {@code null}, this threadpool's run method is invoked.
      *
      * @param  name
-     *         the name of the new thread
+     *         the name of the new threadpool
      */
     public Thread(Runnable target, String name) {
         init(null, target, name, 0);
@@ -554,7 +554,7 @@ class Thread implements Runnable {
     /**
      * Allocates a new {@code Thread} object so that it has {@code target}
      * as its run object, has the specified {@code name} as its name,
-     * and belongs to the thread group referred to by {@code group}.
+     * and belongs to the threadpool group referred to by {@code group}.
      *
      * <p>If there is a security manager, its
      * {@link SecurityManager#checkAccess(ThreadGroup) checkAccess}
@@ -566,34 +566,34 @@ class Thread implements Runnable {
      * of a subclass which overrides the {@code getContextClassLoader}
      * or {@code setContextClassLoader} methods.
      *
-     * <p>The priority of the newly created thread is set equal to the
-     * priority of the thread creating it, that is, the currently running
-     * thread. The method {@linkplain #setPriority setPriority} may be
+     * <p>The priority of the newly created threadpool is set equal to the
+     * priority of the threadpool creating it, that is, the currently running
+     * threadpool. The method {@linkplain #setPriority setPriority} may be
      * used to change the priority to a new value.
      *
-     * <p>The newly created thread is initially marked as being a daemon
-     * thread if and only if the thread creating it is currently marked
-     * as a daemon thread. The method {@linkplain #setDaemon setDaemon}
-     * may be used to change whether or not a thread is a daemon.
+     * <p>The newly created threadpool is initially marked as being a daemon
+     * threadpool if and only if the threadpool creating it is currently marked
+     * as a daemon threadpool. The method {@linkplain #setDaemon setDaemon}
+     * may be used to change whether or not a threadpool is a daemon.
      *
      * @param  group
-     *         the thread group. If {@code null} and there is a security
+     *         the threadpool group. If {@code null} and there is a security
      *         manager, the group is determined by {@linkplain
      *         SecurityManager#getThreadGroup SecurityManager.getThreadGroup()}.
      *         If there is not a security manager or {@code
      *         SecurityManager.getThreadGroup()} returns {@code null}, the group
-     *         is set to the current thread's thread group.
+     *         is set to the current threadpool's threadpool group.
      *
      * @param  target
-     *         the object whose {@code run} method is invoked when this thread
-     *         is started. If {@code null}, this thread's run method is invoked.
+     *         the object whose {@code run} method is invoked when this threadpool
+     *         is started. If {@code null}, this threadpool's run method is invoked.
      *
      * @param  name
-     *         the name of the new thread
+     *         the name of the new threadpool
      *
      * @throws  SecurityException
-     *          if the current thread cannot create a thread in the specified
-     *          thread group or cannot override the context class loader methods.
+     *          if the current threadpool cannot create a threadpool in the specified
+     *          threadpool group or cannot override the context class loader methods.
      */
     public Thread(ThreadGroup group, Runnable target, String name) {
         init(group, target, name, 0);
@@ -602,18 +602,18 @@ class Thread implements Runnable {
     /**
      * Allocates a new {@code Thread} object so that it has {@code target}
      * as its run object, has the specified {@code name} as its name,
-     * and belongs to the thread group referred to by {@code group}, and has
+     * and belongs to the threadpool group referred to by {@code group}, and has
      * the specified <i>stack size</i>.
      *
      * <p>This constructor is identical to {@link
      * #Thread(ThreadGroup,Runnable,String)} with the exception of the fact
-     * that it allows the thread stack size to be specified.  The stack size
+     * that it allows the threadpool stack size to be specified.  The stack size
      * is the approximate number of bytes of address space that the virtual
-     * machine is to allocate for this thread's stack.  <b>The effect of the
+     * machine is to allocate for this threadpool's stack.  <b>The effect of the
      * {@code stackSize} parameter, if any, is highly platform dependent.</b>
      *
      * <p>On some platforms, specifying a higher value for the
-     * {@code stackSize} parameter may allow a thread to achieve greater
+     * {@code stackSize} parameter may allow a threadpool to achieve greater
      * recursion depth before throwing a {@link StackOverflowError}.
      * Similarly, specifying a lower value may allow a greater number of
      * threads to exist concurrently without throwing an {@link
@@ -637,7 +637,7 @@ class Thread implements Runnable {
      *
      * <p><i>Due to the platform-dependent nature of the behavior of this
      * constructor, extreme care should be exercised in its use.
-     * The thread stack size necessary to perform a given computation will
+     * The threadpool stack size necessary to perform a given computation will
      * likely vary from one JRE implementation to another.  In light of this
      * variation, careful tuning of the stack size parameter may be required,
      * and the tuning may need to be repeated for each JRE implementation on
@@ -649,27 +649,27 @@ class Thread implements Runnable {
      *
      *
      * @param  group
-     *         the thread group. If {@code null} and there is a security
+     *         the threadpool group. If {@code null} and there is a security
      *         manager, the group is determined by {@linkplain
      *         SecurityManager#getThreadGroup SecurityManager.getThreadGroup()}.
      *         If there is not a security manager or {@code
      *         SecurityManager.getThreadGroup()} returns {@code null}, the group
-     *         is set to the current thread's thread group.
+     *         is set to the current threadpool's threadpool group.
      *
      * @param  target
-     *         the object whose {@code run} method is invoked when this thread
-     *         is started. If {@code null}, this thread's run method is invoked.
+     *         the object whose {@code run} method is invoked when this threadpool
+     *         is started. If {@code null}, this threadpool's run method is invoked.
      *
      * @param  name
-     *         the name of the new thread
+     *         the name of the new threadpool
      *
      * @param  stackSize
-     *         the desired stack size for the new thread, or zero to indicate
+     *         the desired stack size for the new threadpool, or zero to indicate
      *         that this parameter is to be ignored.
      *
      * @throws  SecurityException
-     *          if the current thread cannot create a thread in the specified
-     *          thread group
+     *          if the current threadpool cannot create a threadpool in the specified
+     *          threadpool group
      *
      * @since 1.4
      */
@@ -679,26 +679,26 @@ class Thread implements Runnable {
     }
 
     /**
-     * Causes this thread to begin execution; the Java Virtual Machine
-     * calls the <code>run</code> method of this thread.
+     * Causes this threadpool to begin execution; the Java Virtual Machine
+     * calls the <code>run</code> method of this threadpool.
      * <p>
      * The result is that two threads are running concurrently: the
-     * current thread (which returns from the call to the
-     * <code>start</code> method) and the other thread (which executes its
+     * current threadpool (which returns from the call to the
+     * <code>start</code> method) and the other threadpool (which executes its
      * <code>run</code> method).
      * <p>
-     * It is never legal to start a thread more than once.
-     * In particular, a thread may not be restarted once it has completed
+     * It is never legal to start a threadpool more than once.
+     * In particular, a threadpool may not be restarted once it has completed
      * execution.
      *
-     * @exception  IllegalThreadStateException  if the thread was already
+     * @exception  IllegalThreadStateException  if the threadpool was already
      *               started.
      * @see        #run()
      * @see        #stop()
      */
     public synchronized void start() {
         /**
-         * This method is not invoked for the main method thread or "system"
+         * This method is not invoked for the main method threadpool or "system"
          * group threads created/set up by the VM. Any new functionality added
          * to this method in the future may have to also be added to the VM.
          *
@@ -707,7 +707,7 @@ class Thread implements Runnable {
         if (threadStatus != 0)
             throw new IllegalThreadStateException();
 
-        /* Notify the group that this thread is about to be started
+        /* Notify the group that this threadpool is about to be started
          * so that it can be added to the group's list of threads
          * and the group's unstarted count can be decremented. */
         group.add(this);
@@ -731,7 +731,7 @@ class Thread implements Runnable {
     private native void start0();
 
     /**
-     * If this thread was constructed using a separate
+     * If this threadpool was constructed using a separate
      * <code>Runnable</code> run object, then that
      * <code>Runnable</code> object's <code>run</code> method is called;
      * otherwise, this method does nothing and returns.
@@ -769,44 +769,44 @@ class Thread implements Runnable {
     }
 
     /**
-     * Forces the thread to stop executing.
+     * Forces the threadpool to stop executing.
      * <p>
      * If there is a security manager installed, its <code>checkAccess</code>
      * method is called with <code>this</code>
      * as its argument. This may result in a
-     * <code>SecurityException</code> being raised (in the current thread).
+     * <code>SecurityException</code> being raised (in the current threadpool).
      * <p>
-     * If this thread is different from the current thread (that is, the current
-     * thread is trying to stop a thread other than itself), the
+     * If this threadpool is different from the current threadpool (that is, the current
+     * threadpool is trying to stop a threadpool other than itself), the
      * security manager's <code>checkPermission</code> method (with a
      * <code>RuntimePermission("stopThread")</code> argument) is called in
      * addition.
      * Again, this may result in throwing a
-     * <code>SecurityException</code> (in the current thread).
+     * <code>SecurityException</code> (in the current threadpool).
      * <p>
-     * The thread represented by this thread is forced to stop whatever
+     * The threadpool represented by this threadpool is forced to stop whatever
      * it is doing abnormally and to throw a newly created
      * <code>ThreadDeath</code> object as an exception.
      * <p>
-     * It is permitted to stop a thread that has not yet been started.
-     * If the thread is eventually started, it immediately terminates.
+     * It is permitted to stop a threadpool that has not yet been started.
+     * If the threadpool is eventually started, it immediately terminates.
      * <p>
      * An application should not normally try to catch
      * <code>ThreadDeath</code> unless it must do some extraordinary
      * cleanup operation (note that the throwing of
      * <code>ThreadDeath</code> causes <code>finally</code> clauses of
-     * <code>try</code> statements to be executed before the thread
+     * <code>try</code> statements to be executed before the threadpool
      * officially dies).  If a <code>catch</code> clause catches a
      * <code>ThreadDeath</code> object, it is important to rethrow the
-     * object so that the thread actually dies.
+     * object so that the threadpool actually dies.
      * <p>
      * The top-level error handler that reacts to otherwise uncaught
      * exceptions does not print out a message or otherwise notify the
      * application if the uncaught exception is an instance of
      * <code>ThreadDeath</code>.
      *
-     * @exception  SecurityException  if the current thread cannot
-     *               modify this thread.
+     * @exception  SecurityException  if the current threadpool cannot
+     *               modify this threadpool.
      * @see        #interrupt()
      * @see        #checkAccess()
      * @see        #run()
@@ -815,7 +815,7 @@ class Thread implements Runnable {
      * @see        ThreadGroup#uncaughtException(Thread,Throwable)
      * @see        SecurityManager#checkAccess(Thread)
      * @see        SecurityManager#checkPermission
-     * @deprecated This method is inherently unsafe.  Stopping a thread with
+     * @deprecated This method is inherently unsafe.  Stopping a threadpool with
      *       Thread.stop causes it to unlock all of the monitors that it
      *       has locked (as a natural consequence of the unchecked
      *       <code>ThreadDeath</code> exception propagating up the stack).  If
@@ -823,11 +823,11 @@ class Thread implements Runnable {
      *       an inconsistent state, the damaged objects become visible to
      *       other threads, potentially resulting in arbitrary behavior.  Many
      *       uses of <code>stop</code> should be replaced by code that simply
-     *       modifies some variable to indicate that the target thread should
-     *       stop running.  The target thread should check this variable
+     *       modifies some variable to indicate that the target threadpool should
+     *       stop running.  The target threadpool should check this variable
      *       regularly, and return from its run method in an orderly fashion
      *       if the variable indicates that it is to stop running.  If the
-     *       target thread waits for long periods (on a condition variable,
+     *       target threadpool waits for long periods (on a condition variable,
      *       for example), the <code>interrupt</code> method should be used to
      *       interrupt the wait.
      *       For more information, see
@@ -846,10 +846,10 @@ class Thread implements Runnable {
         // A zero status value corresponds to "NEW", it can't change to
         // not-NEW because we hold the lock.
         if (threadStatus != 0) {
-            resume(); // Wake up thread if it was suspended; no-op otherwise
+            resume(); // Wake up threadpool if it was suspended; no-op otherwise
         }
 
-        // The VM can handle all thread states
+        // The VM can handle all threadpool states
         stop0(new ThreadDeath());
     }
 
@@ -858,10 +858,10 @@ class Thread implements Runnable {
      *
      * @param obj ignored
      *
-     * @deprecated This method was originally designed to force a thread to stop
+     * @deprecated This method was originally designed to force a threadpool to stop
      *        and throw a given {@code Throwable} as an exception. It was
      *        inherently unsafe (see {@link #stop()} for details), and furthermore
-     *        could be used to generate exceptions that the target thread was
+     *        could be used to generate exceptions that the target threadpool was
      *        not prepared to handle.
      *        For more information, see
      *        <a href="{@docRoot}/../technotes/guides/concurrency/threadPrimitiveDeprecation.html">Why
@@ -873,14 +873,14 @@ class Thread implements Runnable {
     }
 
     /**
-     * Interrupts this thread.
+     * Interrupts this threadpool.
      *
-     * <p> Unless the current thread is interrupting itself, which is
+     * <p> Unless the current threadpool is interrupting itself, which is
      * always permitted, the {@link #checkAccess() checkAccess} method
-     * of this thread is invoked, which may cause a {@link
+     * of this threadpool is invoked, which may cause a {@link
      * SecurityException} to be thrown.
      *
-     * <p> If this thread is blocked in an invocation of the {@link
+     * <p> If this threadpool is blocked in an invocation of the {@link
      * Object#wait() wait()}, {@link Object#wait(long) wait(long)}, or {@link
      * Object#wait(long, int) wait(long, int)} methods of the {@link Object}
      * class, or of the {@link #join()}, {@link #join(long)}, {@link
@@ -888,25 +888,25 @@ class Thread implements Runnable {
      * methods of this class, then its interrupt status will be cleared and it
      * will receive an {@link InterruptedException}.
      *
-     * <p> If this thread is blocked in an I/O operation upon an {@link
+     * <p> If this threadpool is blocked in an I/O operation upon an {@link
      * java.nio.channels.InterruptibleChannel InterruptibleChannel}
-     * then the channel will be closed, the thread's interrupt
-     * status will be set, and the thread will receive a {@link
+     * then the channel will be closed, the threadpool's interrupt
+     * status will be set, and the threadpool will receive a {@link
      * java.nio.channels.ClosedByInterruptException}.
      *
-     * <p> If this thread is blocked in a {@link java.nio.channels.Selector}
-     * then the thread's interrupt status will be set and it will return
+     * <p> If this threadpool is blocked in a {@link java.nio.channels.Selector}
+     * then the threadpool's interrupt status will be set and it will return
      * immediately from the selection operation, possibly with a non-zero
      * value, just as if the selector's {@link
      * java.nio.channels.Selector#wakeup wakeup} method were invoked.
      *
-     * <p> If none of the previous conditions hold then this thread's interrupt
+     * <p> If none of the previous conditions hold then this threadpool's interrupt
      * status will be set. </p>
      *
-     * <p> Interrupting a thread that is not alive need not have any effect.
+     * <p> Interrupting a threadpool that is not alive need not have any effect.
      *
      * @throws  SecurityException
-     *          if the current thread cannot modify this thread
+     *          if the current threadpool cannot modify this threadpool
      *
      * @revised 6.0
      * @spec JSR-51
@@ -927,18 +927,18 @@ class Thread implements Runnable {
     }
 
     /**
-     * Tests whether the current thread has been interrupted.  The
-     * <i>interrupted status</i> of the thread is cleared by this method.  In
+     * Tests whether the current threadpool has been interrupted.  The
+     * <i>interrupted status</i> of the threadpool is cleared by this method.  In
      * other words, if this method were to be called twice in succession, the
-     * second call would return false (unless the current thread were
+     * second call would return false (unless the current threadpool were
      * interrupted again, after the first call had cleared its interrupted
      * status and before the second call had examined it).
      *
-     * <p>A thread interruption ignored because a thread was not alive
+     * <p>A threadpool interruption ignored because a threadpool was not alive
      * at the time of the interrupt will be reflected by this method
      * returning false.
      *
-     * @return  <code>true</code> if the current thread has been interrupted;
+     * @return  <code>true</code> if the current threadpool has been interrupted;
      *          <code>false</code> otherwise.
      * @see #isInterrupted()
      * @revised 6.0
@@ -948,14 +948,14 @@ class Thread implements Runnable {
     }
 
     /**
-     * Tests whether this thread has been interrupted.  The <i>interrupted
-     * status</i> of the thread is unaffected by this method.
+     * Tests whether this threadpool has been interrupted.  The <i>interrupted
+     * status</i> of the threadpool is unaffected by this method.
      *
-     * <p>A thread interruption ignored because a thread was not alive
+     * <p>A threadpool interruption ignored because a threadpool was not alive
      * at the time of the interrupt will be reflected by this method
      * returning false.
      *
-     * @return  <code>true</code> if this thread has been interrupted;
+     * @return  <code>true</code> if this threadpool has been interrupted;
      *          <code>false</code> otherwise.
      * @see     #interrupted()
      * @revised 6.0
@@ -975,13 +975,13 @@ class Thread implements Runnable {
      * Throws {@link NoSuchMethodError}.
      *
      * @deprecated This method was originally designed to destroy this
-     *     thread without any cleanup. Any monitors it held would have
+     *     threadpool without any cleanup. Any monitors it held would have
      *     remained locked. However, the method was never implemented.
      *     If if were to be implemented, it would be deadlock-prone in
-     *     much the manner of {@link #suspend}. If the target thread held
+     *     much the manner of {@link #suspend}. If the target threadpool held
      *     a lock protecting a critical system resource when it was
-     *     destroyed, no thread could ever access this resource again.
-     *     If another thread ever attempted to lock this resource, deadlock
+     *     destroyed, no threadpool could ever access this resource again.
+     *     If another threadpool ever attempted to lock this resource, deadlock
      *     would result. Such deadlocks typically manifest themselves as
      *     "frozen" processes. For more information, see
      *     <a href="{@docRoot}/../technotes/guides/concurrency/threadPrimitiveDeprecation.html">
@@ -994,32 +994,32 @@ class Thread implements Runnable {
     }
 
     /**
-     * Tests if this thread is alive. A thread is alive if it has
+     * Tests if this threadpool is alive. A threadpool is alive if it has
      * been started and has not yet died.
      *
-     * @return  <code>true</code> if this thread is alive;
+     * @return  <code>true</code> if this threadpool is alive;
      *          <code>false</code> otherwise.
      */
     public final native boolean isAlive();
 
     /**
-     * Suspends this thread.
+     * Suspends this threadpool.
      * <p>
-     * First, the <code>checkAccess</code> method of this thread is called
+     * First, the <code>checkAccess</code> method of this threadpool is called
      * with no arguments. This may result in throwing a
-     * <code>SecurityException </code>(in the current thread).
+     * <code>SecurityException </code>(in the current threadpool).
      * <p>
-     * If the thread is alive, it is suspended and makes no further
+     * If the threadpool is alive, it is suspended and makes no further
      * progress unless and until it is resumed.
      *
-     * @exception  SecurityException  if the current thread cannot modify
-     *               this thread.
+     * @exception  SecurityException  if the current threadpool cannot modify
+     *               this threadpool.
      * @see #checkAccess
      * @deprecated   This method has been deprecated, as it is
-     *   inherently deadlock-prone.  If the target thread holds a lock on the
+     *   inherently deadlock-prone.  If the target threadpool holds a lock on the
      *   monitor protecting a critical system resource when it is suspended, no
-     *   thread can access this resource until the target thread is resumed. If
-     *   the thread that would resume the target thread attempts to lock this
+     *   threadpool can access this resource until the target threadpool is resumed. If
+     *   the threadpool that would resume the target threadpool attempts to lock this
      *   monitor prior to calling <code>resume</code>, deadlock results.  Such
      *   deadlocks typically manifest themselves as "frozen" processes.
      *   For more information, see
@@ -1033,17 +1033,17 @@ class Thread implements Runnable {
     }
 
     /**
-     * Resumes a suspended thread.
+     * Resumes a suspended threadpool.
      * <p>
-     * First, the <code>checkAccess</code> method of this thread is called
+     * First, the <code>checkAccess</code> method of this threadpool is called
      * with no arguments. This may result in throwing a
-     * <code>SecurityException</code> (in the current thread).
+     * <code>SecurityException</code> (in the current threadpool).
      * <p>
-     * If the thread is alive but suspended, it is resumed and is
+     * If the threadpool is alive but suspended, it is resumed and is
      * permitted to make progress in its execution.
      *
-     * @exception  SecurityException  if the current thread cannot modify this
-     *               thread.
+     * @exception  SecurityException  if the current threadpool cannot modify this
+     *               threadpool.
      * @see        #checkAccess
      * @see        #suspend()
      * @deprecated This method exists solely for use with {@link #suspend},
@@ -1059,22 +1059,22 @@ class Thread implements Runnable {
     }
 
     /**
-     * Changes the priority of this thread.
+     * Changes the priority of this threadpool.
      * <p>
-     * First the <code>checkAccess</code> method of this thread is called
+     * First the <code>checkAccess</code> method of this threadpool is called
      * with no arguments. This may result in throwing a
      * <code>SecurityException</code>.
      * <p>
-     * Otherwise, the priority of this thread is set to the smaller of
+     * Otherwise, the priority of this threadpool is set to the smaller of
      * the specified <code>newPriority</code> and the maximum permitted
-     * priority of the thread's thread group.
+     * priority of the threadpool's threadpool group.
      *
-     * @param newPriority priority to set this thread to
+     * @param newPriority priority to set this threadpool to
      * @exception  IllegalArgumentException  If the priority is not in the
      *               range <code>MIN_PRIORITY</code> to
      *               <code>MAX_PRIORITY</code>.
-     * @exception  SecurityException  if the current thread cannot modify
-     *               this thread.
+     * @exception  SecurityException  if the current threadpool cannot modify
+     *               this threadpool.
      * @see        #getPriority
      * @see        #checkAccess()
      * @see        #getThreadGroup()
@@ -1097,9 +1097,9 @@ class Thread implements Runnable {
     }
 
     /**
-     * Returns this thread's priority.
+     * Returns this threadpool's priority.
      *
-     * @return  this thread's priority.
+     * @return  this threadpool's priority.
      * @see     #setPriority
      */
     public final int getPriority() {
@@ -1107,16 +1107,16 @@ class Thread implements Runnable {
     }
 
     /**
-     * Changes the name of this thread to be equal to the argument
+     * Changes the name of this threadpool to be equal to the argument
      * <code>name</code>.
      * <p>
-     * First the <code>checkAccess</code> method of this thread is called
+     * First the <code>checkAccess</code> method of this threadpool is called
      * with no arguments. This may result in throwing a
      * <code>SecurityException</code>.
      *
-     * @param      name   the new name for this thread.
-     * @exception  SecurityException  if the current thread cannot modify this
-     *               thread.
+     * @param      name   the new name for this threadpool.
+     * @exception  SecurityException  if the current threadpool cannot modify this
+     *               threadpool.
      * @see        #getName
      * @see        #checkAccess()
      */
@@ -1133,9 +1133,9 @@ class Thread implements Runnable {
     }
 
     /**
-     * Returns this thread's name.
+     * Returns this threadpool's name.
      *
-     * @return  this thread's name.
+     * @return  this threadpool's name.
      * @see     #setName(String)
      */
     public final String getName() {
@@ -1143,11 +1143,11 @@ class Thread implements Runnable {
     }
 
     /**
-     * Returns the thread group to which this thread belongs.
-     * This method returns null if this thread has died
+     * Returns the threadpool group to which this threadpool belongs.
+     * This method returns null if this threadpool has died
      * (been stopped).
      *
-     * @return  this thread's thread group.
+     * @return  this threadpool's threadpool group.
      */
     public final ThreadGroup getThreadGroup() {
         return group;
@@ -1155,9 +1155,9 @@ class Thread implements Runnable {
 
     /**
      * Returns an estimate of the number of active threads in the current
-     * thread's {@linkplain ThreadGroup thread group} and its
+     * threadpool's {@linkplain ThreadGroup threadpool group} and its
      * subgroups. Recursively iterates over all subgroups in the current
-     * thread's thread group.
+     * threadpool's threadpool group.
      *
      * <p> The value returned is only an estimate because the number of
      * threads may change dynamically while this method traverses internal
@@ -1166,24 +1166,24 @@ class Thread implements Runnable {
      * and monitoring purposes.
      *
      * @return  an estimate of the number of active threads in the current
-     *          thread's thread group and in any other thread group that
-     *          has the current thread's thread group as an ancestor
+     *          threadpool's threadpool group and in any other threadpool group that
+     *          has the current threadpool's threadpool group as an ancestor
      */
     public static int activeCount() {
         return currentThread().getThreadGroup().activeCount();
     }
 
     /**
-     * Copies into the specified array every active thread in the current
-     * thread's thread group and its subgroups. This method simply
+     * Copies into the specified array every active threadpool in the current
+     * threadpool's threadpool group and its subgroups. This method simply
      * invokes the {@link ThreadGroup#enumerate(Thread[])}
-     * method of the current thread's thread group.
+     * method of the current threadpool's threadpool group.
      *
      * <p> An application might use the {@linkplain #activeCount activeCount}
      * method to get an estimate of how big the array should be, however
      * <i>if the array is too short to hold all the threads, the extra threads
      * are silently ignored.</i>  If it is critical to obtain every active
-     * thread in the current thread's thread group and its subgroups, the
+     * threadpool in the current threadpool's threadpool group and its subgroups, the
      * invoker should verify that the returned int value is strictly less
      * than the length of {@code tarray}.
      *
@@ -1197,18 +1197,18 @@ class Thread implements Runnable {
      *
      * @throws  SecurityException
      *          if {@link ThreadGroup#checkAccess} determines that
-     *          the current thread cannot access its thread group
+     *          the current threadpool cannot access its threadpool group
      */
     public static int enumerate(Thread tarray[]) {
         return currentThread().getThreadGroup().enumerate(tarray);
     }
 
     /**
-     * Counts the number of stack frames in this thread. The thread must
+     * Counts the number of stack frames in this threadpool. The threadpool must
      * be suspended.
      *
-     * @return     the number of stack frames in this thread.
-     * @exception  IllegalThreadStateException  if this thread is not
+     * @return     the number of stack frames in this threadpool.
+     * @exception  IllegalThreadStateException  if this threadpool is not
      *             suspended.
      * @deprecated The definition of this call depends on {@link #suspend},
      *             which is deprecated.  Further, the results of this call
@@ -1218,11 +1218,11 @@ class Thread implements Runnable {
     public native int countStackFrames();
 
     /**
-     * Waits at most {@code millis} milliseconds for this thread to
+     * Waits at most {@code millis} milliseconds for this threadpool to
      * die. A timeout of {@code 0} means to wait forever.
      *
      * <p> This implementation uses a loop of {@code this.wait} calls
-     * conditioned on {@code this.isAlive}. As a thread terminates the
+     * conditioned on {@code this.isAlive}. As a threadpool terminates the
      * {@code this.notifyAll} method is invoked. It is recommended that
      * applications not use {@code wait}, {@code notify}, or
      * {@code notifyAll} on {@code Thread} instances.
@@ -1234,8 +1234,8 @@ class Thread implements Runnable {
      *          if the value of {@code millis} is negative
      *
      * @throws  InterruptedException
-     *          if any thread has interrupted the current thread. The
-     *          <i>interrupted status</i> of the current thread is
+     *          if any threadpool has interrupted the current threadpool. The
+     *          <i>interrupted status</i> of the current threadpool is
      *          cleared when this exception is thrown.
      */
     public final synchronized void join(long millis)
@@ -1265,10 +1265,10 @@ class Thread implements Runnable {
 
     /**
      * Waits at most {@code millis} milliseconds plus
-     * {@code nanos} nanoseconds for this thread to die.
+     * {@code nanos} nanoseconds for this threadpool to die.
      *
      * <p> This implementation uses a loop of {@code this.wait} calls
-     * conditioned on {@code this.isAlive}. As a thread terminates the
+     * conditioned on {@code this.isAlive}. As a threadpool terminates the
      * {@code this.notifyAll} method is invoked. It is recommended that
      * applications not use {@code wait}, {@code notify}, or
      * {@code notifyAll} on {@code Thread} instances.
@@ -1284,8 +1284,8 @@ class Thread implements Runnable {
      *          of {@code nanos} is not in the range {@code 0-999999}
      *
      * @throws  InterruptedException
-     *          if any thread has interrupted the current thread. The
-     *          <i>interrupted status</i> of the current thread is
+     *          if any threadpool has interrupted the current threadpool. The
+     *          <i>interrupted status</i> of the current threadpool is
      *          cleared when this exception is thrown.
      */
     public final synchronized void join(long millis, int nanos)
@@ -1308,7 +1308,7 @@ class Thread implements Runnable {
     }
 
     /**
-     * Waits for this thread to die.
+     * Waits for this threadpool to die.
      *
      * <p> An invocation of this method behaves in exactly the same
      * way as the invocation
@@ -1318,8 +1318,8 @@ class Thread implements Runnable {
      * </blockquote>
      *
      * @throws  InterruptedException
-     *          if any thread has interrupted the current thread. The
-     *          <i>interrupted status</i> of the current thread is
+     *          if any threadpool has interrupted the current threadpool. The
+     *          <i>interrupted status</i> of the current threadpool is
      *          cleared when this exception is thrown.
      */
     public final void join() throws InterruptedException {
@@ -1327,7 +1327,7 @@ class Thread implements Runnable {
     }
 
     /**
-     * Prints a stack trace of the current thread to the standard error stream.
+     * Prints a stack trace of the current threadpool to the standard error stream.
      * This method is used only for debugging.
      *
      * @see     Throwable#printStackTrace()
@@ -1337,21 +1337,21 @@ class Thread implements Runnable {
     }
 
     /**
-     * Marks this thread as either a {@linkplain #isDaemon daemon} thread
-     * or a user thread. The Java Virtual Machine exits when the only
+     * Marks this threadpool as either a {@linkplain #isDaemon daemon} threadpool
+     * or a user threadpool. The Java Virtual Machine exits when the only
      * threads running are all daemon threads.
      *
-     * <p> This method must be invoked before the thread is started.
+     * <p> This method must be invoked before the threadpool is started.
      *
      * @param  on
-     *         if {@code true}, marks this thread as a daemon thread
+     *         if {@code true}, marks this threadpool as a daemon threadpool
      *
      * @throws  IllegalThreadStateException
-     *          if this thread is {@linkplain #isAlive alive}
+     *          if this threadpool is {@linkplain #isAlive alive}
      *
      * @throws  SecurityException
      *          if {@link #checkAccess} determines that the current
-     *          thread cannot modify this thread
+     *          threadpool cannot modify this threadpool
      */
     public final void setDaemon(boolean on) {
         checkAccess();
@@ -1362,9 +1362,9 @@ class Thread implements Runnable {
     }
 
     /**
-     * Tests if this thread is a daemon thread.
+     * Tests if this threadpool is a daemon threadpool.
      *
-     * @return  <code>true</code> if this thread is a daemon thread;
+     * @return  <code>true</code> if this threadpool is a daemon threadpool;
      *          <code>false</code> otherwise.
      * @see     #setDaemon(boolean)
      */
@@ -1373,15 +1373,15 @@ class Thread implements Runnable {
     }
 
     /**
-     * Determines if the currently running thread has permission to
-     * modify this thread.
+     * Determines if the currently running threadpool has permission to
+     * modify this threadpool.
      * <p>
      * If there is a security manager, its <code>checkAccess</code> method
-     * is called with this thread as its argument. This may result in
+     * is called with this threadpool as its argument. This may result in
      * throwing a <code>SecurityException</code>.
      *
-     * @exception  SecurityException  if the current thread is not allowed to
-     *               access this thread.
+     * @exception  SecurityException  if the current threadpool is not allowed to
+     *               access this threadpool.
      * @see        SecurityManager#checkAccess(Thread)
      */
     public final void checkAccess() {
@@ -1392,10 +1392,10 @@ class Thread implements Runnable {
     }
 
     /**
-     * Returns a string representation of this thread, including the
-     * thread's name, priority, and thread group.
+     * Returns a string representation of this threadpool, including the
+     * threadpool's name, priority, and threadpool group.
      *
-     * @return  a string representation of this thread.
+     * @return  a string representation of this threadpool.
      */
     public String toString() {
         ThreadGroup group = getThreadGroup();
@@ -1410,11 +1410,11 @@ class Thread implements Runnable {
 
     /**
      * Returns the context ClassLoader for this Thread. The context
-     * ClassLoader is provided by the creator of the thread for use
-     * by code running in this thread when loading classes and resources.
+     * ClassLoader is provided by the creator of the threadpool for use
+     * by code running in this threadpool when loading classes and resources.
      * If not {@linkplain #setContextClassLoader set}, the default is the
      * ClassLoader context of the parent Thread. The context ClassLoader of the
-     * primordial thread is typically set to the class loader used to load the
+     * primordial threadpool is typically set to the class loader used to load the
      * application.
      *
      * <p>If a security manager is present, and the invoker's class loader is not
@@ -1430,7 +1430,7 @@ class Thread implements Runnable {
      *          bootstrap class loader)
      *
      * @throws  SecurityException
-     *          if the current thread cannot get the context ClassLoader
+     *          if the current threadpool cannot get the context ClassLoader
      *
      * @since 1.2
      */
@@ -1448,9 +1448,9 @@ class Thread implements Runnable {
 
     /**
      * Sets the context ClassLoader for this Thread. The context
-     * ClassLoader can be set when a thread is created, and allows
-     * the creator of the thread to provide the appropriate class loader,
-     * through {@code getContextClassLoader}, to code running in the thread
+     * ClassLoader can be set when a threadpool is created, and allows
+     * the creator of the threadpool to provide the appropriate class loader,
+     * through {@code getContextClassLoader}, to code running in the threadpool
      * when loading classes and resources.
      *
      * <p>If a security manager is present, its {@link
@@ -1464,7 +1464,7 @@ class Thread implements Runnable {
      *         system class loader (or, failing that, the bootstrap class loader)
      *
      * @throws  SecurityException
-     *          if the current thread cannot set the context ClassLoader
+     *          if the current threadpool cannot set the context ClassLoader
      *
      * @since 1.2
      */
@@ -1477,18 +1477,18 @@ class Thread implements Runnable {
     }
 
     /**
-     * Returns <tt>true</tt> if and only if the current thread holds the
+     * Returns <tt>true</tt> if and only if the current threadpool holds the
      * monitor lock on the specified object.
      *
      * <p>This method is designed to allow a program to assert that
-     * the current thread already holds a specified lock:
+     * the current threadpool already holds a specified lock:
      * <pre>
      *     assert Thread.holdsLock(obj);
      * </pre>
      *
      * @param  obj the object on which to test lock ownership
      * @throws NullPointerException if obj is <tt>null</tt>
-     * @return <tt>true</tt> if the current thread holds the monitor lock on
+     * @return <tt>true</tt> if the current threadpool holds the monitor lock on
      *         the specified object.
      * @since 1.4
      */
@@ -1499,8 +1499,8 @@ class Thread implements Runnable {
 
     /**
      * Returns an array of stack trace elements representing the stack dump
-     * of this thread.  This method will return a zero-length array if
-     * this thread has not started, has started but has not yet been
+     * of this threadpool.  This method will return a zero-length array if
+     * this threadpool has not started, has started but has not yet been
      * scheduled to run by the system, or has terminated.
      * If the returned array is of non-zero length then the first element of
      * the array represents the top of the stack, which is the most recent
@@ -1508,8 +1508,8 @@ class Thread implements Runnable {
      * represents the bottom of the stack, which is the least recent method
      * invocation in the sequence.
      *
-     * <p>If there is a security manager, and this thread is not
-     * the current thread, then the security manager's
+     * <p>If there is a security manager, and this threadpool is not
+     * the current threadpool, then the security manager's
      * <tt>checkPermission</tt> method is called with a
      * <tt>RuntimePermission("getStackTrace")</tt> permission
      * to see if it's ok to get the stack trace.
@@ -1517,7 +1517,7 @@ class Thread implements Runnable {
      * <p>Some virtual machines may, under some circumstances, omit one
      * or more stack frames from the stack trace.  In the extreme case,
      * a virtual machine that has no stack trace information concerning
-     * this thread is permitted to return a zero-length array from this
+     * this threadpool is permitted to return a zero-length array from this
      * method.
      *
      * @return an array of <tt>StackTraceElement</tt>,
@@ -1526,7 +1526,7 @@ class Thread implements Runnable {
      * @throws SecurityException
      *        if a security manager exists and its
      *        <tt>checkPermission</tt> method doesn't allow
-     *        getting the stack trace of thread.
+     *        getting the stack trace of threadpool.
      * @see SecurityManager#checkPermission
      * @see RuntimePermission
      * @see Throwable#getStackTrace
@@ -1548,14 +1548,14 @@ class Thread implements Runnable {
             }
             StackTraceElement[][] stackTraceArray = dumpThreads(new Thread[] {this});
             StackTraceElement[] stackTrace = stackTraceArray[0];
-            // a thread that was alive during the previous isAlive call may have
+            // a threadpool that was alive during the previous isAlive call may have
             // since terminated, therefore not having a stacktrace.
             if (stackTrace == null) {
                 stackTrace = EMPTY_STACK_TRACE;
             }
             return stackTrace;
         } else {
-            // Don't need JVM help for current thread
+            // Don't need JVM help for current threadpool
             return (new Exception()).getStackTrace();
         }
     }
@@ -1569,10 +1569,10 @@ class Thread implements Runnable {
      * the {@link #getStackTrace getStackTrace} method.
      *
      * <p>The threads may be executing while this method is called.
-     * The stack trace of each thread only represents a snapshot and
+     * The stack trace of each threadpool only represents a snapshot and
      * each stack trace may be obtained at different time.  A zero-length
      * array will be returned in the map value if the virtual machine has
-     * no stack trace information about a thread.
+     * no stack trace information about a threadpool.
      *
      * <p>If there is a security manager, then the security manager's
      * <tt>checkPermission</tt> method is called with a
@@ -1582,12 +1582,12 @@ class Thread implements Runnable {
      *
      * @return a <tt>Map</tt> from <tt>Thread</tt> to an array of
      * <tt>StackTraceElement</tt> that represents the stack trace of
-     * the corresponding thread.
+     * the corresponding threadpool.
      *
      * @throws SecurityException
      *        if a security manager exists and its
      *        <tt>checkPermission</tt> method doesn't allow
-     *        getting the stack trace of thread.
+     *        getting the stack trace of threadpool.
      * @see #getStackTrace
      * @see SecurityManager#checkPermission
      * @see RuntimePermission
@@ -1693,12 +1693,12 @@ class Thread implements Runnable {
     private native static Thread[] getThreads();
 
     /**
-     * Returns the identifier of this Thread.  The thread ID is a positive
-     * <tt>long</tt> number generated when this thread was created.
-     * The thread ID is unique and remains unchanged during its lifetime.
-     * When a thread is terminated, this thread ID may be reused.
+     * Returns the identifier of this Thread.  The threadpool ID is a positive
+     * <tt>long</tt> number generated when this threadpool was created.
+     * The threadpool ID is unique and remains unchanged during its lifetime.
+     * When a threadpool is terminated, this threadpool ID may be reused.
      *
-     * @return this thread's ID.
+     * @return this threadpool's ID.
      * @since 1.5
      */
     public long getId() {
@@ -1706,47 +1706,47 @@ class Thread implements Runnable {
     }
 
     /**
-     * A thread state.  A thread can be in one of the following states:
+     * A threadpool state.  A threadpool can be in one of the following states:
      * <ul>
      * <li>{@link #NEW}<br>
-     *     A thread that has not yet started is in this state.
+     *     A threadpool that has not yet started is in this state.
      *     </li>
      * <li>{@link #RUNNABLE}<br>
-     *     A thread executing in the Java virtual machine is in this state.
+     *     A threadpool executing in the Java virtual machine is in this state.
      *     </li>
      * <li>{@link #BLOCKED}<br>
-     *     A thread that is blocked waiting for a monitor lock
+     *     A threadpool that is blocked waiting for a monitor lock
      *     is in this state.
      *     </li>
      * <li>{@link #WAITING}<br>
-     *     A thread that is waiting indefinitely for another thread to
+     *     A threadpool that is waiting indefinitely for another threadpool to
      *     perform a particular action is in this state.
      *     </li>
      * <li>{@link #TIMED_WAITING}<br>
-     *     A thread that is waiting for another thread to perform an action
+     *     A threadpool that is waiting for another threadpool to perform an action
      *     for up to a specified waiting time is in this state.
      *     </li>
      * <li>{@link #TERMINATED}<br>
-     *     A thread that has exited is in this state.
+     *     A threadpool that has exited is in this state.
      *     </li>
      * </ul>
      *
      * <p>
-     * A thread can be in only one state at a given point in time.
+     * A threadpool can be in only one state at a given point in time.
      * These states are virtual machine states which do not reflect
-     * any operating system thread states.
+     * any operating system threadpool states.
      *
      * @since   1.5
      * @see #getState
      */
     public enum State {
         /**
-         * Thread state for a thread which has not yet started.
+         * Thread state for a threadpool which has not yet started.
          */
         NEW,
 
         /**
-         * Thread state for a runnable thread.  A thread in the runnable
+         * Thread state for a runnable threadpool.  A threadpool in the runnable
          * state is executing in the Java virtual machine but it may
          * be waiting for other resources from the operating system
          * such as processor.
@@ -1754,8 +1754,8 @@ class Thread implements Runnable {
         RUNNABLE,
 
         /**
-         * Thread state for a thread blocked waiting for a monitor lock.
-         * A thread in the blocked state is waiting for a monitor lock
+         * Thread state for a threadpool blocked waiting for a monitor lock.
+         * A threadpool in the blocked state is waiting for a monitor lock
          * to enter a synchronized block/method or
          * reenter a synchronized block/method after calling
          * {@link Object#wait() Object.wait}.
@@ -1763,8 +1763,8 @@ class Thread implements Runnable {
         BLOCKED,
 
         /**
-         * Thread state for a waiting thread.
-         * A thread is in the waiting state due to calling one of the
+         * Thread state for a waiting threadpool.
+         * A threadpool is in the waiting state due to calling one of the
          * following methods:
          * <ul>
          *   <li>{@link Object#wait() Object.wait} with no timeout</li>
@@ -1772,20 +1772,20 @@ class Thread implements Runnable {
          *   <li>{@link LockSupport#park() LockSupport.park}</li>
          * </ul>
          *
-         * <p>A thread in the waiting state is waiting for another thread to
+         * <p>A threadpool in the waiting state is waiting for another threadpool to
          * perform a particular action.
          *
-         * For example, a thread that has called <tt>Object.wait()</tt>
-         * on an object is waiting for another thread to call
+         * For example, a threadpool that has called <tt>Object.wait()</tt>
+         * on an object is waiting for another threadpool to call
          * <tt>Object.notify()</tt> or <tt>Object.notifyAll()</tt> on
-         * that object. A thread that has called <tt>Thread.join()</tt>
-         * is waiting for a specified thread to terminate.
+         * that object. A threadpool that has called <tt>Thread.join()</tt>
+         * is waiting for a specified threadpool to terminate.
          */
         WAITING,
 
         /**
-         * Thread state for a waiting thread with a specified waiting time.
-         * A thread is in the timed waiting state due to calling one of
+         * Thread state for a waiting threadpool with a specified waiting time.
+         * A threadpool is in the timed waiting state due to calling one of
          * the following methods with a specified positive waiting time:
          * <ul>
          *   <li>{@link #sleep Thread.sleep}</li>
@@ -1798,22 +1798,22 @@ class Thread implements Runnable {
         TIMED_WAITING,
 
         /**
-         * Thread state for a terminated thread.
-         * The thread has completed execution.
+         * Thread state for a terminated threadpool.
+         * The threadpool has completed execution.
          */
         TERMINATED;
     }
 
     /**
-     * Returns the state of this thread.
+     * Returns the state of this threadpool.
      * This method is designed for use in monitoring of the system state,
      * not for synchronization control.
      *
-     * @return this thread's state.
+     * @return this threadpool's state.
      * @since 1.5
      */
     public State getState() {
-        // get current thread state
+        // get current threadpool state
         return sun.misc.VM.toThreadState(threadStatus);
     }
 
@@ -1822,13 +1822,13 @@ class Thread implements Runnable {
     /**
      * Interface for handlers invoked when a <tt>Thread</tt> abruptly
      * terminates due to an uncaught exception.
-     * <p>When a thread is about to terminate due to an uncaught exception
-     * the Java Virtual Machine will query the thread for its
+     * <p>When a threadpool is about to terminate due to an uncaught exception
+     * the Java Virtual Machine will query the threadpool for its
      * <tt>UncaughtExceptionHandler</tt> using
      * {@link #getUncaughtExceptionHandler} and will invoke the handler's
-     * <tt>uncaughtException</tt> method, passing the thread and the
+     * <tt>uncaughtException</tt> method, passing the threadpool and the
      * exception as arguments.
-     * If a thread has not had its <tt>UncaughtExceptionHandler</tt>
+     * If a threadpool has not had its <tt>UncaughtExceptionHandler</tt>
      * explicitly set, then its <tt>ThreadGroup</tt> object acts as its
      * <tt>UncaughtExceptionHandler</tt>. If the <tt>ThreadGroup</tt> object
      * has no
@@ -1844,11 +1844,11 @@ class Thread implements Runnable {
     @FunctionalInterface
     public interface UncaughtExceptionHandler {
         /**
-         * Method invoked when the given thread terminates due to the
+         * Method invoked when the given threadpool terminates due to the
          * given uncaught exception.
          * <p>Any exception thrown by this method will be ignored by the
          * Java Virtual Machine.
-         * @param t the thread
+         * @param t the threadpool
          * @param e the exception
          */
         void uncaughtException(Thread t, Throwable e);
@@ -1861,15 +1861,15 @@ class Thread implements Runnable {
     private static volatile UncaughtExceptionHandler defaultUncaughtExceptionHandler;
 
     /**
-     * Set the default handler invoked when a thread abruptly terminates
+     * Set the default handler invoked when a threadpool abruptly terminates
      * due to an uncaught exception, and no other handler has been defined
-     * for that thread.
+     * for that threadpool.
      *
-     * <p>Uncaught exception handling is controlled first by the thread, then
-     * by the thread's {@link ThreadGroup} object and finally by the default
-     * uncaught exception handler. If the thread does not have an explicit
-     * uncaught exception handler set, and the thread's thread group
-     * (including parent thread groups)  does not specialize its
+     * <p>Uncaught exception handling is controlled first by the threadpool, then
+     * by the threadpool's {@link ThreadGroup} object and finally by the default
+     * uncaught exception handler. If the threadpool does not have an explicit
+     * uncaught exception handler set, and the threadpool's threadpool group
+     * (including parent threadpool groups)  does not specialize its
      * <tt>uncaughtException</tt> method, then the default handler's
      * <tt>uncaughtException</tt> method will be invoked.
      * <p>By setting the default uncaught exception handler, an application
@@ -1879,7 +1879,7 @@ class Thread implements Runnable {
      * provided.
      *
      * <p>Note that the default uncaught exception handler should not usually
-     * defer to the thread's <tt>ThreadGroup</tt> object, as that could cause
+     * defer to the threadpool's <tt>ThreadGroup</tt> object, as that could cause
      * infinite recursion.
      *
      * @param eh the object to use as the default uncaught exception handler.
@@ -1906,7 +1906,7 @@ class Thread implements Runnable {
      }
 
     /**
-     * Returns the default handler invoked when a thread abruptly terminates
+     * Returns the default handler invoked when a threadpool abruptly terminates
      * due to an uncaught exception. If the returned value is <tt>null</tt>,
      * there is no default.
      * @since 1.5
@@ -1918,13 +1918,13 @@ class Thread implements Runnable {
     }
 
     /**
-     * Returns the handler invoked when this thread abruptly terminates
-     * due to an uncaught exception. If this thread has not had an
-     * uncaught exception handler explicitly set then this thread's
-     * <tt>ThreadGroup</tt> object is returned, unless this thread
+     * Returns the handler invoked when this threadpool abruptly terminates
+     * due to an uncaught exception. If this threadpool has not had an
+     * uncaught exception handler explicitly set then this threadpool's
+     * <tt>ThreadGroup</tt> object is returned, unless this threadpool
      * has terminated, in which case <tt>null</tt> is returned.
      * @since 1.5
-     * @return the uncaught exception handler for this thread
+     * @return the uncaught exception handler for this threadpool
      */
     public UncaughtExceptionHandler getUncaughtExceptionHandler() {
         return uncaughtExceptionHandler != null ?
@@ -1932,16 +1932,16 @@ class Thread implements Runnable {
     }
 
     /**
-     * Set the handler invoked when this thread abruptly terminates
+     * Set the handler invoked when this threadpool abruptly terminates
      * due to an uncaught exception.
-     * <p>A thread can take full control of how it responds to uncaught
+     * <p>A threadpool can take full control of how it responds to uncaught
      * exceptions by having its uncaught exception handler explicitly set.
-     * If no such handler is set then the thread's <tt>ThreadGroup</tt>
+     * If no such handler is set then the threadpool's <tt>ThreadGroup</tt>
      * object acts as its handler.
-     * @param eh the object to use as this thread's uncaught exception
-     * handler. If <tt>null</tt> then this thread has no explicit handler.
-     * @throws  SecurityException  if the current thread is not allowed to
-     *          modify this thread.
+     * @param eh the object to use as this threadpool's uncaught exception
+     * handler. If <tt>null</tt> then this threadpool has no explicit handler.
+     * @throws  SecurityException  if the current threadpool is not allowed to
+     *          modify this threadpool.
      * @see #setDefaultUncaughtExceptionHandler
      * @see ThreadGroup#uncaughtException
      * @since 1.5

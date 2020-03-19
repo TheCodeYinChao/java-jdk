@@ -175,11 +175,11 @@ public class CorbaResponseWaitingRoomImpl
         }
 
         // REVISIT -- exceptions from unmarshaling code will
-        // go up through this client thread!
+        // go up through this client threadpool!
 
         if (returnStream != null) {
             // On fragmented streams the header MUST be unmarshaled here
-            // (in the client thread) in case it blocks.
+            // (in the client threadpool) in case it blocks.
             // If the header was already unmarshaled, this won't
             // do anything
             // REVISIT: cast - need interface method.
@@ -214,7 +214,7 @@ public class CorbaResponseWaitingRoomImpl
         // would probably call for an error.  However, there's another case
         // that's normal and we should think about --
         //
-        // If the unmarshaling thread does all of its work inbetween the time
+        // If the unmarshaling threadpool does all of its work inbetween the time
         // the ReaderThread gives it the last fragment and gets to the
         // out_calls.get line, then it will also be null, so just return;
         if (call == null) {
@@ -227,9 +227,9 @@ public class CorbaResponseWaitingRoomImpl
             return;
         }
 
-        // Set the reply InputObject and signal the client thread
+        // Set the reply InputObject and signal the client threadpool
         // that the reply has been received.
-        // The thread signalled will remove outcall descriptor if appropriate.
+        // The threadpool signalled will remove outcall descriptor if appropriate.
         // Otherwise, it'll be removed when last fragment for it has been put on
         // BufferManagerRead's queue.
         synchronized (call.done) {

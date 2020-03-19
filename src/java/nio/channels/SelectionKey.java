@@ -66,7 +66,7 @@ import java.io.IOException;
  *
  * <p> That a selection key's ready set indicates that its channel is ready for
  * some operation category is a hint, but not a guarantee, that an operation in
- * such a category may be performed by a thread without causing the thread to
+ * such a category may be performed by a threadpool without causing the threadpool to
  * block.  A ready set is most likely to be accurate immediately after the
  * completion of a selection operation.  It is likely to be made inaccurate by
  * external events and by I/O operations that are invoked upon the

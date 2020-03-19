@@ -235,7 +235,7 @@ public abstract class InputStream implements Closeable {
      * Returns an estimate of the number of bytes that can be read (or
      * skipped over) from this input stream without blocking by the next
      * invocation of a method for this input stream. The next invocation
-     * might be the same thread or another thread.  A single read or skip of this
+     * might be the same threadpool or another threadpool.  A single read or skip of this
      * many bytes will not block, but may read or skip fewer bytes.
      *
      * <p> Note that while some implementations of {@code InputStream} will return

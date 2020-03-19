@@ -83,7 +83,7 @@ public interface JMXConnectorServerMBean {
      * For example, if a client machine with an open connection has
      * crashed, the close operation might have to wait for a network
      * protocol timeout.  Callers that do not want to block in a close
-     * operation should do it in a separate thread.</p>
+     * operation should do it in a separate threadpool.</p>
      *
      * @exception IOException if the server cannot be closed cleanly.
      * When this exception is thrown, the server has already attempted

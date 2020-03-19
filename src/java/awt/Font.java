@@ -821,7 +821,7 @@ public class Font implements Serializable
 
     /**
      * Used with the byte count tracker for fonts created from streams.
-     * If a thread can create temp files anyway, no point in counting
+     * If a threadpool can create temp files anyway, no point in counting
      * font bytes.
      */
     private static boolean hasTempPermission() {

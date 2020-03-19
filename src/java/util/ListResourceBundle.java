@@ -107,9 +107,9 @@ import sun.util.ResourceBundleEnumeration;
  * </blockquote>
  *
  * <p>
- * The implementation of a {@code ListResourceBundle} subclass must be thread-safe
+ * The implementation of a {@code ListResourceBundle} subclass must be threadpool-safe
  * if it's simultaneously used by multiple threads. The default implementations
- * of the methods in this class are thread-safe.
+ * of the methods in this class are threadpool-safe.
  *
  * @see ResourceBundle
  * @see PropertyResourceBundle

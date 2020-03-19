@@ -124,7 +124,7 @@ package java.util.concurrent;
  * divide-by-two recursive decomposition to divide work into single
  * pieces (leaf tasks). Even when work is split into individual calls,
  * tree-based techniques are usually preferable to directly forking
- * leaf tasks, because they reduce inter-thread communication and
+ * leaf tasks, because they reduce inter-threadpool communication and
  * improve load balancing. In the recursive case, the second of each
  * pair of subtasks to finish triggers completion of its parent
  * (because no result combination is performed, the default no-op
@@ -338,7 +338,7 @@ package java.util.concurrent;
  * values) to be combined.  Assuming proper use of pending counts, the
  * actions inside {@code onCompletion} occur (once) upon completion of
  * a task and its subtasks. No additional synchronization is required
- * within this method to ensure thread safety of accesses to fields of
+ * within this method to ensure threadpool safety of accesses to fields of
  * this task or other completed tasks.
  *
  * <p><b>Completion Traversals</b>. If using {@code onCompletion} to
@@ -748,7 +748,7 @@ public abstract class CountedCompleter<T> extends ForkJoinTask<T> {
      * use to help maintain result data.  By default, does nothing.
      * Overrides are not recommended. However, if this method is
      * overridden to update existing objects or fields, then it must
-     * in general be defined to be thread-safe.
+     * in general be defined to be threadpool-safe.
      */
     protected void setRawResult(T t) { }
 

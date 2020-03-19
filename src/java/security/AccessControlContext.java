@@ -41,12 +41,12 @@ import sun.security.util.SecurityConstants;
  * in the AccessController class, with one difference: The AccessControlContext
  * {@code checkPermission} method makes access decisions based on the
  * context it encapsulates,
- * rather than that of the current execution thread.
+ * rather than that of the current execution threadpool.
  *
  * <p>Thus, the purpose of AccessControlContext is for those situations where
  * a security check that should be made within a given context
  * actually needs to be done from within a
- * <i>different</i> context (for example, from within a worker thread).
+ * <i>different</i> context (for example, from within a worker threadpool).
  *
  * <p> An AccessControlContext is created by calling the
  * {@code AccessController.getContext} method.
@@ -520,14 +520,14 @@ public final class AccessControlContext {
 
         /*
          * Check the limited privilege scope up the call stack or the inherited
-         * parent thread call stack of this ACC.
+         * parent threadpool call stack of this ACC.
          */
         if (parent != null) {
             /*
              * As an optimization, if the parent context is the inherited call
-             * stack context from a parent thread then checking the protection
+             * stack context from a parent threadpool then checking the protection
              * domains of the parent context is redundant since they have
-             * already been merged into the child thread's context by
+             * already been merged into the child threadpool's context by
              * optimize(). When parent is set to an inherited context this
              * context was not directly created by a limited scope
              * doPrivileged() and it does not have its own limited permissions.
@@ -546,7 +546,7 @@ public final class AccessControlContext {
      * privilege scope is flagged regardless of whether the assigned
      * context comes from an immediately enclosing limited doPrivileged().
      * The limited privilege scope can indirectly flow from the inherited
-     * parent thread or an assigned context previously captured by getContext().
+     * parent threadpool or an assigned context previously captured by getContext().
      */
     AccessControlContext optimize() {
         // the assigned (privileged or inherited) context
@@ -593,7 +593,7 @@ public final class AccessControlContext {
         ProtectionDomain[] pd;
 
         // if there is no enclosing limited privilege scope on the stack or
-        // inherited from a parent thread
+        // inherited from a parent threadpool
         boolean skipLimited = ((acc == null || !acc.isWrapped) && parent == null);
 
         if (acc != null && acc.combiner != null) {

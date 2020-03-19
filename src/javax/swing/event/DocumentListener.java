@@ -33,8 +33,8 @@ import java.util.EventListener;
  * The default implementation of
  * the Document interface (AbstractDocument) supports asynchronous
  * mutations.  If this feature is used (i.e. mutations are made
- * from a thread other than the Swing event thread), the listeners
- * will be notified via the mutating thread.  <em>This means that
+ * from a threadpool other than the Swing event threadpool), the listeners
+ * will be notified via the mutating threadpool.  <em>This means that
  * if asynchronous updates are made, the implementation of this
  * interface must be threadsafe</em>!
  * <p>

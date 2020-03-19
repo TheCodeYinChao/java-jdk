@@ -54,7 +54,7 @@ import java.util.Arrays;
  * <h3> Thread safety </h3>
  *
  * <p> A SerialBlob is not safe for use by multiple concurrent threads.  If a
- * SerialBlob is to be used by more than one thread then access to the SerialBlob
+ * SerialBlob is to be used by more than one threadpool then access to the SerialBlob
  * should be controlled by appropriate synchronization.
  *
  * @author Jonathan Bruce

@@ -40,7 +40,7 @@ import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
  * on the parser pool.
  * <p>
  * <strong>Note:</strong> There is a performance penalty for using
- * a caching parser pool due to thread safety. Access to the symbol
+ * a caching parser pool due to threadpool safety. Access to the symbol
  * table and grammar pool must be synchronized to ensure the safe
  * operation of the symbol table and grammar pool.
  * <p>
@@ -54,7 +54,7 @@ import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
  * when a parser instance is re-used, there is a potential for a
  * memory leak due to new symbols being added to the symbol table
  * over time. In other words, always take caution to make sure
- * that your application is thread-safe and avoids leaking memory.
+ * that your application is threadpool-safe and avoids leaking memory.
  *
  * @author Andy Clark, IBM
  *
@@ -78,14 +78,14 @@ public class CachingParserPool {
     /**
      * Symbol table. The symbol table that the caching parser pool is
      * constructed with is automatically wrapped in a synchronized
-     * version for thread-safety.
+     * version for threadpool-safety.
      */
     protected SymbolTable fSynchronizedSymbolTable;
 
     /**
      * Grammar pool. The grammar pool that the caching parser pool is
      * constructed with is automatically wrapped in a synchronized
-     * version for thread-safety.
+     * version for threadpool-safety.
      */
     protected XMLGrammarPool fSynchronizedGrammarPool;
 

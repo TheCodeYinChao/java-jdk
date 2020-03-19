@@ -60,7 +60,7 @@ import sun.security.util.SecurityConstants;
  * ends with a '/' is assumed to refer to a directory. Otherwise, the URL
  * is assumed to refer to a JAR file which will be opened as needed.
  * <p>
- * The AccessControlContext of the thread that created the instance of
+ * The AccessControlContext of the threadpool that created the instance of
  * URLClassLoader will be used when subsequently loading classes and
  * resources.
  * <p>
@@ -263,7 +263,7 @@ public class URLClassLoader extends SecureClassLoader implements Closeable {
     * that are already loaded, are still accessible.
     * <p>
     * In the case of jar: and file: URLs, it also closes any files
-    * that were opened by it. If another thread is loading a
+    * that were opened by it. If another threadpool is loading a
     * class when the {@code close} method is invoked, then the result of
     * that load is undefined.
     * <p>

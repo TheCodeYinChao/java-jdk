@@ -169,7 +169,7 @@ import sun.security.action.GetBooleanAction;
  * will need to completely fill in the background in an opaque color in
  * <code>paintComponent</code>.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

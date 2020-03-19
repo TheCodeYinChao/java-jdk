@@ -122,7 +122,7 @@ public class CDRInputObject extends CDRInputStream
      * Unmarshal the extended GIOP header
      * NOTE: May be fragmented, so should not be called by the ReaderThread.
      * See CorbaResponseWaitingRoomImpl.waitForResponse.  It is done
-     * there in the client thread.
+     * there in the client threadpool.
      */
     public void unmarshalHeader()
     {

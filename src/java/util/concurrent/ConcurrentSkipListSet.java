@@ -99,7 +99,7 @@ public class ConcurrentSkipListSet<E>
 
     /**
      * The underlying map. Uses Boolean.TRUE as value for each
-     * element.  This field is declared final for the sake of thread
+     * element.  This field is declared final for the sake of threadpool
      * safety, which entails some ugliness in clone().
      */
     private final ConcurrentNavigableMap<E,Object> m;

@@ -42,7 +42,7 @@ package java.util.concurrent;
  *
  * <p>The {@code Callable} interface is similar to {@link
  * Runnable}, in that both are designed for classes whose
- * instances are potentially executed by another thread.  A
+ * instances are potentially executed by another threadpool.  A
  * {@code Runnable}, however, does not return a result and cannot
  * throw a checked exception.
  *

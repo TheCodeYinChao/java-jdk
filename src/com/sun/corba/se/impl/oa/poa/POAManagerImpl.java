@@ -188,9 +188,9 @@ public class POAManagerImpl extends LocalObject implements
  * The following four public methods are used to change the POAManager's state.
  *
  * A note on the design of synchronization code:
- * There are 4 places where a thread would need to wait for a condition:
+ * There are 4 places where a threadpool would need to wait for a condition:
  *      - in hold_requests, discard_requests, deactivate, enter
- * There are 5 places where a thread notifies a condition:
+ * There are 5 places where a threadpool notifies a condition:
  *      - in activate, hold_requests, discard_requests, deactivate, exit
  *
  * Since each notify needs to awaken waiters in several of the 4 places,

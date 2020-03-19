@@ -67,7 +67,7 @@ public abstract class PrinterJob {
      *
      * @throws  SecurityException if a security manager exists and its
      *          {@link SecurityManager#checkPrintJobAccess}
-     *          method disallows this thread from creating a print job request
+     *          method disallows this threadpool from creating a print job request
      */
     public static PrinterJob getPrinterJob() {
         SecurityManager security = System.getSecurityManager();

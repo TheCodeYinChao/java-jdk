@@ -130,10 +130,10 @@ import com.sun.corba.se.impl.orbutil.ORBUtility ;
  * </pre>
  * <p>
  * <p>This version adds some debugging capability: it will detect
- * an attempt by a thread that does not hold the mutex to release it.
- * This version is reentrant: the same thread may acquire a mutex multiple
+ * an attempt by a threadpool that does not hold the mutex to release it.
+ * This version is reentrant: the same threadpool may acquire a mutex multiple
  * times, in which case it must release the mutex the same number of times
- * as it was acquired before another thread can acquire the mutex.
+ * as it was acquired before another threadpool can acquire the mutex.
  * @see Semaphore
  * <p>[<a href="http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/intro.html"> Introduction to this package. </a>]
 **/
@@ -142,10 +142,10 @@ import org.omg.CORBA.INTERNAL ;
 
 public class ReentrantMutex implements Sync  {
 
-    /** The thread holding the lock **/
+    /** The threadpool holding the lock **/
     protected Thread holder_ = null;
 
-    /** number of times thread has acquired the lock **/
+    /** number of times threadpool has acquired the lock **/
     protected int counter_ = 0 ;
 
     protected boolean debug = false ;
@@ -254,7 +254,7 @@ public class ReentrantMutex implements Sync  {
             Thread thr = Thread.currentThread();
             if (thr != holder_)
                 throw new INTERNAL(
-                    "Attempt to release Mutex by thread not holding the Mutex" ) ;
+                    "Attempt to release Mutex by threadpool not holding the Mutex" ) ;
             else
                 counter_ -- ;
 
@@ -281,7 +281,7 @@ public class ReentrantMutex implements Sync  {
             Thread thr = Thread.currentThread();
             if (thr != holder_)
                 throw new INTERNAL(
-                    "Attempt to releaseAll Mutex by thread not holding the Mutex" ) ;
+                    "Attempt to releaseAll Mutex by threadpool not holding the Mutex" ) ;
 
             int result = counter_ ;
             counter_ = 0 ;

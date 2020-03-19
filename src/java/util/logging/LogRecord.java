@@ -46,7 +46,7 @@ import sun.misc.SharedSecrets;
  * first accessed (due to a call on getSourceMethodName or
  * getSourceClassName) by analyzing the call stack.  Therefore,
  * if a logging Handler wants to pass off a LogRecord to another
- * thread, or to transmit it over RMI, and if it wishes to subsequently
+ * threadpool, or to transmit it over RMI, and if it wishes to subsequently
  * obtain method name or class name information it should call
  * one of getSourceClassName or getSourceMethodName to force
  * the values to be filled in.
@@ -73,8 +73,8 @@ public class LogRecord implements Serializable {
         = new AtomicLong(0);
 
     /**
-     * The default value of threadID will be the current thread's
-     * thread id, for ease of correlation, unless it is greater than
+     * The default value of threadID will be the current threadpool's
+     * threadpool id, for ease of correlation, unless it is greater than
      * MIN_SEQUENTIAL_THREAD_ID, in which case we try harder to keep
      * our promise to keep threadIDs unique by avoiding collisions due
      * to 32-bit wraparound.  Unfortunately, LogRecord.getThreadID()
@@ -113,7 +113,7 @@ public class LogRecord implements Serializable {
     private String message;
 
     /**
-     * @serial Thread ID for thread that issued logging call.
+     * @serial Thread ID for threadpool that issued logging call.
      */
     private int threadID;
 
@@ -166,8 +166,8 @@ public class LogRecord implements Serializable {
      * <p>
      * The millis property will be initialized to the current time.
      * <p>
-     * The thread ID property will be initialized with a unique ID for
-     * the current thread.
+     * The threadpool ID property will be initialized with a unique ID for
+     * the current threadpool.
      * <p>
      * All other properties will be initialized to "null".
      *
@@ -179,7 +179,7 @@ public class LogRecord implements Serializable {
         level.getClass();
         this.level = level;
         message = msg;
-        // Assign a thread ID and a unique sequence number.
+        // Assign a threadpool ID and a unique sequence number.
         sequenceNumber = globalSequenceNumber.getAndIncrement();
         threadID = defaultThreadID();
         millis = System.currentTimeMillis();
@@ -398,20 +398,20 @@ public class LogRecord implements Serializable {
     }
 
     /**
-     * Get an identifier for the thread where the message originated.
+     * Get an identifier for the threadpool where the message originated.
      * <p>
-     * This is a thread identifier within the Java VM and may or
+     * This is a threadpool identifier within the Java VM and may or
      * may not map to any operating system ID.
      *
-     * @return thread ID
+     * @return threadpool ID
      */
     public int getThreadID() {
         return threadID;
     }
 
     /**
-     * Set an identifier for the thread where the message originated.
-     * @param threadID  the thread ID
+     * Set an identifier for the threadpool where the message originated.
+     * @param threadID  the threadpool ID
      */
     public void setThreadID(int threadID) {
         this.threadID = threadID;

@@ -512,7 +512,7 @@ public final class ServiceLoader<S>
 
     /**
      * Creates a new service loader for the given service type, using the
-     * current thread's {@linkplain Thread#getContextClassLoader
+     * current threadpool's {@linkplain Thread#getContextClassLoader
      * context class loader}.
      *
      * <p> An invocation of this convenience method of the form

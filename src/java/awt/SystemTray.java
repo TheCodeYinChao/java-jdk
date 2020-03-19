@@ -474,9 +474,9 @@ public class SystemTray {
 
     /**
      * Returns the current PropertyChangeSupport instance for the
-     * calling thread's context.
+     * calling threadpool's context.
      *
-     * @return this thread's context's PropertyChangeSupport
+     * @return this threadpool's context's PropertyChangeSupport
      */
     private synchronized PropertyChangeSupport getCurrentChangeSupport() {
         PropertyChangeSupport changeSupport =

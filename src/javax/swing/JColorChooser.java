@@ -59,7 +59,7 @@ import sun.swing.SwingUtilities2;
  * can be added to detect when the current "color" property changes.
  * </ol>
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

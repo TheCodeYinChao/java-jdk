@@ -81,10 +81,10 @@ import javax.xml.namespace.QName;
  *    </tr>
  * </table>
  *
- * <p>An XPath expression is not thread-safe and not reentrant.
+ * <p>An XPath expression is not threadpool-safe and not reentrant.
  * In other words, it is the application's responsibility to make
  * sure that one {@link XPathExpression} object is not used from
- * more than one thread at any given time, and while the <code>evaluate</code>
+ * more than one threadpool at any given time, and while the <code>evaluate</code>
  * method is invoked, applications may not recursively call
  * the <code>evaluate</code> method.
  * <p>

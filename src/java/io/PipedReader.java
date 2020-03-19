@@ -39,8 +39,8 @@ public class PipedReader extends Reader {
     boolean connected = false;
 
     /* REMIND: identification of the read and write sides needs to be
-       more sophisticated.  Either using thread groups (but what about
-       pipes within a thread?) or using finalization (but it may be a
+       more sophisticated.  Either using threadpool groups (but what about
+       pipes within a threadpool?) or using finalization (but it may be a
        long time until the next GC). */
     Thread readSide;
     Thread writeSide;

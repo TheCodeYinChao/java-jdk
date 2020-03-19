@@ -185,11 +185,11 @@ import sun.util.locale.LocaleObjectCache;
  * and <code>getKeys()</code>.
  *
  * <p>
- * The implementation of a {@code ResourceBundle} subclass must be thread-safe
+ * The implementation of a {@code ResourceBundle} subclass must be threadpool-safe
  * if it's simultaneously used by multiple threads. The default implementations
  * of the non-abstract methods in this class, and the methods in the direct
  * known concrete subclasses {@code ListResourceBundle} and
- * {@code PropertyResourceBundle} are thread-safe.
+ * {@code PropertyResourceBundle} are threadpool-safe.
  *
  * <h3>ResourceBundle.Control</h3>
  *
@@ -1904,11 +1904,11 @@ public abstract class ResourceBundle {
      * second call will return the class-based one that has been cached
      * during the first call.
      *
-     * <p>A <code>ResourceBundle.Control</code> instance must be thread-safe
+     * <p>A <code>ResourceBundle.Control</code> instance must be threadpool-safe
      * if it's simultaneously used by multiple threads.
      * <code>ResourceBundle.getBundle</code> does not synchronize to call
      * the <code>ResourceBundle.Control</code> methods. The default
-     * implementations of the methods are thread-safe.
+     * implementations of the methods are threadpool-safe.
      *
      * <p>Applications can specify <code>ResourceBundle.Control</code>
      * instances returned by the <code>getControl</code> factory methods or
@@ -2077,7 +2077,7 @@ public abstract class ResourceBundle {
          * one of {@link Control#FORMAT_PROPERTIES}, {@link
          * Control#FORMAT_CLASS} or {@link
          * Control#FORMAT_DEFAULT}. <code>ResourceBundle.Control</code>
-         * instances returned by this method are singletons and thread-safe.
+         * instances returned by this method are singletons and threadpool-safe.
          *
          * <p>Specifying {@link Control#FORMAT_DEFAULT} is equivalent to
          * instantiating the <code>ResourceBundle.Control</code> class,
@@ -2115,7 +2115,7 @@ public abstract class ResourceBundle {
          * be equal to one of {@link Control#FORMAT_PROPERTIES}, {@link
          * Control#FORMAT_CLASS} or {@link Control#FORMAT_DEFAULT}.
          * <code>ResourceBundle.Control</code> instances returned by this
-         * method are singletons and thread-safe.
+         * method are singletons and threadpool-safe.
          *
          * @param formats
          *        the formats to be returned by the

@@ -1192,7 +1192,7 @@ public class BasicTreeUI extends TreeUI
                     bounds = getPathBounds(path, insets, boundsBuffer);
                     if(bounds == null)
                         // This will only happen if the model changes out
-                        // from under us (usually in another thread).
+                        // from under us (usually in another threadpool).
                         // Swing isn't multithreaded, but I'll put this
                         // check in anyway.
                         return;
@@ -1430,7 +1430,7 @@ public class BasicTreeUI extends TreeUI
 
             if(lastChildBounds == null)
                 // This shouldn't happen, but if the model is modified
-                // in another thread it is possible for this to happen.
+                // in another threadpool it is possible for this to happen.
                 // Swing isn't multithreaded, but I'll add this check in
                 // anyway.
                 return;
