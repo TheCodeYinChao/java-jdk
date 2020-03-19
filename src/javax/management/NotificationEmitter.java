@@ -48,7 +48,7 @@ import java.util.concurrent.CopyOnWriteArrayList;  // for Javadoc
  * added.  It is often useful to add the same listener with different filters or handback
  * objects.</p>
  *
- * <p>Implementations of this interface can differ regarding the thread in which the methods
+ * <p>Implementations of this interface can differ regarding the threadpool in which the methods
  * of filters and listeners are called.</p>
  *
  * <p>If the method call of a filter or listener throws an {@link Exception}, then that

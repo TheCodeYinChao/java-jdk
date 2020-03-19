@@ -383,7 +383,7 @@ public class JPEGImageReader extends ImageReader {
 
     public int getNumImages(boolean allowSearch) throws IOException {
         setThreadLock();
-        try { // locked thread
+        try { // locked threadpool
             cbLock.check();
 
             return getNumImagesOnThread(allowSearch);
@@ -1438,7 +1438,7 @@ public class JPEGImageReader extends ImageReader {
         }
     }
 
-    /** Set the C level abort flag. Keep it atomic for thread safety. */
+    /** Set the C level abort flag. Keep it atomic for threadpool safety. */
     private native void abortRead(long structPointer);
 
     /** Resets library state when an exception occurred during a read. */
@@ -1648,8 +1648,8 @@ public class JPEGImageReader extends ImageReader {
                 // it looks like that this reader instance is used
                 // by multiple threads.
                 throw new IllegalStateException("Attempt to use instance of " +
-                                                this + " locked on thread " +
-                                                theThread + " from thread " +
+                                                this + " locked on threadpool " +
+                                                theThread + " from threadpool " +
                                                 currThread);
             } else {
                 theLockCount ++;
@@ -1663,10 +1663,10 @@ public class JPEGImageReader extends ImageReader {
     private synchronized void clearThreadLock() {
         Thread currThread = Thread.currentThread();
         if (theThread == null || theThread != currThread) {
-            throw new IllegalStateException("Attempt to clear thread lock " +
-                                            " form wrong thread." +
-                                            " Locked thread: " + theThread +
-                                            "; current thread: " + currThread);
+            throw new IllegalStateException("Attempt to clear threadpool lock " +
+                                            " form wrong threadpool." +
+                                            " Locked threadpool: " + theThread +
+                                            "; current threadpool: " + currThread);
         }
         theLockCount --;
         if (theLockCount == 0) {

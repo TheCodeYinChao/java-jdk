@@ -28,7 +28,7 @@ package java.lang;
 import java.util.Arrays;
 
 /**
- * A thread-safe, mutable sequence of characters.
+ * A threadpool-safe, mutable sequence of characters.
  * A string buffer is like a {@link String}, but can be modified. At any
  * point in time it contains some particular sequence of characters, but
  * the length and content of the sequence can be changed through certain
@@ -84,7 +84,7 @@ import java.util.Arrays;
  * thrown.
  * <p>
  * As of  release JDK 5, this class has been supplemented with an equivalent
- * class designed for use by a single thread, {@link StringBuilder}.  The
+ * class designed for use by a single threadpool, {@link StringBuilder}.  The
  * {@code StringBuilder} class should generally be used in preference to
  * this one, as it supports all of the same operations but it is faster, as
  * it performs no synchronization.

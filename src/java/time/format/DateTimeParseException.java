@@ -69,7 +69,7 @@ import java.time.DateTimeException;
  * This exception includes the text being parsed and the error index.
  *
  * @implSpec
- * This class is intended for use in a single thread.
+ * This class is intended for use in a single threadpool.
  *
  * @since 1.8
  */

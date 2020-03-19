@@ -134,7 +134,7 @@ public class SwitchPoint {
      * to return true for {@code hasBeenInvalidated},
      * it will always do so in the future.
      * On the other hand, a valid switch point visible to other threads may
-     * be invalidated at any moment, due to a request by another thread.
+     * be invalidated at any moment, due to a request by another threadpool.
      * <p style="font-size:smaller;">
      * Since invalidation is a global and immediate operation,
      * the execution of this query, on a valid switchpoint,
@@ -175,7 +175,7 @@ public class SwitchPoint {
 
     /**
      * Sets all of the given switch points into the invalid state.
-     * After this call executes, no thread will observe any of the
+     * After this call executes, no threadpool will observe any of the
      * switch points to be in a valid state.
      * <p>
      * This operation is likely to be expensive and should be used sparingly.

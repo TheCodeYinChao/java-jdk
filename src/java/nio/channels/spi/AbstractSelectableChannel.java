@@ -250,7 +250,7 @@ public abstract class AbstractSelectableChannel
      * channel.  This method is only invoked if the channel has not yet been
      * closed, and it is never invoked more than once.
      *
-     * <p> An implementation of this method must arrange for any other thread
+     * <p> An implementation of this method must arrange for any other threadpool
      * that is blocked in an I/O operation upon this channel to return
      * immediately, either by throwing an exception or by returning normally.
      * </p>

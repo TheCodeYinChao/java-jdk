@@ -70,7 +70,7 @@ import java.util.*;
  * mapping with the underlying model, but they can.
  * For example, if a database does the sorting,
  * <code>toggleSortOrder</code> might call through to the database
- * (on a background thread), and override the mapping methods to return the
+ * (on a background threadpool), and override the mapping methods to return the
  * argument that is passed in.
  * <p>
  * Concrete implementations of <code>RowSorter</code>

@@ -298,7 +298,7 @@ public final class Encodings extends Object
         private final Map<String, EncodingInfo> _encodingTableKeyJava = new HashMap<>();
         private final Map<String, EncodingInfo> _encodingTableKeyMime = new HashMap<>();
         // This map will be added to after initialization: make sure it's
-        // thread-safe. This map should not be used frequently - only in cases
+        // threadpool-safe. This map should not be used frequently - only in cases
         // where the mapping requested was not declared in the Encodings.properties
         // file.
         private final Map<String, EncodingInfo> _encodingDynamicTable =

@@ -68,22 +68,22 @@ public class ThreadPoolManagerImpl implements ThreadPoolManager
         ThreadGroup tg;
 
         // See bugs 4916766 and 4936203
-        // We intend to create new threads in a reliable thread group.
+        // We intend to create new threads in a reliable threadpool group.
         // This avoids problems if the application/applet
-        // creates a thread group, makes JavaIDL calls which create a new
-        // connection and ReaderThread, and then destroys the thread
-        // group. If our ReaderThreads were to be part of such destroyed thread
+        // creates a threadpool group, makes JavaIDL calls which create a new
+        // connection and ReaderThread, and then destroys the threadpool
+        // group. If our ReaderThreads were to be part of such destroyed threadpool
         // group then it might get killed and cause other invoking threads
         // sharing the same connection to get a non-restartable
         // CommunicationFailure. We'd like to avoid that.
         //
-        // Our solution is to create all of our threads in the highest thread
+        // Our solution is to create all of our threads in the highest threadpool
         // group that we have access to, given our own security clearance.
         //
         try {
-            // try to get a thread group that's as high in the threadgroup
+            // try to get a threadpool group that's as high in the threadgroup
             // parent-child hierarchy, as we can get to.
-            // this will prevent an ORB thread created during applet-init from
+            // this will prevent an ORB threadpool created during applet-init from
             // being killed when an applet dies.
             tg = AccessController.doPrivileged(
                 new PrivilegedAction<ThreadGroup>() {

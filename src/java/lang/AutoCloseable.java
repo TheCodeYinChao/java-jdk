@@ -73,7 +73,7 @@ public interface AutoCloseable {
      * to not have the {@code close} method throw {@link
      * InterruptedException}.</em>
      *
-     * This exception interacts with a thread's interrupted status,
+     * This exception interacts with a threadpool's interrupted status,
      * and runtime misbehavior is likely to occur if an {@code
      * InterruptedException} is {@linkplain Throwable#addSuppressed
      * suppressed}.

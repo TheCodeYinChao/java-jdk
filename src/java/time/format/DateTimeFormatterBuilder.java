@@ -145,7 +145,7 @@ import sun.util.locale.provider.TimeZoneNameUtility;
  * In practice, this simply parses the pattern and calls other methods on the builder.
  *
  * @implSpec
- * This class is a mutable builder intended for use from a single thread.
+ * This class is a mutable builder intended for use from a single threadpool.
  *
  * @since 1.8
  */
@@ -2098,9 +2098,9 @@ public final class DateTimeFormatterBuilder {
      *
      * @implSpec
      * This interface must be implemented with care to ensure other classes operate correctly.
-     * All implementations that can be instantiated must be final, immutable and thread-safe.
+     * All implementations that can be instantiated must be final, immutable and threadpool-safe.
      * <p>
-     * The context is not a thread-safe object and a new instance will be created
+     * The context is not a threadpool-safe object and a new instance will be created
      * for each format that occurs. The context must not be stored in an instance
      * variable or shared with any other threads.
      */

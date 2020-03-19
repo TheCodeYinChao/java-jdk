@@ -105,7 +105,7 @@ import sun.reflect.misc.ReflectUtil;
  *
  * <p>If the <code>jmx.remote.protocol.provider.class.loader</code>
  * key is not present in the <code>environment</code> parameter, the
- * calling thread's context class loader is used.</p>
+ * calling threadpool's context class loader is used.</p>
  *
  * <p>If the attempt to load this class produces a {@link
  * ClassNotFoundException}, the search for a handler continues with
@@ -159,7 +159,7 @@ import sun.reflect.misc.ReflectUtil;
  * <code>jmx.remote.protocol.provider.class.loader</code> key is not
  * present in the <code>environment</code> parameter, it is added to
  * the new read-only <code>Map</code>.  The associated value is the
- * calling thread's context class loader.</p>
+ * calling threadpool's context class loader.</p>
  *
  * @since 1.5
  */

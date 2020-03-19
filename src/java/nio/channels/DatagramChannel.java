@@ -102,8 +102,8 @@ import java.nio.channels.spi.SelectorProvider;
  * Additional (implementation specific) options may also be supported.
  *
  * <p> Datagram channels are safe for use by multiple concurrent threads.  They
- * support concurrent reading and writing, though at most one thread may be
- * reading and at most one thread may be writing at any given time.  </p>
+ * support concurrent reading and writing, though at most one threadpool may be
+ * reading and at most one threadpool may be writing at any given time.  </p>
  *
  * @author Mark Reinhold
  * @author JSR-51 Expert Group
@@ -278,13 +278,13 @@ public abstract class DatagramChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the connect operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the connect operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  SecurityException
@@ -359,7 +359,7 @@ public abstract class DatagramChannel
      * of this security check can be avoided by first connecting the socket via
      * the {@link #connect connect} method.
      *
-     * <p> This method may be invoked at any time.  If another thread has
+     * <p> This method may be invoked at any time.  If another threadpool has
      * already initiated a read operation upon this channel, however, then an
      * invocation of this method will block until the first operation is
      * complete. If this channel's socket is not bound then this method will
@@ -378,13 +378,13 @@ public abstract class DatagramChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the read operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the read operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  SecurityException
@@ -419,7 +419,7 @@ public abstract class DatagramChannel
      * overhead of this security check can be avoided by first connecting the
      * socket via the {@link #connect connect} method.
      *
-     * <p> This method may be invoked at any time.  If another thread has
+     * <p> This method may be invoked at any time.  If another threadpool has
      * already initiated a write operation upon this channel, however, then an
      * invocation of this method will block until the first operation is
      * complete. If this channel's socket is not bound then this method will
@@ -443,13 +443,13 @@ public abstract class DatagramChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the read operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the read operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  SecurityException

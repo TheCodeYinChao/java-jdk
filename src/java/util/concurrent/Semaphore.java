@@ -92,11 +92,11 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
  *   }
  * }}</pre>
  *
- * <p>Before obtaining an item each thread must acquire a permit from
+ * <p>Before obtaining an item each threadpool must acquire a permit from
  * the semaphore, guaranteeing that an item is available for use. When
- * the thread has finished with the item it is returned back to the
+ * the threadpool has finished with the item it is returned back to the
  * pool and a permit is returned to the semaphore, allowing another
- * thread to acquire that item.  Note that no synchronization lock is
+ * threadpool to acquire that item.  Note that no synchronization lock is
  * held when {@link #acquire} is called as that would prevent an item
  * from being returned to the pool.  The semaphore encapsulates the
  * synchronization needed to restrict access to the pool, separately
@@ -110,23 +110,23 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
  * available, or zero permits available.  When used in this way, the
  * binary semaphore has the property (unlike many {@link java.util.concurrent.locks.Lock}
  * implementations), that the &quot;lock&quot; can be released by a
- * thread other than the owner (as semaphores have no notion of
+ * threadpool other than the owner (as semaphores have no notion of
  * ownership).  This can be useful in some specialized contexts, such
  * as deadlock recovery.
  *
  * <p> The constructor for this class optionally accepts a
  * <em>fairness</em> parameter. When set false, this class makes no
  * guarantees about the order in which threads acquire permits. In
- * particular, <em>barging</em> is permitted, that is, a thread
+ * particular, <em>barging</em> is permitted, that is, a threadpool
  * invoking {@link #acquire} can be allocated a permit ahead of a
- * thread that has been waiting - logically the new thread places itself at
+ * threadpool that has been waiting - logically the new threadpool places itself at
  * the head of the queue of waiting threads. When fairness is set true, the
  * semaphore guarantees that threads invoking any of the {@link
  * #acquire() acquire} methods are selected to obtain permits in the order in
  * which their invocation of those methods was processed
  * (first-in-first-out; FIFO). Note that FIFO ordering necessarily
  * applies to specific internal points of execution within these
- * methods.  So, it is possible for one thread to invoke
+ * methods.  So, it is possible for one threadpool to invoke
  * {@code acquire} before another, but reach the ordering point after
  * the other, and similarly upon return from the method.
  * Also note that the untimed {@link #tryAcquire() tryAcquire} methods do not
@@ -134,7 +134,7 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
  * available.
  *
  * <p>Generally, semaphores used to control resource access should be
- * initialized as fair, to ensure that no thread is starved out from
+ * initialized as fair, to ensure that no threadpool is starved out from
  * accessing a resource. When using semaphores for other kinds of
  * synchronization control, the throughput advantages of non-fair
  * ordering often outweigh fairness considerations.
@@ -144,11 +144,11 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
  * permits at a time.  Beware of the increased risk of indefinite
  * postponement when these methods are used without fairness set true.
  *
- * <p>Memory consistency effects: Actions in a thread prior to calling
+ * <p>Memory consistency effects: Actions in a threadpool prior to calling
  * a "release" method such as {@code release()}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * actions following a successful "acquire" method such as {@code acquire()}
- * in another thread.
+ * in another threadpool.
  *
  * @since 1.5
  * @author Doug Lea
@@ -282,31 +282,31 @@ public class Semaphore implements java.io.Serializable {
 
     /**
      * Acquires a permit from this semaphore, blocking until one is
-     * available, or the thread is {@linkplain Thread#interrupt interrupted}.
+     * available, or the threadpool is {@linkplain Thread#interrupt interrupted}.
      *
      * <p>Acquires a permit, if one is available and returns immediately,
      * reducing the number of available permits by one.
      *
-     * <p>If no permit is available then the current thread becomes
-     * disabled for thread scheduling purposes and lies dormant until
+     * <p>If no permit is available then the current threadpool becomes
+     * disabled for threadpool scheduling purposes and lies dormant until
      * one of two things happens:
      * <ul>
-     * <li>Some other thread invokes the {@link #release} method for this
-     * semaphore and the current thread is next to be assigned a permit; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread.
+     * <li>Some other threadpool invokes the {@link #release} method for this
+     * semaphore and the current threadpool is next to be assigned a permit; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool.
      * </ul>
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting
      * for a permit,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
      *
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      */
     public void acquire() throws InterruptedException {
         sync.acquireSharedInterruptibly(1);
@@ -319,16 +319,16 @@ public class Semaphore implements java.io.Serializable {
      * <p>Acquires a permit, if one is available and returns immediately,
      * reducing the number of available permits by one.
      *
-     * <p>If no permit is available then the current thread becomes
-     * disabled for thread scheduling purposes and lies dormant until
-     * some other thread invokes the {@link #release} method for this
-     * semaphore and the current thread is next to be assigned a permit.
+     * <p>If no permit is available then the current threadpool becomes
+     * disabled for threadpool scheduling purposes and lies dormant until
+     * some other threadpool invokes the {@link #release} method for this
+     * semaphore and the current threadpool is next to be assigned a permit.
      *
-     * <p>If the current thread is {@linkplain Thread#interrupt interrupted}
+     * <p>If the current threadpool is {@linkplain Thread#interrupt interrupted}
      * while waiting for a permit then it will continue to wait, but the
-     * time at which the thread is assigned a permit may change compared to
+     * time at which the threadpool is assigned a permit may change compared to
      * the time it would have received the permit had no interruption
-     * occurred.  When the thread does return from this method its interrupt
+     * occurred.  When the threadpool does return from this method its interrupt
      * status will be set.
      */
     public void acquireUninterruptibly() {
@@ -365,33 +365,33 @@ public class Semaphore implements java.io.Serializable {
 
     /**
      * Acquires a permit from this semaphore, if one becomes available
-     * within the given waiting time and the current thread has not
+     * within the given waiting time and the current threadpool has not
      * been {@linkplain Thread#interrupt interrupted}.
      *
      * <p>Acquires a permit, if one is available and returns immediately,
      * with the value {@code true},
      * reducing the number of available permits by one.
      *
-     * <p>If no permit is available then the current thread becomes
-     * disabled for thread scheduling purposes and lies dormant until
+     * <p>If no permit is available then the current threadpool becomes
+     * disabled for threadpool scheduling purposes and lies dormant until
      * one of three things happens:
      * <ul>
-     * <li>Some other thread invokes the {@link #release} method for this
-     * semaphore and the current thread is next to be assigned a permit; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread; or
+     * <li>Some other threadpool invokes the {@link #release} method for this
+     * semaphore and the current threadpool is next to be assigned a permit; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool; or
      * <li>The specified waiting time elapses.
      * </ul>
      *
      * <p>If a permit is acquired then the value {@code true} is returned.
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting
      * to acquire a permit,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
      *
      * <p>If the specified waiting time elapses then the value {@code false}
@@ -402,7 +402,7 @@ public class Semaphore implements java.io.Serializable {
      * @param unit the time unit of the {@code timeout} argument
      * @return {@code true} if a permit was acquired and {@code false}
      *         if the waiting time elapsed before a permit was acquired
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      */
     public boolean tryAcquire(long timeout, TimeUnit unit)
         throws InterruptedException {
@@ -414,10 +414,10 @@ public class Semaphore implements java.io.Serializable {
      *
      * <p>Releases a permit, increasing the number of available permits by
      * one.  If any threads are trying to acquire a permit, then one is
-     * selected and given the permit that was just released.  That thread
-     * is (re)enabled for thread scheduling purposes.
+     * selected and given the permit that was just released.  That threadpool
+     * is (re)enabled for threadpool scheduling purposes.
      *
-     * <p>There is no requirement that a thread that releases a permit must
+     * <p>There is no requirement that a threadpool that releases a permit must
      * have acquired that permit by calling {@link #acquire}.
      * Correct usage of a semaphore is established by programming convention
      * in the application.
@@ -429,37 +429,37 @@ public class Semaphore implements java.io.Serializable {
     /**
      * Acquires the given number of permits from this semaphore,
      * blocking until all are available,
-     * or the thread is {@linkplain Thread#interrupt interrupted}.
+     * or the threadpool is {@linkplain Thread#interrupt interrupted}.
      *
      * <p>Acquires the given number of permits, if they are available,
      * and returns immediately, reducing the number of available permits
      * by the given amount.
      *
-     * <p>If insufficient permits are available then the current thread becomes
-     * disabled for thread scheduling purposes and lies dormant until
+     * <p>If insufficient permits are available then the current threadpool becomes
+     * disabled for threadpool scheduling purposes and lies dormant until
      * one of two things happens:
      * <ul>
-     * <li>Some other thread invokes one of the {@link #release() release}
-     * methods for this semaphore, the current thread is next to be assigned
+     * <li>Some other threadpool invokes one of the {@link #release() release}
+     * methods for this semaphore, the current threadpool is next to be assigned
      * permits and the number of available permits satisfies this request; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread.
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool.
      * </ul>
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting
      * for a permit,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
-     * Any permits that were to be assigned to this thread are instead
+     * Any permits that were to be assigned to this threadpool are instead
      * assigned to other threads trying to acquire permits, as if
      * permits had been made available by a call to {@link #release()}.
      *
      * @param permits the number of permits to acquire
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      * @throws IllegalArgumentException if {@code permits} is negative
      */
     public void acquire(int permits) throws InterruptedException {
@@ -475,15 +475,15 @@ public class Semaphore implements java.io.Serializable {
      * and returns immediately, reducing the number of available permits
      * by the given amount.
      *
-     * <p>If insufficient permits are available then the current thread becomes
-     * disabled for thread scheduling purposes and lies dormant until
-     * some other thread invokes one of the {@link #release() release}
-     * methods for this semaphore, the current thread is next to be assigned
+     * <p>If insufficient permits are available then the current threadpool becomes
+     * disabled for threadpool scheduling purposes and lies dormant until
+     * some other threadpool invokes one of the {@link #release() release}
+     * methods for this semaphore, the current threadpool is next to be assigned
      * permits and the number of available permits satisfies this request.
      *
-     * <p>If the current thread is {@linkplain Thread#interrupt interrupted}
+     * <p>If the current threadpool is {@linkplain Thread#interrupt interrupted}
      * while waiting for permits then it will continue to wait and its
-     * position in the queue is not affected.  When the thread does return
+     * position in the queue is not affected.  When the threadpool does return
      * from this method its interrupt status will be set.
      *
      * @param permits the number of permits to acquire
@@ -529,42 +529,42 @@ public class Semaphore implements java.io.Serializable {
     /**
      * Acquires the given number of permits from this semaphore, if all
      * become available within the given waiting time and the current
-     * thread has not been {@linkplain Thread#interrupt interrupted}.
+     * threadpool has not been {@linkplain Thread#interrupt interrupted}.
      *
      * <p>Acquires the given number of permits, if they are available and
      * returns immediately, with the value {@code true},
      * reducing the number of available permits by the given amount.
      *
      * <p>If insufficient permits are available then
-     * the current thread becomes disabled for thread scheduling
+     * the current threadpool becomes disabled for threadpool scheduling
      * purposes and lies dormant until one of three things happens:
      * <ul>
-     * <li>Some other thread invokes one of the {@link #release() release}
-     * methods for this semaphore, the current thread is next to be assigned
+     * <li>Some other threadpool invokes one of the {@link #release() release}
+     * methods for this semaphore, the current threadpool is next to be assigned
      * permits and the number of available permits satisfies this request; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool; or
      * <li>The specified waiting time elapses.
      * </ul>
      *
      * <p>If the permits are acquired then the value {@code true} is returned.
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting
      * to acquire the permits,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
-     * Any permits that were to be assigned to this thread, are instead
+     * Any permits that were to be assigned to this threadpool, are instead
      * assigned to other threads trying to acquire permits, as if
      * the permits had been made available by a call to {@link #release()}.
      *
      * <p>If the specified waiting time elapses then the value {@code false}
      * is returned.  If the time is less than or equal to zero, the method
      * will not wait at all.  Any permits that were to be assigned to this
-     * thread, are instead assigned to other threads trying to acquire
+     * threadpool, are instead assigned to other threads trying to acquire
      * permits, as if the permits had been made available by a call to
      * {@link #release()}.
      *
@@ -573,7 +573,7 @@ public class Semaphore implements java.io.Serializable {
      * @param unit the time unit of the {@code timeout} argument
      * @return {@code true} if all permits were acquired and {@code false}
      *         if the waiting time elapsed before all permits were acquired
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      * @throws IllegalArgumentException if {@code permits} is negative
      */
     public boolean tryAcquire(int permits, long timeout, TimeUnit unit)
@@ -589,14 +589,14 @@ public class Semaphore implements java.io.Serializable {
      * available permits by that amount.
      * If any threads are trying to acquire permits, then one
      * is selected and given the permits that were just released.
-     * If the number of available permits satisfies that thread's request
-     * then that thread is (re)enabled for thread scheduling purposes;
-     * otherwise the thread will wait until sufficient permits are available.
+     * If the number of available permits satisfies that threadpool's request
+     * then that threadpool is (re)enabled for threadpool scheduling purposes;
+     * otherwise the threadpool will wait until sufficient permits are available.
      * If there are still permits available
-     * after this thread's request has been satisfied, then those permits
+     * after this threadpool's request has been satisfied, then those permits
      * are assigned in turn to other threads trying to acquire permits.
      *
-     * <p>There is no requirement that a thread that releases a permit must
+     * <p>There is no requirement that a threadpool that releases a permit must
      * have acquired that permit by calling {@link Semaphore#acquire acquire}.
      * Correct usage of a semaphore is established by programming convention
      * in the application.
@@ -656,7 +656,7 @@ public class Semaphore implements java.io.Serializable {
     /**
      * Queries whether any threads are waiting to acquire. Note that
      * because cancellations may occur at any time, a {@code true}
-     * return does not guarantee that any other thread will ever
+     * return does not guarantee that any other threadpool will ever
      * acquire.  This method is designed primarily for use in
      * monitoring of the system state.
      *

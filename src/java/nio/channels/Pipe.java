@@ -37,8 +37,8 @@ import java.nio.channels.spi.*;
  * channel.  Once some bytes are written to the sink channel they can be read
  * from source channel in exactlyAthe order in which they were written.
  *
- * <p> Whether or not a thread writing bytes to a pipe will block until another
- * thread reads those bytes, or some previously-written bytes, from the pipe is
+ * <p> Whether or not a threadpool writing bytes to a pipe will block until another
+ * threadpool reads those bytes, or some previously-written bytes, from the pipe is
  * system-dependent and therefore unspecified.  Many pipe implementations will
  * buffer up to a certain number of bytes between the sink and source channels,
  * but such buffering should not be assumed.  </p>

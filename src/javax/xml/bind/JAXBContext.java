@@ -280,7 +280,7 @@ public abstract class JAXBContext {
      * <p>
      * This is a convenience method to invoke the
      * {@link #newInstance(String,ClassLoader)} method with
-     * the context class loader of the current thread.
+     * the context class loader of the current threadpool.
      *
      * @throws JAXBException if an error was encountered while creating the
      *                       <tt>JAXBContext</tt> such as

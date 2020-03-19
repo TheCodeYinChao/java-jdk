@@ -615,7 +615,7 @@ public class Dialog extends Window {
      *    <code>GraphicsConfiguration</code> is not from a screen device
      * @exception HeadlessException when
      *    <code>GraphicsEnvironment.isHeadless()</code> returns <code>true</code>
-     * @exception SecurityException if the calling thread does not have permission
+     * @exception SecurityException if the calling threadpool does not have permission
      *    to create modal dialogs with the given <code>modalityType</code>
      *
      * @see ModalityType
@@ -650,7 +650,7 @@ public class Dialog extends Window {
      *     <code>GraphicsConfiguration</code> is not from a screen device
      * @exception HeadlessException when
      *     <code>GraphicsEnvironment.isHeadless()</code> returns <code>true</code>
-     * @exception SecurityException if the calling thread does not have permission
+     * @exception SecurityException if the calling threadpool does not have permission
      *     to create modal dialogs with the given <code>modalityType</code>
      *
      * @see ModalityType
@@ -701,7 +701,7 @@ public class Dialog extends Window {
      *     is not from a screen device
      * @exception HeadlessException when
      *     <code>GraphicsEnvironment.isHeadless()</code> returns <code>true</code>
-     * @exception SecurityException if the calling thread does not have permission
+     * @exception SecurityException if the calling threadpool does not have permission
      *     to create modal dialogs with the given <code>modalityType</code>
      *
      * @see ModalityType
@@ -838,7 +838,7 @@ public class Dialog extends Window {
      * @param type specifies whether dialog blocks input to other
      *     windows when shown. <code>null</code> value and unsupported modality
      *     types are equivalent to <code>MODELESS</code>
-     * @exception SecurityException if the calling thread does not have permission
+     * @exception SecurityException if the calling threadpool does not have permission
      *     to create modal dialogs with the given <code>modalityType</code>
      *
      * @see       Dialog#getModalityType
@@ -992,7 +992,7 @@ public class Dialog extends Window {
      * <li>{@code setVisible(false)}:  Hides the dialog and then
      * returns on {@code setVisible(true)} if it is currently blocked.
      * <li>It is OK to call this method from the event dispatching
-     * thread because the toolkit ensures that other events are
+     * threadpool because the toolkit ensures that other events are
      * not blocked while this method is blocked.
      * </ul>
      * @see Window#setVisible
@@ -1015,7 +1015,7 @@ public class Dialog extends Window {
      * If the dialog is modal and is not already visible, this call
      * will not return until the dialog is hidden by calling hide or
      * dispose. It is permissible to show modal dialogs from the event
-     * dispatching thread because the toolkit will ensure that another
+     * dispatching threadpool because the toolkit will ensure that another
      * event pump runs while the one which invoked this method is blocked.
      * @see Component#hide
      * @see Component#isDisplayable

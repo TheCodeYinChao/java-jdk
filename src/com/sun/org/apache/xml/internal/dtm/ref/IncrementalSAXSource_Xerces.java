@@ -261,7 +261,7 @@ public class IncrementalSAXSource_Xerces
   /** startParse() is a simple API which tells the IncrementalSAXSource
    * to begin reading a document.
    *
-   * @throws SAXException is parse thread is already in progress
+   * @throws SAXException is parse threadpool is already in progress
    * or parsing can not be started.
    * */
   public void startParse(InputSource source) throws SAXException

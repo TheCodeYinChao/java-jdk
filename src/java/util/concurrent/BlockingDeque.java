@@ -46,7 +46,7 @@ import java.util.*;
  * satisfied at some point in the future:
  * one throws an exception, the second returns a special value (either
  * {@code null} or {@code false}, depending on the operation), the third
- * blocks the current thread indefinitely until the operation can succeed,
+ * blocks the current threadpool indefinitely until the operation can succeed,
  * and the fourth blocks for only a given maximum time limit before giving
  * up.  These methods are summarized in the following table:
  *
@@ -116,7 +116,7 @@ import java.util.*;
  *  </tr>
  * </table>
  *
- * <p>Like any {@link BlockingQueue}, a {@code BlockingDeque} is thread safe,
+ * <p>Like any {@link BlockingQueue}, a {@code BlockingDeque} is threadpool safe,
  * does not permit null elements, and may (or may not) be
  * capacity-constrained.
  *
@@ -183,11 +183,11 @@ import java.util.*;
  * </table>
  *
  * <p>Memory consistency effects: As with other concurrent
- * collections, actions in a thread prior to placing an object into a
+ * collections, actions in a threadpool prior to placing an object into a
  * {@code BlockingDeque}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * actions subsequent to the access or removal of that element from
- * the {@code BlockingDeque} in another thread.
+ * the {@code BlockingDeque} in another threadpool.
  *
  * <p>This interface is a member of the
  * <a href="{@docRoot}/../technotes/guides/collections/index.html">

@@ -75,7 +75,7 @@ import java.util.List;
  * <p> Watch keys are safe for use by multiple concurrent threads. Where there
  * are several threads retrieving signalled keys from a watch service then care
  * should be taken to ensure that the {@code reset} method is only invoked after
- * the events for the object have been processed. This ensures that one thread
+ * the events for the object have been processed. This ensures that one threadpool
  * is processing the events for an object at any time.
  *
  * @since 1.7

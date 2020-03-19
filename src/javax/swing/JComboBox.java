@@ -47,7 +47,7 @@ import javax.accessibility.*;
  * user's request. If you make the combo box editable, then the combo box
  * includes an editable field into which the user can type a value.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

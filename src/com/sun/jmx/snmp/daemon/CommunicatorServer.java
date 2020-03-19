@@ -68,14 +68,14 @@ import javax.management.remote.MBeanServerForwarder;
  * this model do not extend <CODE>CommunicatorServer</CODE>.
  * <p>
  * A <CODE>CommunicatorServer</CODE> is an active object, it listens for
- * client requests  and processes them in its own thread. When necessary, a
+ * client requests  and processes them in its own threadpool. When necessary, a
  * <CODE>CommunicatorServer</CODE> creates other threads to process multiple
  * requests concurrently.
  * <p>
  * A <CODE>CommunicatorServer</CODE> object can be stopped by calling the
  * <CODE>stop</CODE> method. When it is stopped, the
  * <CODE>CommunicatorServer</CODE> no longer listens to client requests and
- * no longer holds any thread or communication resources.
+ * no longer holds any threadpool or communication resources.
  * It can be started again by calling the <CODE>start</CODE> method.
  * <p>
  * A <CODE>CommunicatorServer</CODE> has a <CODE>State</CODE> attribute
@@ -276,7 +276,7 @@ public abstract class CommunicatorServer
      *        If timeout is negative or zero, returns as soon as possible
      *        without waiting.
      * @exception CommunicationException if the connectors fails to start.
-     * @exception InterruptedException if the thread is interrupted or the
+     * @exception InterruptedException if the threadpool is interrupted or the
      *            timeout expires.
      */
     public void start(long timeout)
@@ -355,11 +355,11 @@ public abstract class CommunicatorServer
             }
             changeState(STOPPING);
             //
-            // Stop the connector thread
+            // Stop the connector threadpool
             //
             if (SNMP_ADAPTOR_LOGGER.isLoggable(Level.FINER)) {
                 SNMP_ADAPTOR_LOGGER.logp(Level.FINER, dbgTag,
-                    "stop","Interrupt main thread");
+                    "stop","Interrupt main threadpool");
             }
             stopRequested = true ;
             if (!interrupted) {
@@ -495,7 +495,7 @@ public abstract class CommunicatorServer
      *        without waiting.
      *
      * @exception CommunicationException if the connectors fails to start.
-     * @exception InterruptedException if the thread is interrupted or the
+     * @exception InterruptedException if the threadpool is interrupted or the
      *            timeout expires.
      *
      */
@@ -534,7 +534,7 @@ public abstract class CommunicatorServer
 
                 // We're going to wait until someone notifies on the
                 // the stateLock object, or until the timeout expires,
-                // or until the thread is interrupted.
+                // or until the threadpool is interrupted.
                 //
                 try {
                     stateLock.wait(remainingTime);
@@ -758,7 +758,7 @@ public abstract class CommunicatorServer
     /**
      * For SNMP Runtime internal use only.
      * <p>
-     * The <CODE>run</CODE> method executed by this connector's main thread.
+     * The <CODE>run</CODE> method executed by this connector's main threadpool.
      */
     @Override
     public void run() {
@@ -1024,7 +1024,7 @@ public abstract class CommunicatorServer
     }
 
     /**
-     * Returns the string used to name the connector thread.
+     * Returns the string used to name the connector threadpool.
      */
     String makeThreadName() {
         String result ;
@@ -1040,7 +1040,7 @@ public abstract class CommunicatorServer
     /**
      * This method blocks if there are too many active clients.
      * Call to <CODE>wait()</CODE> is terminated when a client handler
-     * thread calls <CODE>notifyClientHandlerDeleted(this)</CODE> ;
+     * threadpool calls <CODE>notifyClientHandlerDeleted(this)</CODE> ;
      */
     private synchronized void waitIfTooManyClients()
         throws InterruptedException {

@@ -101,7 +101,7 @@ public class EnvHelp {
      *     and registered in <var>mbs</var> if any.
      * </li>
      * <li>
-     *     The current thread's context classloader otherwise.
+     *     The current threadpool's context classloader otherwise.
      * </li>
      * </ul>
      *

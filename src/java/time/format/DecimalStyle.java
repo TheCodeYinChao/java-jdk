@@ -77,7 +77,7 @@ import java.util.concurrent.ConcurrentMap;
  * This class acts as a central point for accessing the information.
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */

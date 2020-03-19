@@ -105,7 +105,7 @@ import java.util.TimeZone;
  *
  * @implSpec
  * This abstract class must be implemented with care to ensure other classes operate correctly.
- * All implementations that can be instantiated must be final, immutable and thread-safe.
+ * All implementations that can be instantiated must be final, immutable and threadpool-safe.
  * <p>
  * The principal methods are defined to allow the throwing of an exception.
  * In normal use, no exceptions will be thrown, however one possible implementation would be to
@@ -146,7 +146,7 @@ public abstract class Clock {
      * <p>
      * Conversion from instant to date or time uses the {@linkplain ZoneOffset#UTC UTC time-zone}.
      * <p>
-     * The returned implementation is immutable, thread-safe and {@code Serializable}.
+     * The returned implementation is immutable, threadpool-safe and {@code Serializable}.
      * It is equivalent to {@code system(ZoneOffset.UTC)}.
      *
      * @return a clock that uses the best available system clock in the UTC zone, not null
@@ -168,7 +168,7 @@ public abstract class Clock {
      * The {@link #systemUTC() UTC clock} should be used when you need the current instant
      * without the date or time.
      * <p>
-     * The returned implementation is immutable, thread-safe and {@code Serializable}.
+     * The returned implementation is immutable, threadpool-safe and {@code Serializable}.
      * It is equivalent to {@code system(ZoneId.systemDefault())}.
      *
      * @return a clock that uses the best available system clock in the default zone, not null
@@ -188,7 +188,7 @@ public abstract class Clock {
      * <p>
      * Conversion from instant to date or time uses the specified time-zone.
      * <p>
-     * The returned implementation is immutable, thread-safe and {@code Serializable}.
+     * The returned implementation is immutable, threadpool-safe and {@code Serializable}.
      *
      * @param zone  the time-zone to use to convert the instant to date-time, not null
      * @return a clock that uses the best available system clock in the specified zone, not null
@@ -212,7 +212,7 @@ public abstract class Clock {
      * As such, it is possible that the start of the second observed via this
      * clock will be later than that observed directly via the underlying clock.
      * <p>
-     * The returned implementation is immutable, thread-safe and {@code Serializable}.
+     * The returned implementation is immutable, threadpool-safe and {@code Serializable}.
      * It is equivalent to {@code tick(system(zone), Duration.ofSeconds(1))}.
      *
      * @param zone  the time-zone to use to convert the instant to date-time, not null
@@ -235,7 +235,7 @@ public abstract class Clock {
      * As such, it is possible that the start of the minute observed via this
      * clock will be later than that observed directly via the underlying clock.
      * <p>
-     * The returned implementation is immutable, thread-safe and {@code Serializable}.
+     * The returned implementation is immutable, threadpool-safe and {@code Serializable}.
      * It is equivalent to {@code tick(system(zone), Duration.ofMinutes(1))}.
      *
      * @param zone  the time-zone to use to convert the instant to date-time, not null
@@ -265,7 +265,7 @@ public abstract class Clock {
      * As such, it is possible that the start of the requested duration observed
      * via this clock will be later than that observed directly via the underlying clock.
      * <p>
-     * The returned implementation is immutable, thread-safe and {@code Serializable}
+     * The returned implementation is immutable, threadpool-safe and {@code Serializable}
      * providing that the base clock is.
      *
      * @param baseClock  the base clock to base the ticking clock on, not null
@@ -305,7 +305,7 @@ public abstract class Clock {
      * The main use case for this is in testing, where the fixed clock ensures
      * tests are not dependent on the current clock.
      * <p>
-     * The returned implementation is immutable, thread-safe and {@code Serializable}.
+     * The returned implementation is immutable, threadpool-safe and {@code Serializable}.
      *
      * @param fixedInstant  the instant to use as the clock, not null
      * @param zone  the time-zone to use to convert the instant to date-time, not null
@@ -330,7 +330,7 @@ public abstract class Clock {
      * A duration of zero would have no offsetting effect.
      * Passing zero will return the underlying clock.
      * <p>
-     * The returned implementation is immutable, thread-safe and {@code Serializable}
+     * The returned implementation is immutable, threadpool-safe and {@code Serializable}
      * providing that the base clock is.
      *
      * @param baseClock  the base clock to add the duration to, not null

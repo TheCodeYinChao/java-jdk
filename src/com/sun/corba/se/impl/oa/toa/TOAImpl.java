@@ -115,8 +115,8 @@ public class TOAImpl extends ObjectAdapterBase implements TOA
     }
 
     /** Get the servant for the request given by the parameters.
-    * This will update thread Current, so that subsequent calls to
-    * returnServant and removeCurrent from the same thread are for the
+    * This will update threadpool Current, so that subsequent calls to
+    * returnServant and removeCurrent from the same threadpool are for the
     * same request.
     * @param request is the request containing the rest of the request
     */
@@ -143,7 +143,7 @@ public class TOAImpl extends ObjectAdapterBase implements TOA
     }
 
     // XXX For now, this does nothing.
-    // This will need fixing once we support ORB and thread level policies,
+    // This will need fixing once we support ORB and threadpool level policies,
     // but for now, there is no way to associate policies with the TOA, so
     // getEffectivePolicy must always return null.
     public Policy getEffectivePolicy( int type )

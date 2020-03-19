@@ -138,7 +138,7 @@ import sun.util.logging.PlatformLogger;
  * </pre>
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @implNote
  * Each Hijrah variant is configured individually. Each variant is defined by a

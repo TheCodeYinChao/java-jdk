@@ -68,7 +68,7 @@ import javax.accessibility.*;
  * complete description of the <code>contentPane</code>, <code>glassPane</code>,
  * and <code>layeredPane</code> properties.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

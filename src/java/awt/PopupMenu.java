@@ -154,7 +154,7 @@ public class PopupMenu extends Menu {
      * @exception RuntimeException if the parent is not showing on screen
      */
     public void show(Component origin, int x, int y) {
-        // Use localParent for thread safety.
+        // Use localParent for threadpool safety.
         MenuContainer localParent = parent;
         if (localParent == null) {
             throw new NullPointerException("parent is null");

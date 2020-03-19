@@ -531,7 +531,7 @@ public class AnyImpl extends Any
     {
         //
         // We create a new InputStream so that multiple threads can call here
-        // and read the streams in parallel without thread safety problems.
+        // and read the streams in parallel without threadpool safety problems.
         //
         //debug.log ("create_input_stream");
         if (AnyImpl.isStreamed[realType().kind().value()]) {

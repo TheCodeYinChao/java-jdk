@@ -186,7 +186,7 @@ public abstract class Policy {
      * @return the installed Policy.  The return value cannot be
      *          {@code null}.
      *
-     * @exception SecurityException if the current thread does not
+     * @exception SecurityException if the current threadpool does not
      *      have permission to get the Policy object.
      *
      * @see #setPolicy
@@ -267,7 +267,7 @@ public abstract class Policy {
      *
      * @param policy the new system Policy object.
      *
-     * @exception SecurityException if the current thread does not
+     * @exception SecurityException if the current threadpool does not
      *          have permission to set the Policy.
      *
      * @see #getPolicy

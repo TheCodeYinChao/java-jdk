@@ -248,8 +248,8 @@ public interface Statement extends Wrapper, AutoCloseable {
     /**
      * Cancels this <code>Statement</code> object if both the DBMS and
      * driver support aborting an SQL statement.
-     * This method can be used by one thread to cancel a statement that
-     * is being executed by another thread.
+     * This method can be used by one threadpool to cancel a statement that
+     * is being executed by another threadpool.
      *
      * @exception SQLException if a database access error occurs or
      * this method is called on a closed <code>Statement</code>

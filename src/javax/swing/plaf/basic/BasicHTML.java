@@ -441,11 +441,11 @@ public class BasicHTML {
          * the preference has changed.  The root view routes this to
          * invalidate on the hosting component.
          * <p>
-         * This can be called on a different thread from the
-         * event dispatching thread and is basically unsafe to
+         * This can be called on a different threadpool from the
+         * event dispatching threadpool and is basically unsafe to
          * propagate into the component.  To make this safe,
          * the operation is transferred over to the event dispatching
-         * thread for completion.  It is a design goal that all view
+         * threadpool for completion.  It is a design goal that all view
          * methods be safe to call without concern for concurrency,
          * and this behavior helps make that true.
          *

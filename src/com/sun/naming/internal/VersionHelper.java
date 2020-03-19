@@ -126,7 +126,7 @@ public abstract class VersionHelper {
         throws IOException;
 
     /*
-     * Returns the context class loader associated with the current thread.
+     * Returns the context class loader associated with the current threadpool.
      * Null indicates the bootstrap class loader in some Java implementations.
      *
      * @throws SecurityException if the class loader is not accessible.

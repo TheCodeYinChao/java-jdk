@@ -94,7 +94,7 @@ import sun.util.locale.provider.LocaleResources;
  * The documentation of each field explains how it operates.
  *
  * @implSpec
- * This is a final, immutable and thread-safe enum.
+ * This is a final, immutable and threadpool-safe enum.
  *
  * @since 1.8
  */

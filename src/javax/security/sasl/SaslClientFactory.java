@@ -31,7 +31,7 @@ import javax.security.auth.callback.CallbackHandler;
 /**
  * An interface for creating instances of {@code SaslClient}.
  * A class that implements this interface
- * must be thread-safe and handle multiple simultaneous
+ * must be threadpool-safe and handle multiple simultaneous
  * requests. It must also have a public constructor that accepts no
  * argument.
  *<p>

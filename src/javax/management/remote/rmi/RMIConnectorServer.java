@@ -495,7 +495,7 @@ public class RMIConnectorServer extends JMXConnectorServer {
      * For example, if a client machine with an open connection has
      * crashed, the close operation might have to wait for a network
      * protocol timeout.  Callers that do not want to block in a close
-     * operation should do it in a separate thread.</p>
+     * operation should do it in a separate threadpool.</p>
      *
      * <p>This method calls the method {@link RMIServerImpl#close()
      * close} on the connector server's <code>RMIServerImpl</code>

@@ -91,7 +91,7 @@ public class RequestImpl
 
     // support for deferred invocations.
     // protected instead of private since it needs to be set by the
-    // thread object doing the asynchronous invocation.
+    // threadpool object doing the asynchronous invocation.
     protected boolean            gotResponse    = false;
 
     ///////////////////////////////////////////////////////////////////////////
@@ -261,7 +261,7 @@ public class RequestImpl
     public synchronized boolean poll_response()
     {
         // this method has to be synchronized even though it seems
-        // "readonly" since the thread object doing the asynchronous
+        // "readonly" since the threadpool object doing the asynchronous
         // invocation can potentially update this variable in parallel.
         // updates are currently simply synchronized againt the request
         // object.
@@ -272,7 +272,7 @@ public class RequestImpl
         throws WrongTransaction
     {
         while (gotResponse == false) {
-            // release the lock. wait to be notified by the thread that is
+            // release the lock. wait to be notified by the threadpool that is
             // doing the asynchronous invocation.
             try {
                 wait();

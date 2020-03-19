@@ -295,7 +295,7 @@ public class MenuBar extends MenuComponent implements MenuContainer, Accessible 
 
     /*
      * This is called by the native code, so client code can't
-     * be called on the toolkit thread.
+     * be called on the toolkit threadpool.
      */
     final int getMenuCountImpl() {
         return menus.size();
@@ -312,7 +312,7 @@ public class MenuBar extends MenuComponent implements MenuContainer, Accessible 
 
     /*
      * This is called by the native code, so client code can't
-     * be called on the toolkit thread.
+     * be called on the toolkit threadpool.
      */
     final Menu getMenuImpl(int i) {
         return menus.elementAt(i);

@@ -407,7 +407,7 @@ public class DefaultKeyboardFocusManager extends KeyboardFocusManager {
 
                     // Calculating of most recent focus owner and focus
                     // request should be synchronized on KeyboardFocusManager.class
-                    // to prevent from thread race when user will request
+                    // to prevent from threadpool race when user will request
                     // focus between calculation and our request.
                     // But if focus transfer is synchronous, this synchronization
                     // may cause deadlock, thus we don't synchronize this block.

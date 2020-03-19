@@ -60,15 +60,15 @@ import org.xml.sax.helpers.DefaultHandler;
  * The default implementation for the DTMManager.
  *
  * %REVIEW% There is currently a reentrancy issue, since the finalizer
- * for XRTreeFrag (which runs in the GC thread) wants to call
+ * for XRTreeFrag (which runs in the GC threadpool) wants to call
  * DTMManager.release(), and may do so at the same time that the main
- * transformation thread is accessing the manager. Our current solution is
+ * transformation threadpool is accessing the manager. Our current solution is
  * to make most of the manager's methods <code>synchronized</code>.
  * Early tests suggest that doing so is not causing a significant
  * performance hit in Xalan. However, it should be noted that there
  * is a possible alternative solution: rewrite release() so it merely
  * posts a request for release onto a threadsafe queue, and explicitly
- * process that queue on an infrequent basis during main-thread
+ * process that queue on an infrequent basis during main-threadpool
  * activity (eg, when getDTM() is invoked). The downside of that solution
  * would be a greater delay before the DTM's storage is actually released
  * for reuse.
@@ -357,7 +357,7 @@ public class DTMManagerDefault extends DTMManager
             }
 
             if (coParser==null ) {
-              // Create a IncrementalSAXSource to run on the secondary thread.
+              // Create a IncrementalSAXSource to run on the secondary threadpool.
               if (null == reader) {
                 coParser = new IncrementalSAXSource_Filter();
               } else {
@@ -402,7 +402,7 @@ public class DTMManagerDefault extends DTMManager
             reader.setDTDHandler(dtm);
 
             try {
-              // Launch parsing coroutine.  Launches a second thread,
+              // Launch parsing coroutine.  Launches a second threadpool,
               // if we're using IncrementalSAXSource.filter().
 
               coParser.startParse(xmlSource);

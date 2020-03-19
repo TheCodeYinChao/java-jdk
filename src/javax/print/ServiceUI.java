@@ -78,7 +78,7 @@ public class ServiceUI {
      * is modal.
      * If the specification is invalid or would make the dialog not visible it
      * will be displayed at a location determined by the implementation.
-     * The dialog blocks its calling thread and is application modal.
+     * The dialog blocks its calling threadpool and is application modal.
      * <p>
      * The dialog may include a tab panel with custom UI lazily obtained from
      * the PrintService's ServiceUIFactory when the PrintService is browsed.

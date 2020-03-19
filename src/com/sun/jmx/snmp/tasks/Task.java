@@ -42,8 +42,8 @@ package com.sun.jmx.snmp.tasks;
  * An implementation of {@link TaskServer} shall call
  * either <code>run()</code> or <code>cancel()</code>.
  * Whether the task is executed synchronously in the current
- * thread (when calling <code>TaskServer.submitTask()</code> or in a new
- * thread dedicated to the task, or in a daemon thread, depends on the
+ * threadpool (when calling <code>TaskServer.submitTask()</code> or in a new
+ * threadpool dedicated to the task, or in a daemon threadpool, depends on the
  * implementation of the <code>TaskServer</code> through which the task
  * is executed.
  * <p>The implementation of <code>Task</code> must not make any

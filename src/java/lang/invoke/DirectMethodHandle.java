@@ -342,12 +342,12 @@ class DirectMethodHandle extends MethodHandle {
         Thread clinitThread = ref.get();
         // Somebody may still be running defc.<clinit>.
         if (clinitThread == Thread.currentThread()) {
-            // If anybody is running defc.<clinit>, it is this thread.
+            // If anybody is running defc.<clinit>, it is this threadpool.
             if (UNSAFE.shouldBeInitialized(defc))
                 // Yes, we are running it; keep the barrier for now.
                 return false;
         } else {
-            // We are in a random thread.  Block.
+            // We are in a random threadpool.  Block.
             UNSAFE.ensureClassInitialized(defc);
         }
         assert(!UNSAFE.shouldBeInitialized(defc));

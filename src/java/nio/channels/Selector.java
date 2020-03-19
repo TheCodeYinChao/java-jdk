@@ -159,10 +159,10 @@ import java.util.Set;
  * presence of a key in one or more of a selector's key sets does not imply
  * that the key is valid or that its channel is open.  Application code should
  * be careful to synchronize and check these conditions as necessary if there
- * is any possibility that another thread will cancel a key or close a channel.
+ * is any possibility that another threadpool will cancel a key or close a channel.
  *
- * <p> A thread blocked in one of the {@link #select()} or {@link
- * #select(long)} methods may be interrupted by some other thread in one of
+ * <p> A threadpool blocked in one of the {@link #select()} or {@link
+ * #select(long)} methods may be interrupted by some other threadpool in one of
  * three ways:
  *
  * <ul>
@@ -173,7 +173,7 @@ import java.util.Set;
  *   <li><p> By invoking the selector's {@link #close close} method, or
  *   </p></li>
  *
- *   <li><p> By invoking the blocked thread's {@link
+ *   <li><p> By invoking the blocked threadpool's {@link
  *   Thread#interrupt() interrupt} method, in which case its
  *   interrupt status will be set and the selector's {@link #wakeup wakeup}
  *   method will be invoked. </p></li>
@@ -186,7 +186,7 @@ import java.util.Set;
  * <a name="ksc"></a>
  *
  * <p> A selector's key and selected-key sets are not, in general, safe for use
- * by multiple concurrent threads.  If such a thread might modify one of these
+ * by multiple concurrent threads.  If such a threadpool might modify one of these
  * sets directly then access should be controlled by synchronizing on the set
  * itself.  The iterators returned by these sets' {@link
  * Set#iterator() iterator} methods are <i>fail-fast:</i> If the set
@@ -249,7 +249,7 @@ public abstract class Selector implements Closeable {
      * attempt to modify the key set will cause an {@link
      * UnsupportedOperationException} to be thrown.
      *
-     * <p> The key set is <a href="#ksc">not thread-safe</a>. </p>
+     * <p> The key set is <a href="#ksc">not threadpool-safe</a>. </p>
      *
      * @return  This selector's key set
      *
@@ -265,7 +265,7 @@ public abstract class Selector implements Closeable {
      * selected-key set.  Any attempt to add an object to the key set will
      * cause an {@link UnsupportedOperationException} to be thrown.
      *
-     * <p> The selected-key set is <a href="#ksc">not thread-safe</a>. </p>
+     * <p> The selected-key set is <a href="#ksc">not threadpool-safe</a>. </p>
      *
      * @return  This selector's selected-key set
      *
@@ -303,7 +303,7 @@ public abstract class Selector implements Closeable {
      * <p> This method performs a blocking <a href="#selop">selection
      * operation</a>.  It returns only after at least one channel is selected,
      * this selector's {@link #wakeup wakeup} method is invoked, the current
-     * thread is interrupted, or the given timeout period expires, whichever
+     * threadpool is interrupted, or the given timeout period expires, whichever
      * comes first.
      *
      * <p> This method does not offer real-time guarantees: It schedules the
@@ -336,7 +336,7 @@ public abstract class Selector implements Closeable {
      * <p> This method performs a blocking <a href="#selop">selection
      * operation</a>.  It returns only after at least one channel is selected,
      * this selector's {@link #wakeup wakeup} method is invoked, or the current
-     * thread is interrupted, whichever comes first.  </p>
+     * threadpool is interrupted, whichever comes first.  </p>
      *
      * @return  The number of keys, possibly zero,
      *          whose ready-operation sets were updated
@@ -353,7 +353,7 @@ public abstract class Selector implements Closeable {
      * Causes the first selection operation that has not yet returned to return
      * immediately.
      *
-     * <p> If another thread is currently blocked in an invocation of the
+     * <p> If another threadpool is currently blocked in an invocation of the
      * {@link #select()} or {@link #select(long)} methods then that invocation
      * will return immediately.  If no selection operation is currently in
      * progress then the next invocation of one of these methods will return
@@ -373,7 +373,7 @@ public abstract class Selector implements Closeable {
     /**
      * Closes this selector.
      *
-     * <p> If a thread is currently blocked in one of this selector's selection
+     * <p> If a threadpool is currently blocked in one of this selector's selection
      * methods then it is interrupted as if by invoking the selector's {@link
      * #wakeup wakeup} method.
      *

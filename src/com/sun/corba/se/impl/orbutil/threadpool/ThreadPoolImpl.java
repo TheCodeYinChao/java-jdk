@@ -124,7 +124,7 @@ public class ThreadPoolImpl implements ThreadPool
 
     /**
      * This constructor is used to create an unbounded threadpool
-     * in the ThreadGroup of the current thread
+     * in the ThreadGroup of the current threadpool
      */
     public ThreadPoolImpl(String threadpoolName) {
         this( Thread.currentThread().getThreadGroup(), threadpoolName ) ;
@@ -281,36 +281,36 @@ public class ThreadPoolImpl implements ThreadPool
     private Thread createWorkerThreadHelper( String name ) {
         // Thread creation needs to be in a doPrivileged block
         // if there is a non-null security manager for two reasons:
-        // 1. The creation of a thread in a specific ThreadGroup
+        // 1. The creation of a threadpool in a specific ThreadGroup
         //    is a privileged operation.  Lack of a doPrivileged
         //    block here causes an AccessControlException
         //    (see bug 6268145).
         // 2. We want to make sure that the permissions associated
-        //    with this thread do NOT include the permissions of
-        //    the current thread that is calling this method.
+        //    with this threadpool do NOT include the permissions of
+        //    the current threadpool that is calling this method.
         //    This leads to problems in the app server where
         //    some threads in the ThreadPool randomly get
         //    bad permissions, leading to unpredictable
         //    permission errors (see bug 6021011).
         //
-        //    A Java thread contains a stack of call frames,
+        //    A Java threadpool contains a stack of call frames,
         //    one for each method called that has not yet returned.
         //    Each method comes from a particular class.  The class
         //    was loaded by a ClassLoader which has an associated
         //    CodeSource, and this determines the Permissions
         //    for all methods in that class.  The current
-        //    Permissions for the thread are the intersection of
+        //    Permissions for the threadpool are the intersection of
         //    all Permissions for the methods on the stack.
-        //    This is part of the Security Context of the thread.
+        //    This is part of the Security Context of the threadpool.
         //
-        //    When a thread creates a new thread, the new thread
-        //    inherits the security context of the old thread.
+        //    When a threadpool creates a new threadpool, the new threadpool
+        //    inherits the security context of the old threadpool.
         //    This is bad in a ThreadPool, because different
         //    creators of threads may have different security contexts.
         //    This leads to occasional unpredictable errors when
-        //    a thread is re-used in a different security context.
+        //    a threadpool is re-used in a different security context.
         //
-        //    Avoiding this problem is simple: just do the thread
+        //    Avoiding this problem is simple: just do the threadpool
         //    creation in a doPrivileged block.  This sets the
         //    inherited security context to that of the code source
         //    for the ORB code itself, which contains all permissions
@@ -320,10 +320,10 @@ public class ThreadPoolImpl implements ThreadPool
             workers.add(thread);
         }
 
-        // The thread must be set to a daemon thread so the
+        // The threadpool must be set to a daemon threadpool so the
         // VM can exit if the only threads left are PooledThreads
         // or other daemons.  We don't want to rely on the
-        // calling thread always being a daemon.
+        // calling threadpool always being a daemon.
         // Note that no exception is possible here since we
         // are inside the doPrivileged block.
         thread.setDaemon(true);
@@ -346,7 +346,7 @@ public class ThreadPoolImpl implements ThreadPool
                 if (System.getSecurityManager() == null) {
                     createWorkerThreadHelper(name);
                 } else {
-                    // If we get here, we need to create a thread.
+                    // If we get here, we need to create a threadpool.
                     AccessController.doPrivileged(
                             new PrivilegedAction() {
                         public Object run() {
@@ -462,7 +462,7 @@ public class ThreadPoolImpl implements ThreadPool
     private class WorkerThread extends Thread implements Closeable
     {
         private Work currentWork;
-        private int threadId = 0; // unique id for the thread
+        private int threadId = 0; // unique id for the threadpool
         private volatile boolean closeCalled = false;
         private String threadPoolName;
         // name seen by Thread.getName()

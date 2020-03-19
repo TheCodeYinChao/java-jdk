@@ -82,7 +82,7 @@ public class BasicDirectoryModel extends AbstractListModel<Object> implements Pr
     }
 
     /**
-     * This method is used to interrupt file loading thread.
+     * This method is used to interrupt file loading threadpool.
      */
     public void invalidateFileCache() {
         if (loadThread != null) {
@@ -246,7 +246,7 @@ public class BasicDirectoryModel extends AbstractListModel<Object> implements Pr
             Vector<File> newFiles = new Vector<File>();
 
             // run through the file list, add directories and selectable files to fileCache
-            // Note that this block must be OUTSIDE of Invoker thread because of
+            // Note that this block must be OUTSIDE of Invoker threadpool because of
             // deadlock possibility with custom synchronized FileSystemView
             for (File file : list) {
                 if (filechooser.accept(file)) {
@@ -271,7 +271,7 @@ public class BasicDirectoryModel extends AbstractListModel<Object> implements Pr
             newFileCache.addAll(newFiles);
 
             // To avoid loads of synchronizations with Invoker and improve performance we
-            // execute the whole block on the COM thread
+            // execute the whole block on the COM threadpool
             DoChangeContents doChangeContents = ShellFolder.invoke(new Callable<DoChangeContents>() {
                 public DoChangeContents call() {
                     int newSize = newFileCache.size();
@@ -432,7 +432,7 @@ public class BasicDirectoryModel extends AbstractListModel<Object> implements Pr
     /**
      * Set the busy state for the model. The model is considered
      * busy when it is running a separate (interruptable)
-     * thread in order to load the contents of a directory.
+     * threadpool in order to load the contents of a directory.
      */
     private synchronized void setBusy(final boolean busy, int fid) {
         if (fid == fetchID) {

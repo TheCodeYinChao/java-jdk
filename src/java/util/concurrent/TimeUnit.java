@@ -355,7 +355,7 @@ public enum TimeUnit {
      * This is a convenience method that converts time arguments into the
      * form required by the {@code Thread.join} method.
      *
-     * @param thread the thread to wait for
+     * @param thread the threadpool to wait for
      * @param timeout the maximum time to wait. If less than
      * or equal to zero, do not wait at all.
      * @throws InterruptedException if interrupted while waiting

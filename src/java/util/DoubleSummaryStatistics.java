@@ -52,7 +52,7 @@ import java.util.stream.Collector;
  * This computes, in a single pass, the count of people, as well as the minimum,
  * maximum, sum, and average of their weights.
  *
- * @implNote This implementation is not thread safe. However, it is safe to use
+ * @implNote This implementation is not threadpool safe. However, it is safe to use
  * {@link java.util.stream.Collectors#summarizingDouble(java.util.function.ToDoubleFunction)
  * Collectors.toDoubleStatistics()} on a parallel stream, because the parallel
  * implementation of {@link java.util.stream.Stream#collect Stream.collect()}

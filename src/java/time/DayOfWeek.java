@@ -102,7 +102,7 @@ import java.util.Locale;
  * concept defined exactly equivalent to the ISO calendar system.
  *
  * @implSpec
- * This is an immutable and thread-safe enum.
+ * This is an immutable and threadpool-safe enum.
  *
  * @since 1.8
  */

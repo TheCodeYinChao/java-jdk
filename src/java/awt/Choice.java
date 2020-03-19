@@ -185,7 +185,7 @@ public class Choice extends Component implements ItemSelectable, Accessible {
 
     /*
      * This is called by the native code, so client code can't
-     * be called on the toolkit thread.
+     * be called on the toolkit threadpool.
      */
     final String getItemImpl(int index) {
         return pItems.elementAt(index);

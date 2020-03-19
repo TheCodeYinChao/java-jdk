@@ -119,7 +119,7 @@ public class BufferManagerWriteCollect extends BufferManagerWrite
         // while fragments are being sent.  This is so that there are
         // no interleved fragments in GIOP 1.1.
         //
-        // Note that this thread must not call writeLock again in any
+        // Note that this threadpool must not call writeLock again in any
         // of its send methods!
         conn.writeLock();
 

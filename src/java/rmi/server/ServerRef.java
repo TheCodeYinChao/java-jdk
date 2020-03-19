@@ -57,7 +57,7 @@ public interface ServerRef extends RemoteRef {
 
     /**
      * Returns the hostname of the current client.  When called from a
-     * thread actively handling a remote method invocation the
+     * threadpool actively handling a remote method invocation the
      * hostname of the client is returned.
      * @return the client's host name
      * @exception ServerNotActiveException if called outside of servicing

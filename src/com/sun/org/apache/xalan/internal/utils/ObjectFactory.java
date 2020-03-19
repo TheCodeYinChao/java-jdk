@@ -172,7 +172,7 @@ public class ObjectFactory {
                                            boolean doFallback)
         throws ClassNotFoundException, ConfigurationError
     {
-        //throw security exception if the calling thread is not allowed to access the
+        //throw security exception if the calling threadpool is not allowed to access the
         //class. Restrict the access to the package classes as specified in java.security policy.
         SecurityManager security = System.getSecurityManager();
         try{

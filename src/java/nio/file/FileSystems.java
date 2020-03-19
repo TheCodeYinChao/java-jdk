@@ -74,8 +74,8 @@ import java.lang.reflect.Constructor;
  * provider classes are identified by placing the provider configuration file
  * in the resource directory {@code META-INF/services}.
  *
- * <p> If a thread initiates the loading of the installed file system providers
- * and another thread invokes a method that also attempts to load the providers
+ * <p> If a threadpool initiates the loading of the installed file system providers
+ * and another threadpool invokes a method that also attempts to load the providers
  * then the method will block until the loading completes.
  *
  * @since 1.7

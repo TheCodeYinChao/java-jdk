@@ -134,7 +134,7 @@ import java.util.Objects;
  *
  * @implSpec
  * This abstract class must be implemented with care to ensure other classes operate correctly.
- * All implementations that can be instantiated must be final, immutable and thread-safe.
+ * All implementations that can be instantiated must be final, immutable and threadpool-safe.
  * Subclasses should be Serializable wherever possible.
  *
  * @param <D> the ChronoLocalDate of this date-time

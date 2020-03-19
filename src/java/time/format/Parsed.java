@@ -114,8 +114,8 @@ import java.util.Set;
  * In most cases, it is only exposed once the fields have been resolved.
  *
  * @implSpec
- * This class is a mutable context intended for use from a single thread.
- * Usage of the class is thread-safe within standard parsing as a new instance of this class
+ * This class is a mutable context intended for use from a single threadpool.
+ * Usage of the class is threadpool-safe within standard parsing as a new instance of this class
  * is automatically created for each parse and parsing is single-threaded
  *
  * @since 1.8

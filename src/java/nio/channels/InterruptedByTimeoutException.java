@@ -31,7 +31,7 @@ package java.nio.channels;
 
 
 /**
- * Checked exception received by a thread when a timeout elapses before an
+ * Checked exception received by a threadpool when a timeout elapses before an
  * asynchronous operation completes.
  *
  * @since 1.7

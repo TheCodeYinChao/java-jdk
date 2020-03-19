@@ -90,7 +90,7 @@ public class XMLReaderManager {
     }
 
     /**
-     * Retrieves a cached XMLReader for this thread, or creates a new
+     * Retrieves a cached XMLReader for this threadpool, or creates a new
      * XMLReader, if the existing reader is in use.  When the caller no
      * longer needs the reader, it must release it with a call to
      * {@link #releaseXMLReader}.
@@ -100,7 +100,7 @@ public class XMLReaderManager {
 
         if (m_readers == null) {
             // When the m_readers.get() method is called for the first time
-            // on a thread, a new XMLReader will automatically be created.
+            // on a threadpool, a new XMLReader will automatically be created.
             m_readers = new ThreadLocal();
         }
 
@@ -108,7 +108,7 @@ public class XMLReaderManager {
             m_inUse = new HashMap();
         }
 
-        // If the cached reader for this thread is in use, construct a new
+        // If the cached reader for this threadpool is in use, construct a new
         // one; otherwise, return the cached reader unless it isn't an
         // instance of the class set in the 'org.xml.sax.driver' property
         reader = (XMLReader) m_readers.get();
@@ -161,7 +161,7 @@ public class XMLReaderManager {
             }
 
             // Cache the XMLReader if this is the first time we've created
-            // a reader for this thread.
+            // a reader for this threadpool.
             if (!threadHasReader) {
                 m_readers.set(reader);
                 m_inUse.put(reader, Boolean.TRUE);
@@ -204,7 +204,7 @@ public class XMLReaderManager {
      */
     public synchronized void releaseXMLReader(XMLReader reader) {
         // If the reader that's being released is the cached reader
-        // for this thread, remove it from the m_isUse list.
+        // for this threadpool, remove it from the m_isUse list.
         if (m_readers.get() == reader && reader != null) {
             m_inUse.remove(reader);
         }

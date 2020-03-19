@@ -46,7 +46,7 @@ import java.io.IOException;
  *
  * <p> Channels of this type are safe for use by multiple concurrent threads
  * though at most one accept operation can be outstanding at any time.
- * If a thread initiates an accept operation before a previous accept operation
+ * If a threadpool initiates an accept operation before a previous accept operation
  * has completed then an {@link AcceptPendingException} will be thrown.
  *
  * <p> Socket options are configured using the {@link #setOption(SocketOption,Object)
@@ -256,7 +256,7 @@ public abstract class AsynchronousServerSocketChannel
      * IOException} and cause {@link ShutdownChannelGroupException}.
      *
      * <p> To allow for concurrent handling of new connections, the completion
-     * handler is not invoked directly by the initiating thread when a new
+     * handler is not invoked directly by the initiating threadpool when a new
      * connection is accepted immediately (see <a
      * href="AsynchronousChannelGroup.html#threading">Threading</a>).
      *

@@ -237,7 +237,7 @@ public class BoxLayout implements LayoutManager2, Serializable {
      * <p>
      * This method is called by AWT when the invalidate method is called
      * on the Container.  Since the invalidate method may be called
-     * asynchronously to the event thread, this method may be called
+     * asynchronously to the event threadpool, this method may be called
      * asynchronously.
      *
      * @param target  the affected container

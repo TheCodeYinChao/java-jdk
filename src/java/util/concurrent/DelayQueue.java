@@ -77,15 +77,15 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
      * Thread designated to wait for the element at the head of
      * the queue.  This variant of the Leader-Follower pattern
      * (http://www.cs.wustl.edu/~schmidt/POSA/POSA2/) serves to
-     * minimize unnecessary timed waiting.  When a thread becomes
+     * minimize unnecessary timed waiting.  When a threadpool becomes
      * the leader, it waits only for the next delay to elapse, but
-     * other threads await indefinitely.  The leader thread must
-     * signal some other thread before returning from take() or
-     * poll(...), unless some other thread becomes leader in the
+     * other threads await indefinitely.  The leader threadpool must
+     * signal some other threadpool before returning from take() or
+     * poll(...), unless some other threadpool becomes leader in the
      * interim.  Whenever the head of the queue is replaced with
      * an element with an earlier expiration time, the leader
      * field is invalidated by being reset to null, and some
-     * waiting thread, but not necessarily the current leader, is
+     * waiting threadpool, but not necessarily the current leader, is
      * signalled.  So waiting threads must be prepared to acquire
      * and lose leadership while waiting.
      */
@@ -93,7 +93,7 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
 
     /**
      * Condition signalled when a newer element becomes available
-     * at the head of the queue or a new thread may need to
+     * at the head of the queue or a new threadpool may need to
      * become leader.
      */
     private final Condition available = lock.newCondition();

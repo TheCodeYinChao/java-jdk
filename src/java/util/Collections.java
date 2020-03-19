@@ -1952,7 +1952,7 @@ public class Collections {
     // Synch Wrappers
 
     /**
-     * Returns a synchronized (thread-safe) collection backed by the specified
+     * Returns a synchronized (threadpool-safe) collection backed by the specified
      * collection.  In order to guarantee serial access, it is critical that
      * <strong>all</strong> access to the backing collection is accomplished
      * through the returned collection.<p>
@@ -2083,7 +2083,7 @@ public class Collections {
     }
 
     /**
-     * Returns a synchronized (thread-safe) set backed by the specified
+     * Returns a synchronized (threadpool-safe) set backed by the specified
      * set.  In order to guarantee serial access, it is critical that
      * <strong>all</strong> access to the backing set is accomplished
      * through the returned set.<p>
@@ -2142,7 +2142,7 @@ public class Collections {
     }
 
     /**
-     * Returns a synchronized (thread-safe) sorted set backed by the specified
+     * Returns a synchronized (threadpool-safe) sorted set backed by the specified
      * sorted set.  In order to guarantee serial access, it is critical that
      * <strong>all</strong> access to the backing sorted set is accomplished
      * through the returned sorted set (or its views).<p>
@@ -2233,7 +2233,7 @@ public class Collections {
     }
 
     /**
-     * Returns a synchronized (thread-safe) navigable set backed by the
+     * Returns a synchronized (threadpool-safe) navigable set backed by the
      * specified navigable set.  In order to guarantee serial access, it is
      * critical that <strong>all</strong> access to the backing navigable set is
      * accomplished through the returned navigable set (or its views).<p>
@@ -2348,7 +2348,7 @@ public class Collections {
     }
 
     /**
-     * Returns a synchronized (thread-safe) list backed by the specified
+     * Returns a synchronized (threadpool-safe) list backed by the specified
      * list.  In order to guarantee serial access, it is critical that
      * <strong>all</strong> access to the backing list is accomplished
      * through the returned list.<p>
@@ -2516,7 +2516,7 @@ public class Collections {
     }
 
     /**
-     * Returns a synchronized (thread-safe) map backed by the specified
+     * Returns a synchronized (threadpool-safe) map backed by the specified
      * map.  In order to guarantee serial access, it is critical that
      * <strong>all</strong> access to the backing map is accomplished
      * through the returned map.<p>
@@ -2693,7 +2693,7 @@ public class Collections {
     }
 
     /**
-     * Returns a synchronized (thread-safe) sorted map backed by the specified
+     * Returns a synchronized (threadpool-safe) sorted map backed by the specified
      * sorted map.  In order to guarantee serial access, it is critical that
      * <strong>all</strong> access to the backing sorted map is accomplished
      * through the returned sorted map (or its views).<p>
@@ -2790,7 +2790,7 @@ public class Collections {
     }
 
     /**
-     * Returns a synchronized (thread-safe) navigable map backed by the
+     * Returns a synchronized (threadpool-safe) navigable map backed by the
      * specified navigable map.  In order to guarantee serial access, it is
      * critical that <strong>all</strong> access to the backing navigable map is
      * accomplished through the returned navigable map (or its views).<p>

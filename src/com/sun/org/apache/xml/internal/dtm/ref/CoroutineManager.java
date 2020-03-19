@@ -172,7 +172,7 @@ public class CoroutineManager
    * approaches.</p>
    *
    * <p>%REVIEW% We could use an object as the identifier. Not sure
-   * it's a net gain, though it would allow the thread to be its own
+   * it's a net gain, though it would allow the threadpool to be its own
    * ID. Ponder.</p>
    *
    * @param coroutineID  If >=0, requests that we reserve this number.
@@ -320,7 +320,7 @@ public class CoroutineManager
   /** Make the ID available for reuse and terminate this coroutine,
    * transferring control to the specified coroutine. Note that this
    * returns immediately rather than waiting for any further coroutine
-   * traffic, so the thread can proceed with other shutdown activities.
+   * traffic, so the threadpool can proceed with other shutdown activities.
    *
    * @param arg_object    A value to be passed to the other coroutine.
    * @param thisCoroutine Integer identifier for the coroutine leaving the set.

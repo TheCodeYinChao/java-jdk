@@ -117,7 +117,7 @@ class SelectorImpl
             // tell Selector Thread there's an update to a SelectorKey's Ops
             try {
                 if (selector != null) {
-                    // wakeup Selector thread to process close request
+                    // wakeup Selector threadpool to process close request
                     selector.wakeup();
                 }
             } catch (Throwable t) {
@@ -260,7 +260,7 @@ class SelectorImpl
 
         try {
             if (selector != null) {
-                // wakeup Selector thread to process close request
+                // wakeup Selector threadpool to process close request
                 selector.wakeup();
             }
         } catch (Throwable t) {
@@ -332,7 +332,7 @@ class SelectorImpl
                     dprint(".run: End of selection cycle");
                 }
             } catch (Throwable t) {
-                // IMPORTANT: ignore all errors so the select thread keeps running.
+                // IMPORTANT: ignore all errors so the select threadpool keeps running.
                 // Otherwise a guaranteed hang.
                 if (orb.transportDebugFlag) {
                     dprint(".run: ignoring", t);

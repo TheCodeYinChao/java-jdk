@@ -64,8 +64,8 @@ public abstract class TransformSpi {
     /**
      * The mega method which MUST be implemented by the Transformation Algorithm.
      * In order to be compatible with preexisting Transform implementations,
-     * by default this implementation invokes the deprecated, thread-unsafe
-     * methods. Subclasses should override this with a thread-safe
+     * by default this implementation invokes the deprecated, threadpool-unsafe
+     * methods. Subclasses should override this with a threadpool-safe
      * implementation.
      *
      * @param input {@link XMLSignatureInput} as the input of transformation

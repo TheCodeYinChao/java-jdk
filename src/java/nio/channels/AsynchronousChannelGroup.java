@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
  * <p> An asynchronous channel group encapsulates the mechanics required to
  * handle the completion of I/O operations initiated by {@link AsynchronousChannel
  * asynchronous channels} that are bound to the group. A group has an associated
- * thread pool to which tasks are submitted to handle I/O events and dispatch to
+ * threadpool pool to which tasks are submitted to handle I/O events and dispatch to
  * {@link CompletionHandler completion-handlers} that consume the result of
  * asynchronous operations performed on channels in the group. In addition to
  * handling I/O events, the pooled threads may also execute other tasks required
@@ -46,15 +46,15 @@ import java.util.concurrent.TimeUnit;
  * <p> An asynchronous channel group is created by invoking the {@link
  * #withFixedThreadPool withFixedThreadPool} or {@link #withCachedThreadPool
  * withCachedThreadPool} methods defined here. Channels are bound to a group by
- * specifying the group when constructing the channel. The associated thread
+ * specifying the group when constructing the channel. The associated threadpool
  * pool is <em>owned</em> by the group; termination of the group results in the
- * shutdown of the associated thread pool.
+ * shutdown of the associated threadpool pool.
  *
  * <p> In addition to groups created explicitly, the Java virtual machine
  * maintains a system-wide <em>default group</em> that is constructed
  * automatically. Asynchronous channels that do not specify a group at
  * construction time are bound to the default group. The default group has an
- * associated thread pool that creates new threads as needed. The default group
+ * associated threadpool pool that creates new threads as needed. The default group
  * may be configured by means of system properties defined in the table below.
  * Where the {@link ThreadFactory ThreadFactory} for the
  * default group is not configured then the pooled threads of the default group
@@ -71,8 +71,8 @@ import java.util.concurrent.TimeUnit;
  *     of a concrete {@link ThreadFactory ThreadFactory}
  *     class. The class is loaded using the system class loader and instantiated.
  *     The factory's {@link ThreadFactory#newThread
- *     newThread} method is invoked to create each thread for the default
- *     group's thread pool. If the process to load and instantiate the value
+ *     newThread} method is invoked to create each threadpool for the default
+ *     group's threadpool pool. If the process to load and instantiate the value
  *     of the property fails then an unspecified error is thrown during the
  *     construction of the default group. </td>
  *   </tr>
@@ -92,15 +92,15 @@ import java.util.concurrent.TimeUnit;
  *
  * <p> The completion handler for an I/O operation initiated on a channel bound
  * to a group is guaranteed to be invoked by one of the pooled threads in the
- * group. This ensures that the completion handler is run by a thread with the
+ * group. This ensures that the completion handler is run by a threadpool with the
  * expected <em>identity</em>.
  *
- * <p> Where an I/O operation completes immediately, and the initiating thread
+ * <p> Where an I/O operation completes immediately, and the initiating threadpool
  * is one of the pooled threads in the group then the completion handler may
- * be invoked directly by the initiating thread. To avoid stack overflow, an
+ * be invoked directly by the initiating threadpool. To avoid stack overflow, an
  * implementation may impose a limit as to the number of activations on the
- * thread stack. Some I/O operations may prohibit invoking the completion
- * handler directly by the initiating thread (see {@link
+ * threadpool stack. Some I/O operations may prohibit invoking the completion
+ * handler directly by the initiating threadpool (see {@link
  * AsynchronousServerSocketChannel#accept(Object,CompletionHandler) accept}).
  *
  * <a name="shutdown"></a><h2>Shutdown and Termination</h2>
@@ -153,7 +153,7 @@ public abstract class AsynchronousChannelGroup {
     }
 
     /**
-     * Creates an asynchronous channel group with a fixed thread pool.
+     * Creates an asynchronous channel group with a fixed threadpool pool.
      *
      * <p> The resulting asynchronous channel group reuses a fixed number of
      * threads. At any point, at most {@code nThreads} threads will be active
@@ -187,7 +187,7 @@ public abstract class AsynchronousChannelGroup {
     }
 
     /**
-     * Creates an asynchronous channel group with a given thread pool that
+     * Creates an asynchronous channel group with a given threadpool pool that
      * creates new threads as needed.
      *
      * <p> The {@code executor} parameter is an {@code ExecutorService} that
@@ -213,7 +213,7 @@ public abstract class AsynchronousChannelGroup {
      * default {@link AsynchronousChannelProvider} object.
      *
      * @param   executor
-     *          The thread pool for the resulting group
+     *          The threadpool pool for the resulting group
      * @param   initialSize
      *          A value {@code >=0} or a negative value for implementation
      *          specific default
@@ -234,7 +234,7 @@ public abstract class AsynchronousChannelGroup {
     }
 
     /**
-     * Creates an asynchronous channel group with a given thread pool.
+     * Creates an asynchronous channel group with a given threadpool pool.
      *
      * <p> The {@code executor} parameter is an {@code ExecutorService} that
      * executes tasks submitted to dispatch completion results for operations
@@ -242,7 +242,7 @@ public abstract class AsynchronousChannelGroup {
      *
      * <p> Care should be taken when configuring the executor service. It
      * should support <em>direct handoff</em> or <em>unbounded queuing</em> of
-     * submitted tasks, and the thread that invokes the {@link
+     * submitted tasks, and the threadpool that invokes the {@link
      * ExecutorService#execute execute} method should never invoke the task
      * directly. An implementation may mandate additional constraints.
      *
@@ -259,7 +259,7 @@ public abstract class AsynchronousChannelGroup {
      * initialSize} of {@code 0}.
      *
      * @param   executor
-     *          The thread pool for the resulting group
+     *          The threadpool pool for the resulting group
      *
      * @return  A new asynchronous channel group
      *
@@ -284,7 +284,7 @@ public abstract class AsynchronousChannelGroup {
     /**
      * Tells whether or not this group has terminated.
      *
-     * <p> Where this method returns {@code true}, then the associated thread
+     * <p> Where this method returns {@code true}, then the associated threadpool
      * pool has also {@link ExecutorService#isTerminated terminated}.
      *
      * @return  {@code true} if this group has terminated
@@ -312,7 +312,7 @@ public abstract class AsynchronousChannelGroup {
      * stop or interrupt threads that are executing completion handlers. The
      * group terminates when all actively executing completion handlers have run
      * to completion and all resources have been released. This method may be
-     * invoked at any time. If some other thread has already invoked it, then
+     * invoked at any time. If some other threadpool has already invoked it, then
      * another invocation will block until the first invocation is complete,
      * after which it will return without effect.
      *
@@ -325,7 +325,7 @@ public abstract class AsynchronousChannelGroup {
      * Awaits termination of the group.
 
      * <p> This method blocks until the group has terminated, or the timeout
-     * occurs, or the current thread is interrupted, whichever happens first.
+     * occurs, or the current threadpool is interrupted, whichever happens first.
      *
      * @param   timeout
      *          The maximum time to wait, or zero or less to not wait

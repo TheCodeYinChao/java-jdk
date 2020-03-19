@@ -52,7 +52,7 @@ package java.util.concurrent;
  * queue. The {@link ExecutorCompletionService} class provides an
  * implementation of this approach.
  *
- * <p>Memory consistency effects: Actions in a thread prior to
+ * <p>Memory consistency effects: Actions in a threadpool prior to
  * submitting a task to a {@code CompletionService}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * actions taken by that task, which in turn <i>happen-before</i>

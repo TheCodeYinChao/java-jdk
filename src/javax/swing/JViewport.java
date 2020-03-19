@@ -80,7 +80,7 @@ import java.io.Serializable;
  * scrolling while the viewport is obscured by another window or offscreen,
  * so this optimization is usually worth the performance hit when obscured.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

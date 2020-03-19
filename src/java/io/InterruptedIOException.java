@@ -28,7 +28,7 @@ package java.io;
 /**
  * Signals that an I/O operation has been interrupted. An
  * <code>InterruptedIOException</code> is thrown to indicate that an
- * input or output transfer has been terminated because the thread
+ * input or output transfer has been terminated because the threadpool
  * performing it was interrupted. The field {@link #bytesTransferred}
  * indicates how many bytes were successfully transferred before
  * the interruption occurred.

@@ -20,11 +20,11 @@ package org.omg.PortableInterceptor;
    * Before an invocation is made, PICurrent is obtained via a call to 
    * <code>ORB.resolve_initial_references( "PICurrent" )</code>. From within 
    * the interception points, the data on PICurrent that has moved from the 
-   * thread scope to the request scope is available via the 
+   * threadpool scope to the request scope is available via the
    * <code>get_slot</code> operation on the <code>RequestInfo</code> object. 
    * A PICurrent can still be obtained via 
    * <code>resolve_initial_references</code>, but that is the Interceptor's 
-   * thread scope PICurrent.
+   * threadpool scope PICurrent.
    */
 public interface CurrentOperations  extends org.omg.CORBA.CurrentOperations
 {

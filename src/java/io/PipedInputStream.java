@@ -31,16 +31,16 @@ package java.io;
  * stream then provides whatever data bytes
  * are written to the piped output  stream.
  * Typically, data is read from a <code>PipedInputStream</code>
- * object by one thread  and data is written
+ * object by one threadpool  and data is written
  * to the corresponding <code>PipedOutputStream</code>
- * by some  other thread. Attempting to use
- * both objects from a single thread is not
- * recommended, as it may deadlock the thread.
+ * by some  other threadpool. Attempting to use
+ * both objects from a single threadpool is not
+ * recommended, as it may deadlock the threadpool.
  * The piped input stream contains a buffer,
  * decoupling read operations from write operations,
  * within limits.
  * A pipe is said to be <a name="BROKEN"> <i>broken</i> </a> if a
- * thread that was providing data bytes to the connected
+ * threadpool that was providing data bytes to the connected
  * piped output stream is no longer alive.
  *
  * @author  James Gosling
@@ -53,8 +53,8 @@ public class PipedInputStream extends InputStream {
     boolean connected = false;
 
         /* REMIND: identification of the read and write sides needs to be
-           more sophisticated.  Either using thread groups (but what about
-           pipes within a thread?) or using finalization (but it may be a
+           more sophisticated.  Either using threadpool groups (but what about
+           pipes within a threadpool?) or using finalization (but it may be a
            long time until the next GC). */
     Thread readSide;
     Thread writeSide;

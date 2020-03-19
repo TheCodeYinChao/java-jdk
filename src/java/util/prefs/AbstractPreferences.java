@@ -178,7 +178,7 @@ public abstract class AbstractPreferences extends Preferences {
      * An object whose monitor is used to lock this node.  This object
      * is used in preference to the node itself to reduce the likelihood of
      * intentional or unintentional denial of service due to a locked node.
-     * To avoid deadlock, a node is <i>never</i> locked by a thread that
+     * To avoid deadlock, a node is <i>never</i> locked by a threadpool that
      * holds a lock on a descendant of that node.
      */
     protected final Object lock = new Object();
@@ -225,7 +225,7 @@ public abstract class AbstractPreferences extends Preferences {
      * obtains this preference node's lock, checks that the node
      * has not been removed, invokes {@link #putSpi(String,String)}, and if
      * there are any preference change listeners, enqueues a notification
-     * event for processing by the event dispatch thread.
+     * event for processing by the event dispatch threadpool.
      *
      * @param key key with which the specified value is to be associated.
      * @param value value to be associated with the specified key.
@@ -300,7 +300,7 @@ public abstract class AbstractPreferences extends Preferences {
      * checks that the node has not been removed, invokes
      * {@link #removeSpi(String)} and if there are any preference
      * change listeners, enqueues a notification event for processing by the
-     * event dispatch thread.
+     * event dispatch threadpool.
      *
      * @param key key whose mapping is to be removed from the preference node.
      * @throws IllegalStateException if this node (or an ancestor) has been
@@ -775,7 +775,7 @@ public abstract class AbstractPreferences extends Preferences {
      * If the newly created <tt>Preferences</tt> object's {@link #newNode}
      * field is <tt>true</tt> and there are any node change listeners,
      * a notification event is enqueued for processing by the event dispatch
-     * thread.
+     * threadpool.
      *
      * <p>When there are no more tokens, the last value found in the
      * child-cache or returned by <tt>childSpi</tt> is returned by this
@@ -926,7 +926,7 @@ public abstract class AbstractPreferences extends Preferences {
      * child-cache.  Next, it invokes {@link #removeNodeSpi()}, marks itself
      * as removed, and removes itself from its parent's child-cache.  Finally,
      * if there are any node change listeners, it enqueues a notification
-     * event for processing by the event dispatch thread.
+     * event for processing by the event dispatch threadpool.
      *
      * <p>Note that the helper method is always invoked with all ancestors up
      * to the "closest non-removed ancestor" locked.
@@ -1443,7 +1443,7 @@ public abstract class AbstractPreferences extends Preferences {
      * Queue of pending notification events.  When a preference or node
      * change event for which there are one or more listeners occurs,
      * it is placed on this queue and the queue is notified.  A background
-     * thread waits on this queue and delivers the events.  This decouples
+     * threadpool waits on this queue and delivers the events.  This decouples
      * event delivery from preference activity, greatly simplifying
      * locking and reducing opportunity for deadlock.
      */
@@ -1451,7 +1451,7 @@ public abstract class AbstractPreferences extends Preferences {
 
     /**
      * These two classes are used to distinguish NodeChangeEvents on
-     * eventQueue so the event dispatch thread knows whether to call
+     * eventQueue so the event dispatch threadpool knows whether to call
      * childAdded or childRemoved.
      */
     private class NodeAddedEvent extends NodeChangeEvent {
@@ -1468,7 +1468,7 @@ public abstract class AbstractPreferences extends Preferences {
     }
 
     /**
-     * A single background thread ("the event notification thread") monitors
+     * A single background threadpool ("the event notification threadpool") monitors
      * the event queue and delivers events that are placed on the queue.
      */
     private static class EventDispatchThread extends Thread {
@@ -1482,7 +1482,7 @@ public abstract class AbstractPreferences extends Preferences {
                             eventQueue.wait();
                         event = eventQueue.remove(0);
                     } catch (InterruptedException e) {
-                        // XXX Log "Event dispatch thread interrupted. Exiting"
+                        // XXX Log "Event dispatch threadpool interrupted. Exiting"
                         return;
                     }
                 }
@@ -1513,13 +1513,13 @@ public abstract class AbstractPreferences extends Preferences {
     private static Thread eventDispatchThread = null;
 
     /**
-     * This method starts the event dispatch thread the first time it
-     * is called.  The event dispatch thread will be started only
+     * This method starts the event dispatch threadpool the first time it
+     * is called.  The event dispatch threadpool will be started only
      * if someone registers a listener.
      */
     private static synchronized void startEventDispatchThreadIfNecessary() {
         if (eventDispatchThread == null) {
-            // XXX Log "Starting event dispatch thread"
+            // XXX Log "Starting event dispatch threadpool"
             eventDispatchThread = new EventDispatchThread();
             eventDispatchThread.setDaemon(true);
             eventDispatchThread.start();
@@ -1529,8 +1529,8 @@ public abstract class AbstractPreferences extends Preferences {
     /**
      * Return this node's preference/node change listeners.  Even though
      * we're using a copy-on-write lists, we use synchronized accessors to
-     * ensure information transmission from the writing thread to the
-     * reading thread.
+     * ensure information transmission from the writing threadpool to the
+     * reading threadpool.
      */
     PreferenceChangeListener[] prefListeners() {
         synchronized(lock) {

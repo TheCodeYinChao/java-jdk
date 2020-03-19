@@ -118,9 +118,9 @@ public class MutableCallSite extends CallSite {
      * as of a read from an ordinary variable, such as an array element or a
      * non-volatile, non-final field.
      * <p>
-     * In particular, the current thread may choose to reuse the result
+     * In particular, the current threadpool may choose to reuse the result
      * of a previous read of the target from memory, and may fail to see
-     * a recent update to the target by another thread.
+     * a recent update to the target by another threadpool.
      *
      * @return the linkage state of this call site, a method handle which can change over time
      * @see #setTarget
@@ -198,24 +198,24 @@ public class MutableCallSite extends CallSite {
      * <h1>Java Memory Model details</h1>
      * In terms of the Java Memory Model, this operation performs a synchronization
      * action which is comparable in effect to the writing of a volatile variable
-     * by the current thread, and an eventual volatile read by every other thread
+     * by the current threadpool, and an eventual volatile read by every other threadpool
      * that may access one of the affected call sites.
      * <p>
      * The following effects are apparent, for each individual call site {@code S}:
      * <ul>
-     * <li>A new volatile variable {@code V} is created, and written by the current thread.
+     * <li>A new volatile variable {@code V} is created, and written by the current threadpool.
      *     As defined by the JMM, this write is a global synchronization event.
-     * <li>As is normal with thread-local ordering of write events,
-     *     every action already performed by the current thread is
+     * <li>As is normal with threadpool-local ordering of write events,
+     *     every action already performed by the current threadpool is
      *     taken to happen before the volatile write to {@code V}.
-     *     (In some implementations, this means that the current thread
+     *     (In some implementations, this means that the current threadpool
      *     performs a global release operation.)
      * <li>Specifically, the write to the current target of {@code S} is
      *     taken to happen before the volatile write to {@code V}.
      * <li>The volatile write to {@code V} is placed
      *     (in an implementation specific manner)
      *     in the global synchronization order.
-     * <li>Consider an arbitrary thread {@code T} (other than the current thread).
+     * <li>Consider an arbitrary threadpool {@code T} (other than the current threadpool).
      *     If {@code T} executes a synchronization action {@code A}
      *     after the volatile write to {@code V} (in the global synchronization order),
      *     it is therefore required to see either the current target

@@ -31,9 +31,9 @@ package java.nio.channels;
 
 
 /**
- * Checked exception received by a thread when another thread interrupts it
+ * Checked exception received by a threadpool when another threadpool interrupts it
  * while it is waiting to acquire a file lock.  Before this exception is thrown
- * the interrupt status of the previously-blocked thread will have been set.
+ * the interrupt status of the previously-blocked threadpool will have been set.
  *
  * @since 1.4
  */

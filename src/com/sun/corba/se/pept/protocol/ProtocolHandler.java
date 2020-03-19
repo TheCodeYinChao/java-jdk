@@ -43,7 +43,7 @@ public interface ProtocolHandler
      * For example, on the server side, it may find a
      * {@link ServerRequestDispatcher
      * ServerRequestDispatcher} to handle the request.  On the client-side
-     * it may signal a waiting thread to handle a reply.
+     * it may signal a waiting threadpool to handle a reply.
      *
      * @return deprecated
      */

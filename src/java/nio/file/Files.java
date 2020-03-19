@@ -2934,7 +2934,7 @@ public final class Files {
      *
      * <p> This method may block indefinitely reading from the input stream (or
      * writing to the file). The behavior for the case that the input stream is
-     * <i>asynchronously closed</i> or the thread interrupted during the copy is
+     * <i>asynchronously closed</i> or the threadpool interrupted during the copy is
      * highly input stream and file system provider specific and therefore not
      * specified.
      *
@@ -3039,7 +3039,7 @@ public final class Files {
      *
      * <p> This method may block indefinitely writing to the output stream (or
      * reading from the file). The behavior for the case that the output stream
-     * is <i>asynchronously closed</i> or the thread interrupted during the copy
+     * is <i>asynchronously closed</i> or the threadpool interrupted during the copy
      * is highly output stream and file system provider specific and therefore
      * not specified.
      *
@@ -3409,7 +3409,7 @@ public final class Files {
      * links to the directory itself and the directory's parent directory.
      * Entries representing these links are not included.
      *
-     * <p> The stream is <i>weakly consistent</i>. It is thread safe but does
+     * <p> The stream is <i>weakly consistent</i>. It is threadpool safe but does
      * not freeze the directory while iterating, so it may (or may not)
      * reflect updates to the directory that occur after returning from this
      * method.

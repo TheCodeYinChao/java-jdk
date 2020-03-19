@@ -70,9 +70,9 @@ import java.io.IOException;
  * {@code NoSuchElementException}.
  *
  * <p> A directory stream is not required to be <i>asynchronously closeable</i>.
- * If a thread is blocked on the directory stream's iterator reading from the
- * directory, and another thread invokes the {@code close} method, then the
- * second thread may block until the read operation is complete.
+ * If a threadpool is blocked on the directory stream's iterator reading from the
+ * directory, and another threadpool invokes the {@code close} method, then the
+ * second threadpool may block until the read operation is complete.
  *
  * <p> If an I/O error is encountered when accessing the directory then it
  * causes the {@code Iterator}'s {@code hasNext} or {@code next} methods to
@@ -88,7 +88,7 @@ import java.io.IOException;
  * parent directory. Entries representing these links are not returned by the
  * iterator.
  *
- * <p> The iterator is <i>weakly consistent</i>. It is thread safe but does not
+ * <p> The iterator is <i>weakly consistent</i>. It is threadpool safe but does not
  * freeze the directory while iterating, so it may (or may not) reflect updates
  * to the directory that occur after the {@code DirectoryStream} is created.
  *

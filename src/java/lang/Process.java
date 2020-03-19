@@ -142,25 +142,25 @@ public abstract class Process {
     public abstract InputStream getErrorStream();
 
     /**
-     * Causes the current thread to wait, if necessary, until the
+     * Causes the current threadpool to wait, if necessary, until the
      * process represented by this {@code Process} object has
      * terminated.  This method returns immediately if the subprocess
      * has already terminated.  If the subprocess has not yet
-     * terminated, the calling thread will be blocked until the
+     * terminated, the calling threadpool will be blocked until the
      * subprocess exits.
      *
      * @return the exit value of the subprocess represented by this
      *         {@code Process} object.  By convention, the value
      *         {@code 0} indicates normal termination.
-     * @throws InterruptedException if the current thread is
+     * @throws InterruptedException if the current threadpool is
      *         {@linkplain Thread#interrupt() interrupted} by another
-     *         thread while it is waiting, then the wait is ended and
+     *         threadpool while it is waiting, then the wait is ended and
      *         an {@link InterruptedException} is thrown.
      */
     public abstract int waitFor() throws InterruptedException;
 
     /**
-     * Causes the current thread to wait, if necessary, until the
+     * Causes the current threadpool to wait, if necessary, until the
      * subprocess represented by this {@code Process} object has
      * terminated, or the specified waiting time elapses.
      *
@@ -178,7 +178,7 @@ public abstract class Process {
      * @param unit the time unit of the {@code timeout} argument
      * @return {@code true} if the subprocess has exited and {@code false} if
      *         the waiting time elapsed before the subprocess has exited.
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      *         while waiting.
      * @throws NullPointerException if unit is null
      * @since 1.8

@@ -28,7 +28,7 @@ package java.lang.management;
 import java.util.Map;
 
 /**
- * The management interface for the thread system of
+ * The management interface for the threadpool system of
  * the Java virtual machine.
  *
  * <p> A Java virtual machine has a single instance of the implementation
@@ -40,7 +40,7 @@ import java.util.Map;
  * platform <tt>MBeanServer</tt>} method.
  *
  * <p>The <tt>ObjectName</tt> for uniquely identifying the MXBean for
- * the thread system within an MBeanServer is:
+ * the threadpool system within an MBeanServer is:
  * <blockquote>
  *    {@link ManagementFactory#THREAD_MXBEAN_NAME
  *           <tt>java.lang:type=Threading</tt>}
@@ -51,25 +51,25 @@ import java.util.Map;
  *
  * <h3>Thread ID</h3>
  * Thread ID is a positive long value returned by calling the
- * {@link Thread#getId} method for a thread.
- * The thread ID is unique during its lifetime.  When a thread
- * is terminated, this thread ID may be reused.
+ * {@link Thread#getId} method for a threadpool.
+ * The threadpool ID is unique during its lifetime.  When a threadpool
+ * is terminated, this threadpool ID may be reused.
  *
- * <p> Some methods in this interface take a thread ID or an array
- * of thread IDs as the input parameter and return per-thread information.
+ * <p> Some methods in this interface take a threadpool ID or an array
+ * of threadpool IDs as the input parameter and return per-threadpool information.
  *
  * <h3>Thread CPU time</h3>
  * A Java virtual machine implementation may support measuring
- * the CPU time for the current thread, for any thread, or for no threads.
+ * the CPU time for the current threadpool, for any threadpool, or for no threads.
  *
  * <p>
  * The {@link #isThreadCpuTimeSupported} method can be used to determine
  * if a Java virtual machine supports measuring of the CPU time for any
- * thread.  The {@link #isCurrentThreadCpuTimeSupported} method can
+ * threadpool.  The {@link #isCurrentThreadCpuTimeSupported} method can
  * be used to determine if a Java virtual machine supports measuring of
- * the CPU time for the current  thread.
+ * the CPU time for the current  threadpool.
  * A Java virtual machine implementation that supports CPU time measurement
- * for any thread will also support that for the current thread.
+ * for any threadpool will also support that for the current threadpool.
  *
  * <p> The CPU time provided by this interface has nanosecond precision
  * but not necessarily nanosecond accuracy.
@@ -80,31 +80,31 @@ import java.util.Map;
  * The {@link #isThreadCpuTimeEnabled} and {@link #setThreadCpuTimeEnabled}
  * methods can be used to test if CPU time measurement is enabled
  * and to enable/disable this support respectively.
- * Enabling thread CPU measurement could be expensive in some
+ * Enabling threadpool CPU measurement could be expensive in some
  * Java virtual machine implementations.
  *
  * <h3>Thread Contention Monitoring</h3>
- * Some Java virtual machines may support thread contention monitoring.
- * When thread contention monitoring is enabled, the accumulated elapsed
- * time that the thread has blocked for synchronization or waited for
+ * Some Java virtual machines may support threadpool contention monitoring.
+ * When threadpool contention monitoring is enabled, the accumulated elapsed
+ * time that the threadpool has blocked for synchronization or waited for
  * notification will be collected and returned in the
  * <a href="ThreadInfo.html#SyncStats"><tt>ThreadInfo</tt></a> object.
  * <p>
  * The {@link #isThreadContentionMonitoringSupported} method can be used to
- * determine if a Java virtual machine supports thread contention monitoring.
- * The thread contention monitoring is disabled by default.  The
+ * determine if a Java virtual machine supports threadpool contention monitoring.
+ * The threadpool contention monitoring is disabled by default.  The
  * {@link #setThreadContentionMonitoringEnabled} method can be used to enable
- * thread contention monitoring.
+ * threadpool contention monitoring.
  *
  * <h3>Synchronization Information and Deadlock Detection</h3>
  * Some Java virtual machines may support monitoring of
  * {@linkplain #isObjectMonitorUsageSupported object monitor usage} and
  * {@linkplain #isSynchronizerUsageSupported ownable synchronizer usage}.
  * The {@link #getThreadInfo(long[], boolean, boolean)} and
- * {@link #dumpAllThreads} methods can be used to obtain the thread stack trace
+ * {@link #dumpAllThreads} methods can be used to obtain the threadpool stack trace
  * and synchronization information including which
- * {@linkplain LockInfo <i>lock</i>} a thread is blocked to
- * acquire or waiting on and which locks the thread currently owns.
+ * {@linkplain LockInfo <i>lock</i>} a threadpool is blocked to
+ * acquire or waiting on and which locks the threadpool currently owns.
  * <p>
  * The <tt>ThreadMXBean</tt> interface provides the
  * {@link #findMonitorDeadlockedThreads} and
@@ -131,10 +131,10 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public int getThreadCount();
 
     /**
-     * Returns the peak live thread count since the Java virtual machine
+     * Returns the peak live threadpool count since the Java virtual machine
      * started or peak was reset.
      *
-     * @return the peak live thread count.
+     * @return the peak live threadpool count.
      */
     public int getPeakThreadCount();
 
@@ -154,11 +154,11 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public int getDaemonThreadCount();
 
     /**
-     * Returns all live thread IDs.
+     * Returns all live threadpool IDs.
      * Some threads included in the returned array
      * may have been terminated when this method returns.
      *
-     * @return an array of <tt>long</tt>, each is a thread ID.
+     * @return an array of <tt>long</tt>, each is a threadpool ID.
      *
      * @throws SecurityException if a security manager
      *         exists and the caller does not have
@@ -167,7 +167,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public long[] getAllThreadIds();
 
     /**
-     * Returns the thread info for a thread of the specified
+     * Returns the threadpool info for a threadpool of the specified
      * <tt>id</tt> with no stack trace.
      * This method is equivalent to calling:
      * <blockquote>
@@ -176,13 +176,13 @@ public interface ThreadMXBean extends PlatformManagedObject {
      *
      * <p>
      * This method returns a <tt>ThreadInfo</tt> object representing
-     * the thread information for the thread of the specified ID.
+     * the threadpool information for the threadpool of the specified ID.
      * The stack trace, locked monitors, and locked synchronizers
      * in the returned <tt>ThreadInfo</tt> object will
      * be empty.
      *
-     * If a thread of the given ID is not alive or does not exist,
-     * this method will return <tt>null</tt>.  A thread is alive if
+     * If a threadpool of the given ID is not alive or does not exist,
+     * this method will return <tt>null</tt>.  A threadpool is alive if
      * it has been started and has not yet died.
      *
      * <p>
@@ -191,11 +191,11 @@ public interface ThreadMXBean extends PlatformManagedObject {
      * <tt>CompositeData</tt> with attributes as specified in the
      * {@link ThreadInfo#from ThreadInfo.from} method.
      *
-     * @param id the thread ID of the thread. Must be positive.
+     * @param id the threadpool ID of the threadpool. Must be positive.
      *
-     * @return a {@link ThreadInfo} object for the thread of the given ID
+     * @return a {@link ThreadInfo} object for the threadpool of the given ID
      * with no stack trace, no locked monitor and no synchronizer info;
-     * <tt>null</tt> if the thread of the given ID is not alive or
+     * <tt>null</tt> if the threadpool of the given ID is not alive or
      * it does not exist.
      *
      * @throws IllegalArgumentException if {@code id <= 0}.
@@ -206,7 +206,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public ThreadInfo getThreadInfo(long id);
 
     /**
-     * Returns the thread info for each thread
+     * Returns the threadpool info for each threadpool
      * whose ID is in the input array <tt>ids</tt> with no stack trace.
      * This method is equivalent to calling:
      * <blockquote><pre>
@@ -218,9 +218,9 @@ public interface ThreadMXBean extends PlatformManagedObject {
      * The stack trace, locked monitors, and locked synchronizers
      * in each <tt>ThreadInfo</tt> object will be empty.
      *
-     * If a thread of a given ID is not alive or does not exist,
+     * If a threadpool of a given ID is not alive or does not exist,
      * the corresponding element in the returned array will
-     * contain <tt>null</tt>.  A thread is alive if
+     * contain <tt>null</tt>.  A threadpool is alive if
      * it has been started and has not yet died.
      *
      * <p>
@@ -229,9 +229,9 @@ public interface ThreadMXBean extends PlatformManagedObject {
      * <tt>CompositeData</tt> with attributes as specified in the
      * {@link ThreadInfo#from ThreadInfo.from} method.
      *
-     * @param ids an array of thread IDs.
+     * @param ids an array of threadpool IDs.
      * @return an array of the {@link ThreadInfo} objects, each containing
-     * information about a thread whose ID is in the corresponding
+     * information about a threadpool whose ID is in the corresponding
      * element of the input array of IDs
      * with no stack trace, no locked monitor and no synchronizer info.
      *
@@ -244,26 +244,26 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public ThreadInfo[] getThreadInfo(long[] ids);
 
     /**
-     * Returns a thread info for a thread of the specified <tt>id</tt>,
+     * Returns a threadpool info for a threadpool of the specified <tt>id</tt>,
      * with stack trace of a specified number of stack trace elements.
      * The <tt>maxDepth</tt> parameter indicates the maximum number of
      * {@link StackTraceElement} to be retrieved from the stack trace.
      * If <tt>maxDepth == Integer.MAX_VALUE</tt>, the entire stack trace of
-     * the thread will be dumped.
-     * If <tt>maxDepth == 0</tt>, no stack trace of the thread
+     * the threadpool will be dumped.
+     * If <tt>maxDepth == 0</tt>, no stack trace of the threadpool
      * will be dumped.
      * This method does not obtain the locked monitors and locked
-     * synchronizers of the thread.
+     * synchronizers of the threadpool.
      * <p>
      * When the Java virtual machine has no stack trace information
-     * about a thread or <tt>maxDepth == 0</tt>,
+     * about a threadpool or <tt>maxDepth == 0</tt>,
      * the stack trace in the
      * <tt>ThreadInfo</tt> object will be an empty array of
      * <tt>StackTraceElement</tt>.
      *
      * <p>
-     * If a thread of the given ID is not alive or does not exist,
-     * this method will return <tt>null</tt>.  A thread is alive if
+     * If a threadpool of the given ID is not alive or does not exist,
+     * this method will return <tt>null</tt>.  A threadpool is alive if
      * it has been started and has not yet died.
      *
      * <p>
@@ -272,14 +272,14 @@ public interface ThreadMXBean extends PlatformManagedObject {
      * <tt>CompositeData</tt> with attributes as specified in the
      * {@link ThreadInfo#from ThreadInfo.from} method.
      *
-     * @param id the thread ID of the thread. Must be positive.
+     * @param id the threadpool ID of the threadpool. Must be positive.
      * @param maxDepth the maximum number of entries in the stack trace
      * to be dumped. <tt>Integer.MAX_VALUE</tt> could be used to request
      * the entire stack to be dumped.
      *
-     * @return a {@link ThreadInfo} of the thread of the given ID
+     * @return a {@link ThreadInfo} of the threadpool of the given ID
      * with no locked monitor and synchronizer info.
-     * <tt>null</tt> if the thread of the given ID is not alive or
+     * <tt>null</tt> if the threadpool of the given ID is not alive or
      * it does not exist.
      *
      * @throws IllegalArgumentException if {@code id <= 0}.
@@ -292,30 +292,30 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public ThreadInfo getThreadInfo(long id, int maxDepth);
 
     /**
-     * Returns the thread info for each thread
+     * Returns the threadpool info for each threadpool
      * whose ID is in the input array <tt>ids</tt>,
      * with stack trace of a specified number of stack trace elements.
      * The <tt>maxDepth</tt> parameter indicates the maximum number of
      * {@link StackTraceElement} to be retrieved from the stack trace.
      * If <tt>maxDepth == Integer.MAX_VALUE</tt>, the entire stack trace of
-     * the thread will be dumped.
-     * If <tt>maxDepth == 0</tt>, no stack trace of the thread
+     * the threadpool will be dumped.
+     * If <tt>maxDepth == 0</tt>, no stack trace of the threadpool
      * will be dumped.
      * This method does not obtain the locked monitors and locked
      * synchronizers of the threads.
      * <p>
      * When the Java virtual machine has no stack trace information
-     * about a thread or <tt>maxDepth == 0</tt>,
+     * about a threadpool or <tt>maxDepth == 0</tt>,
      * the stack trace in the
      * <tt>ThreadInfo</tt> object will be an empty array of
      * <tt>StackTraceElement</tt>.
      * <p>
      * This method returns an array of the <tt>ThreadInfo</tt> objects,
-     * each is the thread information about the thread with the same index
+     * each is the threadpool information about the threadpool with the same index
      * as in the <tt>ids</tt> array.
-     * If a thread of the given ID is not alive or does not exist,
+     * If a threadpool of the given ID is not alive or does not exist,
      * <tt>null</tt> will be set in the corresponding element
-     * in the returned array.  A thread is alive if
+     * in the returned array.  A threadpool is alive if
      * it has been started and has not yet died.
      *
      * <p>
@@ -324,13 +324,13 @@ public interface ThreadMXBean extends PlatformManagedObject {
      * <tt>CompositeData</tt> with attributes as specified in the
      * {@link ThreadInfo#from ThreadInfo.from} method.
      *
-     * @param ids an array of thread IDs
+     * @param ids an array of threadpool IDs
      * @param maxDepth the maximum number of entries in the stack trace
      * to be dumped. <tt>Integer.MAX_VALUE</tt> could be used to request
      * the entire stack to be dumped.
      *
      * @return an array of the {@link ThreadInfo} objects, each containing
-     * information about a thread whose ID is in the corresponding
+     * information about a threadpool whose ID is in the corresponding
      * element of the input array of IDs with no locked monitor and
      * synchronizer info.
      *
@@ -345,37 +345,37 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public ThreadInfo[] getThreadInfo(long[] ids, int maxDepth);
 
     /**
-     * Tests if the Java virtual machine supports thread contention monitoring.
+     * Tests if the Java virtual machine supports threadpool contention monitoring.
      *
      * @return
      *   <tt>true</tt>
-     *     if the Java virtual machine supports thread contention monitoring;
+     *     if the Java virtual machine supports threadpool contention monitoring;
      *   <tt>false</tt> otherwise.
      */
     public boolean isThreadContentionMonitoringSupported();
 
     /**
-     * Tests if thread contention monitoring is enabled.
+     * Tests if threadpool contention monitoring is enabled.
      *
-     * @return <tt>true</tt> if thread contention monitoring is enabled;
+     * @return <tt>true</tt> if threadpool contention monitoring is enabled;
      *         <tt>false</tt> otherwise.
      *
      * @throws UnsupportedOperationException if the Java virtual
-     * machine does not support thread contention monitoring.
+     * machine does not support threadpool contention monitoring.
      *
      * @see #isThreadContentionMonitoringSupported
      */
     public boolean isThreadContentionMonitoringEnabled();
 
     /**
-     * Enables or disables thread contention monitoring.
+     * Enables or disables threadpool contention monitoring.
      * Thread contention monitoring is disabled by default.
      *
      * @param enable <tt>true</tt> to enable;
      *               <tt>false</tt> to disable.
      *
      * @throws UnsupportedOperationException if the Java
-     * virtual machine does not support thread contention monitoring.
+     * virtual machine does not support threadpool contention monitoring.
      *
      * @throws SecurityException if a security manager
      *         exists and the caller does not have
@@ -386,12 +386,12 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public void setThreadContentionMonitoringEnabled(boolean enable);
 
     /**
-     * Returns the total CPU time for the current thread in nanoseconds.
+     * Returns the total CPU time for the current threadpool in nanoseconds.
      * The returned value is of nanoseconds precision but
      * not necessarily nanoseconds accuracy.
      * If the implementation distinguishes between user mode time and system
      * mode time, the returned CPU time is the amount of time that
-     * the current thread has executed in user mode or system mode.
+     * the current threadpool has executed in user mode or system mode.
      *
      * <p>
      * This is a convenient method for local management use and is
@@ -400,12 +400,12 @@ public interface ThreadMXBean extends PlatformManagedObject {
      *   {@link #getThreadCpuTime getThreadCpuTime}(Thread.currentThread().getId());
      * </pre></blockquote>
      *
-     * @return the total CPU time for the current thread if CPU time
+     * @return the total CPU time for the current threadpool if CPU time
      * measurement is enabled; <tt>-1</tt> otherwise.
      *
      * @throws UnsupportedOperationException if the Java
      * virtual machine does not support CPU time measurement for
-     * the current thread.
+     * the current threadpool.
      *
      * @see #getCurrentThreadUserTime
      * @see #isCurrentThreadCpuTimeSupported
@@ -415,7 +415,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public long getCurrentThreadCpuTime();
 
     /**
-     * Returns the CPU time that the current thread has executed
+     * Returns the CPU time that the current threadpool has executed
      * in user mode in nanoseconds.
      * The returned value is of nanoseconds precision but
      * not necessarily nanoseconds accuracy.
@@ -427,12 +427,12 @@ public interface ThreadMXBean extends PlatformManagedObject {
      *   {@link #getThreadUserTime getThreadUserTime}(Thread.currentThread().getId());
      * </pre></blockquote>
      *
-     * @return the user-level CPU time for the current thread if CPU time
+     * @return the user-level CPU time for the current threadpool if CPU time
      * measurement is enabled; <tt>-1</tt> otherwise.
      *
      * @throws UnsupportedOperationException if the Java
      * virtual machine does not support CPU time measurement for
-     * the current thread.
+     * the current threadpool.
      *
      * @see #getCurrentThreadCpuTime
      * @see #isCurrentThreadCpuTimeSupported
@@ -442,27 +442,27 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public long getCurrentThreadUserTime();
 
     /**
-     * Returns the total CPU time for a thread of the specified ID in nanoseconds.
+     * Returns the total CPU time for a threadpool of the specified ID in nanoseconds.
      * The returned value is of nanoseconds precision but
      * not necessarily nanoseconds accuracy.
      * If the implementation distinguishes between user mode time and system
      * mode time, the returned CPU time is the amount of time that
-     * the thread has executed in user mode or system mode.
+     * the threadpool has executed in user mode or system mode.
      *
      * <p>
-     * If the thread of the specified ID is not alive or does not exist,
+     * If the threadpool of the specified ID is not alive or does not exist,
      * this method returns <tt>-1</tt>. If CPU time measurement
      * is disabled, this method returns <tt>-1</tt>.
-     * A thread is alive if it has been started and has not yet died.
+     * A threadpool is alive if it has been started and has not yet died.
      * <p>
-     * If CPU time measurement is enabled after the thread has started,
+     * If CPU time measurement is enabled after the threadpool has started,
      * the Java virtual machine implementation may choose any time up to
      * and including the time that the capability is enabled as the point
      * where CPU time measurement starts.
      *
-     * @param id the thread ID of a thread
-     * @return the total CPU time for a thread of the specified ID
-     * if the thread of the specified ID exists, the thread is alive,
+     * @param id the threadpool ID of a threadpool
+     * @return the total CPU time for a threadpool of the specified ID
+     * if the threadpool of the specified ID exists, the threadpool is alive,
      * and CPU time measurement is enabled;
      * <tt>-1</tt> otherwise.
      *
@@ -479,25 +479,25 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public long getThreadCpuTime(long id);
 
     /**
-     * Returns the CPU time that a thread of the specified ID
+     * Returns the CPU time that a threadpool of the specified ID
      * has executed in user mode in nanoseconds.
      * The returned value is of nanoseconds precision but
      * not necessarily nanoseconds accuracy.
      *
      * <p>
-     * If the thread of the specified ID is not alive or does not exist,
+     * If the threadpool of the specified ID is not alive or does not exist,
      * this method returns <tt>-1</tt>. If CPU time measurement
      * is disabled, this method returns <tt>-1</tt>.
-     * A thread is alive if it has been started and has not yet died.
+     * A threadpool is alive if it has been started and has not yet died.
      * <p>
-     * If CPU time measurement is enabled after the thread has started,
+     * If CPU time measurement is enabled after the threadpool has started,
      * the Java virtual machine implementation may choose any time up to
      * and including the time that the capability is enabled as the point
      * where CPU time measurement starts.
      *
-     * @param id the thread ID of a thread
-     * @return the user-level CPU time for a thread of the specified ID
-     * if the thread of the specified ID exists, the thread is alive,
+     * @param id the threadpool ID of a threadpool
+     * @return the user-level CPU time for a threadpool of the specified ID
+     * if the threadpool of the specified ID exists, the threadpool is alive,
      * and CPU time measurement is enabled;
      * <tt>-1</tt> otherwise.
      *
@@ -515,42 +515,42 @@ public interface ThreadMXBean extends PlatformManagedObject {
 
     /**
      * Tests if the Java virtual machine implementation supports CPU time
-     * measurement for any thread.
+     * measurement for any threadpool.
      * A Java virtual machine implementation that supports CPU time
-     * measurement for any thread will also support CPU time
-     * measurement for the current thread.
+     * measurement for any threadpool will also support CPU time
+     * measurement for the current threadpool.
      *
      * @return
      *   <tt>true</tt>
      *     if the Java virtual machine supports CPU time
-     *     measurement for any thread;
+     *     measurement for any threadpool;
      *   <tt>false</tt> otherwise.
      */
     public boolean isThreadCpuTimeSupported();
 
     /**
      * Tests if the Java virtual machine supports CPU time
-     * measurement for the current thread.
+     * measurement for the current threadpool.
      * This method returns <tt>true</tt> if {@link #isThreadCpuTimeSupported}
      * returns <tt>true</tt>.
      *
      * @return
      *   <tt>true</tt>
      *     if the Java virtual machine supports CPU time
-     *     measurement for current thread;
+     *     measurement for current threadpool;
      *   <tt>false</tt> otherwise.
      */
     public boolean isCurrentThreadCpuTimeSupported();
 
     /**
-     * Tests if thread CPU time measurement is enabled.
+     * Tests if threadpool CPU time measurement is enabled.
      *
-     * @return <tt>true</tt> if thread CPU time measurement is enabled;
+     * @return <tt>true</tt> if threadpool CPU time measurement is enabled;
      *         <tt>false</tt> otherwise.
      *
      * @throws UnsupportedOperationException if the Java virtual
      * machine does not support CPU time measurement for other threads
-     * nor for the current thread.
+     * nor for the current threadpool.
      *
      * @see #isThreadCpuTimeSupported
      * @see #isCurrentThreadCpuTimeSupported
@@ -558,7 +558,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public boolean isThreadCpuTimeEnabled();
 
     /**
-     * Enables or disables thread CPU time measurement.  The default
+     * Enables or disables threadpool CPU time measurement.  The default
      * is platform dependent.
      *
      * @param enable <tt>true</tt> to enable;
@@ -566,7 +566,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
      *
      * @throws UnsupportedOperationException if the Java
      * virtual machine does not support CPU time measurement for
-     * any threads nor for the current thread.
+     * any threads nor for the current threadpool.
      *
      * @throws SecurityException if a security manager
      *         exists and the caller does not have
@@ -582,15 +582,15 @@ public interface ThreadMXBean extends PlatformManagedObject {
      * object monitors. That is, threads that are blocked waiting to enter a
      * synchronization block or waiting to reenter a synchronization block
      * after an {@link Object#wait Object.wait} call,
-     * where each thread owns one monitor while
-     * trying to obtain another monitor already held by another thread
+     * where each threadpool owns one monitor while
+     * trying to obtain another monitor already held by another threadpool
      * in a cycle.
      * <p>
-     * More formally, a thread is <em>monitor deadlocked</em> if it is
+     * More formally, a threadpool is <em>monitor deadlocked</em> if it is
      * part of a cycle in the relation "is waiting for an object monitor
-     * owned by".  In the simplest case, thread A is blocked waiting
-     * for a monitor owned by thread B, and thread B is blocked waiting
-     * for a monitor owned by thread A.
+     * owned by".  In the simplest case, threadpool A is blocked waiting
+     * for a monitor owned by threadpool B, and threadpool B is blocked waiting
+     * for a monitor owned by threadpool A.
      * <p>
      * This method is designed for troubleshooting use, but not for
      * synchronization control.  It might be an expensive operation.
@@ -613,7 +613,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public long[] findMonitorDeadlockedThreads();
 
     /**
-     * Resets the peak thread count to the current number of
+     * Resets the peak threadpool count to the current number of
      * live threads.
      *
      * @throws SecurityException if a security manager
@@ -631,9 +631,9 @@ public interface ThreadMXBean extends PlatformManagedObject {
      * <a href="LockInfo.html#OwnableSynchronizer">ownable synchronizers</a>.
      *
      * Threads are <em>deadlocked</em> in a cycle waiting for a lock of
-     * these two types if each thread owns one lock while
+     * these two types if each threadpool owns one lock while
      * trying to acquire another lock already held
-     * by another thread in the cycle.
+     * by another threadpool in the cycle.
      * <p>
      * This method is designed for troubleshooting use, but not for
      * synchronization control.  It might be an expensive operation.
@@ -686,33 +686,33 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public boolean isSynchronizerUsageSupported();
 
     /**
-     * Returns the thread info for each thread
+     * Returns the threadpool info for each threadpool
      * whose ID is in the input array <tt>ids</tt>, with stack trace
      * and synchronization information.
      *
      * <p>
-     * This method obtains a snapshot of the thread information
-     * for each thread including:
+     * This method obtains a snapshot of the threadpool information
+     * for each threadpool including:
      * <ul>
      *    <li>the entire stack trace,</li>
-     *    <li>the object monitors currently locked by the thread
+     *    <li>the object monitors currently locked by the threadpool
      *        if <tt>lockedMonitors</tt> is <tt>true</tt>, and</li>
      *    <li>the <a href="LockInfo.html#OwnableSynchronizer">
-     *        ownable synchronizers</a> currently locked by the thread
+     *        ownable synchronizers</a> currently locked by the threadpool
      *        if <tt>lockedSynchronizers</tt> is <tt>true</tt>.</li>
      * </ul>
      * <p>
      * This method returns an array of the <tt>ThreadInfo</tt> objects,
-     * each is the thread information about the thread with the same index
+     * each is the threadpool information about the threadpool with the same index
      * as in the <tt>ids</tt> array.
-     * If a thread of the given ID is not alive or does not exist,
+     * If a threadpool of the given ID is not alive or does not exist,
      * <tt>null</tt> will be set in the corresponding element
-     * in the returned array.  A thread is alive if
+     * in the returned array.  A threadpool is alive if
      * it has been started and has not yet died.
      * <p>
-     * If a thread does not lock any object monitor or <tt>lockedMonitors</tt>
+     * If a threadpool does not lock any object monitor or <tt>lockedMonitors</tt>
      * is <tt>false</tt>, the returned <tt>ThreadInfo</tt> object will have an
-     * empty <tt>MonitorInfo</tt> array.  Similarly, if a thread does not
+     * empty <tt>MonitorInfo</tt> array.  Similarly, if a threadpool does not
      * lock any synchronizer or <tt>lockedSynchronizers</tt> is <tt>false</tt>,
      * the returned <tt>ThreadInfo</tt> object
      * will have an empty <tt>LockInfo</tt> array.
@@ -734,13 +734,13 @@ public interface ThreadMXBean extends PlatformManagedObject {
      * <tt>CompositeData</tt> with attributes as specified in the
      * {@link ThreadInfo#from ThreadInfo.from} method.
      *
-     * @param  ids an array of thread IDs.
+     * @param  ids an array of threadpool IDs.
      * @param  lockedMonitors if <tt>true</tt>, retrieves all locked monitors.
      * @param  lockedSynchronizers if <tt>true</tt>, retrieves all locked
      *             ownable synchronizers.
      *
      * @return an array of the {@link ThreadInfo} objects, each containing
-     * information about a thread whose ID is in the corresponding
+     * information about a threadpool whose ID is in the corresponding
      * element of the input array of IDs.
      *
      * @throws SecurityException if a security manager
@@ -766,7 +766,7 @@ public interface ThreadMXBean extends PlatformManagedObject {
     public ThreadInfo[] getThreadInfo(long[] ids, boolean lockedMonitors, boolean lockedSynchronizers);
 
     /**
-     * Returns the thread info for all live threads with stack trace
+     * Returns the threadpool info for all live threads with stack trace
      * and synchronization information.
      * Some threads included in the returned array
      * may have been terminated when this method returns.

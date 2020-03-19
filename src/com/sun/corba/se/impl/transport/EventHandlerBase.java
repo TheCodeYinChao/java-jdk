@@ -77,8 +77,8 @@ public abstract class EventHandlerBase
 
     /*
      * NOTE:
-     * This is not thread-safe by design.
-     * Only one thread should call it - a reader/listener/select thread.
+     * This is not threadpool-safe by design.
+     * Only one threadpool should call it - a reader/listener/select threadpool.
      * Not stateless: interest ops, registration.
      */
     public void handleEvent()

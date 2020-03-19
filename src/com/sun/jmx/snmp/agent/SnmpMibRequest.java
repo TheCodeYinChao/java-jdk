@@ -127,7 +127,7 @@ public interface SnmpMibRequest {
      * SnmpMibRequest (and derivative) objects. It is never accessed by
      * the system, but might be handed back in multiple threads. It is thus
      * the user responsibility to make sure he handles this object in a
-     * thread safe manner.
+     * threadpool safe manner.
      */
     public Object getUserData();
 

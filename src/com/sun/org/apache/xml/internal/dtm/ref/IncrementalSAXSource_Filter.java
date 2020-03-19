@@ -535,7 +535,7 @@ implements IncrementalSAXSource, ContentHandler, DTDHandler, LexicalHandler, Err
    * Co_Yield handles coroutine interactions while a parse is in progress.
    *
    * When moreRemains==true, we are pausing after delivering events, to
-   * ask if more are needed. We will resume the controller thread with
+   * ask if more are needed. We will resume the controller threadpool with
    *   co_resume(Boolean.TRUE, ...)
    * When control is passed back it may indicate
    *      Boolean.TRUE    indication to continue delivering events
@@ -594,16 +594,16 @@ implements IncrementalSAXSource, ContentHandler, DTDHandler, LexicalHandler, Err
   }
 
   //
-  // Convenience: Run an XMLReader in a thread
+  // Convenience: Run an XMLReader in a threadpool
   //
 
-  /** Launch a thread that will run an XMLReader's parse() operation within
-   *  a thread, feeding events to this IncrementalSAXSource_Filter. Mostly a convenience
+  /** Launch a threadpool that will run an XMLReader's parse() operation within
+   *  a threadpool, feeding events to this IncrementalSAXSource_Filter. Mostly a convenience
    *  routine, but has the advantage that -- since we invoked parse() --
    *  we can halt parsing quickly via a StopException rather than waiting
    *  for the SAX stream to end by itself.
    *
-   * @throws SAXException is parse thread is already in progress
+   * @throws SAXException is parse threadpool is already in progress
    * or parsing can not be started.
    * */
   public void startParse(InputSource source) throws SAXException
@@ -615,7 +615,7 @@ implements IncrementalSAXSource, ContentHandler, DTDHandler, LexicalHandler, Err
 
     fXMLReaderInputSource=source;
 
-    // Xalan thread pooling...
+    // Xalan threadpool pooling...
     // com.sun.org.apache.xalan.internal.transformer.TransformerImpl.runTransformThread(this);
     ThreadControllerWrapper.runThread(this, -1);
   }
@@ -627,7 +627,7 @@ implements IncrementalSAXSource, ContentHandler, DTDHandler, LexicalHandler, Err
     // Guard against direct invocation of start().
     if(fXMLReader==null) return;
 
-    if(DEBUG)System.out.println("IncrementalSAXSource_Filter parse thread launched");
+    if(DEBUG)System.out.println("IncrementalSAXSource_Filter parse threadpool launched");
 
     // Initially assume we'll run successfully.
     Object arg=Boolean.FALSE;
@@ -668,7 +668,7 @@ implements IncrementalSAXSource, ContentHandler, DTDHandler, LexicalHandler, Err
       }
     } // end parse
 
-    // Mark as no longer running in thread.
+    // Mark as no longer running in threadpool.
     fXMLReader=null;
 
     try
@@ -688,7 +688,7 @@ implements IncrementalSAXSource, ContentHandler, DTDHandler, LexicalHandler, Err
   }
 
   /** Used to quickly terminate parse when running under a
-      startParse() thread. Only its type is important. */
+      startParse() threadpool. Only its type is important. */
   class StopException extends RuntimeException
   {
           static final long serialVersionUID = -1129245796185754956L;
@@ -771,7 +771,7 @@ implements IncrementalSAXSource, ContentHandler, DTDHandler, LexicalHandler, Err
 
         // init not issued; we _should_ automagically Do The Right Thing
 
-        // Bind parser, kick off parsing in a thread
+        // Bind parser, kick off parsing in a threadpool
         filter.setXMLReader(theSAXParser);
         filter.startParse(source);
 

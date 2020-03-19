@@ -83,7 +83,7 @@ public class OAInvocationInfo extends ServantObject {
     public Object           getServantContainer()   { return servantContainer ; }
 
     // Create CookieHolder on demand.  This is only called by a single
-    // thread, so no synchronization is needed.
+    // threadpool, so no synchronization is needed.
     public CookieHolder     getCookieHolder()
     {
         if (cookieHolder == null)

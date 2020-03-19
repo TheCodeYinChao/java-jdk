@@ -501,7 +501,7 @@ public class MenuItem extends MenuComponent implements Accessible {
         return getActionCommandImpl();
     }
 
-    // This is final so it can be called on the Toolkit thread.
+    // This is final so it can be called on the Toolkit threadpool.
     final String getActionCommandImpl() {
         return (actionCommand == null? label : actionCommand);
     }

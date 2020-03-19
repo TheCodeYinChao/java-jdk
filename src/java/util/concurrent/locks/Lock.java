@@ -45,7 +45,7 @@ import java.util.concurrent.TimeUnit;
  *
  * <p>A lock is a tool for controlling access to a shared resource by
  * multiple threads. Commonly, a lock provides exclusive access to a
- * shared resource: only one thread at a time can acquire the lock and
+ * shared resource: only one threadpool at a time can acquire the lock and
  * all access to the shared resource requires that the lock be
  * acquired first. However, some locks may allow concurrent access to
  * a shared resource, such as the read lock of a {@link ReadWriteLock}.
@@ -155,7 +155,7 @@ import java.util.concurrent.TimeUnit;
  * interruption are often infrequent, an implementation can favor responding
  * to an interrupt over normal method return. This is true even if it can be
  * shown that the interrupt occurred after another action may have unblocked
- * the thread. An implementation should document this behavior.
+ * the threadpool. An implementation should document this behavior.
  *
  * @see ReentrantLock
  * @see Condition
@@ -169,8 +169,8 @@ public interface Lock {
     /**
      * Acquires the lock.
      *
-     * <p>If the lock is not available then the current thread becomes
-     * disabled for thread scheduling purposes and lies dormant until the
+     * <p>If the lock is not available then the current threadpool becomes
+     * disabled for threadpool scheduling purposes and lies dormant until the
      * lock has been acquired.
      *
      * <p><b>Implementation Considerations</b>
@@ -184,28 +184,28 @@ public interface Lock {
     void lock();
 
     /**
-     * Acquires the lock unless the current thread is
+     * Acquires the lock unless the current threadpool is
      * {@linkplain Thread#interrupt interrupted}.
      *
      * <p>Acquires the lock if it is available and returns immediately.
      *
-     * <p>If the lock is not available then the current thread becomes
-     * disabled for thread scheduling purposes and lies dormant until
+     * <p>If the lock is not available then the current threadpool becomes
+     * disabled for threadpool scheduling purposes and lies dormant until
      * one of two things happens:
      *
      * <ul>
-     * <li>The lock is acquired by the current thread; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts} the
-     * current thread, and interruption of lock acquisition is supported.
+     * <li>The lock is acquired by the current threadpool; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts} the
+     * current threadpool, and interruption of lock acquisition is supported.
      * </ul>
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while acquiring the
      * lock, and interruption of lock acquisition is supported,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
      *
      * <p><b>Implementation Considerations</b>
@@ -225,7 +225,7 @@ public interface Lock {
      * circumstances.  The circumstances and the exception type must
      * be documented by that {@code Lock} implementation.
      *
-     * @throws InterruptedException if the current thread is
+     * @throws InterruptedException if the current threadpool is
      *         interrupted while acquiring the lock (and interruption
      *         of lock acquisition is supported)
      */
@@ -262,29 +262,29 @@ public interface Lock {
 
     /**
      * Acquires the lock if it is free within the given waiting time and the
-     * current thread has not been {@linkplain Thread#interrupt interrupted}.
+     * current threadpool has not been {@linkplain Thread#interrupt interrupted}.
      *
      * <p>If the lock is available this method returns immediately
      * with the value {@code true}.
      * If the lock is not available then
-     * the current thread becomes disabled for thread scheduling
+     * the current threadpool becomes disabled for threadpool scheduling
      * purposes and lies dormant until one of three things happens:
      * <ul>
-     * <li>The lock is acquired by the current thread; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts} the
-     * current thread, and interruption of lock acquisition is supported; or
+     * <li>The lock is acquired by the current threadpool; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts} the
+     * current threadpool, and interruption of lock acquisition is supported; or
      * <li>The specified waiting time elapses
      * </ul>
      *
      * <p>If the lock is acquired then the value {@code true} is returned.
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while acquiring
      * the lock, and interruption of lock acquisition is supported,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
      *
      * <p>If the specified waiting time elapses then the value {@code false}
@@ -314,7 +314,7 @@ public interface Lock {
      * @return {@code true} if the lock was acquired and {@code false}
      *         if the waiting time elapsed before the lock was acquired
      *
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      *         while acquiring the lock (and interruption of lock
      *         acquisition is supported)
      */
@@ -326,7 +326,7 @@ public interface Lock {
      * <p><b>Implementation Considerations</b>
      *
      * <p>A {@code Lock} implementation will usually impose
-     * restrictions on which thread can release a lock (typically only the
+     * restrictions on which threadpool can release a lock (typically only the
      * holder of the lock can release it) and may throw
      * an (unchecked) exception if the restriction is violated.
      * Any restrictions and the exception
@@ -339,7 +339,7 @@ public interface Lock {
      * {@code Lock} instance.
      *
      * <p>Before waiting on the condition the lock must be held by the
-     * current thread.
+     * current threadpool.
      * A call to {@link Condition#await()} will atomically release the lock
      * before waiting and re-acquire the lock before the wait returns.
      *

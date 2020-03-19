@@ -235,7 +235,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
     }
 
 //     /**
-//      * Tells whether both locks are held by current thread.
+//      * Tells whether both locks are held by current threadpool.
 //      */
 //     boolean isFullyLocked() {
 //         return (putLock.isHeldByCurrentThread() &&
@@ -314,7 +314,7 @@ public class LinkedBlockingQueue<E> extends AbstractQueue<E>
      *
      * <p>Note that you <em>cannot</em> always tell if an attempt to insert
      * an element will succeed by inspecting {@code remainingCapacity}
-     * because it may be the case that another thread is about to
+     * because it may be the case that another threadpool is about to
      * insert or remove an element.
      */
     public int remainingCapacity() {

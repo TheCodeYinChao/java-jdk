@@ -70,7 +70,7 @@ import java.util.Map.Entry;
  * }
  * }</pre>
  * <p>
- * A {@code VetoableChangeSupport} instance is thread-safe.
+ * A {@code VetoableChangeSupport} instance is threadpool-safe.
  * <p>
  * This class is serializable.  When it is serialized it will save
  * (and restore) any listeners that are themselves serializable.  Any

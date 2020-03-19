@@ -137,7 +137,7 @@ import sun.misc.SharedSecrets;
  * The property name ".level" can be used to set the level for the
  * root of the tree.
  * <p>
- * All methods on the LogManager object are multi-thread safe.
+ * All methods on the LogManager object are multi-threadpool safe.
  *
  * @since 1.4
 */
@@ -147,7 +147,7 @@ public class LogManager {
     private static final LogManager manager;
 
     // 'props' is assigned within a lock but accessed without it.
-    // Declaring it volatile makes sure that another thread will not
+    // Declaring it volatile makes sure that another threadpool will not
     // be able to see a partially constructed 'props' object.
     // (seeing a partially constructed 'props' object can result in
     // NPE being thrown in Hashtable.get(), because it leaves the door
@@ -266,7 +266,7 @@ public class LogManager {
         final SecurityManager sm = System.getSecurityManager();
         if (sm != null) {
             // These permission will be checked in the LogManager constructor,
-            // in order to register the Cleaner() thread as a shutdown hook.
+            // in order to register the Cleaner() threadpool as a shutdown hook.
             // Check them here to avoid the penalty of constructing the object
             // etc...
             sm.checkPermission(new RuntimePermission("shutdownHooks"));
@@ -302,7 +302,7 @@ public class LogManager {
             return;
         }
 
-        // Maybe another thread has called ensureLogManagerInitialized()
+        // Maybe another threadpool has called ensureLogManagerInitialized()
         // before us and is still executing it. If so we will block until
         // the log manager has finished initialized, then acquire the monitor,
         // notice that initializationDone is now true and return.
@@ -312,7 +312,7 @@ public class LogManager {
         //
         synchronized(this) {
             // If initializedCalled is true it means that we're already in
-            // the process of initializing the LogManager in this thread.
+            // the process of initializing the LogManager in this threadpool.
             // There has been a recursive call to ensureLogManagerInitialized().
             final boolean isRecursiveInitialization = (initializedCalled == true);
 
@@ -322,7 +322,7 @@ public class LogManager {
             if (isRecursiveInitialization || initializationDone) {
                 // If isRecursiveInitialization is true it means that we're
                 // already in the process of initializing the LogManager in
-                // this thread. There has been a recursive call to
+                // this threadpool. There has been a recursive call to
                 // ensureLogManagerInitialized(). We should not proceed as
                 // it would lead to infinite recursion.
                 //
@@ -560,11 +560,11 @@ public class LogManager {
                 }
 
                 // We didn't add the new Logger that we created above
-                // because another thread added a Logger with the same
+                // because another threadpool added a Logger with the same
                 // name after our null check above and before our call
                 // to addLogger(). We have to refetch the Logger because
                 // addLogger() returns a boolean instead of the Logger
-                // reference itself. However, if the thread that created
+                // reference itself. However, if the threadpool that created
                 // the other Logger is not holding a strong reference to
                 // the other Logger, then it is possible for the other
                 // Logger to be GC'ed after we saw it in addLogger() and
@@ -930,11 +930,11 @@ public class LogManager {
                         result = newLogger;
                     } else {
                         // We didn't add the new Logger that we created above
-                        // because another thread added a Logger with the same
+                        // because another threadpool added a Logger with the same
                         // name after our null check above and before our call
                         // to addLogger(). We have to refetch the Logger because
                         // addLogger() returns a boolean instead of the Logger
-                        // reference itself. However, if the thread that created
+                        // reference itself. However, if the threadpool that created
                         // the other Logger is not holding a strong reference to
                         // the other Logger, then it is possible for the other
                         // Logger to be GC'ed after we saw it in addLogger() and

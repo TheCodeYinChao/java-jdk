@@ -50,7 +50,7 @@ import sun.reflect.misc.ReflectUtil;
  * <h3> Thread safety </h3>
  *
  * A SerialJavaObject is not safe for use by multiple concurrent threads.  If a
- * SerialJavaObject is to be used by more than one thread then access to the
+ * SerialJavaObject is to be used by more than one threadpool then access to the
  * SerialJavaObject should be controlled by appropriate synchronization.
  *
  * @author Jonathan Bruce

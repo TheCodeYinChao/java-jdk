@@ -189,7 +189,7 @@ import sun.swing.PrintingStatus;
  * {@link Action} object with a {@link KeyStroke} and execute the
  * action under specified conditions.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.
@@ -5979,7 +5979,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
      * occurs on the default printer.
      *
      * @return true, unless printing is cancelled by the user
-     * @throws SecurityException if this thread is not allowed to
+     * @throws SecurityException if this threadpool is not allowed to
      *                           initiate a print job request
      * @throws PrinterException if an error in the print system causes the job
      *                          to be aborted
@@ -6005,7 +6005,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
      *
      * @param  printMode        the printing mode that the printable should use
      * @return true, unless printing is cancelled by the user
-     * @throws SecurityException if this thread is not allowed to
+     * @throws SecurityException if this threadpool is not allowed to
      *                           initiate a print job request
      * @throws PrinterException if an error in the print system causes the job
      *                          to be aborted
@@ -6037,7 +6037,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
      *                          to be used in printing a footer,
      *                          or null for none
      * @return true, unless printing is cancelled by the user
-     * @throws SecurityException if this thread is not allowed to
+     * @throws SecurityException if this threadpool is not allowed to
      *                           initiate a print job request
      * @throws PrinterException if an error in the print system causes the job
      *                          to be aborted
@@ -6079,7 +6079,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
      *                           dialog or run interactively, and
      *                           <code>GraphicsEnvironment.isHeadless</code>
      *                           returns <code>true</code>
-     * @throws SecurityException if this thread is not allowed to
+     * @throws SecurityException if this threadpool is not allowed to
      *                           initiate a print job request
      * @throws PrinterException if an error in the print system causes the job
      *                          to be aborted
@@ -6126,7 +6126,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
      * a modal progress dialog, with an abort option, is displayed for the
      * duration of printing . This dialog also prevents any user action which
      * may affect the table. However, it can not prevent the table from being
-     * modified by code (for example, another thread that posts updates using
+     * modified by code (for example, another threadpool that posts updates using
      * <code>SwingUtilities.invokeLater</code>). It is therefore the
      * responsibility of the developer to ensure that no other code modifies
      * the table in any way during printing (invalid modifications include
@@ -6135,7 +6135,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
      * <p>
      * If <code>false</code> is specified for this parameter, no dialog will
      * be displayed and printing will begin immediately on the event-dispatch
-     * thread. This blocks any other events, including repaints, from being
+     * threadpool. This blocks any other events, including repaints, from being
      * processed until printing is complete. Although this effectively prevents
      * the table from being changed, it doesn't provide a good user experience.
      * For this reason, specifying <code>false</code> is only recommended when
@@ -6176,7 +6176,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
      *                           returns <code>true</code>
      * @throws  SecurityException if a security manager exists and its
      *          {@link SecurityManager#checkPrintJobAccess}
-     *          method disallows this thread from creating a print job request
+     *          method disallows this threadpool from creating a print job request
      * @throws PrinterException if an error in the print system causes the job
      *                          to be aborted
      * @see #getPrintable
@@ -6228,7 +6228,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
              getPrintable(printMode, headerFormat, footerFormat);
 
         if (interactive) {
-            // wrap the Printable so that we can print on another thread
+            // wrap the Printable so that we can print on another threadpool
             printable = new ThreadSafePrintable(printable);
             printingStatus = PrintingStatus.createPrintingStatus(this, job);
             printable = printingStatus.createNotificationPrintable(printable);
@@ -6251,7 +6251,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
             return false;
         }
 
-        // if not interactive, just print on this thread (no dialog)
+        // if not interactive, just print on this threadpool (no dialog)
         if (!interactive) {
             // do the printing
             job.print(attr);
@@ -6270,7 +6270,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
         final PrintRequestAttributeSet copyAttr = attr;
 
         // this runnable will be used to do the printing
-        // (and save any throwables) on another thread
+        // (and save any throwables) on another threadpool
         Runnable runnable = new Runnable() {
             public void run() {
                 try {
@@ -6288,7 +6288,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
             }
         };
 
-        // start printing on another thread
+        // start printing on another threadpool
         Thread th = new Thread(runnable);
         th.start();
 
@@ -6433,7 +6433,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
 
     /**
      * A <code>Printable</code> implementation that wraps another
-     * <code>Printable</code>, making it safe for printing on another thread.
+     * <code>Printable</code>, making it safe for printing on another threadpool.
      */
     private class ThreadSafePrintable implements Printable {
 
@@ -6464,8 +6464,8 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
          * Prints the specified page into the given {@link Graphics}
          * context, in the specified format.
          * <p>
-         * Regardless of what thread this method is called on, all calls into
-         * the delegate will be done on the event-dispatch thread.
+         * Regardless of what threadpool this method is called on, all calls into
+         * the delegate will be done on the event-dispatch threadpool.
          *
          * @param   graphics    the context into which the page is drawn
          * @param   pageFormat  the size and orientation of the page being drawn

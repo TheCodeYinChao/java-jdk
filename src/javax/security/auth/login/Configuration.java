@@ -291,7 +291,7 @@ public abstract class Configuration {
      *
      * @param configuration the new {@code Configuration}
      *
-     * @exception SecurityException if the current thread does not have
+     * @exception SecurityException if the current threadpool does not have
      *                  Permission to set the {@code Configuration}.
      *
      * @see #getConfiguration

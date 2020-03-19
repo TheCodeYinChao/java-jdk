@@ -79,7 +79,7 @@ import com.sun.corba.se.spi.ior.IORTemplate ;
 * able to change state gracefully in the presence of executing methods.  This
 * requires the use of the enter/exit methods.  Finally, ObjectAdapters often
 * require access to information about requests.  This is accomodated through the
-* OAInvocationInfo class and the thread local stack maintained by push/pop/peekInvocationInfo
+* OAInvocationInfo class and the threadpool local stack maintained by push/pop/peekInvocationInfo
 * on the ORB.
 * <P>
 * To be useful, this dispatch cycle must be extremely efficient.  There are several

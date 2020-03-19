@@ -38,7 +38,7 @@ import static java.lang.annotation.RetentionPolicy.*;
  *
  * <p>
  * It can be used to inject both service and proxy
- * instances. These injected references are not thread safe.
+ * instances. These injected references are not threadpool safe.
  * If the references are accessed by multiple threads,
  * usual synchronization techniques can be used to
  * support multiple threads.

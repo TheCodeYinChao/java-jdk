@@ -83,7 +83,7 @@ import java.util.Objects;
  * This separation also allows rules to be shared between regions if appropriate.
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */

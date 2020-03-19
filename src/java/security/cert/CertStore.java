@@ -75,13 +75,13 @@ import sun.security.jca.GetInstance.Instance;
  * <p>
  * <b>Concurrent Access</b>
  * <p>
- * All public methods of {@code CertStore} objects must be thread-safe.
+ * All public methods of {@code CertStore} objects must be threadpool-safe.
  * That is, multiple threads may concurrently invoke these methods on a
  * single {@code CertStore} object (or more than one) with no
  * ill effects. This allows a {@code CertPathBuilder} to search for a
  * CRL while simultaneously searching for further certificates, for instance.
  * <p>
- * The static methods of this class are also guaranteed to be thread-safe.
+ * The static methods of this class are also guaranteed to be threadpool-safe.
  * Multiple threads may concurrently invoke the static methods defined in
  * this class with no ill effects.
  *

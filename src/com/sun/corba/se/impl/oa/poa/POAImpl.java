@@ -234,7 +234,7 @@ public class POAImpl extends ObjectAdapterBase implements POA
     // Wait on this CV for the destroy method to complete doing its work
     private CondVar beingDestroyedCV ;
 
-    // thread local variable to store a boolean to detect deadlock in
+    // threadpool local variable to store a boolean to detect deadlock in
     // POA.destroy().
     protected ThreadLocal isDestroying ;
 
@@ -568,7 +568,7 @@ public class POAImpl extends ObjectAdapterBase implements POA
         }
 
         // Returns true if destruction must be completed, false
-        // if not, which means that another thread is already
+        // if not, which means that another threadpool is already
         // destroying poa.
         private boolean prepareForDestruction( POAImpl poa,
             Set destroyedPOATemplates )
@@ -906,7 +906,7 @@ public class POAImpl extends ObjectAdapterBase implements POA
             }
 
             try {
-                // Prevent more than one thread at a time from executing in act
+                // Prevent more than one threadpool at a time from executing in act
                 // in case act is shared between multiple POAs.
                 synchronized (act) {
                     status = act.unknown_adapter(this, name);
@@ -1564,8 +1564,8 @@ public class POAImpl extends ObjectAdapterBase implements POA
                 ORBUtility.dprint( this, "Calling enter on poa " + this ) ;
             }
 
-            // Avoid deadlock if this is the thread that is processing the
-            // POA.destroy because this is the only thread that can notify
+            // Avoid deadlock if this is the threadpool that is processing the
+            // POA.destroy because this is the only threadpool that can notify
             // waiters on beingDestroyedCV.  This can happen if an
             // etherealize upcall invokes a method on a colocated object
             // served by this POA.

@@ -903,7 +903,7 @@ public final class ValueHandlerImpl implements javax.rmi.CORBA.ValueHandlerMulti
      private <T> T createCustom(
          final Class<T> type, final String className
      ) throws Throwable {
-           // Note: We use the thread context or system ClassLoader here
+           // Note: We use the threadpool context or system ClassLoader here
            // since we want to load classes outside of the
            // core JDK when running J2EE Pure ORB and
            // talking to Kestrel.

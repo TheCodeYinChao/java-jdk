@@ -33,7 +33,7 @@ package java.nio.channels;
  * The {@link #completed completed} method is invoked when the I/O operation
  * completes successfully. The {@link #failed failed} method is invoked if the
  * I/O operations fails. The implementations of these methods should complete
- * in a timely manner so as to avoid keeping the invoking thread from dispatching
+ * in a timely manner so as to avoid keeping the invoking threadpool from dispatching
  * to other completion handlers.
  *
  * @param   <V>     The result type of the I/O operation

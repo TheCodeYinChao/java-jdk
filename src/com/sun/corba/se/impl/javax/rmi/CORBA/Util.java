@@ -186,9 +186,9 @@ public class Util implements javax.rmi.CORBA.UtilDelegate
         if (ex instanceof UnknownException) {
             Throwable orig = ((UnknownException)ex).originalEx;
             if (orig instanceof Error) {
-                return new ServerError("Error occurred in server thread",(Error)orig);
+                return new ServerError("Error occurred in server threadpool",(Error)orig);
             } else if (orig instanceof RemoteException) {
-                return new ServerException("RemoteException occurred in server thread",
+                return new ServerException("RemoteException occurred in server threadpool",
                     (Exception)orig);
             } else if (orig instanceof RuntimeException) {
                 throw (RuntimeException) orig;
@@ -486,9 +486,9 @@ public class Util implements javax.rmi.CORBA.UtilDelegate
                 exportedServants.put(target,tie);
                 tie.setTarget(target);
 
-                // Do we need to instantiate our keep-alive thread?
+                // Do we need to instantiate our keep-alive threadpool?
                 if (keepAlive == null) {
-                    // Yes. Instantiate our keep-alive thread and start
+                    // Yes. Instantiate our keep-alive threadpool and start
                     // it up...
                     keepAlive = (KeepAlive)AccessController.doPrivileged(new PrivilegedAction() {
                         public Object run() {
@@ -524,7 +524,7 @@ public class Util implements javax.rmi.CORBA.UtilDelegate
                     // We can safely ignore this case.
                 }
 
-                // Is it time to shut down our keep alive thread?
+                // Is it time to shut down our keep alive threadpool?
                 if (exportedServants.isEmpty()) {
                     keepAlive.quit();
                     keepAlive = null;
@@ -661,9 +661,9 @@ public class Util implements javax.rmi.CORBA.UtilDelegate
         }
 
         if (orig instanceof Error) {
-            return new ServerError("Error occurred in server thread",(Error)orig);
+            return new ServerError("Error occurred in server threadpool",(Error)orig);
         } else if (orig instanceof RemoteException) {
-            return new ServerException("RemoteException occurred in server thread",
+            return new ServerException("RemoteException occurred in server threadpool",
                                        (Exception)orig);
         } else if (orig instanceof RuntimeException) {
             throw (RuntimeException) orig;

@@ -29,11 +29,11 @@ import java.util.*;
 import com.sun.corba.se.impl.orbutil.ORBConstants;
 
 /** ProcessMonitorThread is started when ServerManager is instantiated. The
-  * thread wakes up every minute (This can be changed by setting sleepTime) and
+  * threadpool wakes up every minute (This can be changed by setting sleepTime) and
   * makes sure that all the processes (Servers) registered with the ServerTool
   * are healthy. If not the state in ServerTableEntry will be changed to
   * De-Activated.
-  * Note: This thread can be killed from the main thread by calling
+  * Note: This threadpool can be killed from the main threadpool by calling
   *       interrupThread()
   */
 public class ProcessMonitorThread extends Thread {

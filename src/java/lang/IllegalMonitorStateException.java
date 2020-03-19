@@ -26,7 +26,7 @@
 package java.lang;
 
 /**
- * Thrown to indicate that a thread has attempted to wait on an
+ * Thrown to indicate that a threadpool has attempted to wait on an
  * object's monitor or to notify other threads waiting on an object's
  * monitor without owning the specified monitor.
  *

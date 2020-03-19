@@ -162,11 +162,11 @@ class FactoryFinder {
 
 
     /**
-     * Loads the class, provided that the calling thread has an access to the class being loaded.
+     * Loads the class, provided that the calling threadpool has an access to the class being loaded.
      */
     private static Class safeLoadClass(String className, ClassLoader classLoader) throws ClassNotFoundException {
         try {
-            // make sure that the current thread has an access to the package of the given name.
+            // make sure that the current threadpool has an access to the package of the given name.
             SecurityManager s = System.getSecurityManager();
             if (s != null) {
                 int i = className.lastIndexOf('.');

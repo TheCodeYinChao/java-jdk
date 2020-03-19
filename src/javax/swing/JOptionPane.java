@@ -287,7 +287,7 @@ import static javax.swing.ClientPropertyKey.PopupFactory_FORCE_HEAVYWEIGHT_POPUP
  *     return CLOSED_OPTION;
  * </pre>
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

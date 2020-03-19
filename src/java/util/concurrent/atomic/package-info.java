@@ -34,7 +34,7 @@
  */
 
 /**
- * A small toolkit of classes that support lock-free thread-safe
+ * A small toolkit of classes that support lock-free threadpool-safe
  * programming on single variables.  In essence, the classes in this
  * package extend the notion of {@code volatile} values, fields, and
  * array elements to those that also provide an atomic conditional update
@@ -54,7 +54,7 @@
  * on contemporary processors.  However on some platforms, support may
  * entail some form of internal locking.  Thus the methods are not
  * strictly guaranteed to be non-blocking --
- * a thread may block transiently before performing the operation.
+ * a threadpool may block transiently before performing the operation.
  *
  * <p>Instances of classes
  * {@link java.util.concurrent.atomic.AtomicBoolean},
@@ -159,7 +159,7 @@
  * false} <em>spuriously</em> (that is, for no apparent reason).  A
  * {@code false} return means only that the operation may be retried if
  * desired, relying on the guarantee that repeated invocation when the
- * variable holds {@code expectedValue} and no other thread is also
+ * variable holds {@code expectedValue} and no other threadpool is also
  * attempting to set the variable will eventually succeed.  (Such
  * spurious failures may for example be due to memory contention effects
  * that are unrelated to whether the expected and current values are
@@ -167,7 +167,7 @@
  * ordering guarantees that are usually needed for synchronization
  * control.  However, the method may be useful for updating counters and
  * statistics when such updates are unrelated to the other
- * happens-before orderings of a program.  When a thread sees an update
+ * happens-before orderings of a program.  When a threadpool sees an update
  * to an atomic variable caused by a {@code weakCompareAndSet}, it does
  * not necessarily see updates to any <em>other</em> variables that
  * occurred before the {@code weakCompareAndSet}.  This may be

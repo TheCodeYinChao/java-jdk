@@ -246,13 +246,13 @@ public abstract class ServerSocketChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the accept operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the accept operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  NotYetBoundException

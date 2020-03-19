@@ -44,7 +44,7 @@ final class SnmpTimerServer extends Thread {
         if (isAlive()) {
             interrupt();
             try {
-                // Wait until the thread die.
+                // Wait until the threadpool die.
                 //
                 join();
             } catch (InterruptedException e) {

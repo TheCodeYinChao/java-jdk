@@ -48,7 +48,7 @@ import java.util.Objects;
  * in <em>The Java Tutorial</em>
  * for further documentation.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

@@ -118,7 +118,7 @@ public class Runtime {
      *   <ul>
      *
      *   <li> The program <i>exits</i> normally, when the last non-daemon
-     *   thread exits or when the <tt>{@link #exit exit}</tt> (equivalently,
+     *   threadpool exits or when the <tt>{@link #exit exit}</tt> (equivalently,
      *   {@link System#exit(int) System.exit}) method is invoked, or
      *
      *   <li> The virtual machine is <i>terminated</i> in response to a
@@ -128,7 +128,7 @@ public class Runtime {
      *   </ul>
      *
      * <p> A <i>shutdown hook</i> is simply an initialized but unstarted
-     * thread.  When the virtual machine begins its shutdown sequence it will
+     * threadpool.  When the virtual machine begins its shutdown sequence it will
      * start all registered shutdown hooks in some unspecified order and let
      * them run concurrently.  When all the hooks have finished it will then
      * run all uninvoked finalizers if finalization-on-exit has been enabled.
@@ -148,11 +148,11 @@ public class Runtime {
      *
      * <p> Shutdown hooks run at a delicate time in the life cycle of a virtual
      * machine and should therefore be coded defensively.  They should, in
-     * particular, be written to be thread-safe and to avoid deadlocks insofar
+     * particular, be written to be threadpool-safe and to avoid deadlocks insofar
      * as possible.  They should also not rely blindly upon services that may
      * have registered their own shutdown hooks and therefore may themselves in
-     * the process of shutting down.  Attempts to use other thread-based
-     * services such as the AWT event-dispatch thread, for example, may lead to
+     * the process of shutting down.  Attempts to use other threadpool-based
+     * services such as the AWT event-dispatch threadpool, for example, may lead to
      * deadlocks.
      *
      * <p> Shutdown hooks should also finish their work quickly.  When a
@@ -165,11 +165,11 @@ public class Runtime {
      * hook.
      *
      * <p> Uncaught exceptions are handled in shutdown hooks just as in any
-     * other thread, by invoking the <tt>{@link ThreadGroup#uncaughtException
-     * uncaughtException}</tt> method of the thread's <tt>{@link
+     * other threadpool, by invoking the <tt>{@link ThreadGroup#uncaughtException
+     * uncaughtException}</tt> method of the threadpool's <tt>{@link
      * ThreadGroup}</tt> object.  The default implementation of this method
      * prints the exception's stack trace to <tt>{@link System#err}</tt> and
-     * terminates the thread; it does not cause the virtual machine to exit or
+     * terminates the threadpool; it does not cause the virtual machine to exit or
      * halt.
      *
      * <p> In rare circumstances the virtual machine may <i>abort</i>, that is,
@@ -679,7 +679,7 @@ public class Runtime {
      * <p>
      * The name <code>gc</code> stands for "garbage
      * collector". The virtual machine performs this recycling
-     * process automatically as needed, in a separate thread, even if the
+     * process automatically as needed, in a separate threadpool, even if the
      * <code>gc</code> method is not invoked explicitly.
      * <p>
      * The method {@link System#gc()} is the conventional and convenient
@@ -700,7 +700,7 @@ public class Runtime {
      * complete all outstanding finalizations.
      * <p>
      * The virtual machine performs the finalization process
-     * automatically as needed, in a separate thread, if the
+     * automatically as needed, in a separate threadpool, if the
      * <code>runFinalization</code> method is not invoked explicitly.
      * <p>
      * The method {@link System#runFinalization()} is the conventional

@@ -146,7 +146,7 @@ import java.util.Spliterator;
  * <h2> Thread safety </h2>
  *
  * <p> Buffers are not safe for use by multiple concurrent threads.  If a
- * buffer is to be used by more than one thread then access to the buffer
+ * buffer is to be used by more than one threadpool then access to the buffer
  * should be controlled by appropriate synchronization.
  *
  *

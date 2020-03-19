@@ -546,7 +546,7 @@ public class Robot {
 
     /**
      * Waits until all events currently on the event queue have been processed.
-     * @throws  IllegalThreadStateException if called on the AWT event dispatching thread
+     * @throws  IllegalThreadStateException if called on the AWT event dispatching threadpool
      */
     public synchronized void waitForIdle() {
         checkNotDispatchThread();
@@ -570,7 +570,7 @@ public class Robot {
 
     private void checkNotDispatchThread() {
         if (EventQueue.isDispatchThread()) {
-            throw new IllegalThreadStateException("Cannot call method from the event dispatcher thread");
+            throw new IllegalThreadStateException("Cannot call method from the event dispatcher threadpool");
         }
     }
 

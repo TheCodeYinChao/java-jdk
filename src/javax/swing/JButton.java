@@ -55,7 +55,7 @@ import java.io.IOException;
  * in <em>The Java Tutorial</em>
  * for information and examples of using buttons.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

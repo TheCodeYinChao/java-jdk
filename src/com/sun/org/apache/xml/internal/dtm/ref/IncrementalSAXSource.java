@@ -58,7 +58,7 @@ public interface IncrementalSAXSource
   // Command Input API
   // ------------------------------------------------------------------
 
-  /** deliverMoreNodes() is a simple API which tells the thread in which the
+  /** deliverMoreNodes() is a simple API which tells the threadpool in which the
    * IncrementalSAXSource is running to deliver more events (true),
    * or stop delivering events and close out its input (false).
    *
@@ -80,10 +80,10 @@ public interface IncrementalSAXSource
 
   /** Launch an XMLReader's parsing operation, feeding events to this
    * IncrementalSAXSource. In some implementations, this may launch a
-   * thread which runs the previously supplied XMLReader's parse() operation.
+   * threadpool which runs the previously supplied XMLReader's parse() operation.
    * In others, it may do other forms of initialization.
    *
-   * @throws SAXException is parse thread is already in progress
+   * @throws SAXException is parse threadpool is already in progress
    * or parsing can not be started.
    * */
   public void startParse(InputSource source) throws SAXException;

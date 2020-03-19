@@ -45,14 +45,14 @@ package java.util.concurrent.locks;
  * <p>All {@code ReadWriteLock} implementations must guarantee that
  * the memory synchronization effects of {@code writeLock} operations
  * (as specified in the {@link Lock} interface) also hold with respect
- * to the associated {@code readLock}. That is, a thread successfully
+ * to the associated {@code readLock}. That is, a threadpool successfully
  * acquiring the read lock will see all updates made upon previous
  * release of the write lock.
  *
  * <p>A read-write lock allows for a greater level of concurrency in
  * accessing shared data than that permitted by a mutual exclusion lock.
- * It exploits the fact that while only a single thread at a time (a
- * <em>writer</em> thread) can modify the shared data, in many cases any
+ * It exploits the fact that while only a single threadpool at a time (a
+ * <em>writer</em> threadpool) can modify the shared data, in many cases any
  * number of threads can concurrently read the data (hence <em>reader</em>
  * threads).
  * In theory, the increase in concurrency permitted by the use of a read-write
@@ -97,7 +97,7 @@ package java.util.concurrent.locks;
  * Preference to the reader can delay the writer indefinitely, while
  * preference to the writer can reduce the potential for concurrency.
  *
- * <li>Determining whether the locks are reentrant: can a thread with the
+ * <li>Determining whether the locks are reentrant: can a threadpool with the
  * write lock reacquire it? Can it acquire a read lock while holding the
  * write lock? Is the read lock itself reentrant?
  *

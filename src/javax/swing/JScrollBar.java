@@ -57,7 +57,7 @@ import java.io.IOException;
  * a corresponding change is made to the position of the JViewport on
  * the underlying view, changing the contents of the JViewport.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

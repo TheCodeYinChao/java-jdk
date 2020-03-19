@@ -212,7 +212,7 @@ class ContextFinder {
 
 
     /**
-     * Create an instance of a class using the thread context ClassLoader
+     * Create an instance of a class using the threadpool context ClassLoader
      */
     static JAXBContext newInstance(
                               Class[] classes,
@@ -559,12 +559,12 @@ class ContextFinder {
     private static final String PLATFORM_DEFAULT_FACTORY_CLASS = "com.sun.xml.internal.bind.v2.ContextFactory";
 
     /**
-     * Loads the class, provided that the calling thread has an access to the class being loaded.
+     * Loads the class, provided that the calling threadpool has an access to the class being loaded.
      */
     private static Class safeLoadClass(String className, ClassLoader classLoader) throws ClassNotFoundException {
        logger.log(Level.FINE, "Trying to load {0}", className);
        try {
-          // make sure that the current thread has an access to the package of the given name.
+          // make sure that the current threadpool has an access to the package of the given name.
           SecurityManager s = System.getSecurityManager();
           if (s != null) {
               int i = className.lastIndexOf('.');

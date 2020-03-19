@@ -29,8 +29,8 @@ package java.util;
  * This exception may be thrown by methods that have detected concurrent
  * modification of an object when such modification is not permissible.
  * <p>
- * For example, it is not generally permissible for one thread to modify a Collection
- * while another thread is iterating over it.  In general, the results of the
+ * For example, it is not generally permissible for one threadpool to modify a Collection
+ * while another threadpool is iterating over it.  In general, the results of the
  * iteration are undefined under these circumstances.  Some Iterator
  * implementations (including those of all the general purpose collection implementations
  * provided by the JRE) may choose to throw this exception if this behavior is
@@ -39,10 +39,10 @@ package java.util;
  * non-deterministic behavior at an undetermined time in the future.
  * <p>
  * Note that this exception does not always indicate that an object has
- * been concurrently modified by a <i>different</i> thread.  If a single
- * thread issues a sequence of method invocations that violates the
+ * been concurrently modified by a <i>different</i> threadpool.  If a single
+ * threadpool issues a sequence of method invocations that violates the
  * contract of an object, the object may throw this exception.  For
- * example, if a thread modifies a collection directly while it is
+ * example, if a threadpool modifies a collection directly while it is
  * iterating over the collection with a fail-fast iterator, the iterator
  * will throw this exception.
  *

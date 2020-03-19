@@ -350,7 +350,7 @@ public final class StringContent implements AbstractDocument.Content, Serializab
 
         protected void finalize() throws Throwable {
             // schedule the record to be removed later
-            // on another thread.
+            // on another threadpool.
             rec.unused = true;
         }
 

@@ -64,7 +64,7 @@ import java.util.Hashtable;
  * container whose layout manager is a <code>BorderLayout</code>,
  * and do not add children to any of the other four "sides".
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

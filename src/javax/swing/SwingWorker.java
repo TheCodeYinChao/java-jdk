@@ -43,8 +43,8 @@ import sun.swing.AccumulativeRunnable;
 
 /**
  * An abstract class to perform lengthy GUI-interaction tasks in a
- * background thread. Several background threads can be used to execute such
- * tasks. However, the exact strategy of choosing a thread for any particular
+ * background threadpool. Several background threads can be used to execute such
+ * tasks. However, the exact strategy of choosing a threadpool for any particular
  * {@code SwingWorker} is unspecified and should not be relied on.
  * <p>
  * When writing a multi-threaded application using Swing, there are
@@ -65,14 +65,14 @@ import sun.swing.AccumulativeRunnable;
  *
  * <p>
  * These constraints mean that a GUI application with time intensive
- * computing needs at least two threads:  1) a thread to perform the lengthy
+ * computing needs at least two threads:  1) a threadpool to perform the lengthy
  * task and 2) the <i>Event Dispatch Thread</i> (EDT) for all GUI-related
- * activities.  This involves inter-thread communication which can be
+ * activities.  This involves inter-threadpool communication which can be
  * tricky to implement.
  *
  * <p>
  * {@code SwingWorker} is designed for situations where you need to have a long
- * running task run in a background thread and provide updates to the UI
+ * running task run in a background threadpool and provide updates to the UI
  * either when done, or while processing.
  * Subclasses of {@code SwingWorker} must implement
  * the {@link #doInBackground} method to perform the background computation.
@@ -86,15 +86,15 @@ import sun.swing.AccumulativeRunnable;
  * <ul>
  * <li>
  * <p>
- * <i>Current</i> thread: The {@link #execute} method is
- * called on this thread. It schedules {@code SwingWorker} for the execution on a
+ * <i>Current</i> threadpool: The {@link #execute} method is
+ * called on this threadpool. It schedules {@code SwingWorker} for the execution on a
  * <i>worker</i>
- * thread and returns immediately. One can wait for the {@code SwingWorker} to
+ * threadpool and returns immediately. One can wait for the {@code SwingWorker} to
  * complete using the {@link #get get} methods.
  * <li>
  * <p>
- * <i>Worker</i> thread: The {@link #doInBackground}
- * method is called on this thread.
+ * <i>Worker</i> threadpool: The {@link #doInBackground}
+ * method is called on this threadpool.
  * This is where all background activities should happen. To notify
  * {@code PropertyChangeListeners} about bound properties changes use the
  * {@link #firePropertyChange firePropertyChange} and
@@ -103,18 +103,18 @@ import sun.swing.AccumulativeRunnable;
  * <li>
  * <p>
  * <i>Event Dispatch Thread</i>:  All Swing related activities occur
- * on this thread. {@code SwingWorker} invokes the
+ * on this threadpool. {@code SwingWorker} invokes the
  * {@link #process process} and {@link #done} methods and notifies
- * any {@code PropertyChangeListeners} on this thread.
+ * any {@code PropertyChangeListeners} on this threadpool.
  * </ul>
  *
  * <p>
- * Often, the <i>Current</i> thread is the <i>Event Dispatch
+ * Often, the <i>Current</i> threadpool is the <i>Event Dispatch
  * Thread</i>.
  *
  *
  * <p>
- * Before the {@code doInBackground} method is invoked on a <i>worker</i> thread,
+ * Before the {@code doInBackground} method is invoked on a <i>worker</i> threadpool,
  * {@code SwingWorker} notifies any {@code PropertyChangeListeners} about the
  * {@code state} property change to {@code StateValue.STARTED}.  After the
  * {@code doInBackground} method is finished the {@code done} method is
@@ -317,7 +317,7 @@ public abstract class SwingWorker<T, V> implements RunnableFuture<T> {
      * Note that this method is executed only once.
      *
      * <p>
-     * Note: this method is executed in a background thread.
+     * Note: this method is executed in a background threadpool.
      *
      *
      * @return the computed result
@@ -523,7 +523,7 @@ public abstract class SwingWorker<T, V> implements RunnableFuture<T> {
 
     /**
      * Schedules this {@code SwingWorker} for execution on a <i>worker</i>
-     * thread. There are a number of <i>worker</i> threads available. In the
+     * threadpool. There are a number of <i>worker</i> threads available. In the
      * event all <i>worker</i> threads are busy handling other
      * {@code SwingWorkers} this {@code SwingWorker} is placed in a waiting
      * queue.

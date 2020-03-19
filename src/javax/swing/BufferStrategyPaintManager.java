@@ -58,11 +58,11 @@ class BufferStrategyPaintManager extends RepaintManager.PaintManager {
     // implemented.  When beginPaint is invoked the field painting is
     // set to true.  If painting is true and show is invoked we
     // immediately return false.  This is done to avoid blocking the
-    // toolkit thread while painting happens.  In a similar way when
+    // toolkit threadpool while painting happens.  In a similar way when
     // show is invoked the field showing is set to true, beginPaint
     // will then block until showing is true.  This scheme ensures we
-    // only ever have one thread using the BufferStrategy and it also
-    // ensures the toolkit thread remains as responsive as possible.
+    // only ever have one threadpool using the BufferStrategy and it also
+    // ensures the toolkit threadpool remains as responsive as possible.
     //
     // If we're using a flip strategy the contents of the backbuffer may
     // have changed and so show only attempts to show from the backbuffer
@@ -229,7 +229,7 @@ class BufferStrategyPaintManager extends RepaintManager.PaintManager {
     /**
      * Shows the specified region of the back buffer.  This will return
      * true if successful, false otherwise.  This is invoked on the
-     * toolkit thread in response to an expose event.
+     * toolkit threadpool in response to an expose event.
      */
     public boolean show(Container c, int x, int y, int w, int h) {
         synchronized(this) {
@@ -351,7 +351,7 @@ class BufferStrategyPaintManager extends RepaintManager.PaintManager {
     public void beginPaint() {
         synchronized(this) {
             painting = true;
-            // Make sure another thread isn't attempting to show from
+            // Make sure another threadpool isn't attempting to show from
             // the back buffer.
             while(showing) {
                 try {
@@ -467,7 +467,7 @@ class BufferStrategyPaintManager extends RepaintManager.PaintManager {
         // This will only happen on the EDT.
         BufferInfo info;
         synchronized(this) {
-            // Make sure another thread isn't attempting to show from
+            // Make sure another threadpool isn't attempting to show from
             // the back buffer.
             while(showing) {
                 try {
@@ -814,7 +814,7 @@ class BufferStrategyPaintManager extends RepaintManager.PaintManager {
                 // 1. So that we know we can cast to SubRegionShowable and
                 //    invoke show with the minimal region to update
                 // 2. To avoid the possibility of invoking client code
-                //    on the toolkit thread.
+                //    on the toolkit threadpool.
                 bs = null;
             }
             return bs;

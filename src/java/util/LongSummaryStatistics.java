@@ -53,7 +53,7 @@ import java.util.stream.Collector;
  * This computes, in a single pass, the count of people, as well as the minimum,
  * maximum, sum, and average of their ages.
  *
- * @implNote This implementation is not thread safe. However, it is safe to use
+ * @implNote This implementation is not threadpool safe. However, it is safe to use
  * {@link java.util.stream.Collectors#summarizingLong(java.util.function.ToLongFunction)
  * Collectors.toLongStatistics()} on a parallel stream, because the parallel
  * implementation of {@link java.util.stream.Stream#collect Stream.collect()}

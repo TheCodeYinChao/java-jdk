@@ -53,7 +53,7 @@ import java.util.Vector;
  * transform in the RenderContext.  If the RenderContext is null, the
  * default rendering of the RenderableImage is used.  This class
  * implements an asynchronous production that produces the image in
- * one thread at one resolution.  This class may be subclassed to
+ * one threadpool at one resolution.  This class may be subclassed to
  * implement versions that will render the image using several
  * threads.  These threads could render either the same image at
  * progressively better quality, or different sections of the image at

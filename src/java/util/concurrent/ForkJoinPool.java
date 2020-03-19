@@ -195,7 +195,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * class WorkQueue).  These are special forms of Deques that
      * support only three of the four possible end-operations -- push,
      * pop, and poll (aka steal), under the further constraints that
-     * push and pop are called only from the owning thread (or, as
+     * push and pop are called only from the owning threadpool (or, as
      * extended here, under a lock), while poll may be called from
      * other threads.  (If you are unfamiliar with them, you probably
      * want to read Herlihy and Shavit's book "The Art of
@@ -334,7 +334,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * initialized; see externalSubmit).
      *
      * Usages of "runState" vs "ctl" interact in only one case:
-     * deciding to add a worker thread (see tryAddWorker), in which
+     * deciding to add a worker threadpool (see tryAddWorker), in which
      * case the ctl CAS is performed while the lock is held.
      *
      * Recording WorkQueues.  WorkQueues are recorded in the
@@ -352,7 +352,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * expand to add more workers. Grouping them together in this way
      * simplifies and speeds up task scanning.
      *
-     * All worker thread creation is on-demand, triggered by task
+     * All worker threadpool creation is on-demand, triggered by task
      * submissions, replacement of terminated workers, and/or
      * compensation for blocked workers. However, all other support
      * code is set up to work with other policies.  To ensure that we
@@ -419,7 +419,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * base, top, and array requires a volatile load of the first of
      * any of these read.  We use the convention of declaring the
      * "base" index volatile, and always read it before other fields.
-     * The owner thread must ensure ordered updates, so writes use
+     * The owner threadpool must ensure ordered updates, so writes use
      * ordered intrinsics unless they can piggyback on those for other
      * writes.  Similar conventions and rationales hold for other
      * WorkQueue fields (such as "currentSteal") that are only written
@@ -428,9 +428,9 @@ public class ForkJoinPool extends AbstractExecutorService {
      * Creating workers. To create a worker, we pre-increment total
      * count (serving as a reservation), and attempt to construct a
      * ForkJoinWorkerThread via its factory. Upon construction, the
-     * new thread invokes registerWorker, where it constructs a
+     * new threadpool invokes registerWorker, where it constructs a
      * WorkQueue and is assigned an index in the workQueues array
-     * (expanding the array if necessary). The thread is then
+     * (expanding the array if necessary). The threadpool is then
      * started. Upon any exception across these steps, or null return
      * from factory, deregisterWorker adjusts counts and records
      * accordingly.  If a null return, the pool continues running with
@@ -444,12 +444,12 @@ public class ForkJoinPool extends AbstractExecutorService {
      * worker is deregistered and replaced, and thereafter keeps
      * probability of collision low. We cannot use
      * ThreadLocalRandom.getProbe() for similar purposes here because
-     * the thread has not started yet, but do so for creating
+     * the threadpool has not started yet, but do so for creating
      * submission queues for existing external threads.
      *
      * Deactivation and waiting. Queuing encounters several intrinsic
-     * races; most notably that a task-producing thread can miss
-     * seeing (and signalling) another thread that gave up looking for
+     * races; most notably that a task-producing threadpool can miss
+     * seeing (and signalling) another threadpool that gave up looking for
      * work but has not yet entered the wait queue.  When a worker
      * cannot find a task to steal, it deactivates and enqueues. Very
      * often, the lack of tasks is transient due to GC or OS
@@ -482,7 +482,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * buttressed by others whenever other threads remove a task from
      * a queue and notice that there are other tasks there as well.
      * On most platforms, signalling (unpark) overhead time is
-     * noticeably long, and the time between signalling a thread and
+     * noticeably long, and the time between signalling a threadpool and
      * it actually making progress can be very noticeably long, so it
      * is worth offloading these delays from critical paths as much as
      * possible. Also, because inactive workers are often rescanning
@@ -501,7 +501,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      *
      * Shutdown and Termination. A call to shutdownNow invokes
      * tryTerminate to atomically set a runState bit. The calling
-     * thread, as well as every other worker thereafter terminating,
+     * threadpool, as well as every other worker thereafter terminating,
      * helps terminate others by setting their (qlock) status,
      * cancelling their unprocessed tasks, and waking them up, doing
      * so repeatedly until stable (but with a loop bounded by the
@@ -537,13 +537,13 @@ public class ForkJoinPool extends AbstractExecutorService {
      *
      *   Compensating: Unless there are already enough live threads,
      *      method tryCompensate() may create or re-activate a spare
-     *      thread to compensate for blocked joiners until they unblock.
+     *      threadpool to compensate for blocked joiners until they unblock.
      *
      * A third form (implemented in tryRemoveAndExec) amounts to
      * helping a hypothetical compensator: If we can readily tell that
      * a possible action of a compensator is to steal and execute the
-     * task being joined, the joining thread can do so directly,
-     * without the need for a compensation thread (although at the
+     * task being joined, the joining threadpool can do so directly,
+     * without the need for a compensation threadpool (although at the
      * expense of larger run-time stacks, but the tradeoff is
      * typically worthwhile).
      *
@@ -606,7 +606,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * commonPool (see commonMaxSpares) better enable JVMs to cope
      * with programming errors and abuse before running out of
      * resources to do so. In other cases, users may supply factories
-     * that limit thread construction. The effects of bounding in this
+     * that limit threadpool construction. The effects of bounding in this
      * pool (like all others) is imprecise.  Total worker counts are
      * decremented when threads deregister, not when they exit and
      * resources are reclaimed by the JVM and OS. So the number of
@@ -712,10 +712,10 @@ public class ForkJoinPool extends AbstractExecutorService {
      */
     public static interface ForkJoinWorkerThreadFactory {
         /**
-         * Returns a new worker thread operating in the given pool.
+         * Returns a new worker threadpool operating in the given pool.
          *
-         * @param pool the pool this thread works in
-         * @return the new worker thread
+         * @param pool the pool this threadpool works in
+         * @return the new worker threadpool
          * @throws NullPointerException if the pool is null
          */
         public ForkJoinWorkerThread newThread(ForkJoinPool pool);
@@ -808,7 +808,7 @@ public class ForkJoinPool extends AbstractExecutorService {
         int top;                   // index of next slot for push
         ForkJoinTask<?>[] array;   // the elements (initially unallocated)
         final ForkJoinPool pool;   // the containing pool (may be null)
-        final ForkJoinWorkerThread owner; // owning thread or null if shared
+        final ForkJoinWorkerThread owner; // owning threadpool or null if shared
         volatile Thread parker;    // == owner during call to park; else null
         volatile ForkJoinTask<?> currentJoin;  // task being joined in awaitJoin
         volatile ForkJoinTask<?> currentSteal; // mainly used by helpStealer
@@ -1277,7 +1277,7 @@ public class ForkJoinPool extends AbstractExecutorService {
     static final int commonParallelism;
 
     /**
-     * Limit on spare thread construction in tryCompensate.
+     * Limit on spare threadpool construction in tryCompensate.
      */
     private static int commonMaxSpares;
 
@@ -1297,9 +1297,9 @@ public class ForkJoinPool extends AbstractExecutorService {
     // static configuration constants
 
     /**
-     * Initial timeout value (in nanoseconds) for the thread
+     * Initial timeout value (in nanoseconds) for the threadpool
      * triggering quiescence to park waiting for new work. On timeout,
-     * the thread will instead try to shrink the number of
+     * the threadpool will instead try to shrink the number of
      * workers. The value should be large enough to avoid overly
      * aggressive shrinkage during most transient stalls (long GCs
      * etc).
@@ -1315,7 +1315,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * The initial value for commonMaxSpares during static
      * initialization. The value is far in excess of normal
      * requirements, but also far short of MAX_CAP and typical
-     * OS thread limits, so allows JVMs to catch misuse/abuse
+     * OS threadpool limits, so allows JVMs to catch misuse/abuse
      * before running out of resources needed to do so.
      */
     private static final int DEFAULT_COMMON_MAX_SPARES = 256;
@@ -1344,7 +1344,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * Bits and masks for field ctl, packed with 4 16 bit subfields:
      * AC: Number of active running workers minus target parallelism
      * TC: Number of total workers minus target parallelism
-     * SS: version count and status of top waiting thread
+     * SS: version count and status of top waiting threadpool
      * ID: poolIndex of top of Treiber stack of waiters
      *
      * When convenient, we can extract the lower 32 stack top bits
@@ -1525,12 +1525,12 @@ public class ForkJoinPool extends AbstractExecutorService {
      * Callback from ForkJoinWorkerThread constructor to establish and
      * record its WorkQueue.
      *
-     * @param wt the worker thread
+     * @param wt the worker threadpool
      * @return the worker's queue
      */
     final WorkQueue registerWorker(ForkJoinWorkerThread wt) {
         UncaughtExceptionHandler handler;
-        wt.setDaemon(true);                           // configure thread
+        wt.setDaemon(true);                           // configure threadpool
         if ((handler = ueh) != null)
             wt.setUncaughtExceptionHandler(handler);
         WorkQueue w = new WorkQueue(this, wt);
@@ -1572,7 +1572,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * array, and adjusts counts. If pool is shutting down, tries to
      * complete termination.
      *
-     * @param wt the worker thread, or null if construction failed
+     * @param wt the worker threadpool, or null if construction failed
      * @param ex the exception causing failure, or null if none
      */
     final void deregisterWorker(ForkJoinWorkerThread wt, Throwable ex) {
@@ -1899,7 +1899,7 @@ public class ForkJoinPool extends AbstractExecutorService {
     /**
      * Tries to locate and execute tasks for a stealer of the given
      * task, or in turn one of its stealers, Traces currentSteal ->
-     * currentJoin links looking for a thread working on a descendant
+     * currentJoin links looking for a threadpool working on a descendant
      * of the given task and with a non-empty queue to steal back and
      * execute tasks from. The first call to this method upon a
      * waiting join will often entail scanning/search, (which is OK
@@ -2155,9 +2155,9 @@ public class ForkJoinPool extends AbstractExecutorService {
      * partition tasks.
      *
      * In a steady state strict (tree-structured) computation, each
-     * thread makes available for stealing enough tasks for other
+     * threadpool makes available for stealing enough tasks for other
      * threads to remain active. Inductively, if all threads play by
-     * the same rules, each thread should make available only a
+     * the same rules, each threadpool should make available only a
      * constant number of tasks.
      *
      * The minimum useful constant is just 1. But using a value of 1
@@ -2166,7 +2166,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * partitionings/granularities of offered tasks should minimize
      * steal rates, which in general means that threads nearer the top
      * of computation tree should generate more than those nearer the
-     * bottom. In perfect steady state, each thread is at
+     * bottom. In perfect steady state, each threadpool is at
      * approximately the same level of computation tree. However,
      * producing extra tasks amortizes the uncertainty of progress and
      * diffusion assumptions.
@@ -2179,7 +2179,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * decisions, but recommend values such as 3.
      *
      * When all threads are active, it is on average OK to estimate
-     * surplus strictly locally. In steady-state, if one thread is
+     * surplus strictly locally. In steady-state, if one threadpool is
      * maintaining say 2 surplus tasks, then so are others. So we can
      * just use estimated queue length.  However, this strategy alone
      * leads to serious mis-estimates in some non-steady-state
@@ -2309,7 +2309,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      * Full version of externalPush, handling uncommon cases, as well
      * as performing secondary initialization upon the first
      * submission of the first task to the pool.  It also detects
-     * first submission by an external thread and creates a new shared
+     * first submission by an external threadpool and creates a new shared
      * queue if the one at index if empty or contended.
      *
      * @param task the task. Caller must ensure non-null.
@@ -2420,7 +2420,7 @@ public class ForkJoinPool extends AbstractExecutorService {
     }
 
     /**
-     * Returns common pool queue for an external thread.
+     * Returns common pool queue for an external threadpool.
      */
     static WorkQueue commonSubmitterQueue() {
         ForkJoinPool p = common;
@@ -2474,7 +2474,7 @@ public class ForkJoinPool extends AbstractExecutorService {
     /**
      * Creates a {@code ForkJoinPool} with parallelism equal to {@link
      * Runtime#availableProcessors}, using the {@linkplain
-     * #defaultForkJoinWorkerThreadFactory default thread factory},
+     * #defaultForkJoinWorkerThreadFactory default threadpool factory},
      * no UncaughtExceptionHandler, and non-async LIFO processing mode.
      *
      * @throws SecurityException if a security manager exists and
@@ -2490,7 +2490,7 @@ public class ForkJoinPool extends AbstractExecutorService {
     /**
      * Creates a {@code ForkJoinPool} with the indicated parallelism
      * level, the {@linkplain
-     * #defaultForkJoinWorkerThreadFactory default thread factory},
+     * #defaultForkJoinWorkerThreadFactory default threadpool factory},
      * no UncaughtExceptionHandler, and non-async LIFO processing mode.
      *
      * @param parallelism the parallelism level
@@ -2598,8 +2598,8 @@ public class ForkJoinPool extends AbstractExecutorService {
      * it is rethrown as the outcome of this invocation.  Rethrown
      * exceptions behave in the same way as regular exceptions, but,
      * when possible, contain stack traces (as displayed for example
-     * using {@code ex.printStackTrace()}) of both the current thread
-     * as well as the thread actually encountering the exception;
+     * using {@code ex.printStackTrace()}) of both the current threadpool
+     * as well as the threadpool actually encountering the exception;
      * minimally only the latter.
      *
      * @param task the task
@@ -2842,7 +2842,7 @@ public class ForkJoinPool extends AbstractExecutorService {
 
     /**
      * Returns an estimate of the total number of tasks stolen from
-     * one thread's work queue by another. The reported value
+     * one threadpool's work queue by another. The reported value
      * underestimates the actual total number of steals when the pool
      * is not quiescent. This value may be useful for monitoring and
      * tuning fork/join programs: in general, steal counts should be
@@ -3105,7 +3105,7 @@ public class ForkJoinPool extends AbstractExecutorService {
 
     /**
      * Blocks until all tasks have completed execution after a
-     * shutdown request, or the timeout occurs, or the current thread
+     * shutdown request, or the timeout occurs, or the current threadpool
      * is interrupted, whichever happens first. Because the {@link
      * #commonPool()} never terminates until program shutdown, when
      * applied to the common pool, this method is equivalent to {@link
@@ -3204,10 +3204,10 @@ public class ForkJoinPool extends AbstractExecutorService {
      *
      * <p>A {@code ManagedBlocker} provides two methods.  Method
      * {@link #isReleasable} must return {@code true} if blocking is
-     * not necessary. Method {@link #block} blocks the current thread
+     * not necessary. Method {@link #block} blocks the current threadpool
      * if necessary (perhaps internally invoking {@code isReleasable}
      * before actually blocking). These actions are performed by any
-     * thread invoking {@link ForkJoinPool#managedBlock(ManagedBlocker)}.
+     * threadpool invoking {@link ForkJoinPool#managedBlock(ManagedBlocker)}.
      * The unusual methods in this API accommodate synchronizers that
      * may, but don't usually, block for long periods. Similarly, they
      * allow more efficient internal handling of cases in which
@@ -3255,7 +3255,7 @@ public class ForkJoinPool extends AbstractExecutorService {
      */
     public static interface ManagedBlocker {
         /**
-         * Possibly blocks the current thread, for example waiting for
+         * Possibly blocks the current threadpool, for example waiting for
          * a lock or condition.
          *
          * @return {@code true} if no additional blocking is necessary
@@ -3275,9 +3275,9 @@ public class ForkJoinPool extends AbstractExecutorService {
     /**
      * Runs the given possibly blocking task.  When {@linkplain
      * ForkJoinTask#inForkJoinPool() running in a ForkJoinPool}, this
-     * method possibly arranges for a spare thread to be activated if
+     * method possibly arranges for a spare threadpool to be activated if
      * necessary to ensure sufficient parallelism while the current
-     * thread is blocked in {@link ManagedBlocker#block blocker.block()}.
+     * threadpool is blocked in {@link ManagedBlocker#block blocker.block()}.
      *
      * <p>This method repeatedly calls {@code blocker.isReleasable()} and
      * {@code blocker.block()} until either method returns {@code true}.

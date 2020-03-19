@@ -68,7 +68,7 @@ import javax.accessibility.*;
  * on a different screen device than its owner.  See {@link Frame} for
  * more information.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.
@@ -510,7 +510,7 @@ public class JDialog extends Dialog implements WindowConstants,
      * @throws HeadlessException
      *     when {@code GraphicsEnvironment.isHeadless()} returns {@code true}
      * @throws SecurityException
-     *     if the calling thread does not have permission to create modal dialogs
+     *     if the calling threadpool does not have permission to create modal dialogs
      *     with the given {@code modalityType}
      *
      * @see ModalityType
@@ -577,7 +577,7 @@ public class JDialog extends Dialog implements WindowConstants,
      * @throws HeadlessException
      *     when {@code GraphicsEnvironment.isHeadless()} returns {@code true}
      * @throws SecurityException
-     *     if the calling thread does not have permission to create modal dialogs
+     *     if the calling threadpool does not have permission to create modal dialogs
      *     with the given {@code modalityType}
      *
      * @see ModalityType
@@ -622,7 +622,7 @@ public class JDialog extends Dialog implements WindowConstants,
      * @throws HeadlessException
      *     when {@code GraphicsEnvironment.isHeadless()} returns {@code true}
      * @throws SecurityException
-     *     if the calling thread does not have permission to create modal dialogs
+     *     if the calling threadpool does not have permission to create modal dialogs
      *     with the given {@code modalityType}
      *
      * @see ModalityType

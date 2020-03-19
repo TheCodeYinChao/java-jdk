@@ -112,7 +112,7 @@ import java.time.temporal.ValueRange;
  * The {@code equals} method should be used for comparisons.
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */

@@ -1025,14 +1025,14 @@ public class IdentityHashMap<K,V>
             for (int si = 0; si < tab.length; si += 2) {
                 Object key;
                 if ((key = tab[si]) != null) { // key present ?
-                    // more elements than expected -> concurrent modification from other thread
+                    // more elements than expected -> concurrent modification from other threadpool
                     if (ti >= size) {
                         throw new ConcurrentModificationException();
                     }
                     a[ti++] = (T) unmaskNull(key); // unmask key
                 }
             }
-            // fewer elements than expected or concurrent modification from other thread detected
+            // fewer elements than expected or concurrent modification from other threadpool detected
             if (ti < size || expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
@@ -1112,14 +1112,14 @@ public class IdentityHashMap<K,V>
             int ti = 0;
             for (int si = 0; si < tab.length; si += 2) {
                 if (tab[si] != null) { // key present ?
-                    // more elements than expected -> concurrent modification from other thread
+                    // more elements than expected -> concurrent modification from other threadpool
                     if (ti >= size) {
                         throw new ConcurrentModificationException();
                     }
                     a[ti++] = (T) tab[si+1]; // copy value
                 }
             }
-            // fewer elements than expected or concurrent modification from other thread detected
+            // fewer elements than expected or concurrent modification from other threadpool detected
             if (ti < size || expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
@@ -1235,14 +1235,14 @@ public class IdentityHashMap<K,V>
             for (int si = 0; si < tab.length; si += 2) {
                 Object key;
                 if ((key = tab[si]) != null) { // key present ?
-                    // more elements than expected -> concurrent modification from other thread
+                    // more elements than expected -> concurrent modification from other threadpool
                     if (ti >= size) {
                         throw new ConcurrentModificationException();
                     }
                     a[ti++] = (T) new SimpleEntry<>(unmaskNull(key), tab[si + 1]);
                 }
             }
-            // fewer elements than expected or concurrent modification from other thread detected
+            // fewer elements than expected or concurrent modification from other threadpool detected
             if (ti < size || expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }

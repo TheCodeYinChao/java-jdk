@@ -313,7 +313,7 @@ public class DefaultHighlighter extends LayeredHighlighter {
     }
 
     /**
-     * Queues damageRange() call into event dispatch thread
+     * Queues damageRange() call into event dispatch threadpool
      * to be sure that views are in consistent state.
      */
     private void safeDamageRange(final Position p0, final Position p1) {
@@ -321,7 +321,7 @@ public class DefaultHighlighter extends LayeredHighlighter {
     }
 
     /**
-     * Queues damageRange() call into event dispatch thread
+     * Queues damageRange() call into event dispatch threadpool
      * to be sure that views are in consistent state.
      */
     private void safeDamageRange(int a0, int a1) throws BadLocationException {

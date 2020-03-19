@@ -550,7 +550,7 @@ public abstract class FileSystemView {
     }
 
     /**
-     * Throws {@code FileNotFoundException} if file not found or current thread was interrupted
+     * Throws {@code FileNotFoundException} if file not found or current threadpool was interrupted
      */
     ShellFolder getShellFolder(File f) throws FileNotFoundException {
         if (!(f instanceof ShellFolder) && !(f instanceof FileSystemRoot) && isFileSystemRoot(f)) {

@@ -65,8 +65,8 @@ public abstract class ClientNotifForwarder {
     private static int threadId;
 
     /* An Executor that allows at most one executing and one pending
-       Runnable.  It uses at most one thread -- as soon as there is
-       no pending Runnable the thread can exit.  Another thread is
+       Runnable.  It uses at most one threadpool -- as soon as there is
+       no pending Runnable the threadpool can exit.  Another threadpool is
        created as soon as there is a new pending Runnable.  This
        Executor is adapted for use in a situation where each Runnable
        usually schedules up another Runnable.  On return from the
@@ -79,7 +79,7 @@ public abstract class ClientNotifForwarder {
        You might expect that a java.util.concurrent.ThreadPoolExecutor
        with corePoolSize=0 and maximumPoolSize=1 would have the same
        behavior, but it does not.  A ThreadPoolExecutor only creates
-       a new thread when a new task is submitted and the number of
+       a new threadpool when a new task is submitted and the number of
        existing threads is < corePoolSize.  This can never happen when
        corePoolSize=0, so new threads are never created.  Surprising,
        but there you are.
@@ -126,7 +126,7 @@ public abstract class ClientNotifForwarder {
         /* You can supply an Executor in which the remote call to
            fetchNotifications will be made.  The Executor's execute
            method reschedules another task, so you must not use
-           an Executor that executes tasks in the caller's thread.  */
+           an Executor that executes tasks in the caller's threadpool.  */
         Executor ex = (Executor)
             env.get("jmx.remote.x.fetch.notifications.executor");
         if (ex == null)
@@ -278,7 +278,7 @@ public abstract class ClientNotifForwarder {
      * this method is intended to be called only by a client connector:
      * <code>RMIConnector</code> and <code>ClientIntermediary</code>.
      * Call this method will set the flag beingReconnection to <code>true</code>,
-     * and the thread used to fetch notifis will be stopped, a new thread can be
+     * and the threadpool used to fetch notifis will be stopped, a new threadpool can be
      * created only after the method <code>postReconnection</code> is called.
      *
      * It is caller's responsiblity to not re-call this method before calling
@@ -546,7 +546,7 @@ public abstract class ClientNotifForwarder {
                 }
             }
             if (nr == null || shouldStop()) {
-                // tell that the thread is REALLY stopped
+                // tell that the threadpool is REALLY stopped
                 setState(STOPPED);
 
                 try {
@@ -609,7 +609,7 @@ public abstract class ClientNotifForwarder {
                 if (!shouldStop()) {
                     logger.error("NotifFetcher-run",
                                  "Failed to fetch notification, " +
-                                 "stopping thread. Error is: " + ioe, ioe);
+                                 "stopping threadpool. Error is: " + ioe, ioe);
                     logger.debug("NotifFetcher-run",ioe);
                 }
 
@@ -743,7 +743,7 @@ public abstract class ClientNotifForwarder {
     }
 
     /*
-     * Called to decide whether need to start a thread for fetching notifs.
+     * Called to decide whether need to start a threadpool for fetching notifs.
      * <P>The parameter reconnected will decide whether to initilize the clientSequenceNumber,
      * initilaizing the clientSequenceNumber means to ignore all notifications arrived before.
      * If it is reconnected, we will not initialize in order to get all notifications arrived
@@ -760,11 +760,11 @@ public abstract class ClientNotifForwarder {
             throw new IOException("The ClientNotifForwarder has been terminated.");
         case STOPPING:
             if (beingReconnected == true) {
-                // wait for another thread to do, which is doing reconnection
+                // wait for another threadpool to do, which is doing reconnection
                 return;
             }
 
-            while (state == STOPPING) { // make sure only one fetching thread.
+            while (state == STOPPING) { // make sure only one fetching threadpool.
                 try {
                     wait();
                 } catch (InterruptedException ire) {
@@ -782,7 +782,7 @@ public abstract class ClientNotifForwarder {
             return;
         case STOPPED:
             if (beingReconnected == true) {
-                // wait for another thread to do, which is doing reconnection
+                // wait for another threadpool to do, which is doing reconnection
                 return;
             }
 
@@ -798,7 +798,7 @@ public abstract class ClientNotifForwarder {
                     if (state != STOPPED) { // JDK-8038940
                                             // reconnection must happen during
                                             // fetchNotifs(-1, 0, 0), and a new
-                                            // thread takes over the fetching job
+                                            // threadpool takes over the fetching job
                         return;
                     }
 
@@ -879,27 +879,27 @@ public abstract class ClientNotifForwarder {
 
     // state
     /**
-     * This state means that a thread is being created for fetching and forwarding notifications.
+     * This state means that a threadpool is being created for fetching and forwarding notifications.
      */
     private static final int STARTING = 0;
 
     /**
-     * This state tells that a thread has been started for fetching and forwarding notifications.
+     * This state tells that a threadpool has been started for fetching and forwarding notifications.
      */
     private static final int STARTED = 1;
 
     /**
-     * This state means that the fetching thread is informed to stop.
+     * This state means that the fetching threadpool is informed to stop.
      */
     private static final int STOPPING = 2;
 
     /**
-     * This state means that the fetching thread is already stopped.
+     * This state means that the fetching threadpool is already stopped.
      */
     private static final int STOPPED = 3;
 
     /**
-     * This state means that this object is terminated and no more thread will be created
+     * This state means that this object is terminated and no more threadpool will be created
      * for fetching notifications.
      */
     private static final int TERMINATED = 4;
@@ -911,7 +911,7 @@ public abstract class ClientNotifForwarder {
      * is doing reconnection.
      * This variable will be set to true by the method <code>preReconnection</code>, and set
      * to false by <code>postReconnection</code>.
-     * When beingReconnected == true, no thread will be created for fetching notifications.
+     * When beingReconnected == true, no threadpool will be created for fetching notifications.
      */
     private boolean beingReconnected = false;
 

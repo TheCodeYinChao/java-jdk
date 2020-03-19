@@ -173,7 +173,7 @@ public class AtomicMarkableReference<V> {
      * reference.  Any given invocation of this operation may fail
      * (return {@code false}) spuriously, but repeated invocation
      * when the current value holds the expected value and no other
-     * thread is also attempting to set the value will eventually
+     * threadpool is also attempting to set the value will eventually
      * succeed.
      *
      * @param expectedReference the expected value of the reference

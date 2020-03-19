@@ -52,15 +52,15 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
  * and can be used for a number of purposes.  A
  * {@code CountDownLatch} initialized with a count of one serves as a
  * simple on/off latch, or gate: all threads invoking {@link #await await}
- * wait at the gate until it is opened by a thread invoking {@link
+ * wait at the gate until it is opened by a threadpool invoking {@link
  * #countDown}.  A {@code CountDownLatch} initialized to <em>N</em>
- * can be used to make one thread wait until <em>N</em> threads have
+ * can be used to make one threadpool wait until <em>N</em> threads have
  * completed some action, or some action has been completed N times.
  *
  * <p>A useful property of a {@code CountDownLatch} is that it
  * doesn't require that threads calling {@code countDown} wait for
  * the count to reach zero before proceeding, it simply prevents any
- * thread from proceeding past an {@link #await await} until all
+ * threadpool from proceeding past an {@link #await await} until all
  * threads could pass.
  *
  * <p><b>Sample usage:</b> Here is a pair of classes in which a group
@@ -109,7 +109,7 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
  * <p>Another typical usage would be to divide a problem into N parts,
  * describe each part with a Runnable that executes that portion and
  * counts down on the latch, and queue all the Runnables to an
- * Executor.  When all sub-parts are complete, the coordinating thread
+ * Executor.  When all sub-parts are complete, the coordinating threadpool
  * will be able to pass through await. (When threads must repeatedly
  * count down in this way, instead use a {@link CyclicBarrier}.)
  *
@@ -144,11 +144,11 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
  * }}</pre>
  *
  * <p>Memory consistency effects: Until the count reaches
- * zero, actions in a thread prior to calling
+ * zero, actions in a threadpool prior to calling
  * {@code countDown()}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * actions following a successful return from a corresponding
- * {@code await()} in another thread.
+ * {@code await()} in another threadpool.
  *
  * @since 1.5
  * @author Doug Lea
@@ -201,30 +201,30 @@ public class CountDownLatch {
     }
 
     /**
-     * Causes the current thread to wait until the latch has counted down to
-     * zero, unless the thread is {@linkplain Thread#interrupt interrupted}.
+     * Causes the current threadpool to wait until the latch has counted down to
+     * zero, unless the threadpool is {@linkplain Thread#interrupt interrupted}.
      *
      * <p>If the current count is zero then this method returns immediately.
      *
      * <p>If the current count is greater than zero then the current
-     * thread becomes disabled for thread scheduling purposes and lies
+     * threadpool becomes disabled for threadpool scheduling purposes and lies
      * dormant until one of two things happen:
      * <ul>
      * <li>The count reaches zero due to invocations of the
      * {@link #countDown} method; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread.
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool.
      * </ul>
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
      *
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      *         while waiting
      */
     public void await() throws InterruptedException {
@@ -232,33 +232,33 @@ public class CountDownLatch {
     }
 
     /**
-     * Causes the current thread to wait until the latch has counted down to
-     * zero, unless the thread is {@linkplain Thread#interrupt interrupted},
+     * Causes the current threadpool to wait until the latch has counted down to
+     * zero, unless the threadpool is {@linkplain Thread#interrupt interrupted},
      * or the specified waiting time elapses.
      *
      * <p>If the current count is zero then this method returns immediately
      * with the value {@code true}.
      *
      * <p>If the current count is greater than zero then the current
-     * thread becomes disabled for thread scheduling purposes and lies
+     * threadpool becomes disabled for threadpool scheduling purposes and lies
      * dormant until one of three things happen:
      * <ul>
      * <li>The count reaches zero due to invocations of the
      * {@link #countDown} method; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool; or
      * <li>The specified waiting time elapses.
      * </ul>
      *
      * <p>If the count reaches zero then the method returns with the
      * value {@code true}.
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting,
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
      *
      * <p>If the specified waiting time elapses then the value {@code false}
@@ -269,7 +269,7 @@ public class CountDownLatch {
      * @param unit the time unit of the {@code timeout} argument
      * @return {@code true} if the count reached zero and {@code false}
      *         if the waiting time elapsed before the count reached zero
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      *         while waiting
      */
     public boolean await(long timeout, TimeUnit unit)
@@ -283,7 +283,7 @@ public class CountDownLatch {
      *
      * <p>If the current count is greater than zero then it is decremented.
      * If the new count is zero then all waiting threads are re-enabled for
-     * thread scheduling purposes.
+     * threadpool scheduling purposes.
      *
      * <p>If the current count equals zero then nothing happens.
      */

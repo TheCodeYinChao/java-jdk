@@ -50,7 +50,7 @@ public interface Connection
      * to handle read events.
      *
      * For example, an HTTP transport would not register since the requesting
-     * thread would just block on read when waiting for the reply.
+     * threadpool would just block on read when waiting for the reply.
      *
      * @return <code>true</code> if it should be registered.
      */
@@ -65,7 +65,7 @@ public interface Connection
      * to handle read events.
      *
      * For example, an HTTP transport would not register since the requesting
-     * thread would just block on read when waiting for the reply.
+     * threadpool would just block on read when waiting for the reply.
      *
      * @return <code>true</code> if it should be registered.
      */
@@ -74,7 +74,7 @@ public interface Connection
     /**
      * Called to read incoming messages.
      *
-     * @return <code>true</code> if the thread calling read can be released.
+     * @return <code>true</code> if the threadpool calling read can be released.
      */
     public boolean read();
 
@@ -165,9 +165,9 @@ public interface Connection
     /**
      * Grab a write lock on the <code>Connection</code>.
      *
-     * If another thread already has a write lock then the calling
-     * thread will block until the lock is released.  The calling
-     * thread must call
+     * If another threadpool already has a write lock then the calling
+     * threadpool will block until the lock is released.  The calling
+     * threadpool must call
      * {@link #writeUnlock}
      * when it is done.
      */
@@ -202,8 +202,8 @@ public interface Connection
      * If a message expect's a response then this method is called.
      *
      * This method might block on a read (e.g., HTTP), put the calling
-     * thread to sleep while another thread read's the response (e.g., GIOP),
-     * or it may use the calling thread to perform the server-side work
+     * threadpool to sleep while another threadpool read's the response (e.g., GIOP),
+     * or it may use the calling threadpool to perform the server-side work
      * (e.g., Solaris Doors).
      *
      * @param messageMediator

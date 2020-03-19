@@ -48,7 +48,7 @@ import java.nio.channels.spi.SelectorProvider;
  * A key may be cancelled explicitly by invoking its {@link
  * SelectionKey#cancel() cancel} method.  All of a channel's keys are cancelled
  * implicitly when the channel is closed, whether by invoking its {@link
- * Channel#close close} method or by interrupting a thread blocked in an I/O
+ * Channel#close close} method or by interrupting a threadpool blocked in an I/O
  * operation upon the channel.
  *
  * <p> If the selector itself is closed then the channel will be deregistered,

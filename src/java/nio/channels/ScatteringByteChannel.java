@@ -76,7 +76,7 @@ public interface ScatteringByteChannel
      * buffer, except the last updated buffer, is guaranteed to be equal to
      * that buffer's limit.
      *
-     * <p> This method may be invoked at any time.  If another thread has
+     * <p> This method may be invoked at any time.  If another threadpool has
      * already initiated a read operation upon this channel, however, then an
      * invocation of this method will block until the first operation is
      * complete. </p>
@@ -108,13 +108,13 @@ public interface ScatteringByteChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the read operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the read operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  IOException
@@ -145,13 +145,13 @@ public interface ScatteringByteChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the read operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the read operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  IOException

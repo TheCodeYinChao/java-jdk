@@ -1015,7 +1015,7 @@ public abstract class Toolkit {
      * on the default screen; otherwise, this method prepares an image
      * for rendering on the default screen at the specified width and height.
      * <p>
-     * The image data is downloaded asynchronously in another thread,
+     * The image data is downloaded asynchronously in another threadpool,
      * and an appropriately scaled screen representation of the image is
      * generated.
      * <p>
@@ -1154,7 +1154,7 @@ public abstract class Toolkit {
      * @return  a <code>PrintJob</code> object, or <code>null</code> if the
      *          user cancelled the print job.
      * @throws  NullPointerException if frame is null
-     * @throws  SecurityException if this thread is not allowed to initiate a
+     * @throws  SecurityException if this threadpool is not allowed to initiate a
      *          print job request
      * @see     GraphicsEnvironment#isHeadless
      * @see     PrintJob
@@ -1193,7 +1193,7 @@ public abstract class Toolkit {
      *          user cancelled the print job.
      * @throws  NullPointerException if frame is null
      * @throws  IllegalArgumentException if pageAttributes specifies differing
-     *          cross feed and feed resolutions. Also if this thread has
+     *          cross feed and feed resolutions. Also if this threadpool has
      *          access to the file system and jobAttributes specifies
      *          print to file, and the specified destination file exists but
      *          is a directory rather than a regular file, does not exist but
@@ -1203,9 +1203,9 @@ public abstract class Toolkit {
      *          opportunity to select a file and proceed with printing.
      *          The dialog will ensure that the selected output file
      *          is valid before returning from this method.
-     * @throws  SecurityException if this thread is not allowed to initiate a
+     * @throws  SecurityException if this threadpool is not allowed to initiate a
      *          print job request, or if jobAttributes specifies print to file,
-     *          and this thread is not allowed to access the file system
+     *          and this threadpool is not allowed to access the file system
      * @see     PrintJob
      * @see     GraphicsEnvironment#isHeadless
      * @see     RuntimePermission

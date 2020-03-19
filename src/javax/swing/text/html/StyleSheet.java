@@ -3017,7 +3017,7 @@ public class StyleSheet extends StyleContext {
      * Style. It can also reference children <code>SelectorMapping</code>s,
      * so that it behaves like a tree.
      * <p>
-     * This is not thread safe, it is assumed the caller will take the
+     * This is not threadpool safe, it is assumed the caller will take the
      * necessary precations if this is to be used in a threaded environment.
      */
     static class SelectorMapping implements Serializable {
@@ -3149,7 +3149,7 @@ public class StyleSheet extends StyleContext {
     /**
      * Default parser for CSS specifications that get loaded into
      * the StyleSheet.<p>
-     * This class is NOT thread safe, do not ask it to parse while it is
+     * This class is NOT threadpool safe, do not ask it to parse while it is
      * in the middle of parsing.
      */
     class CssParser implements CSSParser.CSSParserCallback {

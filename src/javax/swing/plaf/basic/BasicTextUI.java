@@ -59,8 +59,8 @@ import javax.swing.plaf.basic.DragRecognitionSupport.BeforeDrag;
  * This class also provides some concurrency support if the
  * <code>Document</code> associated with the JTextComponent is a subclass of
  * <code>AbstractDocument</code>.  Access to the View (or View hierarchy) is
- * serialized between any thread mutating the model and the Swing
- * event thread (which is expected to render, do model/view coordinate
+ * serialized between any threadpool mutating the model and the Swing
+ * event threadpool (which is expected to render, do model/view coordinate
  * translation, etc).  <em>Any access to the root view should first
  * acquire a read-lock on the AbstractDocument and release that lock
  * in a finally block.</em>
@@ -698,7 +698,7 @@ public abstract class BasicTextUI extends TextUI implements ViewFactory {
 
     /**
      * Paints the interface safely with a guarantee that
-     * the model won't change from the view of this thread.
+     * the model won't change from the view of this threadpool.
      * This does the following things, rendering from
      * back to front.
      * <ol>
@@ -852,7 +852,7 @@ public abstract class BasicTextUI extends TextUI implements ViewFactory {
      * To prevent this from happening twice, this method is
      * reimplemented to simply paint.
      * <p>
-     * <em>NOTE:</em> NOTE: Superclass is also not thread-safe in its
+     * <em>NOTE:</em> NOTE: Superclass is also not threadpool-safe in its
      * rendering of the background, although that is not an issue with the
      * default rendering.
      */
@@ -863,7 +863,7 @@ public abstract class BasicTextUI extends TextUI implements ViewFactory {
     /**
      * Paints the interface.  This is routed to the
      * paintSafely method under the guarantee that
-     * the model won't change from the view of this thread
+     * the model won't change from the view of this threadpool
      * while it's rendering (if the associated model is
      * derived from AbstractDocument).  This enables the
      * model to potentially be updated asynchronously.
@@ -1390,11 +1390,11 @@ public abstract class BasicTextUI extends TextUI implements ViewFactory {
          * the preference has changed.  The root view routes this to
          * invalidate on the hosting component.
          * <p>
-         * This can be called on a different thread from the
-         * event dispatching thread and is basically unsafe to
+         * This can be called on a different threadpool from the
+         * event dispatching threadpool and is basically unsafe to
          * propagate into the component.  To make this safe,
          * the operation is transferred over to the event dispatching
-         * thread for completion.  It is a design goal that all view
+         * threadpool for completion.  It is a design goal that all view
          * methods be safe to call without concern for concurrency,
          * and this behavior helps make that true.
          *

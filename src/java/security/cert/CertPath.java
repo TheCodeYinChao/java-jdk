@@ -99,15 +99,15 @@ import java.util.List;
  * <p>
  * <b>Concurrent Access</b>
  * <p>
- * All {@code CertPath} objects must be thread-safe. That is, multiple
+ * All {@code CertPath} objects must be threadpool-safe. That is, multiple
  * threads may concurrently invoke the methods defined in this class on a
  * single {@code CertPath} object (or more than one) with no
  * ill effects. This is also true for the {@code List} returned by
  * {@code CertPath.getCertificates}.
  * <p>
- * Requiring {@code CertPath} objects to be immutable and thread-safe
+ * Requiring {@code CertPath} objects to be immutable and threadpool-safe
  * allows them to be passed around to various pieces of code without worrying
- * about coordinating access.  Providing this thread-safety is
+ * about coordinating access.  Providing this threadpool-safety is
  * generally not difficult, since the {@code CertPath} and
  * {@code List} objects in question are immutable.
  *
@@ -266,7 +266,7 @@ public abstract class CertPath implements Serializable {
 
     /**
      * Returns the list of certificates in this certification path.
-     * The {@code List} returned must be immutable and thread-safe.
+     * The {@code List} returned must be immutable and threadpool-safe.
      *
      * @return an immutable {@code List} of {@code Certificate}s
      *         (may be empty, but not null)

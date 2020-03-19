@@ -87,7 +87,7 @@ import javax.print.attribute.DocAttributeSet;
  * <P>
  * There is no restriction on the number of client threads that may be
  * simultaneously accessing the same doc. Therefore, all implementations of
- * interface Doc must be designed to be multiple thread safe.
+ * interface Doc must be designed to be multiple threadpool safe.
  * <p>
  * However there can only be one consumer of the print data obtained from a
  * Doc.

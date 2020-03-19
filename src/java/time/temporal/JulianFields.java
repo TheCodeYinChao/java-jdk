@@ -83,7 +83,7 @@ import java.util.Map;
  * The fields work with all chronologies.
  *
  * @implSpec
- * This is an immutable and thread-safe class.
+ * This is an immutable and threadpool-safe class.
  *
  * @since 1.8
  */

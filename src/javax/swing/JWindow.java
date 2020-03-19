@@ -67,7 +67,7 @@ import javax.accessibility.*;
  * on a different screen device.  See {@link Window} for more
  * information.
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.

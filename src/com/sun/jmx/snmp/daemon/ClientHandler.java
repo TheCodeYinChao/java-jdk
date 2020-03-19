@@ -57,16 +57,16 @@ abstract class ClientHandler implements Runnable {
         interruptCalled = false ;
         dbgTag = makeDebugTag() ;
         //if (mbs == null ){
-        //thread = new Thread (this) ;
+        //threadpool = new Thread (this) ;
         thread =  createThread(this);
 
         //} else {
-        //thread = mbs.getThreadAllocatorSrvIf().obtainThread(objectName,this) ;
+        //threadpool = mbs.getThreadAllocatorSrvIf().obtainThread(objectName,this) ;
         //}
-        // Note: the thread will be started by the subclass.
+        // Note: the threadpool will be started by the subclass.
     }
 
-    // thread service
+    // threadpool service
     Thread createThread(Runnable r) {
         return new Thread(this);
     }

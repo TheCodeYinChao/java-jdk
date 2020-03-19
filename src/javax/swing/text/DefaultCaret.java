@@ -44,14 +44,14 @@ import sun.swing.SwingUtilities2;
  * by the BlinkRate property.
  * <p>
  * This implementation expects two sources of asynchronous notification.
- * The timer thread fires asynchronously, and causes the caret to simply
+ * The timer threadpool fires asynchronously, and causes the caret to simply
  * repaint the most recent bounding box.  The caret also tracks change
  * as the document is modified.  Typically this will happen on the
- * event dispatch thread as a result of some mouse or keyboard event.
+ * event dispatch threadpool as a result of some mouse or keyboard event.
  * The caret behavior on both synchronous and asynchronous documents updates
  * is controlled by <code>UpdatePolicy</code> property. The repaint of the
- * new caret location will occur on the event thread in any case, as calls to
- * <code>modelToView</code> are only safe on the event thread.
+ * new caret location will occur on the event threadpool in any case, as calls to
+ * <code>modelToView</code> are only safe on the event threadpool.
  * <p>
  * The caret acts as a mouse and focus listener on the text component
  * it has been installed in, and defines the caret semantics based upon
@@ -78,7 +78,7 @@ import sun.swing.SwingUtilities2;
  * should also be reimplemented to cause a repaint for the area needed
  * to render the caret.  The caret extends the Rectangle class which
  * is used to hold the bounding box for where the caret was last rendered.
- * This enables the caret to repaint in a thread-safe manner when the
+ * This enables the caret to repaint in a threadpool-safe manner when the
  * caret moves without making a call to modelToView which is unstable
  * between model updates and view repair (i.e. the order of delivery
  * to DocumentListeners is not guaranteed).
@@ -183,7 +183,7 @@ public class DefaultCaret extends Rectangle implements Caret, FocusListener, Mou
      *   <li><code>UPDATE_WHEN_ON_EDT</code>: acts like <code>ALWAYS_UPDATE</code>
      *       if the document updates are performed on the Event Dispatching Thread
      *       and like <code>NEVER_UPDATE</code> if updates are performed on
-     *       other thread. </li>
+     *       other threadpool. </li>
      * </ul> <p>
      * The default property value is <code>UPDATE_WHEN_ON_EDT</code>.
      *
@@ -235,7 +235,7 @@ public class DefaultCaret extends Rectangle implements Caret, FocusListener, Mou
      * area is the bounding box of the caret (i.e.
      * the caret rectangle or <em>this</em>).
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -1281,7 +1281,7 @@ public class DefaultCaret extends Rectangle implements Caret, FocusListener, Mou
         // may be unstable at the time this is called
         // (i.e. we don't want to depend upon notification
         // order or the fact that this might happen on
-        // an unsafe thread).
+        // an unsafe threadpool).
         Runnable callRepaintNewCaret = new Runnable() {
             public void run() {
                 repaintNewCaret();
@@ -1293,7 +1293,7 @@ public class DefaultCaret extends Rectangle implements Caret, FocusListener, Mou
     /**
      * Repaints the new caret position, with the
      * assumption that this is happening on the
-     * event thread so that calling <code>modelToView</code>
+     * event threadpool so that calling <code>modelToView</code>
      * is safe.
      */
     void repaintNewCaret() {

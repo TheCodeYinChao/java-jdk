@@ -166,7 +166,7 @@ import javax.accessibility.*;
  * </dl>
  *
  * <p>
- * <strong>Warning:</strong> Swing is not thread safe. For more
+ * <strong>Warning:</strong> Swing is not threadpool safe. For more
  * information see <a
  * href="package-summary.html#threading">Swing's Threading
  * Policy</a>.
@@ -372,7 +372,7 @@ public class JEditorPane extends JTextComponent {
      * <code>AbstractDocument</code> and has a value returned by
      * <code>AbstractDocument.getAsynchronousLoadPriority</code>
      * that is greater than or equal to zero, the page will be
-     * loaded on a separate thread using that priority.
+     * loaded on a separate threadpool using that priority.
      * <p>
      * If the document is loaded synchronously, it will be
      * filled in with the stream prior to being installed into
@@ -390,16 +390,16 @@ public class JEditorPane extends JTextComponent {
      * If the document is loaded asynchronously, the document
      * will be installed into the editor immediately using a
      * call to <code>setDocument</code> which will fire a
-     * document property change event, then a thread will be
+     * document property change event, then a threadpool will be
      * created which will begin doing the actual loading.
      * In this case, the page property change event will not be
      * fired by the call to this method directly, but rather will be
-     * fired when the thread doing the loading has finished.
-     * It will also be fired on the event-dispatch thread.
-     * Since the calling thread can not throw an <code>IOException</code>
-     * in the event of failure on the other thread, the page
+     * fired when the threadpool doing the loading has finished.
+     * It will also be fired on the event-dispatch threadpool.
+     * Since the calling threadpool can not throw an <code>IOException</code>
+     * in the event of failure on the other threadpool, the page
      * property change event will be fired when the other
-     * thread is done whether the load was successful or not.
+     * threadpool is done whether the load was successful or not.
      *
      * @param page the URL of the page
      * @exception IOException for a <code>null</code> or invalid
@@ -436,7 +436,7 @@ public class JEditorPane extends JTextComponent {
                     // At this point, one could either load up the model with no
                     // view notifications slowing it down (i.e. best synchronous
                     // behavior) or set the model and start to feed it on a separate
-                    // thread (best asynchronous behavior).
+                    // threadpool (best asynchronous behavior).
                     p = getAsynchronousLoadPriority(doc);
                     if (p >= 0) {
                         // load asynchronously
@@ -457,8 +457,8 @@ public class JEditorPane extends JTextComponent {
                     pageLoader.cancel(true);
                 }
 
-                // Do everything in a background thread.
-                // Model initialization is deferred to that thread, too.
+                // Do everything in a background threadpool.
+                // Model initialization is deferred to that threadpool, too.
                 pageLoader = new PageLoader(null, null, loaded, page);
                 pageLoader.execute();
                 return;
@@ -652,7 +652,7 @@ public class JEditorPane extends JTextComponent {
                 String reference = page.getRef();
                 if (reference != null) {
                     // scroll the page if necessary, but do it on the
-                    // event thread... that is the only guarantee that
+                    // event threadpool... that is the only guarantee that
                     // modelToView can be safely called.
                     Runnable callScrollToReference = new Runnable() {
                         public void run() {
@@ -696,7 +696,7 @@ public class JEditorPane extends JTextComponent {
 
         /**
          * The Document instance to load into. This is cached in case a
-         * new Document is created between the time the thread this is created
+         * new Document is created between the time the threadpool this is created
          * and run.
          */
         Document doc;

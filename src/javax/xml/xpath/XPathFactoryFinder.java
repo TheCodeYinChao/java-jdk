@@ -104,7 +104,7 @@ class XPathFactoryFinder  {
     private void debugDisplayClassLoader() {
         try {
             if( classLoader == ss.getContextClassLoader() ) {
-                debugPrintln("using thread context class loader ("+classLoader+") for search");
+                debugPrintln("using threadpool context class loader ("+classLoader+") for search");
                 return;
             }
         } catch( Throwable unused ) {

@@ -88,7 +88,7 @@ public class LayoutQueue {
     }
 
     /**
-     * Used by the worker thread to get a new task to execute
+     * Used by the worker threadpool to get a new task to execute
      */
     protected synchronized Runnable waitForWork() {
         while (tasks.size() == 0) {
@@ -104,7 +104,7 @@ public class LayoutQueue {
     }
 
     /**
-     * low priority thread to perform layout work forever
+     * low priority threadpool to perform layout work forever
      */
     class LayoutThread extends Thread {
 

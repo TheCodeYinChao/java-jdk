@@ -70,7 +70,7 @@ import javax.management.ObjectName;
  *     specified in {@link java.util.Timer}. In order to use <i>fixed-rate execution</i>, use the
  *     overloaded {@link #addNotification(String, String, Object, Date, long, long, boolean)} method.
  * <LI>Notification listeners are potentially all executed in the same
- * thread.  Therefore, they should execute rapidly to avoid holding up
+ * threadpool.  Therefore, they should execute rapidly to avoid holding up
  * other listeners or perturbing the regularity of fixed-delay
  * executions.  See {@link NotificationBroadcasterSupport}.
  * </OL>
@@ -351,7 +351,7 @@ public class Timer extends NotificationBroadcasterSupport
                 if (alarmClock != null) {
 //                     alarmClock.interrupt();
 //                     try {
-//                         // Wait until the thread die.
+//                         // Wait until the threadpool die.
 //                         //
 //                         alarmClock.join();
 //                     } catch (InterruptedException ex) {
@@ -664,7 +664,7 @@ public class Timer extends NotificationBroadcasterSupport
         if (alarmClock != null) {
 //             alarmClock.interrupt();
 //             try {
-//                 // Wait until the thread die.
+//                 // Wait until the threadpool die.
 //                 //
 //                 alarmClock.join();
 //             } catch (InterruptedException e) {
@@ -739,7 +739,7 @@ public class Timer extends NotificationBroadcasterSupport
 //             if (alarmClock != null) {
 //                 alarmClock.interrupt();
 //                 try {
-//                     // Wait until the thread die.
+//                     // Wait until the threadpool die.
 //                     //
 //                     alarmClock.join();
 //                 } catch (InterruptedException ex) {
@@ -1133,7 +1133,7 @@ public class Timer extends NotificationBroadcasterSupport
                 if (alarmClock != null) {
 //                     alarmClock.interrupt();
 //                     try {
-//                         // Wait until the thread die.
+//                         // Wait until the threadpool die.
 //                         //
 //                         alarmClock.join();
 //                     } catch (InterruptedException e) {
@@ -1148,7 +1148,7 @@ public class Timer extends NotificationBroadcasterSupport
             if (alarmClock != null) {
 //                 alarmClock.interrupt();
 //                 try {
-//                     // Wait until the thread die.
+//                     // Wait until the threadpool die.
 //                     //
 //                     alarmClock.join();
 //                 } catch (InterruptedException e) {

@@ -87,8 +87,8 @@ import java.util.Objects;
  * This class provides a single wrapper to items used in the format.
  *
  * @implSpec
- * This class is a mutable context intended for use from a single thread.
- * Usage of the class is thread-safe within standard printing as the framework creates
+ * This class is a mutable context intended for use from a single threadpool.
+ * Usage of the class is threadpool-safe within standard printing as the framework creates
  * a new instance of the class for each format and printing is single-threaded.
  *
  * @since 1.8

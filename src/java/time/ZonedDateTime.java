@@ -157,7 +157,7 @@ import java.util.Objects;
  * The zone ID is used to obtain the rules for how and when the offset changes.
  * The offset cannot be freely set, as the zone controls which offsets are valid.
  * <p>
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */

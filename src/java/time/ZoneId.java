@@ -168,7 +168,7 @@ import java.util.TimeZone;
  * The {@code equals} method should be used for comparisons.
  *
  * @implSpec
- * This abstract class has two implementations, both of which are immutable and thread-safe.
+ * This abstract class has two implementations, both of which are immutable and threadpool-safe.
  * One implementation models region-based IDs, the other is {@code ZoneOffset} modelling
  * offset-based IDs. This difference is visible in serialization.
  *
@@ -282,7 +282,7 @@ public abstract class ZoneId implements Serializable {
      * The ID can be passed to {@link #of(String)} to create a {@code ZoneId}.
      * <p>
      * The set of zone IDs can increase over time, although in a typical application
-     * the set of IDs is fixed. Each call to this method is thread-safe.
+     * the set of IDs is fixed. Each call to this method is threadpool-safe.
      *
      * @return a modifiable copy of the set of zone IDs, not null
      */
@@ -555,7 +555,7 @@ public abstract class ZoneId implements Serializable {
      * The rules are supplied by {@link ZoneRulesProvider}. An advanced provider may
      * support dynamic updates to the rules without restarting the Java Runtime.
      * If so, then the result of this method may change over time.
-     * Each individual call will be still remain thread-safe.
+     * Each individual call will be still remain threadpool-safe.
      * <p>
      * {@link ZoneOffset} will always return a set of rules where the offset never changes.
      *

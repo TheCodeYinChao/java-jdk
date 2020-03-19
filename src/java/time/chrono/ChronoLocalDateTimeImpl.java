@@ -92,7 +92,7 @@ import java.util.Objects;
  * "2nd October 2007 at 13:45.30.123456789" can be stored in an {@code ChronoLocalDateTime}.
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  * @serial
  * @param <D> the concrete type for the date of this date-time
  * @since 1.8

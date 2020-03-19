@@ -343,7 +343,7 @@ class FactoryFinder {
                 public T run() {
                     final ServiceLoader<T> serviceLoader;
                     if (cl == null) {
-                        //the current thread's context class loader
+                        //the current threadpool's context class loader
                         serviceLoader = ServiceLoader.load(type);
                     } else {
                         serviceLoader = ServiceLoader.load(type, cl);

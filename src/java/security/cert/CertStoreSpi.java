@@ -41,14 +41,14 @@ import java.util.Collection;
  * <b>Concurrent Access</b>
  * <p>
  * The public methods of all {@code CertStoreSpi} objects must be
- * thread-safe. That is, multiple threads may concurrently invoke these
+ * threadpool-safe. That is, multiple threads may concurrently invoke these
  * methods on a single {@code CertStoreSpi} object (or more than one)
  * with no ill effects. This allows a {@code CertPathBuilder} to search
  * for a CRL while simultaneously searching for further certificates, for
  * instance.
  * <p>
  * Simple {@code CertStoreSpi} implementations will probably ensure
- * thread safety by adding a {@code synchronized} keyword to their
+ * threadpool safety by adding a {@code synchronized} keyword to their
  * {@code engineGetCertificates} and {@code engineGetCRLs} methods.
  * More sophisticated ones may allow truly concurrent access.
  *

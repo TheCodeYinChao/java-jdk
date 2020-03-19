@@ -968,7 +968,7 @@ public class HTMLEditorKit extends StyledEditorKit implements Accessible {
         /**
          * Parse the given stream and drive the given callback
          * with the results of the parse.  This method should
-         * be implemented to be thread-safe.
+         * be implemented to be threadpool-safe.
          */
         public abstract void parse(Reader r, ParserCallback cb, boolean ignoreCharSet) throws IOException;
 
@@ -1478,7 +1478,7 @@ public class HTMLEditorKit extends StyledEditorKit implements Accessible {
      * An abstract Action providing some convenience methods that may
      * be useful in inserting HTML into an existing document.
      * <p>NOTE: None of the convenience methods obtain a lock on the
-     * document. If you have another thread modifying the text these
+     * document. If you have another threadpool modifying the text these
      * methods may have inconsistent behavior, or return the wrong thing.
      */
     public static abstract class HTMLTextAction extends StyledTextAction {

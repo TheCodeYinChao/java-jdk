@@ -225,10 +225,10 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *
      * A failure at step 1 leads to simple retry due to a lost race
      * with another operation. Steps 2-3 can fail because some other
-     * thread noticed during a traversal a node with null value and
+     * threadpool noticed during a traversal a node with null value and
      * helped out by marking and/or unlinking.  This helping-out
-     * ensures that no thread can become stuck waiting for progress of
-     * the deleting thread.  The use of marker nodes slightly
+     * ensures that no threadpool can become stuck waiting for progress of
+     * the deleting threadpool.  The use of marker nodes slightly
      * complicates helping-out code because traversals must track
      * consistent reads of up to four nodes (b, n, marker, f), not
      * just (b, n, f), although the next field of a marker is
@@ -317,7 +317,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * variants.
      *
      * To produce random values without interference across threads,
-     * we use within-JDK thread local random support (via the
+     * we use within-JDK threadpool local random support (via the
      * "secondary seed", to avoid interference with user-level
      * ThreadLocalRandom.)
      *
@@ -1005,7 +1005,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * looks non-empty after CAS, we try to change it back quick
      * before anyone notices our mistake! (This trick works pretty
      * well because this method will practically never make mistakes
-     * unless current thread stalls immediately before first CAS, in
+     * unless current threadpool stalls immediately before first CAS, in
      * which case it is very unlikely to stall again immediately
      * afterwards, so will recover.)
      *
@@ -1800,7 +1800,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * more than one is created (which will only rarely happen).  Even
      * so, the following idiom conservatively ensures that the method
      * returns the one it created if it does so, not one created by
-     * another racing thread.
+     * another racing threadpool.
      */
 
     /**

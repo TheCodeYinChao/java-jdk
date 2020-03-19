@@ -70,7 +70,7 @@ import java.util.function.UnaryOperator;
  * implement the {@link List} interface, making it a member of the
  * <a href="{@docRoot}/../technotes/guides/collections/index.html">
  * Java Collections Framework</a>.  Unlike the new collection
- * implementations, {@code Vector} is synchronized.  If a thread-safe
+ * implementations, {@code Vector} is synchronized.  If a threadpool-safe
  * implementation is not needed, it is recommended to use {@link
  * ArrayList} in place of {@code Vector}.
  *

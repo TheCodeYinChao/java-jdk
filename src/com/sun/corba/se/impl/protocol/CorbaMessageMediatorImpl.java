@@ -727,15 +727,15 @@ public class CorbaMessageMediatorImpl
         if (getConnection().getEventHandler().shouldUseSelectThreadToWait()) {
             resumeSelect(header);
         } else {
-            // Leader/Follower when using reader thread.
-            // When this thread is done working it will go back in pool.
+            // Leader/Follower when using reader threadpool.
+            // When this threadpool is done working it will go back in pool.
 
             isThreadDone = true;
 
             // First unregister current registration.
             orb.getTransportManager().getSelector(0)
                 .unregisterForEvent(getConnection().getEventHandler());
-            // Have another thread become the reader.
+            // Have another threadpool become the reader.
             orb.getTransportManager().getSelector(0)
                 .registerForEvent(getConnection().getEventHandler());
         }
@@ -746,7 +746,7 @@ public class CorbaMessageMediatorImpl
         if (getConnection().getEventHandler().shouldUseSelectThreadToWait()) {
             resumeSelect(header);
         } else {
-            // When using reader thread then wen this thread is
+            // When using reader threadpool then wen this threadpool is
             // done working it will continue reading.
             isThreadDone = false;
         }
@@ -785,7 +785,7 @@ public class CorbaMessageMediatorImpl
         // IMPORTANT: To avoid bug (4953599), we force the Thread that does the NIO select
         // to also do the enable/disable of Ops using SelectionKey.interestOps(Ops of Interest).
         // Otherwise, the SelectionKey.interestOps(Ops of Interest) may block indefinitely in
-        // this thread.
+        // this threadpool.
         EventHandler eventHandler = getConnection().getEventHandler();
         orb.getTransportManager().getSelector(0).registerInterestOps(eventHandler);
 
@@ -879,7 +879,7 @@ public class CorbaMessageMediatorImpl
         } catch (Throwable t) {
             if (transportDebug())
                 dprint(".REQUEST 1.0: !!ERROR!!: " + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug()) dprint(".REQUEST 1.0<-: " + header);
         }
@@ -900,7 +900,7 @@ public class CorbaMessageMediatorImpl
         } catch (Throwable t) {
             if (transportDebug())
                 dprint(".REQUEST 1.1: !!ERROR!!: " + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug()) dprint(".REQUEST 1.1<-: " + header);
         }
@@ -944,7 +944,7 @@ public class CorbaMessageMediatorImpl
                                          + ": !!ERROR!!: "
                                          + header,
                                          t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             connection.serverRequestMapRemove(header.getRequestId());
 
@@ -963,7 +963,7 @@ public class CorbaMessageMediatorImpl
                 messageHeader = replyHeader = (ReplyMessage) header;
                 setInputObject();
 
-                // REVISIT: this should be done by waiting thread.
+                // REVISIT: this should be done by waiting threadpool.
                 inputObject.unmarshalHeader();
 
                 signalResponseReceived();
@@ -972,7 +972,7 @@ public class CorbaMessageMediatorImpl
             }
         } catch (Throwable t) {
             if (transportDebug())dprint(".REPLY 1.0: !!ERROR!!: " + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug()) dprint(".REPLY 1.0<-: " + header);
         }
@@ -992,9 +992,9 @@ public class CorbaMessageMediatorImpl
                 connection.clientReply_1_1_Put(this);
 
                 // In 1.1, we can't assume that we have the request ID in the
-                // first fragment.  Thus, another thread is used
-                // to be the reader while this thread unmarshals
-                // the extended header and wakes up the client thread.
+                // first fragment.  Thus, another threadpool is used
+                // to be the reader while this threadpool unmarshals
+                // the extended header and wakes up the client threadpool.
                 setWorkThenPoolOrResumeSelect(header);
 
                 // REVISIT - error handling.
@@ -1007,8 +1007,8 @@ public class CorbaMessageMediatorImpl
 
                 // Not fragmented, therefore we know the request
                 // ID is here.  Thus, we can unmarshal the extended header
-                // and wake up the client thread without using a third
-                // thread as above.
+                // and wake up the client threadpool without using a third
+                // threadpool as above.
 
                 // REVISIT - error handling during unmarshal.
                 // This must be done now to get the request id.
@@ -1020,7 +1020,7 @@ public class CorbaMessageMediatorImpl
             }
         } catch (Throwable t) {
             if (transportDebug()) dprint(".REPLY 1.1: !!ERROR!!: " + header);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug()) dprint(".REPLY 1.1<-: " + header);
         }
@@ -1053,7 +1053,7 @@ public class CorbaMessageMediatorImpl
                                          + header.getRequestId()
                                          + ": !!ERROR!!: "
                                          + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug()) dprint(".REPLY 1.2<-: id/"
                                          + header.getRequestId()
@@ -1077,7 +1077,7 @@ public class CorbaMessageMediatorImpl
         } catch (Throwable t) {
             if (transportDebug())
                 dprint(".LOCATE_REQUEST 1.0: !!ERROR!!: " + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug())
                 dprint(".LOCATE_REQUEST 1.0<-: " + header);
@@ -1100,7 +1100,7 @@ public class CorbaMessageMediatorImpl
         } catch (Throwable t) {
             if (transportDebug())
                 dprint(".LOCATE_REQUEST 1.1: !!ERROR!!: " + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug())
                 dprint(".LOCATE_REQUEST 1.1<-:" + header);
@@ -1135,7 +1135,7 @@ public class CorbaMessageMediatorImpl
                        + header.getRequestId()
                        + ": !!ERROR!!: "
                        + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug())
                 dprint(".LOCATE_REQUEST 1.2<-: id/"
@@ -1161,7 +1161,7 @@ public class CorbaMessageMediatorImpl
         } catch (Throwable t) {
             if (transportDebug())
                 dprint(".LOCATE_REPLY 1.0: !!ERROR!!: " + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug())
                 dprint(".LOCATE_REPLY 1.0<-: " + header);
@@ -1184,7 +1184,7 @@ public class CorbaMessageMediatorImpl
         } catch (Throwable t) {
             if (transportDebug())
                 dprint(".LOCATE_REPLY 1.1: !!ERROR!!: " + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug()) dprint(".LOCATE_REPLY 1.1<-: " + header);
         }
@@ -1216,7 +1216,7 @@ public class CorbaMessageMediatorImpl
                        + header.getRequestId()
                        + ": !!ERROR!!: "
                        + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug()) dprint(".LOCATE_REPLY 1.2<-: id/"
                                          + header.getRequestId()
@@ -1283,7 +1283,7 @@ public class CorbaMessageMediatorImpl
         } catch (Throwable t) {
             if (transportDebug())
                 dprint(".FRAGMENT 1.1: !!ERROR!!: " + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug()) dprint(".FRAGMENT 1.1<-: " + header);
         }
@@ -1361,7 +1361,7 @@ public class CorbaMessageMediatorImpl
                        + header.getRequestId()
                        + ": !!ERROR!!: "
                        + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug()) dprint(".FRAGMENT 1.2<-: id/"
                                          + header.getRequestId()
@@ -1395,7 +1395,7 @@ public class CorbaMessageMediatorImpl
                                          + header.getRequestId()
                                          + ": !!ERROR!!: "
                                          + header, t);
-            // Mask the exception from thread.;
+            // Mask the exception from threadpool.;
         } finally {
             if (transportDebug()) dprint(".CANCEL<-: id/"
                                          + header.getRequestId() + ": "
@@ -1450,18 +1450,18 @@ public class CorbaMessageMediatorImpl
          *
          *  - call cancelProcessing() in BufferManagerRead [BMR]
          *
-         *  - the hope is that worker thread would call BMR.underflow()
+         *  - the hope is that worker threadpool would call BMR.underflow()
          *    to wait for more fragments to come in. When BMR.underflow() is
          *    called, if a CancelRequest had already arrived,
-         *    the worker thread would throw ThreadDeath,
-         *    else the thread would wait to be notified of the
+         *    the worker threadpool would throw ThreadDeath,
+         *    else the threadpool would wait to be notified of the
          *    arrival of a new fragment or CancelRequest. Upon notification,
-         *    the woken up thread would check to see if a CancelRequest had
+         *    the woken up threadpool would check to see if a CancelRequest had
          *    arrived and if so throw a ThreadDeath or it will continue to
          *    process the received fragment.
          *
          *  - if all the fragments had been received prior to CancelRequest
-         *    then the worker thread would never block in BMR.underflow().
+         *    then the worker threadpool would never block in BMR.underflow().
          *    So, setting the abort flag in BMR has no effect. The request
          *    processing will complete normally.
          *
@@ -1533,7 +1533,7 @@ public class CorbaMessageMediatorImpl
         // do not know if the target object's method has been invoked or not.
         // Request input stream being available simply means that the request
         // processing is not over yet. simply set the abort flag in the
-        // BMRS and hope that the worker thread would notice it (this can
+        // BMRS and hope that the worker threadpool would notice it (this can
         // happen only if the request stream is being unmarshalled and the
         // target's method has not been invoked yet). This guarantees
         // that the requests which have been dispatched to the
@@ -1921,8 +1921,8 @@ public class CorbaMessageMediatorImpl
         }
 
         // NOTE: We do not trap ThreadDeath above Throwable.
-        // There is no reason to stop the thread.  It is
-        // just a worker thread.  The ORB never throws
+        // There is no reason to stop the threadpool.  It is
+        // just a worker threadpool.  The ORB never throws
         // ThreadDeath.  Client code may (e.g., in ServantManagers,
         // interceptors, or servants) but that should not
         // effect the ORB threads.  So it is just handled

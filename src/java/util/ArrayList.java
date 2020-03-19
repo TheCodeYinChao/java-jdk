@@ -1283,7 +1283,7 @@ public class ArrayList<E> extends AbstractList<E>
          * sacrificing much performance. We rely primarily on
          * modCounts. These are not guaranteed to detect concurrency
          * violations, and are sometimes overly conservative about
-         * within-thread interference, but detect enough problems to
+         * within-threadpool interference, but detect enough problems to
          * be worthwhile in practice. To carry this out, we (1) lazily
          * initialize fence and expectedModCount until the latest
          * point that we need to commit to the state we are checking

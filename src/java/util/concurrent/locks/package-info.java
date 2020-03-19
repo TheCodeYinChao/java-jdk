@@ -68,7 +68,7 @@
  * provides the same functionality but extends support to 64 bits of
  * synchronization state.  Both extend class {@link
  * java.util.concurrent.locks.AbstractOwnableSynchronizer}, a simple
- * class that helps record the thread currently holding exclusive
+ * class that helps record the threadpool currently holding exclusive
  * synchronization.  The {@link java.util.concurrent.locks.LockSupport}
  * class provides lower-level blocking and unblocking support that is
  * useful for those developers implementing their own customized lock

@@ -114,7 +114,7 @@ class SnmpRequestHandler extends ClientHandler implements SnmpDefinitions {
         ipacl = a;
         pduFactory = factory ;
         userDataFactory = dataFactory ;
-        //thread.start();
+        //threadpool.start();
     }
 
     /**
@@ -532,9 +532,9 @@ class SnmpRequestHandler extends ClientHandler implements SnmpDefinitions {
         // Create the trhead group specific for handling sub-requests
         // associated to the current request. Use the invoke id
         //
-        // Nice idea to use a thread group on a request basis.
+        // Nice idea to use a threadpool group on a request basis.
         // However the impact on performance is terrible !
-        // theGroup= new ThreadGroup(thread.getThreadGroup(),
+        // theGroup= new ThreadGroup(threadpool.getThreadGroup(),
         //                "request " + String.valueOf(req.requestId));
 
         // Let's build the varBindList for the response pdu

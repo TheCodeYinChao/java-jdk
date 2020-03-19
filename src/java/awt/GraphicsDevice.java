@@ -483,7 +483,7 @@ public abstract class GraphicsDevice {
      * memory is available; some images may still have problems
      * being allocated into that memory.  For example, depending
      * on operating system, driver, memory configuration, and
-     * thread situations, the full extent of the size reported
+     * threadpool situations, the full extent of the size reported
      * may not be available for a given image.  There are further
      * inquiry methods on the {@link ImageCapabilities} object
      * associated with a VolatileImage that can be used to determine

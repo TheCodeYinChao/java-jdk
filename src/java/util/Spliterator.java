@@ -89,16 +89,16 @@ import java.util.function.LongConsumer;
  * preferable to split further or traverse the remaining elements sequentially.
  *
  * <p>Despite their obvious utility in parallel algorithms, spliterators are not
- * expected to be thread-safe; instead, implementations of parallel algorithms
+ * expected to be threadpool-safe; instead, implementations of parallel algorithms
  * using spliterators should ensure that the spliterator is only used by one
- * thread at a time.  This is generally easy to attain via <em>serial
- * thread-confinement</em>, which often is a natural consequence of typical
- * parallel algorithms that work by recursive decomposition.  A thread calling
- * {@link #trySplit()} may hand over the returned Spliterator to another thread,
+ * threadpool at a time.  This is generally easy to attain via <em>serial
+ * threadpool-confinement</em>, which often is a natural consequence of typical
+ * parallel algorithms that work by recursive decomposition.  A threadpool calling
+ * {@link #trySplit()} may hand over the returned Spliterator to another threadpool,
  * which in turn may traverse or further split that Spliterator.  The behaviour
  * of splitting and traversal is undefined if two or more threads operate
- * concurrently on the same spliterator.  If the original thread hands a
- * spliterator off to another thread for processing, it is best if that handoff
+ * concurrently on the same spliterator.  If the original threadpool hands a
+ * spliterator off to another threadpool for processing, it is best if that handoff
  * occurs before any elements are consumed with {@link #tryAdvance(Consumer)
  * tryAdvance()}, as certain guarantees (such as the accuracy of
  * {@link #estimateSize()} for {@code SIZED} spliterators) are only valid before
@@ -310,7 +310,7 @@ public interface Spliterator<T> {
 
     /**
      * Performs the given action for each remaining element, sequentially in
-     * the current thread, until all elements have been processed or the action
+     * the current threadpool, until all elements have been processed or the action
      * throws an exception.  If this Spliterator is {@link #ORDERED}, actions
      * are performed in encounter order.  Exceptions thrown by the action
      * are relayed to the caller.
@@ -618,7 +618,7 @@ public interface Spliterator<T> {
 
         /**
          * Performs the given action for each remaining element, sequentially in
-         * the current thread, until all elements have been processed or the
+         * the current threadpool, until all elements have been processed or the
          * action throws an exception.  If this Spliterator is {@link #ORDERED},
          * actions are performed in encounter order.  Exceptions thrown by the
          * action are relayed to the caller.

@@ -235,7 +235,7 @@ public abstract class Preferences {
         if (factoryName != null) {
             // FIXME: This code should be run in a doPrivileged and
             // not use the context classloader, to avoid being
-            // dependent on the invoking thread.
+            // dependent on the invoking threadpool.
             // Checking AllPermission also seems wrong.
             try {
                 return (PreferencesFactory)

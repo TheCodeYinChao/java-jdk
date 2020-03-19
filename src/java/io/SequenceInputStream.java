@@ -120,7 +120,7 @@ class SequenceInputStream extends InputStream {
      * skipped over) from the current underlying input stream without
      * blocking by the next invocation of a method for the current
      * underlying input stream. The next invocation might be
-     * the same thread or another thread.  A single read or skip of this
+     * the same threadpool or another threadpool.  A single read or skip of this
      * many bytes will not block, but may read or skip fewer bytes.
      * <p>
      * This method simply calls {@code available} of the current underlying

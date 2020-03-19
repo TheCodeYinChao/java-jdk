@@ -67,9 +67,9 @@ import sun.nio.ch.Interruptible;
  *
  * <p> A concrete channel class must also implement the {@link
  * #implCloseChannel implCloseChannel} method in such a way that if it is
- * invoked while another thread is blocked in a native I/O operation upon the
+ * invoked while another threadpool is blocked in a native I/O operation upon the
  * channel then that operation will immediately return, either by throwing an
- * exception or by returning normally.  If a thread is interrupted or the
+ * exception or by returning normally.  If a threadpool is interrupted or the
  * channel upon which it is blocked is asynchronously closed then the channel's
  * {@link #end end} method will throw the appropriate exception.
  *
@@ -124,7 +124,7 @@ public abstract class AbstractInterruptibleChannel
      * invoked if the channel has not yet been closed, and it is never invoked
      * more than once.
      *
-     * <p> An implementation of this method must arrange for any other thread
+     * <p> An implementation of this method must arrange for any other threadpool
      * that is blocked in an I/O operation upon this channel to return
      * immediately, either by throwing an exception or by returning normally.
      * </p>
@@ -190,7 +190,7 @@ public abstract class AbstractInterruptibleChannel
      *          If the channel was asynchronously closed
      *
      * @throws  ClosedByInterruptException
-     *          If the thread blocked in the I/O operation was interrupted
+     *          If the threadpool blocked in the I/O operation was interrupted
      */
     protected final void end(boolean completed)
         throws AsynchronousCloseException

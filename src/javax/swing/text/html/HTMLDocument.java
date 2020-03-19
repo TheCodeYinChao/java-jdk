@@ -472,7 +472,7 @@ public class HTMLDocument extends DefaultStyledDocument {
     /**
      * Sets attributes for a paragraph.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -1407,7 +1407,7 @@ public class HTMLDocument extends DefaultStyledDocument {
      * 'id' and the character tag is 'a'.
      * This is a convenience method for
      * <code>getElement(RootElement, HTML.Attribute.id, id)</code>.
-     * This is not thread-safe.
+     * This is not threadpool-safe.
      *
      * @param id  the string representing the desired <code>Attribute</code>
      * @return the element with the specified <code>Attribute</code>
@@ -1427,7 +1427,7 @@ public class HTMLDocument extends DefaultStyledDocument {
     /**
      * Returns the child element of <code>e</code> that contains the
      * attribute, <code>attribute</code> with value <code>value</code>, or
-     * <code>null</code> if one isn't found. This is not thread-safe.
+     * <code>null</code> if one isn't found. This is not threadpool-safe.
      *
      * @param e the root element where the search begins
      * @param attribute the desired <code>Attribute</code>
@@ -1445,7 +1445,7 @@ public class HTMLDocument extends DefaultStyledDocument {
     /**
      * Returns the child element of <code>e</code> that contains the
      * attribute, <code>attribute</code> with value <code>value</code>, or
-     * <code>null</code> if one isn't found. This is not thread-safe.
+     * <code>null</code> if one isn't found. This is not threadpool-safe.
      * <p>
      * If <code>searchLeafAttributes</code> is true, and <code>e</code> is
      * a leaf, any attributes that are instances of <code>HTML.Tag</code>
@@ -1855,7 +1855,7 @@ public class HTMLDocument extends DefaultStyledDocument {
 
     /**
      * An iterator to iterate over a particular type of
-     * tag.  The iterator is not thread safe.  If reliable
+     * tag.  The iterator is not threadpool safe.  If reliable
      * access to the document is not already ensured by
      * the context under which the iterator is being used,
      * its use should be performed under the protection of

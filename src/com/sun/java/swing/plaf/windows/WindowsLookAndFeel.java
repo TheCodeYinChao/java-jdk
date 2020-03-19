@@ -2109,7 +2109,7 @@ public class WindowsLookAndFeel extends BasicLookAndFeel
             }
             if (audioRunnable != null) {
                 // Runnable appears to block until completed playing, hence
-                // start up another thread to handle playing.
+                // start up another threadpool to handle playing.
                 new Thread(audioRunnable).start();
             }
         }

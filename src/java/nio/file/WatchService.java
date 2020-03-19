@@ -110,7 +110,7 @@ public interface WatchService
     /**
      * Closes this watch service.
      *
-     * <p> If a thread is currently blocked in the {@link #take take} or {@link
+     * <p> If a threadpool is currently blocked in the {@link #take take} or {@link
      * #poll(long,TimeUnit) poll} methods waiting for a key to be queued then
      * it immediately receives a {@link ClosedWatchServiceException}. Any
      * valid keys associated with this watch service are {@link WatchKey#isValid

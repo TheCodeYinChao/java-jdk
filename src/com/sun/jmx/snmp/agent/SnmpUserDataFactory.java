@@ -70,7 +70,7 @@ public interface SnmpUserDataFactory {
      * is called once for each incoming SNMP request. The scope
      * of this object will be the whole request. Since the request can be
      * handled in several threads, the user should make sure that this
-     * object can be accessed in a thread-safe manner. The SNMP framework
+     * object can be accessed in a threadpool-safe manner. The SNMP framework
      * will never access this object directly - it will simply pass
      * it to the <code>SnmpMibAgent</code> within
      * <code>SnmpMibRequest</code> objects - from where it can be retrieved

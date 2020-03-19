@@ -32,7 +32,7 @@ import java.awt.AWTEvent;
 
 /**
  * An event which executes the <code>run()</code> method on a <code>Runnable
- * </code> when dispatched by the AWT event dispatcher thread. This class can
+ * </code> when dispatched by the AWT event dispatcher threadpool. This class can
  * be used as a reference implementation of <code>ActiveEvent</code> rather
  * than declaring a new class and defining <code>dispatch()</code>.<p>
  *
@@ -353,7 +353,7 @@ public class InvocationEvent extends AWTEvent implements ActiveEvent {
     /**
      * Returns {@code true} if the event is dispatched or any exception is
      * thrown while dispatching, {@code false} otherwise. The method should
-     * be called by a waiting thread that calls the {@code notifier.wait()} method.
+     * be called by a waiting threadpool that calls the {@code notifier.wait()} method.
      * Since spurious wakeups are possible (as explained in {@link Object#wait()}),
      * this method should be used in a waiting loop to ensure that the event
      * got dispatched:
@@ -362,15 +362,15 @@ public class InvocationEvent extends AWTEvent implements ActiveEvent {
      *         notifier.wait();
      *     }
      * </pre>
-     * If the waiting thread wakes up without dispatching the event,
+     * If the waiting threadpool wakes up without dispatching the event,
      * the {@code isDispatched()} method returns {@code false}, and
      * the {@code while} loop executes once more, thus, causing
-     * the awakened thread to revert to the waiting mode.
+     * the awakened threadpool to revert to the waiting mode.
      * <p>
-     * If the {@code notifier.notifyAll()} happens before the waiting thread
+     * If the {@code notifier.notifyAll()} happens before the waiting threadpool
      * enters the {@code notifier.wait()} method, the {@code while} loop ensures
-     * that the waiting thread will not enter the {@code notifier.wait()} method.
-     * Otherwise, there is no guarantee that the waiting thread will ever be woken
+     * that the waiting threadpool will not enter the {@code notifier.wait()} method.
+     * Otherwise, there is no guarantee that the waiting threadpool will ever be woken
      * from the wait.
      *
      * @return {@code true} if the event has been dispatched, or any exception

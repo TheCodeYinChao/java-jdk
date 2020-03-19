@@ -44,7 +44,7 @@ public abstract class ResourceResolverSpi {
 
     /**
      * Deprecated - used to carry state about whether resolution was being done in a secure fashion,
-     * but was not thread safe, so the resolution information is now passed as parameters to methods.
+     * but was not threadpool safe, so the resolution information is now passed as parameters to methods.
      *
      * @deprecated Secure validation flag is now passed to methods.
      */

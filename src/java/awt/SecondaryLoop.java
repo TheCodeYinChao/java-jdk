@@ -34,19 +34,19 @@ package java.awt;
  * which can be used to start and stop the event loop.
  * <p>
  * When the {@link #enter} method is called, the current
- * thread is blocked until the loop is terminated by the
+ * threadpool is blocked until the loop is terminated by the
  * {@link #exit} method. Also, a new event loop is started
- * on the event dispatch thread, which may or may not be
- * the current thread. The loop can be terminated on any
- * thread by calling its {@link #exit} method. After the
+ * on the event dispatch threadpool, which may or may not be
+ * the current threadpool. The loop can be terminated on any
+ * threadpool by calling its {@link #exit} method. After the
  * loop is terminated, the {@code SecondaryLoop} object can
  * be reused to run a new nested event loop.
  * <p>
  * A typical use case of applying this interface is AWT
  * and Swing modal dialogs. When a modal dialog is shown on
- * the event dispatch thread, it enters a new secondary loop.
+ * the event dispatch threadpool, it enters a new secondary loop.
  * Later, when the dialog is hidden or disposed, it exits
- * the loop, and the thread continues its execution.
+ * the loop, and the threadpool continues its execution.
  * <p>
  * The following example illustrates a simple use case of
  * secondary loops:
@@ -62,7 +62,7 @@ package java.awt;
  *           EventQueue eq = tk.getSystemEventQueue();
  *           loop = eq.createSecondaryLoop();
  *
- *           // Spawn a new thread to do the work
+ *           // Spawn a new threadpool to do the work
  *           Thread worker = new WorkerThread();
  *           worker.start();
  *
@@ -97,13 +97,13 @@ package java.awt;
 public interface SecondaryLoop {
 
     /**
-     * Blocks the execution of the current thread and enters a new
-     * secondary event loop on the event dispatch thread.
+     * Blocks the execution of the current threadpool and enters a new
+     * secondary event loop on the event dispatch threadpool.
      * <p>
-     * This method can be called by any thread including the event
-     * dispatch thread. This thread will be blocked until the {@link
+     * This method can be called by any threadpool including the event
+     * dispatch threadpool. This threadpool will be blocked until the {@link
      * #exit} method is called or the loop is terminated. A new
-     * secondary loop will be created on the event dispatch thread
+     * secondary loop will be created on the event dispatch threadpool
      * for dispatching events in either case.
      * <p>
      * This method can only start one new event loop at a time per
@@ -111,7 +111,7 @@ public interface SecondaryLoop {
      * by this object and is currently still running, this method
      * returns {@code false} to indicate that it was not successful
      * in starting a new event loop. Otherwise, this method blocks
-     * the calling thread and later returns {@code true} when the
+     * the calling threadpool and later returns {@code true} when the
      * new event loop is terminated. At such time, this object can
      * again be used to start another new event loop.
      *
@@ -122,15 +122,15 @@ public interface SecondaryLoop {
     public boolean enter();
 
     /**
-     * Unblocks the execution of the thread blocked by the {@link
+     * Unblocks the execution of the threadpool blocked by the {@link
      * #enter} method and exits the secondary loop.
      * <p>
-     * This method resumes the thread that called the {@link #enter}
+     * This method resumes the threadpool that called the {@link #enter}
      * method and exits the secondary loop that was created when
      * the {@link #enter} method was invoked.
      * <p>
      * Note that if any other secondary loop is started while this
-     * loop is running, the blocked thread will not resume execution
+     * loop is running, the blocked threadpool will not resume execution
      * until the nested loop is terminated.
      * <p>
      * If this secondary loop has not been started with the {@link

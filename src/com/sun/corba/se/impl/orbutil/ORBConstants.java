@@ -227,7 +227,7 @@ public class ORBConstants {
     public static final String IIOP_PRIMARY_TO_CONTACT_INFO_CLASS_PROPERTY =
         SUN_PREFIX + "transport.ORBIIOPPrimaryToContactInfoClass";
 
-    // Request partitioning maximum and minimum thread pool id constants.
+    // Request partitioning maximum and minimum threadpool pool id constants.
     public static final int REQUEST_PARTITIONING_MIN_THREAD_POOL_ID =  0;
     public static final int REQUEST_PARTITIONING_MAX_THREAD_POOL_ID = 63;
 
@@ -261,7 +261,7 @@ public class ORBConstants {
     public static final String ACCEPTOR_SOCKET_TYPE_PROPERTY =
         SUN_PREFIX + "transport.ORBAcceptorSocketType";
 
-    // Applicable if using SocketChannel and using select thread.
+    // Applicable if using SocketChannel and using select threadpool.
     public static final String ACCEPTOR_SOCKET_USE_WORKER_THREAD_FOR_EVENT_PROPERTY =
         SUN_PREFIX + "transport.ORBAcceptorSocketUseWorkerThreadForEvent";
 
@@ -269,7 +269,7 @@ public class ORBConstants {
     public static final String CONNECTION_SOCKET_TYPE_PROPERTY =
         SUN_PREFIX + "transport.ORBConnectionSocketType";
 
-    // Applicable if using SocketChannel and using select thread
+    // Applicable if using SocketChannel and using select threadpool
     public static final String CONNECTION_SOCKET_USE_WORKER_THREAD_FOR_EVENT_PROPERTY =
         SUN_PREFIX + "transport.ORBConnectionSocketUseWorkerThreadForEvent";
 

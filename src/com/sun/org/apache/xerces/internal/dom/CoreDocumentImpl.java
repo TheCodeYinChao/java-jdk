@@ -2493,7 +2493,7 @@ public class CoreDocumentImpl
     // Temporarily comment out this method, because
     // 1. It seems that finalizers are not guaranteed to be called, so the
     //    functionality is not implemented.
-    // 2. It affects the performance greatly in multi-thread environment.
+    // 2. It affects the performance greatly in multi-threadpool environment.
     // -SG
     /*public void finalize() {
      if (userData == null) {

@@ -145,7 +145,7 @@ public interface DocPrintJob {
      * the printer. The service implementation will define policy
      * for service interruption and recovery.
      * When the print method returns, printing may not yet have completed as
-     * printing may happen asynchronously, perhaps in a different thread.
+     * printing may happen asynchronously, perhaps in a different threadpool.
      * Application clients which  want to monitor the success or failure
      * should register a PrintJobListener.
      * <p>

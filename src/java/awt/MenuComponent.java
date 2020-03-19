@@ -407,7 +407,7 @@ public abstract class MenuComponent implements java.io.Serializable {
     }
 
     /**
-     * Gets this component's locking object (the object that owns the thread
+     * Gets this component's locking object (the object that owns the threadpool
      * synchronization monitor) for AWT component-tree and layout
      * operations.
      * @return this component's locking object

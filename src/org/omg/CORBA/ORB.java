@@ -441,14 +441,14 @@ abstract public class ORB {
      * If <code>destroy</code> is called on an ORB that has not been shut down,
      * it will start the shut down process and block until the ORB has shut down
      * before it destroys the ORB.<br>
-     * If an application calls <code>destroy</code> in a thread that is currently servicing
+     * If an application calls <code>destroy</code> in a threadpool that is currently servicing
      * an invocation, the <code>BAD_INV_ORDER</code> system exception will be thrown
      * with the OMG minor code 3, since blocking would result in a deadlock.<p>
      * For maximum portability and to avoid resource leaks, an application should
      * always call <code>shutdown</code> and <code>destroy</code>
      * on all ORB instances before exiting.
      *
-     * @throws BAD_INV_ORDER if the current thread is servicing an invocation
+     * @throws BAD_INV_ORDER if the current threadpool is servicing an invocation
      */
     public void destroy( ) {
         throw new NO_IMPLEMENT();
@@ -1035,7 +1035,7 @@ abstract public class ORB {
 
     /**
      * Retrieves a <code>Current</code> object.
-     * The <code>Current</code> interface is used to manage thread-specific
+     * The <code>Current</code> interface is used to manage threadpool-specific
      * information for use by services such as transactions and security.
      *
      * @see <a href="package-summary.html#unimpl"><code>CORBA</code> package
@@ -1051,8 +1051,8 @@ abstract public class ORB {
     }
 
     /**
-     * This operation blocks the current thread until the ORB has
-     * completed the shutdown process, initiated when some thread calls
+     * This operation blocks the current threadpool until the ORB has
+     * completed the shutdown process, initiated when some threadpool calls
      * <code>shutdown</code>. It may be used by multiple threads which
      * get all notified when the ORB shuts down.
      *
@@ -1069,7 +1069,7 @@ abstract public class ORB {
      * is true, this operation blocks until all ORB processing (including
      * processing of currently executing requests, object deactivation,
      * and other object adapter operations) has completed.
-     * If an application does this in a thread that is currently servicing
+     * If an application does this in a threadpool that is currently servicing
      * an invocation, the <code>BAD_INV_ORDER</code> system exception
      * will be thrown with the OMG minor code 3,
      * since blocking would result in a deadlock.<br>
@@ -1088,7 +1088,7 @@ abstract public class ORB {
      * @param wait_for_completion <code>true</code> if the call
      *        should block until the shutdown is complete;
      *        <code>false</code> if it should return immediately
-     * @throws BAD_INV_ORDER if the current thread is servicing
+     * @throws BAD_INV_ORDER if the current threadpool is servicing
      *         an invocation
      */
     public void shutdown(boolean wait_for_completion)
@@ -1097,14 +1097,14 @@ abstract public class ORB {
     }
 
     /**
-     * Returns <code>true</code> if the ORB needs the main thread to
+     * Returns <code>true</code> if the ORB needs the main threadpool to
      * perform some work, and <code>false</code> if the ORB does not
-     * need the main thread.
+     * need the main threadpool.
      *
      * @return <code>true</code> if there is work pending, meaning that the ORB
-     *         needs the main thread to perform some work; <code>false</code>
+     *         needs the main threadpool to perform some work; <code>false</code>
      *         if there is no work pending and thus the ORB does not need the
-     *         main thread
+     *         main threadpool
      *
      */
     public boolean work_pending()
@@ -1114,11 +1114,11 @@ abstract public class ORB {
 
     /**
      * Performs an implementation-dependent unit of work if called
-     * by the main thread. Otherwise it does nothing.
+     * by the main threadpool. Otherwise it does nothing.
      * The methods <code>work_pending</code> and <code>perform_work</code>
      * can be used in
      * conjunction to implement a simple polling loop that multiplexes
-     * the main thread among the ORB and other activities.
+     * the main threadpool among the ORB and other activities.
      *
      */
     public void perform_work()

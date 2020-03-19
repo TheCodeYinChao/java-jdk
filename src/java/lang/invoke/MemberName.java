@@ -137,7 +137,7 @@ import java.util.Objects;
             }
         }
 
-        // type is not a MethodType yet.  Convert it thread-safely.
+        // type is not a MethodType yet.  Convert it threadpool-safely.
         synchronized (this) {
             if (type instanceof String) {
                 String sig = (String) type;
@@ -202,7 +202,7 @@ import java.util.Objects;
             }
         }
 
-        // type is not a Class yet.  Convert it thread-safely.
+        // type is not a Class yet.  Convert it threadpool-safely.
         synchronized (this) {
             if (type instanceof String) {
                 String sig = (String) type;

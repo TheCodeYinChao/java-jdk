@@ -51,7 +51,7 @@ import java.util.function.Consumer;
  *       stay small, read-only operations
  *       vastly outnumber mutative operations, and you need
  *       to prevent interference among threads during traversal.
- *  <li>It is thread-safe.
+ *  <li>It is threadpool-safe.
  *  <li>Mutative operations ({@code add}, {@code set}, {@code remove}, etc.)
  *      are expensive since they usually entail copying the entire underlying
  *      array.

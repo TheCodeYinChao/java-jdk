@@ -83,7 +83,7 @@ import java.util.stream.StreamSupport;
  * policy.  In the absence of a stronger guarantee by the
  * implementation, undefined behavior may result from the invocation
  * of any method on a collection that is being mutated by another
- * thread; this includes direct invocations, passing the collection to
+ * threadpool; this includes direct invocations, passing the collection to
  * a method that might perform invocations, and using an existing
  * iterator to examine the collection.
  *

@@ -113,7 +113,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @implSpec
  * This interface is a service provider that can be called by multiple threads.
- * Implementations must be immutable and thread-safe.
+ * Implementations must be immutable and threadpool-safe.
  * <p>
  * Providers must ensure that once a rule has been seen by the application, the
  * rule must continue to be available.

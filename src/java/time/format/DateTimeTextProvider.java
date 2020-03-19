@@ -95,7 +95,7 @@ import sun.util.locale.provider.LocaleResources;
  * A provider to obtain the textual form of a date-time field.
  *
  * @implSpec
- * Implementations must be thread-safe.
+ * Implementations must be threadpool-safe.
  * Implementations should cache the textual information.
  *
  * @since 1.8
@@ -489,7 +489,7 @@ class DateTimeTextProvider {
      * These textual representations can be captured in this class for printing
      * and parsing.
      * <p>
-     * This class is immutable and thread-safe.
+     * This class is immutable and threadpool-safe.
      */
     static final class LocaleStore {
         /**

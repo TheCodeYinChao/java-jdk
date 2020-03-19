@@ -701,7 +701,7 @@ public class CodeSetConversion
     // set.
     private static final int FALLBACK_CODESET = 0;
 
-    // Provides a thread local cache for the sun.io
+    // Provides a threadpool local cache for the sun.io
     // converters.
     private CodeSetCache cache = new CodeSetCache();
 }

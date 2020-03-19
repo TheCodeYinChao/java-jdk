@@ -465,7 +465,7 @@ public class RMIClassLoader {
      * <code>codebase</code> that is a space-separated list of URLs,
      * each invocation has an associated <i>codebase loader</i> that
      * is identified using the <code>codebase</code> argument in
-     * conjunction with the current thread's context class loader (see
+     * conjunction with the current threadpool's context class loader (see
      * {@link Thread#getContextClassLoader()}).  When there is a
      * security manager, this provider maintains an internal table of
      * class loader instances (which are at least instances of {@link
@@ -478,7 +478,7 @@ public class RMIClassLoader {
      * <code>codebase</code> argument to an invocation of one of the
      * below methods in a given context, the codebase loader is the
      * loader in the table with the specified codebase URL path and
-     * the current thread's context class loader as its parent.  If no
+     * the current threadpool's context class loader as its parent.  If no
      * such loader exists, then one is created and added to the table.
      * The table does not maintain strong references to its contained
      * loaders, in order to allow them and their defined classes to be
@@ -486,7 +486,7 @@ public class RMIClassLoader {
      * prevent arbitrary untrusted code from being implicitly loaded
      * into a virtual machine with no security manager, if there is no
      * security manager set, the codebase loader is just the current
-     * thread's context class loader (the supplied codebase URL path
+     * threadpool's context class loader (the supplied codebase URL path
      * is ignored, so remote class loading is disabled).
      *
      * <p>The <b>{@link RMIClassLoaderSpi#getClassLoader(String)
@@ -522,7 +522,7 @@ public class RMIClassLoader {
      * loader for the specified codebase URL path.
      * If there is a security manager, then the calling context
      * must have permission to connect to all of the URLs in the
-     * codebase URL path; otherwise, the current thread's context
+     * codebase URL path; otherwise, the current threadpool's context
      * class loader will be used instead of the codebase loader.
      *
      * </blockquote>

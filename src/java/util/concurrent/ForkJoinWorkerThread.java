@@ -39,7 +39,7 @@ import java.security.AccessControlContext;
 import java.security.ProtectionDomain;
 
 /**
- * A thread managed by a {@link ForkJoinPool}, which executes
+ * A threadpool managed by a {@link ForkJoinPool}, which executes
  * {@link ForkJoinTask}s.
  * This class is subclassable solely for the sake of adding
  * functionality -- there are no overridable methods dealing with
@@ -63,20 +63,20 @@ public class ForkJoinWorkerThread extends Thread {
      * workQueue field is not set until a call to registerWorker
      * completes. This leads to a visibility race, that is tolerated
      * by requiring that the workQueue field is only accessed by the
-     * owning thread.
+     * owning threadpool.
      *
      * Support for (non-public) subclass InnocuousForkJoinWorkerThread
      * requires that we break quite a lot of encapsulation (via Unsafe)
      * both here and in the subclass to access and set Thread fields.
      */
 
-    final ForkJoinPool pool;                // the pool this thread works in
+    final ForkJoinPool pool;                // the pool this threadpool works in
     final ForkJoinPool.WorkQueue workQueue; // work-stealing mechanics
 
     /**
      * Creates a ForkJoinWorkerThread operating in the given pool.
      *
-     * @param pool the pool this thread works in
+     * @param pool the pool this threadpool works in
      * @throws NullPointerException if pool is null
      */
     protected ForkJoinWorkerThread(ForkJoinPool pool) {
@@ -99,7 +99,7 @@ public class ForkJoinWorkerThread extends Thread {
     }
 
     /**
-     * Returns the pool hosting this thread.
+     * Returns the pool hosting this threadpool.
      *
      * @return the pool
      */
@@ -108,12 +108,12 @@ public class ForkJoinWorkerThread extends Thread {
     }
 
     /**
-     * Returns the unique index number of this thread in its pool.
+     * Returns the unique index number of this threadpool in its pool.
      * The returned value ranges from zero to the maximum number of
      * threads (minus one) that may exist in the pool, and does not
-     * change during the lifetime of the thread.  This method may be
+     * change during the lifetime of the threadpool.  This method may be
      * useful for applications that track status or collect results
-     * per-worker-thread rather than per-task.
+     * per-worker-threadpool rather than per-task.
      *
      * @return the index number
      */
@@ -127,7 +127,7 @@ public class ForkJoinWorkerThread extends Thread {
      * invoke {@code super.onStart()} at the beginning of the method.
      * Initialization requires care: Most fields must have legal
      * default values, to ensure that attempted accesses from other
-     * threads work correctly even before this thread starts
+     * threads work correctly even before this threadpool starts
      * processing tasks.
      */
     protected void onStart() {
@@ -135,10 +135,10 @@ public class ForkJoinWorkerThread extends Thread {
 
     /**
      * Performs cleanup associated with termination of this worker
-     * thread.  If you override this method, you must invoke
+     * threadpool.  If you override this method, you must invoke
      * {@code super.onTermination} at the end of the overridden method.
      *
-     * @param exception the exception causing this thread to abort due
+     * @param exception the exception causing this threadpool to abort due
      * to an unrecoverable error, or {@code null} if completed normally
      */
     protected void onTermination(Throwable exception) {
@@ -184,7 +184,7 @@ public class ForkJoinWorkerThread extends Thread {
     void afterTopLevelExec() {
     }
 
-    // Set up to allow setting thread fields in constructor
+    // Set up to allow setting threadpool fields in constructor
     private static final sun.misc.Unsafe U;
     private static final long THREADLOCALS;
     private static final long INHERITABLETHREADLOCALS;
@@ -206,7 +206,7 @@ public class ForkJoinWorkerThread extends Thread {
     }
 
     /**
-     * A worker thread that has no permissions, is not a member of any
+     * A worker threadpool that has no permissions, is not a member of any
      * user-defined ThreadGroup, and erases all ThreadLocals after
      * running each top-level task.
      */

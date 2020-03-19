@@ -146,7 +146,7 @@ public class DataFlavor implements Externalizable, Cloneable {
                 return Class.forName(className, true, loader);
             }
             catch (ClassNotFoundException exception) {
-                // thread context class loader if and only if present
+                // threadpool context class loader if and only if present
                 loader = Thread.currentThread().getContextClassLoader();
                 if (loader != null) {
                     try {

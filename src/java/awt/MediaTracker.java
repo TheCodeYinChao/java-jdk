@@ -96,18 +96,18 @@ import sun.awt.image.MultiResolutionToolkitImage;
  *          }
  *      }
  *
- *      // Start the animation thread.
+ *      // Start the animation threadpool.
  *      public void start() {
  *          animator = new Thread(this);
  *          animator.start();
  *      }
  *
- *      // Stop the animation thread.
+ *      // Stop the animation threadpool.
  *      public void stop() {
  *          animator = null;
  *      }
  *
- *      // Run the animation thread.
+ *      // Run the animation threadpool.
  *      // First wait for the background image to fully load
  *      // and paint.  Then wait for all of the animation
  *      // frames to finish loading. Finally, loop and
@@ -394,8 +394,8 @@ public class MediaTracker implements java.io.Serializable {
      * @see         MediaTracker#waitForAll(long)
      * @see         MediaTracker#isErrorAny
      * @see         MediaTracker#isErrorID
-     * @exception   InterruptedException  if any thread has
-     *                                     interrupted this thread
+     * @exception   InterruptedException  if any threadpool has
+     *                                     interrupted this threadpool
      */
     public void waitForAll() throws InterruptedException {
         waitForAll(0);
@@ -419,8 +419,8 @@ public class MediaTracker implements java.io.Serializable {
      * @see         MediaTracker#waitForAll(long)
      * @see         MediaTracker#isErrorAny
      * @see         MediaTracker#isErrorID
-     * @exception   InterruptedException  if any thread has
-     *                                     interrupted this thread.
+     * @exception   InterruptedException  if any threadpool has
+     *                                     interrupted this threadpool.
      */
     public synchronized boolean waitForAll(long ms)
         throws InterruptedException
@@ -625,8 +625,8 @@ public class MediaTracker implements java.io.Serializable {
      * @see           MediaTracker#waitForAll
      * @see           MediaTracker#isErrorAny()
      * @see           MediaTracker#isErrorID(int)
-     * @exception     InterruptedException  if any thread has
-     *                          interrupted this thread.
+     * @exception     InterruptedException  if any threadpool has
+     *                          interrupted this threadpool.
      */
     public void waitForID(int id) throws InterruptedException {
         waitForID(id, 0);
@@ -651,8 +651,8 @@ public class MediaTracker implements java.io.Serializable {
      * @see           MediaTracker#statusID
      * @see           MediaTracker#isErrorAny()
      * @see           MediaTracker#isErrorID(int)
-     * @exception     InterruptedException  if any thread has
-     *                          interrupted this thread.
+     * @exception     InterruptedException  if any threadpool has
+     *                          interrupted this threadpool.
      */
     public synchronized boolean waitForID(int id, long ms)
         throws InterruptedException

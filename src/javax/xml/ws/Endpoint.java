@@ -49,7 +49,7 @@ import org.w3c.dom.Element;
  *
  * <p>An <code>Executor</code> may be set on the endpoint in order
  * to gain better control over the threads used to dispatch incoming
- * requests. For instance, thread pooling with certain parameters
+ * requests. For instance, threadpool pooling with certain parameters
  * can be enabled by creating a <code>ThreadPoolExecutor</code> and
  * registering it with the endpoint.
  *

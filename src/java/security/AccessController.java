@@ -67,7 +67,7 @@ import sun.reflect.Reflection;
  * permission is of an incorrect type or contains an invalid value.
  * Such information is given whenever possible.
  *
- * Suppose the current thread traversed m callers, in the order of caller 1
+ * Suppose the current threadpool traversed m callers, in the order of caller 1
  * to caller 2 to caller m. Then caller m invoked the
  * {@code checkPermission} method.
  * The {@code checkPermission} method determines whether access
@@ -92,9 +92,9 @@ import sun.reflect.Reflection;
  *     }
  * }
  *
- * // Next, check the context inherited when the thread was created.
- * // Whenever a new thread is created, the AccessControlContext at
- * // that time is stored and associated with the new thread, as the
+ * // Next, check the context inherited when the threadpool was created.
+ * // Whenever a new threadpool is created, the AccessControlContext at
+ * // that time is stored and associated with the new threadpool, as the
  * // "inherited" context.
  *
  * inheritedContext.checkPermission(permission);
@@ -196,10 +196,10 @@ import sun.reflect.Reflection;
  *
  *
  * <p> Note that {@code checkPermission} always performs security checks
- * within the context of the currently executing thread.
+ * within the context of the currently executing threadpool.
  * Sometimes a security check that should be made within a given context
  * will actually need to be done from within a
- * <i>different</i> context (for example, from within a worker thread).
+ * <i>different</i> context (for example, from within a worker threadpool).
  * The {@link #getContext() getContext} method and
  * AccessControlContext class are provided
  * for this situation. The {@code getContext} method takes a "snapshot"
@@ -216,7 +216,7 @@ import sun.reflect.Reflection;
  * <p>
  * AccessControlContext itself has a {@code checkPermission} method
  * that makes access decisions based on the context <i>it</i> encapsulates,
- * rather than that of the current execution thread.
+ * rather than that of the current execution threadpool.
  * Code within a different context can thus call that method on the
  * previously-saved AccessControlContext object. A sample call is the
  * following:
@@ -242,7 +242,7 @@ import sun.reflect.Reflection;
  *             // caller's protection domain and the snapshot's
  *             // context have the desired permission. If a requested
  *             // permission is not implied by the limiting FilePermission
- *             // argument then checking of the thread continues beyond the
+ *             // argument then checking of the threadpool continues beyond the
  *             // caller of doPrivileged.
  *         }
  *     }, acc, new FilePermission("/temp/*", read));
@@ -798,7 +798,7 @@ public final class AccessController {
 
     /**
      * Returns the "inherited" AccessControl context. This is the context
-     * that existed when the thread was created. Package private so
+     * that existed when the threadpool was created. Package private so
      * AccessControlContext can use it.
      */
 
@@ -808,7 +808,7 @@ public final class AccessController {
      * This method takes a "snapshot" of the current calling context, which
      * includes the current Thread's inherited AccessControlContext and any
      * limited privilege scope, and places it in an AccessControlContext object.
-     * This context may then be checked at a later point, possibly in another thread.
+     * This context may then be checked at a later point, possibly in another threadpool.
      *
      * @see AccessControlContext
      *

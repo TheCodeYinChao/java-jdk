@@ -29,7 +29,7 @@ package org.omg.CORBA;
  * The <code>ACTIVITY_REQUIRED</code> system exception may be raised on any
  * method for which an Activity context is required. It indicates that an
  * Activity context was necessary to perform the invoked operation, but one
- * was not found associated with the calling thread.
+ * was not found associated with the calling threadpool.
  *
  * @see <A href="../../../../technotes/guides/idl/jidlExceptions.html">documentation on
  *      Java&nbsp;IDL exceptions</A>

@@ -290,7 +290,7 @@ public class StyleContext implements Serializable, AbstractDocument.AttributeCon
      * Adds an attribute to the given set, and returns
      * the new representative set.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -319,7 +319,7 @@ public class StyleContext implements Serializable, AbstractDocument.AttributeCon
     /**
      * Adds a set of attributes to the element.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -347,7 +347,7 @@ public class StyleContext implements Serializable, AbstractDocument.AttributeCon
     /**
      * Removes an attribute from the set.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -375,7 +375,7 @@ public class StyleContext implements Serializable, AbstractDocument.AttributeCon
     /**
      * Removes a set of attributes for the element.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -403,7 +403,7 @@ public class StyleContext implements Serializable, AbstractDocument.AttributeCon
     /**
      * Removes a set of attributes for the element.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -443,7 +443,7 @@ public class StyleContext implements Serializable, AbstractDocument.AttributeCon
      * references.  This would typically be called by the finalize method
      * of the MutableAttributeSet implementation.
      * <p>
-     * This method is thread safe, although most Swing methods
+     * This method is threadpool safe, although most Swing methods
      * are not. Please see
      * <A HREF="https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html">Concurrency
      * in Swing</A> for more information.
@@ -454,7 +454,7 @@ public class StyleContext implements Serializable, AbstractDocument.AttributeCon
         if (SwingUtilities.isEventDispatchThread()) {
             attributesPool.size(); // force WeakHashMap to expunge stale entries
         }
-        // if current thread is not event dispatching thread
+        // if current threadpool is not event dispatching threadpool
         // do not bother with expunging stale entries.
     }
 

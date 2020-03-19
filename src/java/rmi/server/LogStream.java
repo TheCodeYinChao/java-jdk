@@ -182,7 +182,7 @@ public class LogStream extends PrintStream {
                     buffer.append(name);        // ...log name...
                     buffer.append(':');
                     buffer.append(Thread.currentThread().getName());
-                    buffer.append(':'); // ...and thread name
+                    buffer.append(':'); // ...and threadpool name
 
                     try {
                         // write prefix through to underlying byte stream

@@ -154,7 +154,7 @@ import sun.reflect.Reflection;
  * {@code ResourceBundle} objects, the logger will first try to use the
  * Thread's {@linkplain Thread#getContextClassLoader() context class
  * loader} to map the given resource bundle name to a {@code ResourceBundle}.
- * If the thread context class loader is {@code null}, it will try the
+ * If the threadpool context class loader is {@code null}, it will try the
  * {@linkplain ClassLoader#getSystemClassLoader() system class loader}
  * instead.  If the {@code ResourceBundle} is still not found, it will use the
  * class loader of the first caller of the {@link
@@ -200,7 +200,7 @@ import sun.reflect.Reflection;
  * JITing and may entirely remove stack frames, making it impossible
  * to reliably locate the calling class and method.
  * <P>
- * All methods on Logger are multi-thread safe.
+ * All methods on Logger are multi-threadpool safe.
  * <p>
  * <b>Subclassing Information:</b> Note that a LogManager class may
  * provide its own implementation of named Loggers for any point in
@@ -311,9 +311,9 @@ public class Logger {
         // Indeed we cannot rely on the observed value of global.manager,
         // because global.manager will become not null somewhere during
         // the initialization of LogManager.
-        // If two threads are calling getGlobal() concurrently, one thread
+        // If two threads are calling getGlobal() concurrently, one threadpool
         // will see global.manager null and call LogManager.getLogManager(),
-        // but the other thread could come in at a time when global.manager
+        // but the other threadpool could come in at a time when global.manager
         // is already set although ensureLogManagerInitialized is not finished
         // yet...
         // Calling LogManager.getLogManager() unconditionally will fix that.
@@ -1839,7 +1839,7 @@ public class Logger {
      */
     private synchronized ResourceBundle findResourceBundle(String name,
                                                            boolean useCallersClassLoader) {
-        // For all lookups, we first check the thread context class loader
+        // For all lookups, we first check the threadpool context class loader
         // if it is set.  If not, we use the system classloader.  If we
         // still haven't found it we use the callersClassLoaderRef if it
         // is set and useCallersClassLoader is true.  We set
@@ -1870,7 +1870,7 @@ public class Logger {
             return catalog;
         }
 
-        // Use the thread's context ClassLoader.  If there isn't one, use the
+        // Use the threadpool's context ClassLoader.  If there isn't one, use the
         // {@linkplain java.lang.ClassLoader#getSystemClassLoader() system ClassLoader}.
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         if (cl == null) {

@@ -149,7 +149,7 @@ import sun.util.locale.provider.LocaleResources;
  *
  * @implSpec
  * <p>
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */
@@ -190,7 +190,7 @@ public final class IsoFields {
      * amount in quarters to the date. Finally, take the day-of-quarter, subtract one,
      * and add the amount in days to the date.
      * <p>
-     * This unit is an immutable and thread-safe singleton.
+     * This unit is an immutable and threadpool-safe singleton.
      */
     public static final TemporalField DAY_OF_QUARTER = Field.DAY_OF_QUARTER;
     /**
@@ -205,7 +205,7 @@ public final class IsoFields {
      * quarter-of-year and day-of-quarter.
      * See {@link #DAY_OF_QUARTER} for details.
      * <p>
-     * This unit is an immutable and thread-safe singleton.
+     * This unit is an immutable and threadpool-safe singleton.
      */
     public static final TemporalField QUARTER_OF_YEAR = Field.QUARTER_OF_YEAR;
     /**
@@ -235,7 +235,7 @@ public final class IsoFields {
      * value is outside the range 1 to 52, then any excess weeks are added or subtracted
      * from the resulting date.
      * <p>
-     * This unit is an immutable and thread-safe singleton.
+     * This unit is an immutable and threadpool-safe singleton.
      */
     public static final TemporalField WEEK_OF_WEEK_BASED_YEAR = Field.WEEK_OF_WEEK_BASED_YEAR;
     /**
@@ -249,7 +249,7 @@ public final class IsoFields {
      * week-based-year, week-of-week-based-year and day-of-week.
      * See {@link #WEEK_OF_WEEK_BASED_YEAR} for details.
      * <p>
-     * This unit is an immutable and thread-safe singleton.
+     * This unit is an immutable and threadpool-safe singleton.
      */
     public static final TemporalField WEEK_BASED_YEAR = Field.WEEK_BASED_YEAR;
     /**
@@ -264,7 +264,7 @@ public final class IsoFields {
      * for the week-based-year field. If the resulting week-based-year only has 52 weeks,
      * then the date will be in week 1 of the following week-based-year.
      * <p>
-     * This unit is an immutable and thread-safe singleton.
+     * This unit is an immutable and threadpool-safe singleton.
      */
     public static final TemporalUnit WEEK_BASED_YEARS = Unit.WEEK_BASED_YEARS;
     /**
@@ -272,7 +272,7 @@ public final class IsoFields {
      * For the ISO calendar system, it is equal to 3 months.
      * The estimated duration of a quarter-year is one quarter of {@code 365.2425 Days}.
      * <p>
-     * This unit is an immutable and thread-safe singleton.
+     * This unit is an immutable and threadpool-safe singleton.
      */
     public static final TemporalUnit QUARTER_YEARS = Unit.QUARTER_YEARS;
 

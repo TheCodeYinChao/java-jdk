@@ -46,7 +46,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * are released.
  *
  * <p>A {@code CyclicBarrier} supports an optional {@link Runnable} command
- * that is run once per barrier point, after the last thread in the party
+ * that is run once per barrier point, after the last threadpool in the party
  * arrives, but before any threads are released.
  * This <em>barrier action</em> is useful
  * for updating shared-state before any of the parties continue.
@@ -87,18 +87,18 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  *     List<Thread> threads = new ArrayList<Thread>(N);
  *     for (int i = 0; i < N; i++) {
- *       Thread thread = new Thread(new Worker(i));
- *       threads.add(thread);
- *       thread.start();
+ *       Thread threadpool = new Thread(new Worker(i));
+ *       threads.add(threadpool);
+ *       threadpool.start();
  *     }
  *
  *     // wait until done
- *     for (Thread thread : threads)
- *       thread.join();
+ *     for (Thread threadpool : threads)
+ *       threadpool.join();
  *   }
  * }}</pre>
  *
- * Here, each worker thread processes a row of the matrix then waits at the
+ * Here, each worker threadpool processes a row of the matrix then waits at the
  * barrier until all rows have been processed. When all rows are processed
  * the supplied {@link Runnable} barrier action is executed and merges the
  * rows. If the merger
@@ -108,8 +108,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * <p>If the barrier action does not rely on the parties being suspended when
  * it is executed, then any of the threads in the party could execute that
  * action when it is released. To facilitate this, each invocation of
- * {@link #await} returns the arrival index of that thread at the barrier.
- * You can then choose which thread should execute the barrier action, for
+ * {@link #await} returns the arrival index of that threadpool at the barrier.
+ * You can then choose which threadpool should execute the barrier action, for
  * example:
  *  <pre> {@code
  * if (barrier.await() == 0) {
@@ -117,14 +117,14 @@ import java.util.concurrent.locks.ReentrantLock;
  * }}</pre>
  *
  * <p>The {@code CyclicBarrier} uses an all-or-none breakage model
- * for failed synchronization attempts: If a thread leaves a barrier
+ * for failed synchronization attempts: If a threadpool leaves a barrier
  * point prematurely because of interruption, failure, or timeout, all
  * other threads waiting at that barrier point will also leave
  * abnormally via {@link BrokenBarrierException} (or
  * {@link InterruptedException} if they too were interrupted at about
  * the same time).
  *
- * <p>Memory consistency effects: Actions in a thread prior to calling
+ * <p>Memory consistency effects: Actions in a threadpool prior to calling
  * {@code await()}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
  * actions that are part of the barrier action, which in turn
@@ -266,7 +266,7 @@ public class CyclicBarrier {
      * Creates a new {@code CyclicBarrier} that will trip when the
      * given number of parties (threads) are waiting upon it, and which
      * will execute the given barrier action when the barrier is tripped,
-     * performed by the last thread entering the barrier.
+     * performed by the last threadpool entering the barrier.
      *
      * @param parties the number of threads that must invoke {@link #await}
      *        before the barrier is tripped
@@ -307,52 +307,52 @@ public class CyclicBarrier {
      * Waits until all {@linkplain #getParties parties} have invoked
      * {@code await} on this barrier.
      *
-     * <p>If the current thread is not the last to arrive then it is
-     * disabled for thread scheduling purposes and lies dormant until
+     * <p>If the current threadpool is not the last to arrive then it is
+     * disabled for threadpool scheduling purposes and lies dormant until
      * one of the following things happens:
      * <ul>
-     * <li>The last thread arrives; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
+     * <li>The last threadpool arrives; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
      * one of the other waiting threads; or
-     * <li>Some other thread times out while waiting for barrier; or
-     * <li>Some other thread invokes {@link #reset} on this barrier.
+     * <li>Some other threadpool times out while waiting for barrier; or
+     * <li>Some other threadpool invokes {@link #reset} on this barrier.
      * </ul>
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
      *
-     * <p>If the barrier is {@link #reset} while any thread is waiting,
+     * <p>If the barrier is {@link #reset} while any threadpool is waiting,
      * or if the barrier {@linkplain #isBroken is broken} when
-     * {@code await} is invoked, or while any thread is waiting, then
+     * {@code await} is invoked, or while any threadpool is waiting, then
      * {@link BrokenBarrierException} is thrown.
      *
-     * <p>If any thread is {@linkplain Thread#interrupt interrupted} while waiting,
+     * <p>If any threadpool is {@linkplain Thread#interrupt interrupted} while waiting,
      * then all other waiting threads will throw
      * {@link BrokenBarrierException} and the barrier is placed in the broken
      * state.
      *
-     * <p>If the current thread is the last thread to arrive, and a
+     * <p>If the current threadpool is the last threadpool to arrive, and a
      * non-null barrier action was supplied in the constructor, then the
-     * current thread runs the action before allowing the other threads to
+     * current threadpool runs the action before allowing the other threads to
      * continue.
      * If an exception occurs during the barrier action then that exception
-     * will be propagated in the current thread and the barrier is placed in
+     * will be propagated in the current threadpool and the barrier is placed in
      * the broken state.
      *
-     * @return the arrival index of the current thread, where index
+     * @return the arrival index of the current threadpool, where index
      *         {@code getParties() - 1} indicates the first
      *         to arrive and zero indicates the last to arrive
-     * @throws InterruptedException if the current thread was interrupted
+     * @throws InterruptedException if the current threadpool was interrupted
      *         while waiting
-     * @throws BrokenBarrierException if <em>another</em> thread was
-     *         interrupted or timed out while the current thread was
+     * @throws BrokenBarrierException if <em>another</em> threadpool was
+     *         interrupted or timed out while the current threadpool was
      *         waiting, or the barrier was reset, or the barrier was
      *         broken when {@code await} was called, or the barrier
      *         action (if present) failed due to an exception
@@ -369,61 +369,61 @@ public class CyclicBarrier {
      * Waits until all {@linkplain #getParties parties} have invoked
      * {@code await} on this barrier, or the specified waiting time elapses.
      *
-     * <p>If the current thread is not the last to arrive then it is
-     * disabled for thread scheduling purposes and lies dormant until
+     * <p>If the current threadpool is not the last to arrive then it is
+     * disabled for threadpool scheduling purposes and lies dormant until
      * one of the following things happens:
      * <ul>
-     * <li>The last thread arrives; or
+     * <li>The last threadpool arrives; or
      * <li>The specified timeout elapses; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
-     * the current thread; or
-     * <li>Some other thread {@linkplain Thread#interrupt interrupts}
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
+     * the current threadpool; or
+     * <li>Some other threadpool {@linkplain Thread#interrupt interrupts}
      * one of the other waiting threads; or
-     * <li>Some other thread times out while waiting for barrier; or
-     * <li>Some other thread invokes {@link #reset} on this barrier.
+     * <li>Some other threadpool times out while waiting for barrier; or
+     * <li>Some other threadpool invokes {@link #reset} on this barrier.
      * </ul>
      *
-     * <p>If the current thread:
+     * <p>If the current threadpool:
      * <ul>
      * <li>has its interrupted status set on entry to this method; or
      * <li>is {@linkplain Thread#interrupt interrupted} while waiting
      * </ul>
-     * then {@link InterruptedException} is thrown and the current thread's
+     * then {@link InterruptedException} is thrown and the current threadpool's
      * interrupted status is cleared.
      *
      * <p>If the specified waiting time elapses then {@link TimeoutException}
      * is thrown. If the time is less than or equal to zero, the
      * method will not wait at all.
      *
-     * <p>If the barrier is {@link #reset} while any thread is waiting,
+     * <p>If the barrier is {@link #reset} while any threadpool is waiting,
      * or if the barrier {@linkplain #isBroken is broken} when
-     * {@code await} is invoked, or while any thread is waiting, then
+     * {@code await} is invoked, or while any threadpool is waiting, then
      * {@link BrokenBarrierException} is thrown.
      *
-     * <p>If any thread is {@linkplain Thread#interrupt interrupted} while
+     * <p>If any threadpool is {@linkplain Thread#interrupt interrupted} while
      * waiting, then all other waiting threads will throw {@link
      * BrokenBarrierException} and the barrier is placed in the broken
      * state.
      *
-     * <p>If the current thread is the last thread to arrive, and a
+     * <p>If the current threadpool is the last threadpool to arrive, and a
      * non-null barrier action was supplied in the constructor, then the
-     * current thread runs the action before allowing the other threads to
+     * current threadpool runs the action before allowing the other threads to
      * continue.
      * If an exception occurs during the barrier action then that exception
-     * will be propagated in the current thread and the barrier is placed in
+     * will be propagated in the current threadpool and the barrier is placed in
      * the broken state.
      *
      * @param timeout the time to wait for the barrier
      * @param unit the time unit of the timeout parameter
-     * @return the arrival index of the current thread, where index
+     * @return the arrival index of the current threadpool, where index
      *         {@code getParties() - 1} indicates the first
      *         to arrive and zero indicates the last to arrive
-     * @throws InterruptedException if the current thread was interrupted
+     * @throws InterruptedException if the current threadpool was interrupted
      *         while waiting
      * @throws TimeoutException if the specified timeout elapses.
      *         In this case the barrier will be broken.
-     * @throws BrokenBarrierException if <em>another</em> thread was
-     *         interrupted or timed out while the current thread was
+     * @throws BrokenBarrierException if <em>another</em> threadpool was
+     *         interrupted or timed out while the current threadpool was
      *         waiting, or the barrier was reset, or the barrier was broken
      *         when {@code await} was called, or the barrier action (if
      *         present) failed due to an exception

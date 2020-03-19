@@ -103,14 +103,14 @@ public interface PIHandler extends Closeable {
 
     /**
      * Called for pseudo-ops to temporarily disable portable interceptor
-     * hooks for calls on this thread.  Keeps track of the number of
+     * hooks for calls on this threadpool.  Keeps track of the number of
      * times this is called and increments the disabledCount.
      */
     void disableInterceptorsThisThread() ;
 
     /**
      * Called for pseudo-ops to re-enable portable interceptor
-     * hooks for calls on this thread.  Decrements the disabledCount.
+     * hooks for calls on this threadpool.  Decrements the disabledCount.
      * If disabledCount is 0, interceptors are re-enabled.
      */
     void enableInterceptorsThisThread() ;

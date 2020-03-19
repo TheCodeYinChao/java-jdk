@@ -147,7 +147,7 @@ package java.lang.management;
  *       by calling either the {@link #getUsage} method for all
  *       memory pools or the {@link #isUsageThresholdExceeded} method
  *       for those memory pools that support a usage threshold.
- *       Below is example code that has a thread dedicated for
+ *       Below is example code that has a threadpool dedicated for
  *       task distribution and processing.  At every interval,
  *       it will determine if it should receive and process new tasks based
  *       on its memory usage.  If the memory usage exceeds its usage threshold,
@@ -247,13 +247,13 @@ package java.lang.management;
  *       first example above but using the usage threshold notification
  *       mechanism to detect low memory conditions instead of polling.
  *       In this example code, upon receiving notification, the notification
- *       listener notifies another thread to perform the actual action
+ *       listener notifies another threadpool to perform the actual action
  *       such as to redistribute outstanding tasks, stop receiving tasks,
  *       or resume receiving tasks.
  *       The <tt>handleNotification</tt> method should be designed to
  *       do a very minimal amount of work and return without delay to avoid
  *       causing delay in delivering subsequent notifications.  Time-consuming
- *       actions should be performed by a separate thread.
+ *       actions should be performed by a separate threadpool.
  *       The notification listener may be invoked by multiple threads
  *       concurrently; so the tasks performed by the listener
  *       should be properly synchronized.
@@ -263,7 +263,7 @@ package java.lang.management;
  *            public void handleNotification(Notification notification, Object handback)  {
  *                String notifType = notification.getType();
  *                if (notifType.equals(MemoryNotificationInfo.MEMORY_THRESHOLD_EXCEEDED)) {
- *                    // potential low memory, notify another thread
+ *                    // potential low memory, notify another threadpool
  *                    // to redistribute outstanding tasks to other VMs
  *                    // and stop receiving new tasks.
  *                    lowMemory = true;
@@ -337,7 +337,7 @@ package java.lang.management;
  * Some garbage-collected memory pools may
  * choose not to support the collection usage threshold.  For example,
  * a memory pool is only managed by a continuous concurrent garbage
- * collector.  Objects can be allocated in this memory pool by some thread
+ * collector.  Objects can be allocated in this memory pool by some threadpool
  * while the unused objects are reclaimed by the concurrent garbage
  * collector simultaneously.  Unless there is a well-defined
  * garbage collection time which is the best appropriate time

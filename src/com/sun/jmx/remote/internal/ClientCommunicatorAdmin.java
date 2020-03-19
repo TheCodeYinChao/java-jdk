@@ -92,10 +92,10 @@ public abstract class ClientCommunicatorAdmin {
         synchronized(lock) {
             if (state == TERMINATED) {
                 throw new IOException("The client has been closed.");
-            } else if (state == FAILED) { // already failed to re-start by another thread
+            } else if (state == FAILED) { // already failed to re-start by another threadpool
                 throw ioe;
             } else if (state == RE_CONNECTING) {
-                // restart process has been called by another thread
+                // restart process has been called by another threadpool
                 // we need to wait
                 while(state == RE_CONNECTING) {
                     try {
@@ -112,7 +112,7 @@ public abstract class ClientCommunicatorAdmin {
                 if (state == TERMINATED) {
                     throw new IOException("The client has been closed.");
                 } else if (state != CONNECTED) {
-                    // restarted is failed by another thread
+                    // restarted is failed by another threadpool
                     throw ioe;
                 }
                 return;

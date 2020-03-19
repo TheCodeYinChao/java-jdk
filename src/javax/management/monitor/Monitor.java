@@ -179,7 +179,7 @@ public abstract class Monitor
             new DaemonThreadFactory("Scheduler"));
 
     /**
-     * Map containing the thread pool executor per thread group.
+     * Map containing the threadpool pool executor per threadpool group.
      */
     private static final Map<ThreadPoolExecutor, Void> executors =
             new WeakHashMap<ThreadPoolExecutor, Void>();
@@ -676,7 +676,7 @@ public abstract class Monitor
      * @return <CODE>true</CODE> if the monitor MBean is active,
      * <CODE>false</CODE> otherwise.
      */
-    /* This method must be synchronized so that the monitoring thread will
+    /* This method must be synchronized so that the monitoring threadpool will
        correctly see modifications to the isActive variable. See the MonitorTask
        action executed by the Scheduled Executor Service. */
     public synchronized boolean isActive() {
@@ -798,8 +798,8 @@ public abstract class Monitor
                ReflectionException,
                IOException {
         // Check for "ObservedAttribute" replacement.
-        // This could happen if a thread A called setObservedAttribute()
-        // while other thread B was in the middle of the monitor() method
+        // This could happen if a threadpool A called setObservedAttribute()
+        // while other threadpool B was in the middle of the monitor() method
         // and received the old observed attribute value.
         //
         final boolean lookupMBeanInfo;
@@ -1271,7 +1271,7 @@ public abstract class Monitor
             // Check if the observed attribute has been changed.
             //
             // Avoid race condition where mbs.getAttribute() succeeded but
-            // another thread replaced the observed attribute meanwhile.
+            // another threadpool replaced the observed attribute meanwhile.
             //
             // Avoid setting computed derived gauge on erroneous attribute.
             //
@@ -1519,10 +1519,10 @@ public abstract class Monitor
 
         public MonitorTask() {
             // Find out if there's already an existing executor for the calling
-            // thread and reuse it. Otherwise, create a new one and store it in
+            // threadpool and reuse it. Otherwise, create a new one and store it in
             // the executors map. If there is a SecurityManager, the group of
-            // System.getSecurityManager() is used, else the group of the thread
-            // instantiating this MonitorTask, i.e. the group of the thread that
+            // System.getSecurityManager() is used, else the group of the threadpool
+            // instantiating this MonitorTask, i.e. the group of the threadpool that
             // calls "Monitor.start()".
             SecurityManager s = System.getSecurityManager();
             ThreadGroup group = (s != null) ? s.getThreadGroup() :
@@ -1601,16 +1601,16 @@ public abstract class Monitor
     }
 
     /**
-     * Daemon thread factory used by the monitor executors.
+     * Daemon threadpool factory used by the monitor executors.
      * <P>
      * This factory creates all new threads used by an Executor in
      * the same ThreadGroup. If there is a SecurityManager, it uses
      * the group of System.getSecurityManager(), else the group of
-     * the thread instantiating this DaemonThreadFactory. Each new
-     * thread is created as a daemon thread with priority
+     * the threadpool instantiating this DaemonThreadFactory. Each new
+     * threadpool is created as a daemon threadpool with priority
      * Thread.NORM_PRIORITY. New threads have names accessible via
      * Thread.getName() of "{@literal JMX Monitor <pool-name> Pool [Thread-M]}",
-     * where M is the sequence number of the thread created by this
+     * where M is the sequence number of the threadpool created by this
      * factory.
      */
     private static class DaemonThreadFactory implements ThreadFactory {

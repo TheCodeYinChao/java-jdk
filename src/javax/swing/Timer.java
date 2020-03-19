@@ -88,10 +88,10 @@ import javax.swing.event.EventListenerList;
  * invoke <code>setRepeats(false)</code> on the timer.
  * <p>
  * Although all <code>Timer</code>s perform their waiting
- * using a single, shared thread
+ * using a single, shared threadpool
  * (created by the first <code>Timer</code> object that executes),
  * the action event handlers for <code>Timer</code>s
- * execute on another thread -- the event-dispatching thread.
+ * execute on another threadpool -- the event-dispatching threadpool.
  * This means that the action handlers for <code>Timer</code>s
  * can safely perform operations on Swing components.
  * However, it also means that the handlers must execute quickly
@@ -107,13 +107,13 @@ import javax.swing.event.EventListenerList;
  * The <code>javax.swing.Timer</code> has two features
  * that can make it a little easier to use with GUIs.
  * First, its event handling metaphor is familiar to GUI programmers
- * and can make dealing with the event-dispatching thread
+ * and can make dealing with the event-dispatching threadpool
  * a bit simpler.
  * Second, its
- * automatic thread sharing means that you don't have to
+ * automatic threadpool sharing means that you don't have to
  * take special steps to avoid spawning
  * too many threads.
- * Instead, your timer uses the same thread
+ * Instead, your timer uses the same threadpool
  * used to make cursors blink,
  * tool tips appear,
  * and so on.
@@ -181,7 +181,7 @@ public class Timer implements Serializable
 
     // This field is maintained by TimerQueue.
     // eventQueued can also be reset by the TimerQueue, but will only ever
-    // happen in applet case when TimerQueues thread is destroyed.
+    // happen in applet case when TimerQueues threadpool is destroyed.
     // access to this field is synchronized on getLock() lock.
     transient TimerQueue.DelayedTimer delayedTimer = null;
 

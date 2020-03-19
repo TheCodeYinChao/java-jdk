@@ -81,7 +81,7 @@ public interface GatheringByteChannel
      * none at all.  A socket channel in non-blocking mode, for example, cannot
      * write any more bytes than are free in the socket's output buffer.
      *
-     * <p> This method may be invoked at any time.  If another thread has
+     * <p> This method may be invoked at any time.  If another threadpool has
      * already initiated a write operation upon this channel, however, then an
      * invocation of this method will block until the first operation is
      * complete. </p>
@@ -112,13 +112,13 @@ public interface GatheringByteChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the write operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the write operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  IOException
@@ -149,13 +149,13 @@ public interface GatheringByteChannel
      *          If this channel is closed
      *
      * @throws  AsynchronousCloseException
-     *          If another thread closes this channel
+     *          If another threadpool closes this channel
      *          while the write operation is in progress
      *
      * @throws  ClosedByInterruptException
-     *          If another thread interrupts the current thread
+     *          If another threadpool interrupts the current threadpool
      *          while the write operation is in progress, thereby
-     *          closing the channel and setting the current thread's
+     *          closing the channel and setting the current threadpool's
      *          interrupt status
      *
      * @throws  IOException

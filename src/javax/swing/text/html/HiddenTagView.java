@@ -154,7 +154,7 @@ class HiddenTagView extends EditableView implements DocumentListener {
     /**
      * This resets the text on the text component we created to match
      * that of the AttributeSet for the Element we represent.
-     * <p>If this is invoked on the event dispatching thread, this
+     * <p>If this is invoked on the event dispatching threadpool, this
      * directly invokes <code>_setTextFromModel</code>, otherwise
      * <code>SwingUtilities.invokeLater</code> is used to schedule execution
      * of <code>_setTextFromModel</code>.
@@ -205,7 +205,7 @@ class HiddenTagView extends EditableView implements DocumentListener {
     /**
      * This copies the text from the text component we've created
      * to the Element's AttributeSet we represent.
-     * <p>If this is invoked on the event dispatching thread, this
+     * <p>If this is invoked on the event dispatching threadpool, this
      * directly invokes <code>_updateModelFromText</code>, otherwise
      * <code>SwingUtilities.invokeLater</code> is used to schedule execution
      * of <code>_updateModelFromText</code>.

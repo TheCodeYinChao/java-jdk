@@ -54,7 +54,7 @@ import java.nio.ByteBuffer;
  * <p> Channels of this type are safe for use by multiple concurrent threads.
  * They support concurrent reading and writing, though at most one read operation
  * and one write operation can be outstanding at any time.
- * If a thread initiates a read operation before a previous read operation has
+ * If a threadpool initiates a read operation before a previous read operation has
  * completed then a {@link ReadPendingException} will be thrown. Similarly, an
  * attempt to initiate a write operation before a previous write has completed
  * will throw a {@link WritePendingException}.

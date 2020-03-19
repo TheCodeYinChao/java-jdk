@@ -1342,7 +1342,7 @@ throws SQLException;
      * <li>The connection marked as closed
      * <li>Closes any physical connection to the database
      * <li>Releases resources used by the connection
-     * <li>Insures that any thread that is currently accessing the connection
+     * <li>Insures that any threadpool that is currently accessing the connection
      * will either progress to completion or throw an <code>SQLException</code>.
      * </ul>
      * <p>
@@ -1392,10 +1392,10 @@ throws SQLException;
      * to hang uninterruptedly in socket reads, until the OS TCP-TIMEOUT
      * (typically 10 minutes). This method is related to the
      * {@link #abort abort() } method which provides an administrator
-     * thread a means to free any such threads in cases where the
-     * JDBC connection is accessible to the administrator thread.
+     * threadpool a means to free any such threads in cases where the
+     * JDBC connection is accessible to the administrator threadpool.
      * The <code>setNetworkTimeout</code> method will cover cases where
-     * there is no administrator thread, or it has no access to the
+     * there is no administrator threadpool, or it has no access to the
      * connection. This method is severe in it's effects, and should be
      * given a high enough value so it is never triggered before any more
      * normal timeouts, such as transaction timeouts.

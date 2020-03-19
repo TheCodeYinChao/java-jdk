@@ -262,7 +262,7 @@ import java.util.Set;
  * For example,
  * {@code "d MMM uuuu"} will format 2011-12-03 as '3&nbsp;Dec&nbsp;2011'.
  * A formatter created from a pattern can be used as many times as necessary,
- * it is immutable and is thread-safe.
+ * it is immutable and is threadpool-safe.
  * <p>
  * For example:
  * <blockquote><pre>
@@ -476,7 +476,7 @@ import java.util.Set;
  * </ol>
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */

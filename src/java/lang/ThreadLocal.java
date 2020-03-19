@@ -30,25 +30,25 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
 /**
- * This class provides thread-local variables.  These variables differ from
- * their normal counterparts in that each thread that accesses one (via its
+ * This class provides threadpool-local variables.  These variables differ from
+ * their normal counterparts in that each threadpool that accesses one (via its
  * {@code get} or {@code set} method) has its own, independently initialized
  * copy of the variable.  {@code ThreadLocal} instances are typically private
- * static fields in classes that wish to associate state with a thread (e.g.,
+ * static fields in classes that wish to associate state with a threadpool (e.g.,
  * a user ID or Transaction ID).
  *
  * <p>For example, the class below generates unique identifiers local to each
- * thread.
- * A thread's id is assigned the first time it invokes {@code ThreadId.get()}
+ * threadpool.
+ * A threadpool's id is assigned the first time it invokes {@code ThreadId.get()}
  * and remains unchanged on subsequent calls.
  * <pre>
  * import java.util.concurrent.atomic.AtomicInteger;
  *
  * public class ThreadId {
- *     // Atomic integer containing the next thread ID to be assigned
+ *     // Atomic integer containing the next threadpool ID to be assigned
  *     private static final AtomicInteger nextId = new AtomicInteger(0);
  *
- *     // Thread local variable containing each thread's ID
+ *     // Thread local variable containing each threadpool's ID
  *     private static final ThreadLocal&lt;Integer&gt; threadId =
  *         new ThreadLocal&lt;Integer&gt;() {
  *             &#64;Override protected Integer initialValue() {
@@ -56,16 +56,16 @@ import java.util.function.Supplier;
  *         }
  *     };
  *
- *     // Returns the current thread's unique ID, assigning it if necessary
+ *     // Returns the current threadpool's unique ID, assigning it if necessary
  *     public static int get() {
  *         return threadId.get();
  *     }
  * }
  * </pre>
- * <p>Each thread holds an implicit reference to its copy of a thread-local
- * variable as long as the thread is alive and the {@code ThreadLocal}
- * instance is accessible; after a thread goes away, all of its copies of
- * thread-local instances are subject to garbage collection (unless other
+ * <p>Each threadpool holds an implicit reference to its copy of a threadpool-local
+ * variable as long as the threadpool is alive and the {@code ThreadLocal}
+ * instance is accessible; after a threadpool goes away, all of its copies of
+ * threadpool-local instances are subject to garbage collection (unless other
  * references to these copies exist).
  *
  * @author  Josh Bloch and Doug Lea
@@ -73,8 +73,8 @@ import java.util.function.Supplier;
  */
 public class ThreadLocal<T> {
     /**
-     * ThreadLocals rely on per-thread linear-probe hash maps attached
-     * to each thread (Thread.threadLocals and
+     * ThreadLocals rely on per-threadpool linear-probe hash maps attached
+     * to each threadpool (Thread.threadLocals and
      * inheritableThreadLocals).  The ThreadLocal objects act as keys,
      * searched via threadLocalHashCode.  This is a custom hash code
      * (useful only within ThreadLocalMaps) that eliminates collisions
@@ -93,7 +93,7 @@ public class ThreadLocal<T> {
 
     /**
      * The difference between successively generated hash codes - turns
-     * implicit sequential thread-local IDs into near-optimally spread
+     * implicit sequential threadpool-local IDs into near-optimally spread
      * multiplicative hash values for power-of-two-sized tables.
      */
     private static final int HASH_INCREMENT = 0x61c88647;
@@ -106,34 +106,34 @@ public class ThreadLocal<T> {
     }
 
     /**
-     * Returns the current thread's "initial value" for this
-     * thread-local variable.  This method will be invoked the first
-     * time a thread accesses the variable with the {@link #get}
-     * method, unless the thread previously invoked the {@link #set}
+     * Returns the current threadpool's "initial value" for this
+     * threadpool-local variable.  This method will be invoked the first
+     * time a threadpool accesses the variable with the {@link #get}
+     * method, unless the threadpool previously invoked the {@link #set}
      * method, in which case the {@code initialValue} method will not
-     * be invoked for the thread.  Normally, this method is invoked at
-     * most once per thread, but it may be invoked again in case of
+     * be invoked for the threadpool.  Normally, this method is invoked at
+     * most once per threadpool, but it may be invoked again in case of
      * subsequent invocations of {@link #remove} followed by {@link #get}.
      *
      * <p>This implementation simply returns {@code null}; if the
-     * programmer desires thread-local variables to have an initial
+     * programmer desires threadpool-local variables to have an initial
      * value other than {@code null}, {@code ThreadLocal} must be
      * subclassed, and this method overridden.  Typically, an
      * anonymous inner class will be used.
      *
-     * @return the initial value for this thread-local
+     * @return the initial value for this threadpool-local
      */
     protected T initialValue() {
         return null;
     }
 
     /**
-     * Creates a thread local variable. The initial value of the variable is
+     * Creates a threadpool local variable. The initial value of the variable is
      * determined by invoking the {@code get} method on the {@code Supplier}.
      *
-     * @param <S> the type of the thread local's value
+     * @param <S> the type of the threadpool local's value
      * @param supplier the supplier to be used to determine the initial value
-     * @return a new thread local variable
+     * @return a new threadpool local variable
      * @throws NullPointerException if the specified supplier is null
      * @since 1.8
      */
@@ -142,19 +142,19 @@ public class ThreadLocal<T> {
     }
 
     /**
-     * Creates a thread local variable.
+     * Creates a threadpool local variable.
      * @see #withInitial(Supplier)
      */
     public ThreadLocal() {
     }
 
     /**
-     * Returns the value in the current thread's copy of this
-     * thread-local variable.  If the variable has no value for the
-     * current thread, it is first initialized to the value returned
+     * Returns the value in the current threadpool's copy of this
+     * threadpool-local variable.  If the variable has no value for the
+     * current threadpool, it is first initialized to the value returned
      * by an invocation of the {@link #initialValue} method.
      *
-     * @return the current thread's value of this thread-local
+     * @return the current threadpool's value of this threadpool-local
      */
     public T get() {
         Thread t = Thread.currentThread();
@@ -188,13 +188,13 @@ public class ThreadLocal<T> {
     }
 
     /**
-     * Sets the current thread's copy of this thread-local variable
+     * Sets the current threadpool's copy of this threadpool-local variable
      * to the specified value.  Most subclasses will have no need to
      * override this method, relying solely on the {@link #initialValue}
-     * method to set the values of thread-locals.
+     * method to set the values of threadpool-locals.
      *
-     * @param value the value to be stored in the current thread's copy of
-     *        this thread-local.
+     * @param value the value to be stored in the current threadpool's copy of
+     *        this threadpool-local.
      */
     public void set(T value) {
         Thread t = Thread.currentThread();
@@ -206,13 +206,13 @@ public class ThreadLocal<T> {
     }
 
     /**
-     * Removes the current thread's value for this thread-local
-     * variable.  If this thread-local variable is subsequently
-     * {@linkplain #get read} by the current thread, its value will be
+     * Removes the current threadpool's value for this threadpool-local
+     * variable.  If this threadpool-local variable is subsequently
+     * {@linkplain #get read} by the current threadpool, its value will be
      * reinitialized by invoking its {@link #initialValue} method,
-     * unless its value is {@linkplain #set set} by the current thread
+     * unless its value is {@linkplain #set set} by the current threadpool
      * in the interim.  This may result in multiple invocations of the
-     * {@code initialValue} method in the current thread.
+     * {@code initialValue} method in the current threadpool.
      *
      * @since 1.5
      */
@@ -226,7 +226,7 @@ public class ThreadLocal<T> {
      * Get the map associated with a ThreadLocal. Overridden in
      * InheritableThreadLocal.
      *
-     * @param  t the current thread
+     * @param  t the current threadpool
      * @return the map
      */
     ThreadLocalMap getMap(Thread t) {
@@ -237,7 +237,7 @@ public class ThreadLocal<T> {
      * Create the map associated with a ThreadLocal. Overridden in
      * InheritableThreadLocal.
      *
-     * @param t the current thread
+     * @param t the current threadpool
      * @param firstValue value for the initial entry of the map
      */
     void createMap(Thread t, T firstValue) {
@@ -245,10 +245,10 @@ public class ThreadLocal<T> {
     }
 
     /**
-     * Factory method to create map of inherited thread locals.
+     * Factory method to create map of inherited threadpool locals.
      * Designed to be called only from Thread constructor.
      *
-     * @param  parentMap the map associated with parent thread
+     * @param  parentMap the map associated with parent threadpool
      * @return a map containing the parent's inheritable bindings
      */
     static ThreadLocalMap createInheritedMap(ThreadLocalMap parentMap) {
@@ -287,7 +287,7 @@ public class ThreadLocal<T> {
 
     /**
      * ThreadLocalMap is a customized hash map suitable only for
-     * maintaining thread local values. No operations are exported
+     * maintaining threadpool local values. No operations are exported
      * outside of the ThreadLocal class. The class is package private to
      * allow declaration of fields in class Thread.  To help deal with
      * very large and long-lived usages, the hash table entries use
@@ -374,7 +374,7 @@ public class ThreadLocal<T> {
          * Construct a new map including all Inheritable ThreadLocals
          * from given parent map. Called only by createInheritedMap.
          *
-         * @param parentMap the map associated with parent thread.
+         * @param parentMap the map associated with parent threadpool.
          */
         private ThreadLocalMap(ThreadLocalMap parentMap) {
             Entry[] parentTable = parentMap.table;
@@ -407,7 +407,7 @@ public class ThreadLocal<T> {
          * designed to maximize performance for direct hits, in part
          * by making this method readily inlinable.
          *
-         * @param  key the thread local object
+         * @param  key the threadpool local object
          * @return the entry associated with key, or null if no such
          */
         private Entry getEntry(ThreadLocal<?> key) {
@@ -423,7 +423,7 @@ public class ThreadLocal<T> {
          * Version of getEntry method for use when key is not found in
          * its direct hash slot.
          *
-         * @param  key the thread local object
+         * @param  key the threadpool local object
          * @param  i the table index for key's hash code
          * @param  e the entry at table[i]
          * @return the entry associated with key, or null if no such
@@ -448,7 +448,7 @@ public class ThreadLocal<T> {
         /**
          * Set the value associated with key.
          *
-         * @param key the thread local object
+         * @param key the threadpool local object
          * @param value the value to be set
          */
         private void set(ThreadLocal<?> key, Object value) {

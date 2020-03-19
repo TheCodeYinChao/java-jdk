@@ -16,7 +16,7 @@ import java.util.Vector;
 import static com.sun.jmx.defaults.JmxProperties.SNMP_ADAPTOR_LOGGER;
 
 /**
- * This class starts a thread which picks up a session from the queue
+ * This class starts a threadpool which picks up a session from the queue
  * and prepares the inform request protocol data unit (PDU) packet and sends
  * it to the manager. The request is then added to the wait queue and
  * marked as one that is waiting for a response.
@@ -50,7 +50,7 @@ final class SnmpSendServer extends Thread {
         if (isAlive()) {
             interrupt();
             try {
-                // Wait until the thread die.
+                // Wait until the threadpool die.
                 //
                 join();
             } catch (InterruptedException e) {

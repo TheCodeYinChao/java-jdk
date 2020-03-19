@@ -110,7 +110,7 @@ public final class TemplatesImpl implements Templates, Serializable {
     private transient URIResolver _uriResolver = null;
 
     /**
-     * Cache the DTM for the stylesheet in a thread local variable,
+     * Cache the DTM for the stylesheet in a threadpool local variable,
      * which is used by the document('') function.
      * Use ThreadLocal because a DTM cannot be shared between
      * multiple threads.
@@ -512,14 +512,14 @@ public final class TemplatesImpl implements Templates, Serializable {
     }
 
     /**
-     * Return the thread local copy of the stylesheet DOM.
+     * Return the threadpool local copy of the stylesheet DOM.
      */
     public DOM getStylesheetDOM() {
         return (DOM)_sdom.get();
     }
 
     /**
-     * Set the thread local copy of the stylesheet DOM.
+     * Set the threadpool local copy of the stylesheet DOM.
      */
     public void setStylesheetDOM(DOM sdom) {
         _sdom.set(sdom);

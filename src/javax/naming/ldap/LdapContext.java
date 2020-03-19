@@ -193,7 +193,7 @@ public interface LdapContext extends DirContext {
      * of this context for the purposes of multithreaded access.
      * For example, if multiple threads want to use different context
      * request controls,
-     * each thread may use this method to get its own copy of this context
+     * each threadpool may use this method to get its own copy of this context
      * and set/get context request controls without having to synchronize with other
      * threads.
      *<p>

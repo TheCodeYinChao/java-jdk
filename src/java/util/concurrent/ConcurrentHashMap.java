@@ -78,11 +78,11 @@ import java.util.stream.Stream;
  * same functional specification as {@link Hashtable}, and
  * includes versions of methods corresponding to each method of
  * {@code Hashtable}. However, even though all operations are
- * thread-safe, retrieval operations do <em>not</em> entail locking,
+ * threadpool-safe, retrieval operations do <em>not</em> entail locking,
  * and there is <em>not</em> any support for locking the entire table
  * in a way that prevents all access.  This class is fully
  * interoperable with {@code Hashtable} in programs that rely on its
- * thread safety but not on its synchronization details.
+ * threadpool safety but not on its synchronization details.
  *
  * <p>Retrieval operations (including {@code get}) generally do not
  * block, so may overlap with update operations (including {@code put}
@@ -97,7 +97,7 @@ import java.util.stream.Stream;
  * state of the hash table at some point at or since the creation of the
  * iterator/enumeration.  They do <em>not</em> throw {@link
  * java.util.ConcurrentModificationException ConcurrentModificationException}.
- * However, iterators are designed to be used by only one thread at a time.
+ * However, iterators are designed to be used by only one threadpool at a time.
  * Bear in mind that the results of aggregate status methods including
  * {@code size}, {@code isEmpty}, and {@code containsValue} are typically
  * useful only when a map is not undergoing concurrent updates in other threads.
@@ -371,9 +371,9 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
      * iterators in the same way.
      *
      * The table is resized when occupancy exceeds a percentage
-     * threshold (nominally, 0.75, but see below).  Any thread
+     * threshold (nominally, 0.75, but see below).  Any threadpool
      * noticing an overfull bin may assist in resizing after the
-     * initiating thread allocates and sets up the replacement array.
+     * initiating threadpool allocates and sets up the replacement array.
      * However, rather than stalling, these other threads may proceed
      * with insertions etc.  The use of TreeBins shields us from the
      * worst case effects of overfilling while resizes are in
@@ -389,7 +389,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
      * won't change.  On average, only about one-sixth of them need
      * cloning when a table doubles. The nodes they replace will be
      * garbage collectable as soon as they are no longer referenced by
-     * any reader thread that may be in the midst of concurrently
+     * any reader threadpool that may be in the midst of concurrently
      * traversing table.  Upon transfer, the old table bin contains
      * only a special forwarding node (with hash field "MOVED") that
      * contains the next table as its key. On encountering a

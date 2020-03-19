@@ -89,7 +89,7 @@ import java.time.chrono.ChronoZonedDateTime;
  *
  * @implSpec
  * This interface must be implemented with care to ensure other classes operate correctly.
- * All implementations that can be instantiated must be final, immutable and thread-safe.
+ * All implementations that can be instantiated must be final, immutable and threadpool-safe.
  * It is recommended to use an enum where possible.
  *
  * @since 1.8

@@ -68,7 +68,7 @@ public class SAX2DOM implements ContentHandler, LexicalHandler, Constants {
     /**
      * JAXP document builder factory. Create a single instance and use
      * synchronization because the Javadoc is not explicit about
-     * thread safety.
+     * threadpool safety.
      */
     private DocumentBuilderFactory _factory =
             DocumentBuilderFactory.newInstance();
@@ -324,7 +324,7 @@ public class SAX2DOM implements ContentHandler, LexicalHandler, Constants {
         }
         Document doc;
         if (_internal) {
-            //default implementation is thread safe
+            //default implementation is threadpool safe
             doc = _factory.newDocumentBuilder().newDocument();
         } else {
             synchronized(SAX2DOM.class) {

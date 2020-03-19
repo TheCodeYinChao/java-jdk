@@ -191,7 +191,7 @@ public interface JMXConnector extends Closeable {
      * example, if the server has crashed, the close operation might
      * have to wait for a network protocol timeout.  Callers that do
      * not want to block in a close operation should do it in a
-     * separate thread.</p>
+     * separate threadpool.</p>
      *
      * @exception IOException if the connection cannot be closed
      * cleanly.  If this exception is thrown, it is not known whether

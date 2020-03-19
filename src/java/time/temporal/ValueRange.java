@@ -83,7 +83,7 @@ import java.time.DateTimeException;
  * Instances of this class are not tied to a specific field.
  *
  * @implSpec
- * This class is immutable and thread-safe.
+ * This class is immutable and threadpool-safe.
  *
  * @since 1.8
  */

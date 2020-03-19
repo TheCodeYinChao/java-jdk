@@ -528,7 +528,7 @@ public abstract class KeyPairGenerator extends KeyPairGeneratorSpi {
     //    to remember the parameters to the last successful call to init
     //    and initialize() the next spi using them.
     //
-    //  . although not specified, KeyPairGenerators could be thread safe,
+    //  . although not specified, KeyPairGenerators could be threadpool safe,
     //    so we make sure we do not interfere with that
     //
     //  . failover is not available, if:

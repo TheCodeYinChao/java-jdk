@@ -46,8 +46,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Abstract base class for tasks that run within a {@link ForkJoinPool}.
- * A {@code ForkJoinTask} is a thread-like entity that is much
- * lighter weight than a normal thread.  Huge numbers of tasks and
+ * A {@code ForkJoinTask} is a threadpool-like entity that is much
+ * lighter weight than a normal threadpool.  Huge numbers of tasks and
  * subtasks may be hosted by a small number of actual threads in a
  * ForkJoinPool, at the price of some usage limitations.
  *
@@ -87,8 +87,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * exhaustion, such as failure to allocate internal task
  * queues. Rethrown exceptions behave in the same way as regular
  * exceptions, but, when possible, contain stack traces (as displayed
- * for example using {@code ex.printStackTrace()}) of both the thread
- * that initiated the computation as well as the thread actually
+ * for example using {@code ex.printStackTrace()}) of both the threadpool
+ * that initiated the computation as well as the threadpool actually
  * encountering the exception; minimally only the latter.
  *
  * <p>It is possible to define and use ForkJoinTasks that may block,
@@ -111,7 +111,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * waits for completion and report results using {@code Future}
  * conventions. Method {@link #invoke} is semantically
  * equivalent to {@code fork(); join()} but always attempts to begin
- * execution in the current thread. The "<em>quiet</em>" forms of
+ * execution in the current threadpool. The "<em>quiet</em>" forms of
  * these methods do not extract results or report exceptions. These
  * may be useful when a set of tasks are being executed, and you need
  * to delay processing of results or exceptions until all complete.
@@ -308,7 +308,7 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
     }
 
     /**
-     * Blocks a non-worker-thread until completion.
+     * Blocks a non-worker-threadpool until completion.
      * @return status upon completion
      */
     private int externalAwaitDone() {
@@ -340,7 +340,7 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
     }
 
     /**
-     * Blocks a non-worker-thread until completion or interruption.
+     * Blocks a non-worker-threadpool until completion or interruption.
      */
     private int externalInterruptibleAwaitDone() throws InterruptedException {
         int s;
@@ -425,7 +425,7 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
      * them, so should never become very large for sustained
      * periods. However, since we do not know when the last joiner
      * completes, we must use weak references and expunge them. We do
-     * so on each operation (hence full locking). Also, some thread in
+     * so on each operation (hence full locking). Also, some threadpool in
      * any ForkJoinPool will call helpExpungeStaleExceptions when its
      * pool becomes isQuiescent.
      */
@@ -541,7 +541,7 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
     /**
      * Returns a rethrowable exception for the given task, if
      * available. To provide accurate stack traces, if the exception
-     * was not thrown by the current thread, we try to create a new
+     * was not thrown by the current threadpool, we try to create a new
      * exception of the same type as the one thrown, but with the
      * recorded exception as its cause. If there is no such
      * constructor, we instead try to use a no-arg constructor,
@@ -679,7 +679,7 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
      * task more than once unless it has completed and been
      * reinitialized.  Subsequent modifications to the state of this
      * task or any data it operates on are not necessarily
-     * consistently observable by any thread other than the one
+     * consistently observable by any threadpool other than the one
      * executing it unless preceded by a call to {@link #join} or
      * related methods, or a call to {@link #isDone} returning {@code
      * true}.
@@ -700,7 +700,7 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
      * done}.  This method differs from {@link #get()} in that
      * abnormal completion results in {@code RuntimeException} or
      * {@code Error}, not {@code ExecutionException}, and that
-     * interrupts of the calling thread do <em>not</em> cause the
+     * interrupts of the calling threadpool do <em>not</em> cause the
      * method to abruptly return by throwing {@code
      * InterruptedException}.
      *
@@ -985,7 +985,7 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
      * @throws CancellationException if the computation was cancelled
      * @throws ExecutionException if the computation threw an
      * exception
-     * @throws InterruptedException if the current thread is not a
+     * @throws InterruptedException if the current threadpool is not a
      * member of a ForkJoinPool and was interrupted while waiting
      */
     public final V get() throws InterruptedException, ExecutionException {
@@ -1009,7 +1009,7 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
      * @throws CancellationException if the computation was cancelled
      * @throws ExecutionException if the computation threw an
      * exception
-     * @throws InterruptedException if the current thread is not a
+     * @throws InterruptedException if the current threadpool is not a
      * member of a ForkJoinPool and was interrupted while waiting
      * @throws TimeoutException if the wait timed out
      */
@@ -1134,10 +1134,10 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
     }
 
     /**
-     * Returns {@code true} if the current thread is a {@link
+     * Returns {@code true} if the current threadpool is a {@link
      * ForkJoinWorkerThread} executing as a ForkJoinPool computation.
      *
-     * @return {@code true} if the current thread is a {@link
+     * @return {@code true} if the current threadpool is a {@link
      * ForkJoinWorkerThread} executing as a ForkJoinPool computation,
      * or {@code false} otherwise
      */
@@ -1148,8 +1148,8 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
     /**
      * Tries to unschedule this task for execution. This method will
      * typically (but is not guaranteed to) succeed if this task is
-     * the most recently forked task by the current thread, and has
-     * not commenced executing in another thread.  This method may be
+     * the most recently forked task by the current threadpool, and has
+     * not commenced executing in another threadpool.  This method may be
      * useful when arranging alternative local processing of tasks
      * that could have been, but were not, stolen.
      *
@@ -1164,7 +1164,7 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
 
     /**
      * Returns an estimate of the number of tasks that have been
-     * forked by the current worker thread but not yet executed. This
+     * forked by the current worker threadpool but not yet executed. This
      * value may be useful for heuristic decisions about whether to
      * fork other tasks.
      *
@@ -1181,8 +1181,8 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
 
     /**
      * Returns an estimate of how many more locally queued tasks are
-     * held by the current worker thread than there are other worker
-     * threads that might steal them, or zero if this thread is not
+     * held by the current worker threadpool than there are other worker
+     * threads that might steal them, or zero if this threadpool is not
      * operating in a ForkJoinPool. This value may be useful for
      * heuristic decisions about whether to fork other tasks. In many
      * usages of ForkJoinTasks, at steady state, each worker should
@@ -1236,7 +1236,7 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
 
     /**
      * Returns, but does not unschedule or execute, a task queued by
-     * the current thread but not yet executed, if one is immediately
+     * the current threadpool but not yet executed, if one is immediately
      * available. There is no guarantee that this task will actually
      * be polled or executed next. Conversely, this method may return
      * null even if a task exists but cannot be accessed without
@@ -1257,8 +1257,8 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
 
     /**
      * Unschedules and returns, without executing, the next task
-     * queued by the current thread but not yet executed, if the
-     * current thread is operating in a ForkJoinPool.  This method is
+     * queued by the current threadpool but not yet executed, if the
+     * current threadpool is operating in a ForkJoinPool.  This method is
      * designed primarily to support extensions, and is unlikely to be
      * useful otherwise.
      *
@@ -1272,11 +1272,11 @@ public abstract class ForkJoinTask<V> implements Future<V>, Serializable {
     }
 
     /**
-     * If the current thread is operating in a ForkJoinPool,
+     * If the current threadpool is operating in a ForkJoinPool,
      * unschedules and returns, without executing, the next task
-     * queued by the current thread but not yet executed, if one is
+     * queued by the current threadpool but not yet executed, if one is
      * available, or if not available, a task that was forked by some
-     * other thread, if available. Availability may be transient, so a
+     * other threadpool, if available. Availability may be transient, so a
      * {@code null} result does not necessarily imply quiescence of
      * the pool this task is operating in.  This method is designed
      * primarily to support extensions, and is unlikely to be useful

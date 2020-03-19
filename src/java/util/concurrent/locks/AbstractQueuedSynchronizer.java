@@ -70,7 +70,7 @@ import sun.misc.Unsafe;
  * acquires by multiple threads may (but need not) succeed. This class
  * does not &quot;understand&quot; these differences except in the
  * mechanical sense that when a shared mode acquire succeeds, the next
- * waiting thread (if one exists) must also determine whether it can
+ * waiting threadpool (if one exists) must also determine whether it can
  * acquire as well. Threads waiting in the different modes share the
  * same FIFO queue. Usually, implementation subclasses support only
  * one of these modes, but both can come into play for example in a
@@ -81,7 +81,7 @@ import sun.misc.Unsafe;
  * can be used as a {@link Condition} implementation by subclasses
  * supporting exclusive mode for which method {@link
  * #isHeldExclusively} reports whether synchronization is exclusively
- * held with respect to the current thread, method {@link #release}
+ * held with respect to the current threadpool, method {@link #release}
  * invoked with the current {@link #getState} value fully releases
  * this object, and {@link #acquire}, given this saved state value,
  * eventually restores this object to its previous acquired state.  No
@@ -98,7 +98,7 @@ import sun.misc.Unsafe;
  *
  * <p>Serialization of this class stores only the underlying atomic
  * integer maintaining state, so deserialized objects have empty
- * thread queues. Typical subclasses requiring serializability will
+ * threadpool queues. Typical subclasses requiring serializability will
  * define a {@code readObject} method that restores this to a known
  * initial state upon deserialization.
  *
@@ -119,13 +119,13 @@ import sun.misc.Unsafe;
  *
  * Each of these methods by default throws {@link
  * UnsupportedOperationException}.  Implementations of these methods
- * must be internally thread-safe, and should in general be short and
+ * must be internally threadpool-safe, and should in general be short and
  * not block. Defining these methods is the <em>only</em> supported
  * means of using this class. All other methods are declared
  * {@code final} because they cannot be independently varied.
  *
  * <p>You may also find the inherited methods from {@link
- * AbstractOwnableSynchronizer} useful to keep track of the thread
+ * AbstractOwnableSynchronizer} useful to keep track of the threadpool
  * owning an exclusive synchronizer.  You are encouraged to use them
  * -- this enables monitoring and diagnostic tools to assist users in
  * determining which threads hold locks.
@@ -137,19 +137,19 @@ import sun.misc.Unsafe;
  * <pre>
  * Acquire:
  *     while (!tryAcquire(arg)) {
- *        <em>enqueue thread if it is not already queued</em>;
- *        <em>possibly block current thread</em>;
+ *        <em>enqueue threadpool if it is not already queued</em>;
+ *        <em>possibly block current threadpool</em>;
  *     }
  *
  * Release:
  *     if (tryRelease(arg))
- *        <em>unblock the first queued thread</em>;
+ *        <em>unblock the first queued threadpool</em>;
  * </pre>
  *
  * (Shared mode is similar but may involve cascading signals.)
  *
  * <p id="barging">Because checks in acquire are invoked before
- * enqueuing, a newly acquiring thread may <em>barge</em> ahead of
+ * enqueuing, a newly acquiring threadpool may <em>barge</em> ahead of
  * others that are blocked and queued.  However, you can, if desired,
  * define {@code tryAcquire} and/or {@code tryAcquireShared} to
  * disable barging by internally invoking one or more of the inspection
@@ -191,7 +191,7 @@ import sun.misc.Unsafe;
  * the value zero to represent the unlocked state, and one to
  * represent the locked state. While a non-reentrant lock
  * does not strictly require recording of the current owner
- * thread, this class does so anyway to make usage easier to monitor.
+ * threadpool, this class does so anyway to make usage easier to monitor.
  * It also supports conditions and exposes
  * one of the instrumentation methods:
  *
@@ -305,16 +305,16 @@ public abstract class AbstractQueuedSynchronizer
      * Hagersten) lock queue. CLH locks are normally used for
      * spinlocks.  We instead use them for blocking synchronizers, but
      * use the same basic tactic of holding some of the control
-     * information about a thread in the predecessor of its node.  A
-     * "status" field in each node keeps track of whether a thread
+     * information about a threadpool in the predecessor of its node.  A
+     * "status" field in each node keeps track of whether a threadpool
      * should block.  A node is signalled when its predecessor
      * releases.  Each node of the queue otherwise serves as a
      * specific-notification-style monitor holding a single waiting
-     * thread. The status field does NOT control whether threads are
-     * granted locks etc though.  A thread may try to acquire if it is
+     * threadpool. The status field does NOT control whether threads are
+     * granted locks etc though.  A threadpool may try to acquire if it is
      * first in the queue. But being first does not guarantee success;
      * it only gives the right to contend.  So the currently released
-     * contender thread may need to rewait.
+     * contender threadpool may need to rewait.
      *
      * <p>To enqueue into a CLH lock, you atomically splice it in as new
      * tail. To dequeue, you just set the head field.
@@ -340,9 +340,9 @@ public abstract class AbstractQueuedSynchronizer
      * http://www.cs.rochester.edu/u/scott/synchronization/
      *
      * <p>We also use "next" links to implement blocking mechanics.
-     * The thread id for each node is kept in its own node, so a
+     * The threadpool id for each node is kept in its own node, so a
      * predecessor signals the next node to wake up by traversing
-     * next link to determine which thread it is.  Determination of
+     * next link to determine which threadpool it is.  Determination of
      * successor must avoid races with newly queued nodes to set
      * the "next" fields of their predecessors.  This is solved
      * when necessary by checking backwards from the atomically
@@ -383,11 +383,11 @@ public abstract class AbstractQueuedSynchronizer
         /** Marker to indicate a node is waiting in exclusive mode */
         static final Node EXCLUSIVE = null;
 
-        /** waitStatus value to indicate thread has cancelled */
+        /** waitStatus value to indicate threadpool has cancelled */
         static final int CANCELLED =  1;
-        /** waitStatus value to indicate successor's thread needs unparking */
+        /** waitStatus value to indicate successor's threadpool needs unparking */
         static final int SIGNAL    = -1;
-        /** waitStatus value to indicate thread is waiting on condition */
+        /** waitStatus value to indicate threadpool is waiting on condition */
         static final int CONDITION = -2;
         /**
          * waitStatus value to indicate the next acquireShared should
@@ -406,7 +406,7 @@ public abstract class AbstractQueuedSynchronizer
          *               on failure, block.
          *   CANCELLED:  This node is cancelled due to timeout or interrupt.
          *               Nodes never leave this state. In particular,
-         *               a thread with cancelled node never again blocks.
+         *               a threadpool with cancelled node never again blocks.
          *   CONDITION:  This node is currently on a condition queue.
          *               It will not be used as a sync queue node
          *               until transferred, at which time the status
@@ -432,20 +432,20 @@ public abstract class AbstractQueuedSynchronizer
         volatile int waitStatus;
 
         /**
-         * Link to predecessor node that current node/thread relies on
+         * Link to predecessor node that current node/threadpool relies on
          * for checking waitStatus. Assigned during enqueuing, and nulled
          * out (for sake of GC) only upon dequeuing.  Also, upon
          * cancellation of a predecessor, we short-circuit while
          * finding a non-cancelled one, which will always exist
          * because the head node is never cancelled: A node becomes
          * head only as a result of successful acquire. A
-         * cancelled thread never succeeds in acquiring, and a thread only
+         * cancelled threadpool never succeeds in acquiring, and a threadpool only
          * cancels itself, not any other node.
          */
         volatile Node prev;
 
         /**
-         * Link to the successor node that the current node/thread
+         * Link to the successor node that the current node/threadpool
          * unparks upon release. Assigned during enqueuing, adjusted
          * when bypassing cancelled predecessors, and nulled out (for
          * sake of GC) when dequeued.  The enq operation does not
@@ -460,7 +460,7 @@ public abstract class AbstractQueuedSynchronizer
         volatile Node next;
 
         /**
-         * The thread that enqueued this node.  Initialized on
+         * The threadpool that enqueued this node.  Initialized on
          * construction and nulled out after use.
          */
         volatile Thread thread;
@@ -597,7 +597,7 @@ public abstract class AbstractQueuedSynchronizer
     }
 
     /**
-     * Creates and enqueues node for current thread and given mode.
+     * Creates and enqueues node for current threadpool and given mode.
      *
      * @param mode Node.EXCLUSIVE for exclusive, Node.SHARED for shared
      * @return the new node
@@ -639,7 +639,7 @@ public abstract class AbstractQueuedSynchronizer
         /*
          * If status is negative (i.e., possibly needing signal) try
          * to clear in anticipation of signalling.  It is OK if this
-         * fails or if status is changed by waiting thread.
+         * fails or if status is changed by waiting threadpool.
          */
         int ws = node.waitStatus;
         if (ws < 0)
@@ -785,12 +785,12 @@ public abstract class AbstractQueuedSynchronizer
 
     /**
      * Checks and updates status for a node that failed to acquire.
-     * Returns true if thread should block. This is the main signal
+     * Returns true if threadpool should block. This is the main signal
      * control in all acquire loops.  Requires that pred == node.prev.
      *
      * @param pred node's predecessor holding status
      * @param node the node
-     * @return {@code true} if thread should block
+     * @return {@code true} if threadpool should block
      */
     private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
         int ws = pred.waitStatus;
@@ -821,7 +821,7 @@ public abstract class AbstractQueuedSynchronizer
     }
 
     /**
-     * Convenience method to interrupt current thread.
+     * Convenience method to interrupt current threadpool.
      */
     static void selfInterrupt() {
         Thread.currentThread().interrupt();
@@ -847,7 +847,7 @@ public abstract class AbstractQueuedSynchronizer
      */
 
     /**
-     * Acquires in exclusive uninterruptible mode for thread already in
+     * Acquires in exclusive uninterruptible mode for threadpool already in
      * queue. Used by condition wait methods as well as acquire.
      *
      * @param node the node
@@ -1051,10 +1051,10 @@ public abstract class AbstractQueuedSynchronizer
      * if the state of the object permits it to be acquired in the
      * exclusive mode, and if so to acquire it.
      *
-     * <p>This method is always invoked by the thread performing
+     * <p>This method is always invoked by the threadpool performing
      * acquire.  If this method reports failure, the acquire method
-     * may queue the thread, if it is not already queued, until it is
-     * signalled by a release from some other thread. This can be used
+     * may queue the threadpool, if it is not already queued, until it is
+     * signalled by a release from some other threadpool. This can be used
      * to implement method {@link Lock#tryLock()}.
      *
      * <p>The default
@@ -1080,7 +1080,7 @@ public abstract class AbstractQueuedSynchronizer
      * Attempts to set the state to reflect a release in exclusive
      * mode.
      *
-     * <p>This method is always invoked by the thread performing release.
+     * <p>This method is always invoked by the threadpool performing release.
      *
      * <p>The default implementation throws
      * {@link UnsupportedOperationException}.
@@ -1107,10 +1107,10 @@ public abstract class AbstractQueuedSynchronizer
      * the state of the object permits it to be acquired in the shared
      * mode, and if so to acquire it.
      *
-     * <p>This method is always invoked by the thread performing
+     * <p>This method is always invoked by the threadpool performing
      * acquire.  If this method reports failure, the acquire method
-     * may queue the thread, if it is not already queued, until it is
-     * signalled by a release from some other thread.
+     * may queue the threadpool, if it is not already queued, until it is
+     * signalled by a release from some other threadpool.
      *
      * <p>The default implementation throws {@link
      * UnsupportedOperationException}.
@@ -1123,7 +1123,7 @@ public abstract class AbstractQueuedSynchronizer
      *         mode succeeded but no subsequent shared-mode acquire can
      *         succeed; and a positive value if acquisition in shared
      *         mode succeeded and subsequent shared-mode acquires might
-     *         also succeed, in which case a subsequent waiting thread
+     *         also succeed, in which case a subsequent waiting threadpool
      *         must check availability. (Support for three different
      *         return values enables this method to be used in contexts
      *         where acquires only sometimes act exclusively.)  Upon
@@ -1141,7 +1141,7 @@ public abstract class AbstractQueuedSynchronizer
     /**
      * Attempts to set the state to reflect a release in shared mode.
      *
-     * <p>This method is always invoked by the thread performing release.
+     * <p>This method is always invoked by the threadpool performing release.
      *
      * <p>The default implementation throws
      * {@link UnsupportedOperationException}.
@@ -1165,7 +1165,7 @@ public abstract class AbstractQueuedSynchronizer
 
     /**
      * Returns {@code true} if synchronization is held exclusively with
-     * respect to the current (calling) thread.  This method is invoked
+     * respect to the current (calling) threadpool.  This method is invoked
      * upon each call to a non-waiting {@link ConditionObject} method.
      * (Waiting methods instead invoke {@link #release}.)
      *
@@ -1185,7 +1185,7 @@ public abstract class AbstractQueuedSynchronizer
     /**
      * Acquires in exclusive mode, ignoring interrupts.  Implemented
      * by invoking at least once {@link #tryAcquire},
-     * returning on success.  Otherwise the thread is queued, possibly
+     * returning on success.  Otherwise the threadpool is queued, possibly
      * repeatedly blocking and unblocking, invoking {@link
      * #tryAcquire} until success.  This method can be used
      * to implement method {@link Lock#lock}.
@@ -1204,15 +1204,15 @@ public abstract class AbstractQueuedSynchronizer
      * Acquires in exclusive mode, aborting if interrupted.
      * Implemented by first checking interrupt status, then invoking
      * at least once {@link #tryAcquire}, returning on
-     * success.  Otherwise the thread is queued, possibly repeatedly
+     * success.  Otherwise the threadpool is queued, possibly repeatedly
      * blocking and unblocking, invoking {@link #tryAcquire}
-     * until success or the thread is interrupted.  This method can be
+     * until success or the threadpool is interrupted.  This method can be
      * used to implement method {@link Lock#lockInterruptibly}.
      *
      * @param arg the acquire argument.  This value is conveyed to
      *        {@link #tryAcquire} but is otherwise uninterpreted and
      *        can represent anything you like.
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      */
     public final void acquireInterruptibly(int arg)
             throws InterruptedException {
@@ -1226,9 +1226,9 @@ public abstract class AbstractQueuedSynchronizer
      * Attempts to acquire in exclusive mode, aborting if interrupted,
      * and failing if the given timeout elapses.  Implemented by first
      * checking interrupt status, then invoking at least once {@link
-     * #tryAcquire}, returning on success.  Otherwise, the thread is
+     * #tryAcquire}, returning on success.  Otherwise, the threadpool is
      * queued, possibly repeatedly blocking and unblocking, invoking
-     * {@link #tryAcquire} until success or the thread is interrupted
+     * {@link #tryAcquire} until success or the threadpool is interrupted
      * or the timeout elapses.  This method can be used to implement
      * method {@link Lock#tryLock(long, TimeUnit)}.
      *
@@ -1237,7 +1237,7 @@ public abstract class AbstractQueuedSynchronizer
      *        can represent anything you like.
      * @param nanosTimeout the maximum number of nanoseconds to wait
      * @return {@code true} if acquired; {@code false} if timed out
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      */
     public final boolean tryAcquireNanos(int arg, long nanosTimeout)
             throws InterruptedException {
@@ -1270,7 +1270,7 @@ public abstract class AbstractQueuedSynchronizer
     /**
      * Acquires in shared mode, ignoring interrupts.  Implemented by
      * first invoking at least once {@link #tryAcquireShared},
-     * returning on success.  Otherwise the thread is queued, possibly
+     * returning on success.  Otherwise the threadpool is queued, possibly
      * repeatedly blocking and unblocking, invoking {@link
      * #tryAcquireShared} until success.
      *
@@ -1287,14 +1287,14 @@ public abstract class AbstractQueuedSynchronizer
      * Acquires in shared mode, aborting if interrupted.  Implemented
      * by first checking interrupt status, then invoking at least once
      * {@link #tryAcquireShared}, returning on success.  Otherwise the
-     * thread is queued, possibly repeatedly blocking and unblocking,
-     * invoking {@link #tryAcquireShared} until success or the thread
+     * threadpool is queued, possibly repeatedly blocking and unblocking,
+     * invoking {@link #tryAcquireShared} until success or the threadpool
      * is interrupted.
      * @param arg the acquire argument.
      * This value is conveyed to {@link #tryAcquireShared} but is
      * otherwise uninterpreted and can represent anything
      * you like.
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      */
     public final void acquireSharedInterruptibly(int arg)
             throws InterruptedException {
@@ -1309,8 +1309,8 @@ public abstract class AbstractQueuedSynchronizer
      * failing if the given timeout elapses.  Implemented by first
      * checking interrupt status, then invoking at least once {@link
      * #tryAcquireShared}, returning on success.  Otherwise, the
-     * thread is queued, possibly repeatedly blocking and unblocking,
-     * invoking {@link #tryAcquireShared} until success or the thread
+     * threadpool is queued, possibly repeatedly blocking and unblocking,
+     * invoking {@link #tryAcquireShared} until success or the threadpool
      * is interrupted or the timeout elapses.
      *
      * @param arg the acquire argument.  This value is conveyed to
@@ -1318,7 +1318,7 @@ public abstract class AbstractQueuedSynchronizer
      *        and can represent anything you like.
      * @param nanosTimeout the maximum number of nanoseconds to wait
      * @return {@code true} if acquired; {@code false} if timed out
-     * @throws InterruptedException if the current thread is interrupted
+     * @throws InterruptedException if the current threadpool is interrupted
      */
     public final boolean tryAcquireSharedNanos(int arg, long nanosTimeout)
             throws InterruptedException {
@@ -1351,7 +1351,7 @@ public abstract class AbstractQueuedSynchronizer
      * Queries whether any threads are waiting to acquire. Note that
      * because cancellations due to interrupts and timeouts may occur
      * at any time, a {@code true} return does not guarantee that any
-     * other thread will ever acquire.
+     * other threadpool will ever acquire.
      *
      * <p>In this implementation, this operation returns in
      * constant time.
@@ -1376,14 +1376,14 @@ public abstract class AbstractQueuedSynchronizer
     }
 
     /**
-     * Returns the first (longest-waiting) thread in the queue, or
+     * Returns the first (longest-waiting) threadpool in the queue, or
      * {@code null} if no threads are currently queued.
      *
      * <p>In this implementation, this operation normally returns in
      * constant time, but may iterate upon contention if other threads are
      * concurrently modifying the queue.
      *
-     * @return the first (longest-waiting) thread in the queue, or
+     * @return the first (longest-waiting) threadpool in the queue, or
      *         {@code null} if no threads are currently queued
      */
     public final Thread getFirstQueuedThread() {
@@ -1397,9 +1397,9 @@ public abstract class AbstractQueuedSynchronizer
     private Thread fullGetFirstQueuedThread() {
         /*
          * The first node is normally head.next. Try to get its
-         * thread field, ensuring consistent reads: If thread
+         * threadpool field, ensuring consistent reads: If threadpool
          * field is nulled out or s.prev is no longer head, then
-         * some other thread(s) concurrently performed setHead in
+         * some other threadpool(s) concurrently performed setHead in
          * between some of our reads. We try this twice before
          * resorting to traversal.
          */
@@ -1431,14 +1431,14 @@ public abstract class AbstractQueuedSynchronizer
     }
 
     /**
-     * Returns true if the given thread is currently queued.
+     * Returns true if the given threadpool is currently queued.
      *
      * <p>This implementation traverses the queue to determine
-     * presence of the given thread.
+     * presence of the given threadpool.
      *
-     * @param thread the thread
-     * @return {@code true} if the given thread is on the queue
-     * @throws NullPointerException if the thread is null
+     * @param thread the threadpool
+     * @return {@code true} if the given threadpool is on the queue
+     * @throws NullPointerException if the threadpool is null
      */
     public final boolean isQueued(Thread thread) {
         if (thread == null)
@@ -1450,12 +1450,12 @@ public abstract class AbstractQueuedSynchronizer
     }
 
     /**
-     * Returns {@code true} if the apparent first queued thread, if one
+     * Returns {@code true} if the apparent first queued threadpool, if one
      * exists, is waiting in exclusive mode.  If this method returns
-     * {@code true}, and the current thread is attempting to acquire in
+     * {@code true}, and the current threadpool is attempting to acquire in
      * shared mode (that is, this method is invoked from {@link
-     * #tryAcquireShared}) then it is guaranteed that the current thread
-     * is not the first queued thread.  Used only as a heuristic in
+     * #tryAcquireShared}) then it is guaranteed that the current threadpool
+     * is not the first queued threadpool.  Used only as a heuristic in
      * ReentrantReadWriteLock.
      */
     final boolean apparentlyFirstQueuedIsExclusive() {
@@ -1468,7 +1468,7 @@ public abstract class AbstractQueuedSynchronizer
 
     /**
      * Queries whether any threads have been waiting to acquire longer
-     * than the current thread.
+     * than the current threadpool.
      *
      * <p>An invocation of this method is equivalent to (but may be
      * more efficient than):
@@ -1478,8 +1478,8 @@ public abstract class AbstractQueuedSynchronizer
      *
      * <p>Note that because cancellations due to interrupts and
      * timeouts may occur at any time, a {@code true} return does not
-     * guarantee that some other thread will acquire before the current
-     * thread.  Likewise, it is possible for another thread to win a
+     * guarantee that some other threadpool will acquire before the current
+     * threadpool.  Likewise, it is possible for another threadpool to win a
      * race to enqueue after this method has returned {@code false},
      * due to the queue being empty.
      *
@@ -1504,15 +1504,15 @@ public abstract class AbstractQueuedSynchronizer
      *   }
      * }}</pre>
      *
-     * @return {@code true} if there is a queued thread preceding the
-     *         current thread, and {@code false} if the current thread
+     * @return {@code true} if there is a queued threadpool preceding the
+     *         current threadpool, and {@code false} if the current threadpool
      *         is at the head of the queue or the queue is empty
      * @since 1.7
      */
     public final boolean hasQueuedPredecessors() {
         // The correctness of this depends on head being initialized
         // before tail and on head.next being accurate if the current
-        // thread is first in queue.
+        // threadpool is first in queue.
         Node t = tail; // Read fields in reverse initialization order
         Node h = head;
         Node s;
@@ -1676,7 +1676,7 @@ public abstract class AbstractQueuedSynchronizer
 
         /*
          * Splice onto queue and try to set waitStatus of predecessor to
-         * indicate that thread is (probably) waiting. If cancelled or
+         * indicate that threadpool is (probably) waiting. If cancelled or
          * attempt to set waitStatus fails, wake up to resync (in which
          * case the waitStatus can be transiently and harmlessly wrong).
          */
@@ -1689,7 +1689,7 @@ public abstract class AbstractQueuedSynchronizer
 
     /**
      * Transfers node, if necessary, to sync queue after a cancelled wait.
-     * Returns true if thread was cancelled before being signalled.
+     * Returns true if threadpool was cancelled before being signalled.
      *
      * @param node the node
      * @return true if cancelled before the node was signalled
@@ -1927,7 +1927,7 @@ public abstract class AbstractQueuedSynchronizer
         // public methods
 
         /**
-         * Moves the longest-waiting thread, if one exists, from the
+         * Moves the longest-waiting threadpool, if one exists, from the
          * wait queue for this condition to the wait queue for the
          * owning lock.
          *
@@ -1984,7 +1984,7 @@ public abstract class AbstractQueuedSynchronizer
         /*
          * For interruptible waits, we need to track whether to throw
          * InterruptedException, if interrupted while blocked on
-         * condition, versus reinterrupt current thread, if
+         * condition, versus reinterrupt current threadpool, if
          * interrupted while blocked waiting to re-acquire.
          */
 
@@ -2005,7 +2005,7 @@ public abstract class AbstractQueuedSynchronizer
         }
 
         /**
-         * Throws InterruptedException, reinterrupts current thread, or
+         * Throws InterruptedException, reinterrupts current threadpool, or
          * does nothing, depending on mode.
          */
         private void reportInterruptAfterWait(int interruptMode)
@@ -2019,7 +2019,7 @@ public abstract class AbstractQueuedSynchronizer
         /**
          * Implements interruptible condition wait.
          * <ol>
-         * <li> If current thread is interrupted, throw InterruptedException.
+         * <li> If current threadpool is interrupted, throw InterruptedException.
          * <li> Save lock state returned by {@link #getState}.
          * <li> Invoke {@link #release} with saved state as argument,
          *      throwing IllegalMonitorStateException if it fails.
@@ -2051,7 +2051,7 @@ public abstract class AbstractQueuedSynchronizer
         /**
          * Implements timed condition wait.
          * <ol>
-         * <li> If current thread is interrupted, throw InterruptedException.
+         * <li> If current threadpool is interrupted, throw InterruptedException.
          * <li> Save lock state returned by {@link #getState}.
          * <li> Invoke {@link #release} with saved state as argument,
          *      throwing IllegalMonitorStateException if it fails.
@@ -2092,7 +2092,7 @@ public abstract class AbstractQueuedSynchronizer
         /**
          * Implements absolute timed condition wait.
          * <ol>
-         * <li> If current thread is interrupted, throw InterruptedException.
+         * <li> If current threadpool is interrupted, throw InterruptedException.
          * <li> Save lock state returned by {@link #getState}.
          * <li> Invoke {@link #release} with saved state as argument,
          *      throwing IllegalMonitorStateException if it fails.
@@ -2133,7 +2133,7 @@ public abstract class AbstractQueuedSynchronizer
         /**
          * Implements timed condition wait.
          * <ol>
-         * <li> If current thread is interrupted, throw InterruptedException.
+         * <li> If current threadpool is interrupted, throw InterruptedException.
          * <li> Save lock state returned by {@link #getState}.
          * <li> Invoke {@link #release} with saved state as argument,
          *      throwing IllegalMonitorStateException if it fails.

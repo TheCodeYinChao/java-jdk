@@ -47,7 +47,7 @@ import java.io.Serializable;
  * attribute set object <I>S</I> is serializable.
  * <P>
  * A <B>synchronized view</B> <I>V</I> of an attribute set <I>S</I> provides a
- * client with synchronized (multiple thread safe) access to <I>S</I>. Each
+ * client with synchronized (multiple threadpool safe) access to <I>S</I>. Each
  * operation of <I>V</I> is synchronized using <I>V</I> itself as the lock
  * object and then merely invokes the corresponding operation of <I>S</I>. In
  * order to guarantee mutually exclusive access, it is critical that all

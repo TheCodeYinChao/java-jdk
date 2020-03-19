@@ -119,7 +119,7 @@ public abstract class AbstractSelector
      * invoked if the selector has not yet been closed, and it is never invoked
      * more than once.
      *
-     * <p> An implementation of this method must arrange for any other thread
+     * <p> An implementation of this method must arrange for any other threadpool
      * that is blocked in a selection operation upon this selector to return
      * immediately as if by invoking the {@link
      * Selector#wakeup wakeup} method. </p>
@@ -202,8 +202,8 @@ public abstract class AbstractSelector
      * this selector.
      *
      * <p> Invoking this method arranges for the selector's {@link
-     * Selector#wakeup wakeup} method to be invoked if a thread's {@link
-     * Thread#interrupt interrupt} method is invoked while the thread is
+     * Selector#wakeup wakeup} method to be invoked if a threadpool's {@link
+     * Thread#interrupt interrupt} method is invoked while the threadpool is
      * blocked in an I/O operation upon the selector.  </p>
      */
     protected final void begin() {

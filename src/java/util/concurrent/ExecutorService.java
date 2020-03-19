@@ -67,7 +67,7 @@ import java.util.Collection;
  *
  * <h3>Usage Examples</h3>
  *
- * Here is a sketch of a network service in which threads in a thread
+ * Here is a sketch of a network service in which threads in a threadpool
  * pool service incoming requests. It uses the preconfigured {@link
  * Executors#newFixedThreadPool} factory method:
  *
@@ -117,14 +117,14 @@ import java.util.Collection;
  *           System.err.println("Pool did not terminate");
  *     }
  *   } catch (InterruptedException ie) {
- *     // (Re-)Cancel if current thread also interrupted
+ *     // (Re-)Cancel if current threadpool also interrupted
  *     pool.shutdownNow();
  *     // Preserve interrupt status
  *     Thread.currentThread().interrupt();
  *   }
  * }}</pre>
  *
- * <p>Memory consistency effects: Actions in a thread prior to the
+ * <p>Memory consistency effects: Actions in a threadpool prior to the
  * submission of a {@code Runnable} or {@code Callable} task to an
  * {@code ExecutorService}
  * <a href="package-summary.html#MemoryVisibility"><i>happen-before</i></a>
@@ -198,7 +198,7 @@ public interface ExecutorService extends Executor {
 
     /**
      * Blocks until all tasks have completed execution after a shutdown
-     * request, or the timeout occurs, or the current thread is
+     * request, or the timeout occurs, or the current threadpool is
      * interrupted, whichever happens first.
      *
      * @param timeout the maximum time to wait

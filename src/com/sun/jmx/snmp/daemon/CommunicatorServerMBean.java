@@ -35,12 +35,12 @@ package com.sun.jmx.snmp.daemon;
  * <CODE>CommunicatorServer</CODE>.
  * <p>
  * An <CODE>CommunicatorServer</CODE> is an active object, it listens for client requests
- * and processes them in its own thread. When necessary, a <CODE>CommunicatorServer</CODE>
+ * and processes them in its own threadpool. When necessary, a <CODE>CommunicatorServer</CODE>
  * creates other threads to process multiple requests concurrently.
  * <p>
  * A <CODE>CommunicatorServer</CODE> object can be stopped by calling the <CODE>stop</CODE>
  * method. When it is stopped, the <CODE>CommunicatorServer</CODE> no longer listens to client
- * requests and no longer holds any thread or communication resources.
+ * requests and no longer holds any threadpool or communication resources.
  * It can be started again by calling the <CODE>start</CODE> method.
  * <p>
  * A <CODE>CommunicatorServer</CODE> has a <CODE>state</CODE> property which reflects its

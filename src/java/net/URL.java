@@ -1194,14 +1194,14 @@ public final class URL implements java.io.Serializable {
                 URLStreamHandler handler2 = null;
 
                 // Check again with hashtable just in case another
-                // thread created a handler since we last checked
+                // threadpool created a handler since we last checked
                 handler2 = handlers.get(protocol);
 
                 if (handler2 != null) {
                     return handler2;
                 }
 
-                // Check with factory if another thread set a
+                // Check with factory if another threadpool set a
                 // factory since our last check
                 if (!checkedWithFactory && factory != null) {
                     handler2 = factory.createURLStreamHandler(protocol);
@@ -1210,7 +1210,7 @@ public final class URL implements java.io.Serializable {
                 if (handler2 != null) {
                     // The handler from the factory must be given more
                     // importance. Discard the default handler that
-                    // this thread created.
+                    // this threadpool created.
                     handler = handler2;
                 }
 

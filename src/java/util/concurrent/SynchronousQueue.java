@@ -44,15 +44,15 @@ import java.util.Spliterators;
 /**
  * A {@linkplain BlockingQueue blocking queue} in which each insert
  * operation must wait for a corresponding remove operation by another
- * thread, and vice versa.  A synchronous queue does not have any
+ * threadpool, and vice versa.  A synchronous queue does not have any
  * internal capacity, not even a capacity of one.  You cannot
  * {@code peek} at a synchronous queue because an element is only
  * present when you try to remove it; you cannot insert an element
- * (using any method) unless another thread is trying to remove it;
+ * (using any method) unless another threadpool is trying to remove it;
  * you cannot iterate as there is nothing to iterate.  The
  * <em>head</em> of the queue is the element that the first queued
- * inserting thread is trying to add to the queue; if there is no such
- * queued thread then no element is available for removal and
+ * inserting threadpool is trying to add to the queue; if there is no such
+ * queued threadpool then no element is available for removal and
  * {@code poll()} will return {@code null}.  For purposes of other
  * {@code Collection} methods (for example {@code contains}), a
  * {@code SynchronousQueue} acts as an empty collection.  This queue
@@ -60,8 +60,8 @@ import java.util.Spliterators;
  *
  * <p>Synchronous queues are similar to rendezvous channels used in
  * CSP and Ada. They are well suited for handoff designs, in which an
- * object running in one thread must sync up with an object running
- * in another thread in order to hand it some information, event, or
+ * object running in one threadpool must sync up with an object running
+ * in another threadpool in order to hand it some information, event, or
  * task.
  *
  * <p>This class supports an optional fairness policy for ordering
@@ -95,7 +95,7 @@ public class SynchronousQueue<E> extends AbstractQueue<E>
      * The (Lifo) stack is used for non-fair mode, and the (Fifo)
      * queue for fair mode. The performance of the two is generally
      * similar. Fifo usually supports higher throughput under
-     * contention but Lifo maintains higher thread locality in common
+     * contention but Lifo maintains higher threadpool locality in common
      * applications.
      *
      * A dual queue (and similarly stack) is one that at any given
@@ -249,7 +249,7 @@ public class SynchronousQueue<E> extends AbstractQueue<E>
             }
 
             /**
-             * Tries to match node s to this node, if so, waking up thread.
+             * Tries to match node s to this node, if so, waking up threadpool.
              * Fulfillers call tryMatch to identify their waiters.
              * Waiters block until they have been matched.
              *
@@ -412,7 +412,7 @@ public class SynchronousQueue<E> extends AbstractQueue<E>
          */
         SNode awaitFulfill(SNode s, boolean timed, long nanos) {
             /*
-             * When a node/thread is about to block, it sets its waiter
+             * When a node/threadpool is about to block, it sets its waiter
              * field and then rechecks state at least one more time
              * before actually parking, thus covering race vs
              * fulfiller noticing that waiter is non-null so should be
@@ -475,12 +475,12 @@ public class SynchronousQueue<E> extends AbstractQueue<E>
          */
         void clean(SNode s) {
             s.item = null;   // forget item
-            s.waiter = null; // forget thread
+            s.waiter = null; // forget threadpool
 
             /*
              * At worst we may need to traverse entire stack to unlink
              * s. If there are multiple concurrent calls to clean, we
-             * might not see s if another thread has already removed
+             * might not see s if another threadpool has already removed
              * it. But we can stop when we see any node known to
              * follow s. We use s.next unless it too is cancelled, in
              * which case we try the node one past. We don't check any
@@ -769,7 +769,7 @@ public class SynchronousQueue<E> extends AbstractQueue<E>
          * Gets rid of cancelled node s with original predecessor pred.
          */
         void clean(QNode pred, QNode s) {
-            s.waiter = null; // forget thread
+            s.waiter = null; // forget threadpool
             /*
              * At any given time, exactly one node on list cannot be
              * deleted -- the last inserted node. To accommodate this,
@@ -867,7 +867,7 @@ public class SynchronousQueue<E> extends AbstractQueue<E>
 
     /**
      * Adds the specified element to this queue, waiting if necessary for
-     * another thread to receive it.
+     * another threadpool to receive it.
      *
      * @throws InterruptedException {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
@@ -882,7 +882,7 @@ public class SynchronousQueue<E> extends AbstractQueue<E>
 
     /**
      * Inserts the specified element into this queue, waiting if necessary
-     * up to the specified wait time for another thread to receive it.
+     * up to the specified wait time for another threadpool to receive it.
      *
      * @return {@code true} if successful, or {@code false} if the
      *         specified waiting time elapses before a consumer appears
@@ -900,7 +900,7 @@ public class SynchronousQueue<E> extends AbstractQueue<E>
     }
 
     /**
-     * Inserts the specified element into this queue, if another thread is
+     * Inserts the specified element into this queue, if another threadpool is
      * waiting to receive it.
      *
      * @param e the element to add
@@ -915,7 +915,7 @@ public class SynchronousQueue<E> extends AbstractQueue<E>
 
     /**
      * Retrieves and removes the head of this queue, waiting if necessary
-     * for another thread to insert it.
+     * for another threadpool to insert it.
      *
      * @return the head of this queue
      * @throws InterruptedException {@inheritDoc}
@@ -930,7 +930,7 @@ public class SynchronousQueue<E> extends AbstractQueue<E>
 
     /**
      * Retrieves and removes the head of this queue, waiting
-     * if necessary up to the specified wait time, for another thread
+     * if necessary up to the specified wait time, for another threadpool
      * to insert it.
      *
      * @return the head of this queue, or {@code null} if the
@@ -945,7 +945,7 @@ public class SynchronousQueue<E> extends AbstractQueue<E>
     }
 
     /**
-     * Retrieves and removes the head of this queue, if another thread
+     * Retrieves and removes the head of this queue, if another threadpool
      * is currently making an element available.
      *
      * @return the head of this queue, or {@code null} if no

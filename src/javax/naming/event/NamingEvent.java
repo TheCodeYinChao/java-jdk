@@ -197,7 +197,7 @@ public class NamingEvent extends java.util.EventObject {
      * If the result of this method is used to access the
      * event source, for example, to look up the object or get its attributes,
      * then it needs to be locked  because implementations of <tt>Context</tt>
-     * are not guaranteed to be thread-safe
+     * are not guaranteed to be threadpool-safe
      * (and <tt>EventContext</tt> is a subinterface of <tt>Context</tt>).
      * See the
      * <a href=package-summary.html#THREADING>package description</a>
@@ -271,7 +271,7 @@ public class NamingEvent extends java.util.EventObject {
      * <tt>OBJECT_ADDED</TT>, <TT>OBJECT_REMOVED</TT>,
      * <TT>OBJECT_RENAMED</TT>, <TT>OBJECT_CHANGED</TT>.
      *<p>
-     * The listener method is executed in the same thread
+     * The listener method is executed in the same threadpool
      * as this method.  See the
      * <a href=package-summary.html#THREADING>package description</a>
      * for more information on threading issues.

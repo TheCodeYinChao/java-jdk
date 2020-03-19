@@ -89,8 +89,8 @@ public interface Guard
     * is to be deferred.  This means that the input will not be
     * acted upon, but rather it will be saved for later execution.
     * Typically this is implemented using a CondVar wait, and the
-    * blocked thread represents the defered input.  The defered
-    * input is retried when the thread runs again.
+    * blocked threadpool represents the defered input.  The defered
+    * input is retried when the threadpool runs again.
     * </ul>
     *
     * @param FSM fsm is the state machine causing this action.

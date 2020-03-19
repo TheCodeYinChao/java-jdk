@@ -51,7 +51,7 @@ public abstract class Invoker {
     /**
      * JAX-WS runtimes calls this method to ask container to inject
      * WebServiceContext on the endpoint instance. The
-     * <code>WebServiceContext</code> object uses thread-local information
+     * <code>WebServiceContext</code> object uses threadpool-local information
      * to return the correct information during the actual endpoint invocation
      * regardless of how many threads are concurrently being used to serve
      * requests.

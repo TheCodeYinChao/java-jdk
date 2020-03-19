@@ -166,7 +166,7 @@ public interface TemporalAmount {
      * or reject non-ISO temporal objects by {@link TemporalQueries#chronology() querying the chronology}.
      * <p>
      * This method may be called from multiple threads in parallel.
-     * It must be thread-safe when invoked.
+     * It must be threadpool-safe when invoked.
      *
      * @param temporal  the temporal object to add the amount to, not null
      * @return an object of the same observable type with the addition made, not null
@@ -208,7 +208,7 @@ public interface TemporalAmount {
      * or reject non-ISO temporal objects by {@link TemporalQueries#chronology() querying the chronology}.
      * <p>
      * This method may be called from multiple threads in parallel.
-     * It must be thread-safe when invoked.
+     * It must be threadpool-safe when invoked.
      *
      * @param temporal  the temporal object to subtract the amount from, not null
      * @return an object of the same observable type with the subtraction made, not null

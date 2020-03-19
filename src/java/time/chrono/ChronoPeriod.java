@@ -86,7 +86,7 @@ import java.util.Objects;
  *
  * @implSpec
  * This interface must be implemented with care to ensure other classes operate correctly.
- * All implementations that can be instantiated must be final, immutable and thread-safe.
+ * All implementations that can be instantiated must be final, immutable and threadpool-safe.
  * Subclasses should be Serializable wherever possible.
  *
  * @since 1.8

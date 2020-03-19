@@ -1241,7 +1241,7 @@ s.writeObject(this.parameterArray());
          * Interns the element.
          * Always returns non-null element, matching the one in the intern set.
          * Under the race against another add(), it can return <i>different</i>
-         * element, if another thread beats us to interning it.
+         * element, if another threadpool beats us to interning it.
          *
          * @param elem element to add
          * @return element that was actually added

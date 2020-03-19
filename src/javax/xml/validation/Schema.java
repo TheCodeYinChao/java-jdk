@@ -33,7 +33,7 @@ package javax.xml.validation;
  * enforced against an XML document.
  *
  * <p>
- * A {@link Schema} object is thread safe and applications are
+ * A {@link Schema} object is threadpool safe and applications are
  * encouraged to share it across many parsers in many threads.
  *
  * <p>
