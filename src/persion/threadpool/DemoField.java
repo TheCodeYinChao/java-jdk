@@ -14,10 +14,10 @@ public class DemoField {
         for(Integer b = null, q = a, s; q != null; q = s){
             System.out.println(q);
             System.out.println(a);
+            System.out.println(b);
             s = q;
             System.out.println(s);
         }
-
     }
 
 }

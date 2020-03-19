@@ -64,14 +64,14 @@ package java.lang.ref;
 public class SoftReference<T> extends Reference<T> {//软引用
 
     /**
-     * Timestamp clock, updated by the garbage collector
+     * Timestamp clock, updated by the garbage collector 每次gc 刷新 clock
      */
     static private long clock;
 
     /**
      * Timestamp updated by each invocation of the get method.  The VM may use
      * this field when selecting soft references to be cleared, but it is not
-     * required to do so.
+     * required to do so.  为最后一次成功通过SoftReference对象获取其引用对象时的clock的值（最后一次GC）
      */
     private long timestamp;
 

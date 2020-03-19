@@ -108,10 +108,10 @@ import java.util.regex.PatternSyntaxException;
  * @since   JDK1.0
  */
 
-public final class String
+public final class String //多态导致性能下降
     implements java.io.Serializable, Comparable<String>, CharSequence {
-    /** The value is used for character storage. */
-    private final char value[];
+    /** The value is used for character storage. <a href="https://www.toutiao.com/i6687461882950844932/?group_id=6687461882950844932"></>*/
+    private final char value[]; //安全（防止并法修改） 共享（提升性能）
 
     /** Cache the hash code for the string */
     private int hash; // Default to 0

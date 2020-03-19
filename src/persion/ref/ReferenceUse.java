@@ -60,12 +60,11 @@ public class ReferenceUse {
         bean1.setId("1112");
         bean1.setName("nihao3 ");
         WeakReference w = new WeakReference(bean1); //弱
-        Object o1 = w.get();
-        System.out.println("o1: " +o1);
-
-        System.gc();  //???奇怪 按照  weak 的特性 每次 gc 日志时都会回收  这里实际测试的时候发现w.get 并不为null ！！！！！！
-        Object oo = w.get();
-        System.out.println("oo: " +oo);
+        bean1 =null;
+        System.out.println("o1: " +w.get());
+        System.gc();
+        System.runFinalization();
+        System.out.println("o1o: " +w.get());
 
         Bean bean3= new Bean();
         bean3.setId("1114");
