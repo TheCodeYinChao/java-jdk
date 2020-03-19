@@ -7,9 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/java/lang/ref/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/persion/ref/Bean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/persion/ref/MyRefrece.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/persion/ref/People.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/persion/ref/ReferenceUse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/persion/ref/ReferenceUse2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/tools.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/tools.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/persion/thread/DemoField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persion/thread/DemoField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/persion/thread/ForkJoinDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persion/thread/ForkJoinDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/thread/TaskDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/persion/thread/TaskDemo.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,92 +31,131 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="SafeVarargs.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/lang/SafeVarargs.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="716">
-              <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UnsupportedClassVersionError.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/lang/UnsupportedClassVersionError.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="55" column="1" selection-start-line="55" selection-end-line="55" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BigInteger.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/math/BigInteger.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6970">
-              <caret line="131" column="20" selection-start-line="131" selection-start-column="14" selection-end-line="131" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RoundingMode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/math/RoundingMode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="92" column="12" selection-start-line="92" selection-start-column="12" selection-end-line="92" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DatagramSocket.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/net/DatagramSocket.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="69" column="7" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArrayStoreException.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ArrayStoreException.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ThreadDemo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/persion/thread/ThreadDemo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ReferenceQueue.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/lang/ref/ReferenceQueue.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-341">
-              <caret line="119" column="23" lean-forward="true" selection-start-line="119" selection-start-column="23" selection-end-line="119" selection-end-column="23" />
+            <state relative-caret-position="264">
+              <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <file leaf-file-name="ReferenceUse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/persion/ref/ReferenceUse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-22">
-              <caret line="1400" column="7" selection-start-line="1400" selection-start-column="7" selection-end-line="1400" selection-end-column="7" />
+            <state relative-caret-position="472">
+              <caret line="65" column="89" selection-start-line="65" selection-start-column="89" selection-end-line="65" selection-end-column="89" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BigDecimal.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/math/BigDecimal.java">
+      <file leaf-file-name="ReferenceUse2.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/persion/ref/ReferenceUse2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="225" column="26" selection-start-line="225" selection-start-column="26" selection-end-line="225" selection-end-column="26" />
+            <state relative-caret-position="352">
+              <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyRefrece.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/persion/ref/MyRefrece.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+              <folding>
+                <element signature="e#262#263#0" expanded="true" />
+                <element signature="e#293#294#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="People.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/persion/ref/People.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="8" column="19" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="19" />
+              <folding>
+                <element signature="e#327#328#0" expanded="true" />
+                <element signature="e#352#353#0" expanded="true" />
+                <element signature="e#388#389#0" expanded="true" />
+                <element signature="e#416#417#0" expanded="true" />
+                <element signature="e#447#448#0" expanded="true" />
+                <element signature="e#474#475#0" expanded="true" />
+                <element signature="e#514#515#0" expanded="true" />
+                <element signature="e#546#547#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WeakReference.java" pinned="false" current-in-tab="true">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ref/WeakReference.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="550">
+              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+              <folding>
+                <element signature="e#1456#1457#0" expanded="true" />
+                <element signature="e#1487#1488#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PrintStream.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/io/PrintStream.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="257">
+              <caret line="822" column="14" selection-start-line="822" selection-start-column="14" selection-end-line="822" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Reference.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ref/Reference.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1539">
+              <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
+              <folding>
+                <element signature="e#9332#9333#0" expanded="true" />
+                <element signature="e#9368#9369#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PhantomReference.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ref/PhantomReference.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="667">
+              <caret line="78" column="54" selection-start-line="78" selection-start-column="40" selection-end-line="78" selection-end-column="54" />
+              <folding>
+                <element signature="e#2393#2394#0" expanded="true" />
+                <element signature="e#2427#2428#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bean.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/persion/ref/Bean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+              <folding>
+                <element signature="e#225#226#0" expanded="true" />
+                <element signature="e#252#253#0" expanded="true" />
+                <element signature="e#292#293#0" expanded="true" />
+                <element signature="e#324#325#0" expanded="true" />
+                <element signature="e#353#354#0" expanded="true" />
+                <element signature="e#378#379#0" expanded="true" />
+                <element signature="e#414#415#0" expanded="true" />
+                <element signature="e#442#443#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -162,6 +208,12 @@
         <option value="$PROJECT_DIR$/src/java/util/concurrent/locks/AbstractQueuedSynchronizer.java" />
         <option value="$PROJECT_DIR$/src/persion/thread/ForkJoinDemo.java" />
         <option value="$PROJECT_DIR$/src/persion/thread/TaskDemo.java" />
+        <option value="$PROJECT_DIR$/src/java/lang/ref/package-info.java" />
+        <option value="$PROJECT_DIR$/src/persion/ref/Bean.java" />
+        <option value="$PROJECT_DIR$/src/persion/ref/ReferenceUse.java" />
+        <option value="$PROJECT_DIR$/src/persion/ref/People.java" />
+        <option value="$PROJECT_DIR$/src/persion/ref/MyRefrece.java" />
+        <option value="$PROJECT_DIR$/src/persion/ref/ReferenceUse2.java" />
       </list>
     </option>
   </component>
@@ -188,7 +240,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -220,28 +271,6 @@
               <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="lang" type="462c0819:PsiDirectoryNode" />
-              <item name="ref" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="math" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="net" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="nio" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -255,56 +284,44 @@
               <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="persion" type="462c0819:PsiDirectoryNode" />
+              <item name="ref" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="persion" type="462c0819:PsiDirectoryNode" />
               <item name="thread" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="lang" type="462c0819:PsiDirectoryNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="persion" type="462c0819:PsiDirectoryNode" />
+              <item name="threadpool" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="flex.compiler" />
-    <property name="last_opened_file_path" value="C:/Program Files/Java/jdk1.8.0_144/lib/tools.jar!/" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="last_opened_file_path" value="C:/Program Files/Java/jdk1.8.0_171/lib/tools.jar!/" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.1555773" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="flex.compiler" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="persion.ref" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\persion\java-jdk\src\java\lang\ref" />
       <recent name="D:\源码分析\java-jdk\src\java\util" />
       <recent name="D:\源码分析\java-jdk\src" />
     </key>
@@ -321,12 +338,23 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ForkJoinDemo">
+  <component name="RunManager" selected="Application.ReferenceUse2">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
     </configuration>
     <configuration name="Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="persion.thread.Demo" />
+      <module name="java-jdk" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="persion.threadpool.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+    </configuration>
+    <configuration name="ForkJoinDemo (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="persion.threadpool.ForkJoinDemo" />
       <module name="java-jdk" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -347,21 +375,29 @@
         </pattern>
       </extension>
     </configuration>
-    <configuration name="FutureTaskDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="persion.thread.FutureTaskDemo" />
+    <configuration name="ReferenceUse" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="persion.ref.ReferenceUse" />
       <module name="java-jdk" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="VM_PARAMETERS" value="-XX:+PrintGCDetails" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="persion.threadpool.*" />
+          <option name="PATTERN" value="persion.ref.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+    <configuration name="ReferenceUse2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="persion.ref.ReferenceUse2" />
       <module name="java-jdk" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="VM_PARAMETERS" value="-XX:+PrintGCDetails" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="persion.ref.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -475,17 +511,19 @@
       <envs />
     </configuration>
     <list>
-      <item itemvalue="Application.Main" />
       <item itemvalue="Application.Demo" />
-      <item itemvalue="Application.FutureTaskDemo" />
       <item itemvalue="Application.ForkJoinDemo" />
+      <item itemvalue="Application.ForkJoinDemo (1)" />
+      <item itemvalue="Application.ReferenceUse" />
+      <item itemvalue="Application.ReferenceUse2" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ReferenceUse2" />
+        <item itemvalue="Application.ReferenceUse" />
+        <item itemvalue="Application.ForkJoinDemo (1)" />
         <item itemvalue="Application.ForkJoinDemo" />
         <item itemvalue="Application.Demo" />
-        <item itemvalue="Application.FutureTaskDemo" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -510,108 +548,120 @@
       <workItem from="1584456161245" duration="2343000" />
       <workItem from="1584541708784" duration="1753000" />
       <workItem from="1584545471056" duration="7000" />
+      <workItem from="1584586348204" duration="7269000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21622000" />
+    <option name="totallyTimeSpent" value="28891000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="0" width="1920" height="1047" extended-state="0" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5021322" side_tool="true" weight="0.329718" />
       <window_info anchor="bottom" id="JRebel Console" order="12" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="9" />
-      <window_info anchor="bottom" id="JRebel Executor" order="11" />
+      <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info id="Capture Tool" order="7" />
+      <window_info anchor="bottom" id="JRebel Executor" order="11" />
+      <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.24973261" />
-      <window_info id="UI Designer" order="5" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3988827" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.347191" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.32925472" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info id="Image Layers" order="4" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" side_tool="true" weight="0.32994652" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32960895" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="10" visible="true" weight="0.32960895" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.3280899" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4978678" weight="0.32921347" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3280899" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25614974" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2729234" />
       <window_info id="JRebel" order="3" side_tool="true" />
-      <window_info anchor="right" id="BPMNPalette" order="5" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32960895" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="right" id="BPMNPalette" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info id="Nl-Palette" order="2" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="10" side_tool="true" weight="0.32994652" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="JProfiler" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5021322" side_tool="true" weight="0.329718" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.27345416" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="Nl-Palette" order="2" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.3286334" />
-      <window_info id="Structure" order="1" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4902386" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4978678" weight="0.329718" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Properties" order="3" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3286334" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="right" id="BPMNPalette" order="3" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info id="Designer" order="2" />
     </layout>
     <layout-to-restore>
-      <window_info id="Designer" order="4" />
+      <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3286334" />
-      <window_info id="Image Layers" order="6" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3280899" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="5" />
-      <window_info anchor="right" id="Properties" order="5" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info id="Capture Tool" order="3" />
-      <window_info anchor="right" id="Capture Analysis" order="8" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5021322" side_tool="true" weight="0.329718" />
-      <window_info anchor="bottom" id="Messages" order="11" visible="true" weight="0.3286334" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="JRebel" order="8" side_tool="true" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5021322" side_tool="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.3280899" />
+      <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="11" side_tool="true" weight="0.32994652" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.27345416" />
-      <window_info anchor="right" id="BPMNPalette" order="9" />
-      <window_info id="Favorites" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="JProfiler" order="10" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.4978678" weight="0.329718" />
-      <window_info id="Nl-Palette" order="2" />
-      <window_info anchor="right" id="Maven Projects" order="4" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="BPMNPalette" order="5" />
+      <window_info anchor="bottom" id="JProfiler" order="9" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4978678" weight="0.32921347" />
+      <window_info id="Nl-Palette" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="6" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
+      <window_info anchor="bottom" id="JRebel Executor" order="13" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2729234" />
+      <window_info anchor="bottom" id="JRebel Console" order="14" side_tool="true" />
+      <window_info anchor="right" id="Database" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="right" id="Properties" order="8" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
       <window_info anchor="right" id="Theme Preview" order="10" />
-      <window_info id="Structure" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4902386" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.347191" />
     </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -647,7 +697,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="32" />
+      <option name="time" value="33" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -655,105 +705,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/java/net/MulticastSocket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="84" column="5" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/net/PlainSocketImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="43" column="21" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/persion/thread/ForkJoinDemo.java" />
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-22">
-          <caret line="1400" column="7" selection-start-line="1400" selection-start-column="7" selection-end-line="1400" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/lang/reflect/Method.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="27" column="18" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/io/ObjectStreamClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="71" column="34" selection-start-line="71" selection-start-column="34" selection-end-line="71" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/javajdk/src/java/util/concurrent/FutureTask.java" />
-    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/ScheduledThreadPoolExecutor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="327" column="26" selection-start-line="327" selection-start-column="18" selection-end-line="327" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/javajdk/src/java/util/concurrent/ExecutorService.java" />
-    <entry file="file://D:/javajdk/src/java/util/concurrent/AbstractExecutorService.java" />
-    <entry file="file://D:/javajdk/src/java/util/concurrent/locks/AbstractQueuedSynchronizer.java" />
-    <entry file="file://D:/javajdk/src/java/lang/Object.java" />
-    <entry file="file://D:/javajdk/src/java/lang/Thread.java" />
-    <entry file="file://D:/javajdk/src/java/util/concurrent/ThreadFactory.java" />
-    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/Executors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15039">
-          <caret line="610" column="22" selection-start-line="610" selection-start-column="22" selection-end-line="610" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/javajdk/src/java/util/concurrent/Executors.java" />
-    <entry file="file://D:/javajdk/src/java/util/concurrent/BlockingQueue.java" />
-    <entry file="file://D:/javajdk/src/java/util/concurrent/ThreadPoolExecutor.java" />
-    <entry file="file://$PROJECT_DIR$/src/persion/thread/Demo.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/sun/source/util/JavacTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="39" column="30" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/locks/AbstractQueuedSynchronizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6539">
-          <caret line="381" column="14" selection-start-line="381" selection-start-column="14" selection-end-line="381" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/persion/thread/DemoField.java" />
-    <entry file="file://$PROJECT_DIR$/src/persion/thread/FutureTaskDemo.java" />
-    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/ForkJoinTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="288" selection-start-line="288" selection-end-line="288" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/RecursiveTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="93" selection-start-line="93" selection-end-line="93" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/javajdk/src/java/util/concurrent/ForkJoinTask.java" />
-    <entry file="file://$PROJECT_DIR$/src/persion/thread/TaskDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/persion/thread/ForkJoinDemo.java" />
     <entry file="file://$PROJECT_DIR$/src/java/lang/Void.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -864,17 +815,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
-          <folding>
-            <element signature="e#325#326#0" expanded="true" />
-            <element signature="e#353#354#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/lang/SafeVarargs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="716">
-          <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -887,7 +827,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/math/BigDecimal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
+        <state relative-caret-position="4334">
           <caret line="225" column="26" selection-start-line="225" selection-start-column="26" selection-end-line="225" selection-end-column="26" />
         </state>
       </provider>
@@ -911,6 +851,244 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/lang/SafeVarargs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="716">
+          <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/math/BigInteger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2112">
+          <caret line="131" column="20" selection-start-line="131" selection-start-column="14" selection-end-line="131" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/math/RoundingMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1430">
+          <caret line="92" column="12" selection-start-line="92" selection-start-column="12" selection-end-line="92" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/net/DatagramSocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="946">
+          <caret line="69" column="7" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="1021" column="38" lean-forward="true" selection-start-line="1021" selection-start-column="38" selection-end-line="1021" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/threadpool/ForkJoinDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="35" column="17" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/sun/source/util/JavacTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="138" column="27" lean-forward="true" selection-start-line="138" selection-start-column="27" selection-end-line="138" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/thread/TaskDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/threadpool/FutureTaskDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="25" column="17" lean-forward="true" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/thread/ThreadDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" selection-start-line="8" selection-end-line="15" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ref/ReferenceQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="53" column="25" lean-forward="true" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/lang/ref/FinalReference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="30" column="37" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/lang/ref/WeakReference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="47" column="13" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/lang/ref/SoftReference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1916">
+          <caret line="113" column="35" lean-forward="true" selection-start-line="113" selection-start-column="35" selection-end-line="113" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/lang/ref/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="27" column="57" lean-forward="true" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/lang/ref/Finalizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ref/FinalReference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="29" column="3" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/lang/ref/Reference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/lang/ref/ReferenceQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ref/PhantomReference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="78" column="54" selection-start-line="78" selection-start-column="40" selection-end-line="78" selection-end-column="54" />
+          <folding>
+            <element signature="e#2393#2394#0" expanded="true" />
+            <element signature="e#2427#2428#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/io/PrintStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="822" column="14" selection-start-line="822" selection-start-column="14" selection-end-line="822" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ref/Reference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1539">
+          <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
+          <folding>
+            <element signature="e#9332#9333#0" expanded="true" />
+            <element signature="e#9368#9369#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/ref/People.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="19" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="19" />
+          <folding>
+            <element signature="e#327#328#0" expanded="true" />
+            <element signature="e#352#353#0" expanded="true" />
+            <element signature="e#388#389#0" expanded="true" />
+            <element signature="e#416#417#0" expanded="true" />
+            <element signature="e#447#448#0" expanded="true" />
+            <element signature="e#474#475#0" expanded="true" />
+            <element signature="e#514#515#0" expanded="true" />
+            <element signature="e#546#547#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/ref/ReferenceUse2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/ref/ReferenceUse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="65" column="89" selection-start-line="65" selection-start-column="89" selection-end-line="65" selection-end-column="89" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/ref/Bean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+          <folding>
+            <element signature="e#225#226#0" expanded="true" />
+            <element signature="e#252#253#0" expanded="true" />
+            <element signature="e#292#293#0" expanded="true" />
+            <element signature="e#324#325#0" expanded="true" />
+            <element signature="e#353#354#0" expanded="true" />
+            <element signature="e#378#379#0" expanded="true" />
+            <element signature="e#414#415#0" expanded="true" />
+            <element signature="e#442#443#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/ref/MyRefrece.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+          <folding>
+            <element signature="e#262#263#0" expanded="true" />
+            <element signature="e#293#294#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ref/WeakReference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="e#1456#1457#0" expanded="true" />
+            <element signature="e#1487#1488#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
