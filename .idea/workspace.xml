@@ -6,7 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="" />
+    <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/thread/DemoField.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/thread/ForkJoinDemo$TaskDemo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/thread/ForkJoinDemo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,15 +26,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="ReferenceQueue.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/lang/ref/ReferenceQueue.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ReferenceUse.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/persion/ref/ReferenceUse.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -82,10 +79,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeakReference.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WeakReference.java" pinned="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ref/WeakReference.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
+            <state relative-caret-position="183">
               <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
               <folding>
                 <element signature="e#1456#1457#0" expanded="true" />
@@ -117,15 +114,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PhantomReference.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ref/PhantomReference.java">
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="667">
-              <caret line="78" column="54" selection-start-line="78" selection-start-column="40" selection-end-line="78" selection-end-column="54" />
-              <folding>
-                <element signature="e#2393#2394#0" expanded="true" />
-                <element signature="e#2427#2428#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="399">
+              <caret line="1186" column="10" lean-forward="true" selection-start-line="1186" selection-start-column="10" selection-end-line="1186" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -190,7 +192,6 @@
         <option value="D:/javajdk/src/java/util/concurrent/Executor.java" />
         <option value="$PROJECT_DIR$/src/persion/thread/FutureTaskDemo.java" />
         <option value="D:/javajdk/src/java/util/concurrent/FutureTask.java" />
-        <option value="$PROJECT_DIR$/src/persion/thread/Demo.java" />
         <option value="D:/javajdk/src/java/util/concurrent/Executors.java" />
         <option value="$PROJECT_DIR$/src/java/util/concurrent/Executors.java" />
         <option value="D:/javajdk/src/java/util/concurrent/ThreadPoolExecutor.java" />
@@ -203,6 +204,7 @@
         <option value="$PROJECT_DIR$/src/persion/ref/People.java" />
         <option value="$PROJECT_DIR$/src/persion/ref/MyRefrece.java" />
         <option value="$PROJECT_DIR$/src/persion/ref/ReferenceUse2.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -240,54 +242,12 @@
             <path>
               <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="lang" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="nio" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="persion" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="persion" type="462c0819:PsiDirectoryNode" />
-              <item name="ref" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="persion" type="462c0819:PsiDirectoryNode" />
-              <item name="thread" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="persion" type="462c0819:PsiDirectoryNode" />
-              <item name="threadpool" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -310,6 +270,7 @@
       <recent name="persion.ref" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\persion\java-jdk" />
       <recent name="D:\persion\java-jdk\src\java\lang\ref" />
       <recent name="D:\源码分析\java-jdk\src\java\util" />
       <recent name="D:\源码分析\java-jdk\src" />
@@ -537,23 +498,17 @@
       <workItem from="1584456161245" duration="2343000" />
       <workItem from="1584541708784" duration="1753000" />
       <workItem from="1584545471056" duration="7000" />
-      <workItem from="1584586348204" duration="7896000" />
-    </task>
-    <task id="LOCAL-00001" summary="提交最新研究">
-      <created>1584617083198</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1584617083198</updated>
+      <workItem from="1584586348204" duration="7269000" />
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29518000" />
+    <option name="totallyTimeSpent" value="28955000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1920" height="1047" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5021322" side_tool="true" weight="0.329718" />
@@ -573,61 +528,87 @@
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4978678" weight="0.32921347" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3280899" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4978678" visible="true" weight="0.32921347" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3280899" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2729234" />
       <window_info id="JRebel" order="3" side_tool="true" />
       <window_info anchor="right" id="BPMNPalette" order="3" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info id="Nl-Palette" order="2" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="10" side_tool="true" weight="0.32994652" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="JProfiler" order="7" />
-      <window_info anchor="right" id="Properties" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5021322" side_tool="true" weight="0.329718" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2729234" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="Nl-Palette" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3280899" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="10" side_tool="true" weight="0.32994652" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info anchor="bottom" id="JRebel Executor" order="11" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="bottom" id="JRebel Console" order="12" side_tool="true" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4978678" weight="0.32921347" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Properties" order="3" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.347191" />
+      <window_info id="JRebel" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.3280899" />
+      <window_info anchor="right" id="BPMNPalette" order="3" />
+      <window_info anchor="right" id="Maven Projects" order="3" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info id="Designer" order="2" />
     </layout>
     <layout-to-restore>
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Palette" order="3" />
+      <window_info id="JRebel" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3280899" />
-      <window_info id="Image Layers" order="3" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
-      <window_info id="JRebel" order="8" side_tool="true" />
-      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="right" id="Properties" order="8" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5021322" side_tool="true" weight="0.329718" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3280899" />
+      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="11" side_tool="true" weight="0.32994652" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="BPMNPalette" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="10" />
       <window_info anchor="bottom" id="JProfiler" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4978678" weight="0.32921347" />
       <window_info id="Nl-Palette" order="7" />
       <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
       <window_info anchor="bottom" id="JRebel Executor" order="13" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2729234" />
       <window_info anchor="bottom" id="JRebel Console" order="14" side_tool="true" />
       <window_info anchor="right" id="Database" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="right" id="Properties" order="8" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
-      <window_info anchor="right" id="Theme Preview" order="10" />
+      <window_info id="Favorites" order="5" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
       <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.347191" />
     </layout-to-restore>
   </component>
@@ -664,8 +645,8 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="提交最新研究" />
-    <option name="LAST_COMMIT_MESSAGE" value="提交最新研究" />
+    <MESSAGE value="tj" />
+    <option name="LAST_COMMIT_MESSAGE" value="tj" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -706,7 +687,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/persion/thread/ForkJoinDemo.java" />
     <entry file="file://$PROJECT_DIR$/src/java/lang/Void.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
@@ -885,8 +865,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="1021" column="38" lean-forward="true" selection-start-line="1021" selection-start-column="38" selection-end-line="1021" selection-end-column="38" />
+        <state relative-caret-position="399">
+          <caret line="1186" column="10" lean-forward="true" selection-start-line="1186" selection-start-column="10" selection-end-line="1186" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -901,19 +881,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="138" column="27" lean-forward="true" selection-start-line="138" selection-start-column="27" selection-end-line="138" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/persion/thread/TaskDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/thread/TaskDemo.java" />
     <entry file="file://$PROJECT_DIR$/src/persion/threadpool/FutureTaskDemo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="484">
@@ -1084,12 +1055,19 @@
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/ref/WeakReference.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
+        <state relative-caret-position="183">
           <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
           <folding>
             <element signature="e#1456#1457#0" expanded="true" />
             <element signature="e#1487#1488#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
         </state>
       </provider>
     </entry>
