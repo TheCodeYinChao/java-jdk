@@ -6,18 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/java/lang/ref/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/persion/ref/Bean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/persion/ref/MyRefrece.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/persion/ref/People.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/persion/ref/ReferenceUse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/persion/ref/ReferenceUse2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/tools.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/tools.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/thread/TaskDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/persion/thread/TaskDemo.java" beforeDir="false" />
-    </list>
+    <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -548,12 +537,20 @@
       <workItem from="1584456161245" duration="2343000" />
       <workItem from="1584541708784" duration="1753000" />
       <workItem from="1584545471056" duration="7000" />
-      <workItem from="1584586348204" duration="7269000" />
+      <workItem from="1584586348204" duration="7896000" />
     </task>
+    <task id="LOCAL-00001" summary="提交最新研究">
+      <created>1584617083198</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1584617083198</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28891000" />
+    <option name="totallyTimeSpent" value="29518000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1920" height="1047" extended-state="0" />
@@ -665,6 +662,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="提交最新研究" />
+    <option name="LAST_COMMIT_MESSAGE" value="提交最新研究" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
