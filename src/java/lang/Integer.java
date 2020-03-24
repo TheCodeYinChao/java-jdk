@@ -970,7 +970,7 @@ public final class Integer extends Number implements Comparable<Integer> {
      * @return  {@code true} if the objects are the same;
      *          {@code false} otherwise.
      */
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj) { //如果传递的是基本类型时 编译器会给编程包装类型
         if (obj instanceof Integer) {
             return value == ((Integer)obj).intValue();
         }

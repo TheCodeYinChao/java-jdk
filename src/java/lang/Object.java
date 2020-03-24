@@ -97,7 +97,7 @@ public class Object {
      * @see     Object#equals(Object)
      * @see     System#identityHashCode
      */
-    public native int hashCode();
+    public native int hashCode(); //对象的哈希码
 
     /**
      * Indicates whether some other object is "equal to" this one.
