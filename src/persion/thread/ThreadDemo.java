@@ -11,6 +11,11 @@ public class ThreadDemo {
     public static void main(String[] args) {
         Thread t= new Thread();
 
+        ThreadLocal lo = new ThreadLocal();
+        lo.set("1212");
+        lo.set("adsa");
+        System.out.println(lo.get());
+
     }
 
 }

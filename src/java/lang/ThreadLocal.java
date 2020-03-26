@@ -88,7 +88,7 @@ public class ThreadLocal<T> {
      * The next hash code to be given out. Updated atomically. Starts at
      * zero.
      */
-    private static AtomicInteger nextHashCode =
+    private static AtomicInteger nextHashCode = //防止线程名称重复
         new AtomicInteger();
 
     /**
