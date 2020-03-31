@@ -97,7 +97,7 @@ public class Object {
      * @see     Object#equals(Object)
      * @see     System#identityHashCode
      */
-    public native int hashCode(); //对象的哈希码
+    public native int hashCode(); //对象的哈希码  对于object 默认的规则是对象地址， 比较对象相同则hashcode 一定相同 重写的话 hashcode 相等 则对象不一定相等 取决于 hashcode 和equals
 
     /**
      * Indicates whether some other object is "equal to" this one.

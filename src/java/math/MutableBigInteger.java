@@ -46,7 +46,7 @@ import static java.math.BigDecimal.INFLATED;
 import static java.math.BigInteger.LONG_MASK;
 import java.util.Arrays;
 
-class MutableBigInteger {
+class MutableBigInteger { //可变的 big int
     /**
      * Holds the magnitude of this MutableBigInteger in big endian order.
      * The magnitude may start at an offset into the value array, and it may

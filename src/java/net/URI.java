@@ -45,7 +45,7 @@ import java.lang.NullPointerException;  // for javadoc
 
 
 /**
- * Represents a Uniform Resource Identifier (URI) reference.
+ * Represents a Uniform Resource Identifier (URI) reference. 资源标识符
  *
  * <p> Aside from some minor deviations noted below, an instance of this
  * class represents a URI reference as defined by

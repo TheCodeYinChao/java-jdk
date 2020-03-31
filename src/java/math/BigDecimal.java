@@ -875,7 +875,7 @@ public class BigDecimal extends Number implements Comparable<BigDecimal> {
      *        {@code BigDecimal}.
      * @throws NumberFormatException if {@code val} is infinite or NaN.
      */
-    public BigDecimal(double val) {
+    public BigDecimal(double val) {//不建议使用
         this(val,MathContext.UNLIMITED);
     }
 
