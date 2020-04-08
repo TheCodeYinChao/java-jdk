@@ -18,16 +18,17 @@ package persion.lock;
  *      ACC_SYNCHRONIZED  标识符实现
  *
  *      <a href="https://www.jianshu.com/p/e62fa839aa41">关于sync的原理分析</a>
+ *      <a href="https://www.jianshu.com/p/e2054351bd95">实现原理</a>
+ *      <a href="https://www.jianshu.com/p/e62fa839aa41">实现原理</a>
+ *
  */
 public class SYNCDemo {
     public static void main(String[] args) {
 
 
-
     }
 
-
-    //方法加锁
+    //方法加锁   ower  entry set  waitset
     public static synchronized void test(){ //ACC_SYNCHRONIZED  标识  最后 还是落到 monitor 上monitorenter  monitorexit
 
     }
