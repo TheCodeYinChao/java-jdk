@@ -687,7 +687,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
 
     /**
      * Returns a power of two table size for the given desired capacity.
-     * See Hackers Delight, sec 3.2
+     * See Hackers Delight, sec 3.2 //求初始化值 并且保障是2的幂次方 不取模 尽量用为运运算更接近底层，计算速度更快
      */
     private static final int tableSizeFor(int c) {
         int n = c - 1;
@@ -802,7 +802,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
     /**
      * Spinlock (locked via CAS) used when resizing and/or creating CounterCells.
      */
-    private transient volatile int cellsBusy;
+    private transient volatile int cellsBusy;//标识 cell 数组是否在初始化或扩容中的cas标志位
 
     /**
      * Table of counter cells. When non-null, size is a power of 2.
@@ -1009,18 +1009,18 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
     /** Implementation for put and putIfAbsent */
     final V putVal(K key, V value, boolean onlyIfAbsent) {
         if (key == null || value == null) throw new NullPointerException();
-        int hash = spread(key.hashCode());
-        int binCount = 0;
-        for (Node<K,V>[] tab = table;;) {
+        int hash = spread(key.hashCode()); //计算hash 值  且确保值为正数
+        int binCount = 0;//记录链表的长度
+        for (Node<K,V>[] tab = table;;) {//自旋 通过 break 跳出并响应
             Node<K,V> f; int n, i, fh;
             if (tab == null || (n = tab.length) == 0)
                 tab = initTable();
-            else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
+            else if ((f = tabAt(tab, i = (n - 1) & hash))/*等价安全的tab[i]*/ == null) { //无竞争时 即是量表的首节点
                 if (casTabAt(tab, i, null,
-                             new Node<K,V>(hash, key, value, null)))
+                             new Node<K,V>(hash, key, value, null))) //原子更新相关值
                     break;                   // no lock when adding to empty bin
             }
-            else if ((fh = f.hash) == MOVED)
+            else if ((fh = f.hash) == MOVED) //是否需要帮助扩容
                 tab = helpTransfer(tab, f);
             else {
                 V oldVal = null;
@@ -1067,7 +1067,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
                 }
             }
         }
-        addCount(1L, binCount);
+        addCount(1L, binCount);//当前元素数量加1 有可能触发 transfer 扩容操作
         return null;
     }
 
@@ -2225,14 +2225,14 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
         while ((tab = table) == null || tab.length == 0) {
             if ((sc = sizeCtl) < 0)
                 Thread.yield(); // lost initialization race; just spin
-            else if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {
+            else if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {//-1 代表正在初始化 0标识Node数组还没有被初始化 -N 个线程在扩容
                 try {
                     if ((tab = table) == null || tab.length == 0) {
                         int n = (sc > 0) ? sc : DEFAULT_CAPACITY;
                         @SuppressWarnings("unchecked")
                         Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n];
                         table = tab = nt;
-                        sc = n - (n >>> 2);
+                        sc = n - (n >>> 2); //计算下次扩容的daxiao 其实就是默认DEFAULT_CAPACITY 加载因子0.75倍
                     }
                 } finally {
                     sizeCtl = sc;
@@ -2253,37 +2253,37 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
      * @param x the count to add
      * @param check if <0, don't check resize, if <= 1 only check if uncontended
      */
-    private final void addCount(long x, int check) {
+    private final void addCount(long x, int check) { //x 代表加的数量 check 代表扩容检查 ，大于0 就检查
         CounterCell[] as; long b, s;
-        if ((as = counterCells) != null ||
-            !U.compareAndSwapLong(this, BASECOUNT, b = baseCount, s = b + x)) {
+        if ((as = counterCells) != null || //counterCells 为空 则通过 basecount 来统计
+            !U.compareAndSwapLong(this, BASECOUNT, b = baseCount, s = b + x)) {// 这里cas 失败 表面有竞争 则采用countercell 来统计
             CounterCell a; long v; int m;
-            boolean uncontended = true;
+            boolean uncontended = true; //是否冲突 默认没有冲突
             if (as == null || (m = as.length - 1) < 0 ||
-                (a = as[ThreadLocalRandom.getProbe() & m]) == null ||
-                !(uncontended =
+                (a = as[ThreadLocalRandom.getProbe()/*获取随机数*/ & m]) == null ||
+                !(uncontended = //随机修改任意位置的值 失败则存在竞争
                   U.compareAndSwapLong(a, CELLVALUE, v = a.value, v + x))) {
                 fullAddCount(x, uncontended);
                 return;
             }
             if (check <= 1)
                 return;
-            s = sumCount();
+            s = sumCount();//统计元素个数
         }
         if (check >= 0) {
             Node<K,V>[] tab, nt; int n, sc;
             while (s >= (long)(sc = sizeCtl) && (tab = table) != null &&
                    (n = tab.length) < MAXIMUM_CAPACITY) {
-                int rs = resizeStamp(n);
-                if (sc < 0) {
-                    if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
-                        sc == rs + MAX_RESIZERS || (nt = nextTable) == null ||
-                        transferIndex <= 0)
-                        break;
-                    if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1))
+                int rs = resizeStamp(n);//生成一个唯一的扩容时间戳
+                if (sc < 0) {//说明已经有别的线程在扩容
+                    if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||//1 高RESIZE_STAMP_SHIFT 和 rs 相同则不扩容  2  扩容已经结束啦
+                        sc == rs + MAX_RESIZERS || (nt = nextTable) == null || //3 标识扩容线程已经达到最大值啦 4扩容结束
+                        transferIndex <= 0) //transfer 任务已经被领完啦 没有剩余的hash桶来给自个扩容啦
+                        break;//这五个条件成立一个则不帮助扩容
+                    if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1)) //当前线程帮助扩容
                         transfer(tab, nt);
                 }
-                else if (U.compareAndSwapInt(this, SIZECTL, sc,
+                else if (U.compareAndSwapInt(this, SIZECTL, sc,// SIZECTL正数没在扩容 则将rs设置为负数+2
                                              (rs << RESIZE_STAMP_SHIFT) + 2))
                     transfer(tab, null);
                 s = sumCount();
@@ -2366,9 +2366,9 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
      */
     private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
         int n = tab.length, stride;
-        if ((stride = (NCPU > 1) ? (n >>> 3) / NCPU : n) < MIN_TRANSFER_STRIDE)
+        if ((stride = (NCPU > 1) ? (n >>> 3) / NCPU : n) < MIN_TRANSFER_STRIDE)//计算桶数量让每个CPU处理的桶都一样多 桶少则默认一个
             stride = MIN_TRANSFER_STRIDE; // subdivide range
-        if (nextTab == null) {            // initiating
+        if (nextTab == null) {            // initiating 扩容数组 nextTab
             try {
                 @SuppressWarnings("unchecked")
                 Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n << 1];
@@ -2520,20 +2520,20 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
         return sum;
     }
 
-    // See LongAdder version for explanation
+    // See LongAdder version for explanation 初始化CounterCell
     private final void fullAddCount(long x, boolean wasUncontended) {
         int h;
-        if ((h = ThreadLocalRandom.getProbe()) == 0) {
+        if ((h = ThreadLocalRandom.getProbe()) == 0) {//==0 则初始化probe 的值 ， probe 就是随机数
             ThreadLocalRandom.localInit();      // force initialization
             h = ThreadLocalRandom.getProbe();
-            wasUncontended = true;
+            wasUncontended = true; //标志设置无竞争
         }
         boolean collide = false;                // True if last slot nonempty
         for (;;) {
             CounterCell[] as; CounterCell a; int n; long v;
             if ((as = counterCells) != null && (n = as.length) > 0) {
                 if ((a = as[(n - 1) & h]) == null) {
-                    if (cellsBusy == 0) {            // Try to attach new Cell
+                    if (cellsBusy == 0) {            // Try to attach new Cell //==0 不在初始化或者扩容状态下
                         CounterCell r = new CounterCell(x); // Optimistic create
                         if (cellsBusy == 0 &&
                             U.compareAndSwapInt(this, CELLSBUSY, 0, 1)) {
