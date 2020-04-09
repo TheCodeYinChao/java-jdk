@@ -687,7 +687,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
 
     /**
      * Returns a power of two table size for the given desired capacity.
-     * See Hackers Delight, sec 3.2 //求初始化值 并且保障是2的幂次方 不取模 尽量用为运运算更接近底层，计算速度更快
+     * See Hackers Delight, sec 3.2 //求初始化值 并且保障是2的幂次方 尽量用位运算更接近底层，计算速度更快
      */
     private static final int tableSizeFor(int c) {
         int n = c - 1;

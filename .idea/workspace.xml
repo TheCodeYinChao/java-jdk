@@ -7,9 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="threadlocal 探究 以及引用的探究">
-      <change afterPath="$PROJECT_DIR$/src/persion/collect/MapDemo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/concurrent/ConcurrentHashMap.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/collect/MapDemo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/collect/MapDemo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/persion/collect/MapDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persion/collect/MapDemo.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,8 +29,11 @@
       <file leaf-file-name="MapDemo.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/persion/collect/MapDemo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="15" column="27" lean-forward="true" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+            <state relative-caret-position="211">
+              <caret line="34" column="7" lean-forward="true" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -36,29 +41,15 @@
       <file leaf-file-name="ConcurrentHashMap.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="2147" column="67" lean-forward="true" selection-start-line="2147" selection-start-column="67" selection-end-line="2147" selection-end-column="67" />
+            <state relative-caret-position="567">
+              <caret line="2731" column="35" selection-start-line="2731" selection-start-column="35" selection-end-line="2731" selection-end-column="35" />
               <folding>
                 <element signature="e#32322#32323#0" expanded="true" />
                 <element signature="e#32373#32374#0" expanded="true" />
                 <element signature="e#44378#44379#0" expanded="true" />
                 <element signature="e#44426#44427#0" expanded="true" />
-                <element signature="e#91797#93164#0" />
                 <element signature="e#93170#93477#0" />
                 <element signature="e#94397#94427#1" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ThreadLocalRandom.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/ThreadLocalRandom.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="619">
-              <caret line="990" column="28" lean-forward="true" selection-start-line="990" selection-start-column="28" selection-end-line="990" selection-end-column="28" />
-              <folding>
-                <element signature="e#36478#36479#0" expanded="true" />
-                <element signature="e#36545#36546#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -75,7 +66,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ArrayBlockingQueue</find>
       <find>abstract</find>
       <find>waiters</find>
       <find>shutdown</find>
@@ -105,6 +95,7 @@
       <find>Thread</find>
       <find>tableSizeFor</find>
       <find>wasUncontended</find>
+      <find>ForwardingNode</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -162,8 +153,8 @@
         <option value="$PROJECT_DIR$/src/persion/regex/RegexDemo.java" />
         <option value="$PROJECT_DIR$/src/java/util/concurrent/locks/StampedLock.java" />
         <option value="$PROJECT_DIR$/src/persion/lock/SYNCDemo.java" />
-        <option value="$PROJECT_DIR$/src/persion/collect/MapDemo.java" />
         <option value="$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java" />
+        <option value="$PROJECT_DIR$/src/persion/collect/MapDemo.java" />
       </list>
     </option>
   </component>
@@ -177,7 +168,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="14" />
+    <option name="x" value="1912" />
+    <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -210,6 +202,48 @@
             <path>
               <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="concurrent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="production" type="462c0819:PsiDirectoryNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="javax" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -217,6 +251,21 @@
               <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="concurrent" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
@@ -489,7 +538,7 @@
       <workItem from="1584586348204" duration="7269000" />
       <workItem from="1584931727140" duration="72628000" />
       <workItem from="1585881384979" duration="631000" />
-      <workItem from="1586339300332" duration="5935000" />
+      <workItem from="1586339300332" duration="13387000" />
     </task>
     <task id="LOCAL-00002" summary="threadlocal 探究 以及引用的探究">
       <created>1585556732362</created>
@@ -502,10 +551,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109572000" />
+    <option name="totallyTimeSpent" value="117024000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="7" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5021322" side_tool="true" weight="0.32921347" />
@@ -516,19 +565,19 @@
       <window_info id="Capture Tool" order="8" />
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Database" order="6" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Structure" order="1" sideWeight="0.50091076" side_tool="true" weight="0.16631016" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.2814238" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.38932148" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3280899" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4978678" weight="0.32921347" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.26140156" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2958843" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3315508" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49908924" weight="0.16631016" />
       <window_info id="JRebel" order="7" side_tool="true" />
       <window_info anchor="right" id="BPMNPalette" order="5" />
       <window_info anchor="right" id="Theme Preview" order="9" />
@@ -547,7 +596,7 @@
     <layout-to-restore>
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.26140156" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2958843" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -570,7 +619,7 @@
       <window_info anchor="right" id="Maven Projects" order="10" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
       <window_info anchor="bottom" id="JRebel Executor" order="13" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.3315508" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49908924" visible="true" weight="0.16631016" />
       <window_info anchor="bottom" id="JRebel Console" order="14" side_tool="true" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -578,9 +627,9 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="9" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Structure" order="1" sideWeight="0.50091076" side_tool="true" weight="0.16631016" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.2814238" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.38932148" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -687,22 +736,28 @@
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="key.equals(&quot;a&quot;)" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java</url>
-          <line>1010</line>
+          <line>1069</line>
           <properties />
-          <option name="timeStamp" value="77" />
+          <option name="timeStamp" value="80" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="key.equals(&quot;a&quot;)" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java</url>
-          <line>1069</line>
+          <line>1010</line>
           <properties />
-          <option name="timeStamp" value="80" />
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java</url>
+          <line>836</line>
+          <properties />
+          <option name="timeStamp" value="83" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="81" />
+      <option name="time" value="87" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -759,7 +814,12 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>b + x</expression-string>
+        <expression-string />
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string />
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -769,7 +829,7 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>parent.inheritableThreadLocals != null</expression-string>
+        <expression-string />
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -1128,8 +1188,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/ThreadLocalRandom.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="619">
-          <caret line="990" column="28" lean-forward="true" selection-start-line="990" selection-start-column="28" selection-end-line="990" selection-end-column="28" />
+        <state relative-caret-position="-2376">
+          <caret line="128" column="38" selection-start-line="128" selection-start-column="25" selection-end-line="128" selection-end-column="38" />
           <folding>
             <element signature="e#36478#36479#0" expanded="true" />
             <element signature="e#36545#36546#0" expanded="true" />
@@ -1139,21 +1199,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/persion/collect/MapDemo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="27" lean-forward="true" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+        <state relative-caret-position="211">
+          <caret line="34" column="7" lean-forward="true" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="2147" column="67" lean-forward="true" selection-start-line="2147" selection-start-column="67" selection-end-line="2147" selection-end-column="67" />
+        <state relative-caret-position="567">
+          <caret line="2731" column="35" selection-start-line="2731" selection-start-column="35" selection-end-line="2731" selection-end-column="35" />
           <folding>
             <element signature="e#32322#32323#0" expanded="true" />
             <element signature="e#32373#32374#0" expanded="true" />
             <element signature="e#44378#44379#0" expanded="true" />
             <element signature="e#44426#44427#0" expanded="true" />
-            <element signature="e#91797#93164#0" />
             <element signature="e#93170#93477#0" />
             <element signature="e#94397#94427#1" expanded="true" />
           </folding>
