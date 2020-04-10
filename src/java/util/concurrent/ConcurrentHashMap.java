@@ -1015,38 +1015,38 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
             Node<K,V> f; int n, i, fh;
             if (tab == null || (n = tab.length) == 0)
                 tab = initTable();
-            else if ((f = tabAt(tab, i = (n - 1) & hash))/*等价安全的tab[i]*/ == null) { //无竞争时 即是量表的首节点
+            else if ((f = tabAt(tab, i = (n - 1) & hash))/*等价安全的tab[i]*/ == null) { //无竞争时 即是列表的首节点
                 if (casTabAt(tab, i, null,
                              new Node<K,V>(hash, key, value, null))) //原子更新相关值
                     break;                   // no lock when adding to empty bin
             }
             else if ((fh = f.hash) == MOVED) //是否需要帮助扩容
-                tab = helpTransfer(tab, f);
+                tab = helpTransfer(tab, f);//帮助扩容
             else {
                 V oldVal = null;
                 synchronized (f) {
-                    if (tabAt(tab, i) == f) {
-                        if (fh >= 0) {
+                    if (tabAt(tab, i) == f) {//是否是数组的0号元素
+                        if (fh >= 0) {//0号非树节点 为什么可以这样判断  ，因为 树node类型的hash 是小于0的
                             binCount = 1;
                             for (Node<K,V> e = f;; ++binCount) {
                                 K ek;
-                                if (e.hash == hash &&
-                                    ((ek = e.key) == key ||
-                                     (ek != null && key.equals(ek)))) {
+                                if (e.hash == hash &&  //hash是否相等
+                                    ((ek = e.key) == key || //（key的内存地址是否相等||key 的值相等 eqyals）
+                                     (ek != null && key.equals(ek)))) { //这里是比较key的值来定位桶，保证key 的唯一性
                                     oldVal = e.val;
                                     if (!onlyIfAbsent)
-                                        e.val = value;
+                                        e.val = value; //替换旧值
                                     break;
                                 }
                                 Node<K,V> pred = e;
-                                if ((e = e.next) == null) {
+                                if ((e = e.next) == null) { //放到队尾
                                     pred.next = new Node<K,V>(hash, key,
                                                               value, null);
                                     break;
                                 }
                             }
                         }
-                        else if (f instanceof TreeBin) {
+                        else if (f instanceof TreeBin) {//0号是树节点  通过treebin来管理红黑树节点
                             Node<K,V> p;
                             binCount = 2;
                             if ((p = ((TreeBin<K,V>)f).putTreeVal(hash, key,
@@ -1060,14 +1060,14 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
                 }
                 if (binCount != 0) {
                     if (binCount >= TREEIFY_THRESHOLD)
-                        treeifyBin(tab, i);
+                        treeifyBin(tab, i);//这个是链表转成红黑树
                     if (oldVal != null)
                         return oldVal;
                     break;
                 }
             }
         }
-        addCount(1L, binCount);//当前元素数量加1 有可能触发 transfer 扩容操作
+        addCount(1L, binCount);//当前元素数量加1 有可能触发 transfer 扩容操作  binCount大于0时候校验
         return null;
     }
 
@@ -2160,7 +2160,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
     /**
      * A node inserted at head of bins during transfer operations.
      */
-    static final class ForwardingNode<K,V> extends Node<K,V> {
+    static final class ForwardingNode<K,V> extends Node<K,V> { //hash 固定值为-1
         final Node<K,V>[] nextTable;
         ForwardingNode(Node<K,V>[] tab) {
             super(MOVED, null, null, null);
@@ -2197,7 +2197,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
     /**
      * A place-holder node used in computeIfAbsent and compute
      */
-    static final class ReservationNode<K,V> extends Node<K,V> {
+    static final class ReservationNode<K,V> extends Node<K,V> { //保留节点 hash 固定值为-3 占位符 jdk8 函数式有关
         ReservationNode() {
             super(RESERVED, null, null, null);
         }
@@ -2272,11 +2272,11 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
         }
         if (check >= 0) {
             Node<K,V>[] tab, nt; int n, sc;
-            while (s >= (long)(sc = sizeCtl) && (tab = table) != null &&
+            while (s >= (long)(sc = sizeCtl) && (tab = table) != null && //这是的sc值是加载因子求出来的那个值
                    (n = tab.length) < MAXIMUM_CAPACITY) {
                 int rs = resizeStamp(n);//生成一个唯一的扩容时间戳
                 if (sc < 0) {//说明已经有别的线程在扩容
-                    if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||//1 高RESIZE_STAMP_SHIFT 和 rs 相同则不扩容  2  扩容已经结束啦
+                    if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||//1 高RESIZE_STAMP_SHIFT 和 rs 相同则不扩容  2  扩容已经结束啦 达最大扩容值啦
                         sc == rs + MAX_RESIZERS || (nt = nextTable) == null || //3 标识扩容线程已经达到最大值啦 4扩容结束
                         transferIndex <= 0) //transfer 任务已经被领完啦 没有剩余的hash桶来给自个扩容啦
                         break;//这五个条件成立一个则不帮助扩容
@@ -2284,9 +2284,9 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
                         transfer(tab, nt);
                 }
                 else if (U.compareAndSwapInt(this, SIZECTL, sc,// SIZECTL正数没在扩容 则将rs设置为负数+2
-                                             (rs << RESIZE_STAMP_SHIFT) + 2))
+                                             (rs << RESIZE_STAMP_SHIFT) + 2)) //第一个去扩容的值
                     transfer(tab, null);
-                s = sumCount();
+                s = sumCount(); //从新计数 判断是否需要开启下一轮扩容
             }
         }
     }
@@ -2297,13 +2297,13 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
     final Node<K,V>[] helpTransfer(Node<K,V>[] tab, Node<K,V> f) {
         Node<K,V>[] nextTab; int sc;
         if (tab != null && (f instanceof ForwardingNode) &&
-            (nextTab = ((ForwardingNode<K,V>)f).nextTable) != null) {
-            int rs = resizeStamp(tab.length);
+            (nextTab = ((ForwardingNode<K,V>)f).nextTable) != null) {//nextTab==null 则扩容已经结束
+            int rs = resizeStamp(tab.length); //调整戳
             while (nextTab == nextTable && table == tab &&
-                   (sc = sizeCtl) < 0) {
+                   (sc = sizeCtl) < 0) {//sizeCtl 小于零证明正在扩容或初始化
                 if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
-                    sc == rs + MAX_RESIZERS || transferIndex <= 0)
-                    break;
+                    sc == rs + MAX_RESIZERS || transferIndex <= 0)//transferIndex <= 0表示所有的transfer任务都被领取光了，没有剩余的hash桶给自己这个线程来transfer，此时线程不能再帮助扩容了
+                    break;// 用于判断是否能真正去帮助执行transfer任务 ???为什么要这样判断呢？
                 if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1)) {
                     transfer(tab, nextTab);
                     break;
@@ -2316,7 +2316,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
 
     /**
      * Tries to presize table to accommodate the given number of elements.
-     *
+     * 用于putall
      * @param size number of elements (doesn't need to be perfectly accurate)
      */
     private final void tryPresize(int size) {
@@ -2362,7 +2362,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
 
     /**
      * Moves and/or copies the nodes in each bin to new table. See
-     * above for explanation.
+     * above for explanation. // 执行节点迁移，准确地说是迁移内容，因为很多节点都需要进行复制，复制能够保证读操作尽量不受影响
      */
     private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
         int n = tab.length, stride;
@@ -2371,24 +2371,24 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
         if (nextTab == null) {            // initiating 扩容数组 nextTab
             try {
                 @SuppressWarnings("unchecked")
-                Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n << 1];
+                Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n << 1];//每次扩充原来的2倍
                 nextTab = nt;
             } catch (Throwable ex) {      // try to cope with OOME
-                sizeCtl = Integer.MAX_VALUE;
+                sizeCtl = Integer.MAX_VALUE;//当内存溢出是 则sizeCtl为integer 最大值
                 return;
             }
             nextTable = nextTab;
-            transferIndex = n;
+            transferIndex = n;// 表明此时执行扩容的线程可以开始申请transfer任务了
         }
         int nextn = nextTab.length;
         ForwardingNode<K,V> fwd = new ForwardingNode<K,V>(nextTab);
         boolean advance = true;
-        boolean finishing = false; // to ensure sweep before committing nextTab
+        boolean finishing = false; // 扩容中收尾的线程把做个值设置为true，进行本轮扩容的收尾工作（两件事，重新检查一次所有hash桶，给属性赋新值）to ensure sweep before committing nextTab
         for (int i = 0, bound = 0;;) {
             Node<K,V> f; int fh;
-            while (advance) {
+            while (advance) {//--------start 这一大段主要是计算是否扩容结束 已经扩容的时候确定线程对应负责的桶
                 int nextIndex, nextBound;
-                if (--i >= bound || finishing)
+                if (--i >= bound || finishing)// 一次transfer任务还没有执行完毕
                     advance = false;
                 else if ((nextIndex = transferIndex) <= 0) {
                     i = -1;
@@ -2422,10 +2422,10 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
                 advance = casTabAt(tab, i, null, fwd);
             else if ((fh = f.hash) == MOVED)
                 advance = true; // already processed
-            else {
+            else {//--------end
                 synchronized (f) {
-                    if (tabAt(tab, i) == f) {
-                        Node<K,V> ln, hn;
+                    if (tabAt(tab, i) == f) { //节点是首节点才行
+                        Node<K,V> ln, hn;//复制的时候有个高地位复制的问题，尽量复用节点提高复制的速度
                         if (fh >= 0) {
                             int runBit = fh & n;
                             Node<K,V> lastRun = f;
@@ -2453,9 +2453,9 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
                             }
                             setTabAt(nextTab, i, ln);
                             setTabAt(nextTab, i + n, hn);
-                            setTabAt(tab, i, fwd);
+                            setTabAt(tab, i, fwd);//完成的桶 则置成fwd节点
                             advance = true;
-                        }
+                        } //复制的时候有个高地位复制的问题，尽量复用节点提高复制的速度
                         else if (f instanceof TreeBin) {
                             TreeBin<K,V> t = (TreeBin<K,V>)f;
                             TreeNode<K,V> lo = null, loTail = null;
@@ -2488,7 +2488,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
                                 (lc != 0) ? new TreeBin<K,V>(hi) : t;
                             setTabAt(nextTab, i, ln);
                             setTabAt(nextTab, i + n, hn);
-                            setTabAt(tab, i, fwd);
+                            setTabAt(tab, i, fwd); //完成的桶 则置成fwd节点
                             advance = true;
                         }
                     }
@@ -2715,7 +2715,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
      * forcing writers (who hold bin lock) to wait for readers (who do
      * not) to complete before tree restructuring operations.
      */
-    static final class TreeBin<K,V> extends Node<K,V> {
+    static final class TreeBin<K,V> extends Node<K,V> { //hash 值固定为-2
         TreeNode<K,V> root;
         volatile TreeNode<K,V> first;
         volatile Thread waiter;
@@ -2863,7 +2863,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
         }
 
         /**
-         * Finds or adds a node.
+         * Finds or adds a node. //查找添加节点
          * @return null if added
          */
         final TreeNode<K,V> putTreeVal(int h, K k, V v) {

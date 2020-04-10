@@ -1,6 +1,5 @@
 package persion.collect;
 
-import javax.sql.rowset.serial.SQLOutputImpl;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -9,12 +8,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * author: zyc <br>
  * version: 1.0 <br>
  * <a  href="https://www.sohu.com/a/320372210_120176035">关联博文</a>
+ *<a href="https://blog.csdn.net/u011392897/article/details/60479937">详解博客</a>
  */
 public class MapDemo {
     public static void main(String[] args) {
 //        test();
 
-        tableSizeFor();
+//        tableSizeFor();
+        resizeStamp();
     }
 
     public static void test(){
@@ -45,5 +46,18 @@ public class MapDemo {
         n |= n >>> 16;
         int i = (n < 0) ? 1 : (n >= 1 << 30) ? 1 << 30 : n + 1;
         System.out.println(i);
+    }
+
+    public static void resizeStamp(){
+        int n = Integer.MAX_VALUE;
+        int i = Integer.numberOfLeadingZeros(n) | (1 << (16 - 1));
+        System.out.println(i);
+
+
+        int i1 = i << 16;
+        System.out.println(i1);
+
+        int i2 = (64 >>> 3) / 4;
+        System.out.println(i2);
     }
 }
