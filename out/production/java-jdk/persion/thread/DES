@@ -1,0 +1,11 @@
+1、threadlocal的实现原理？ 主要用途？
+
+    主要用于 -- 复制变量副本到线程中，使得线程间的操作相互不影响
+
+    原理：  ThreadlocalMap
+    Entry<weakrefence,value> key 是弱引用(被若应用的 值如果不被强引用时gc就会回收)  方便回收
+
+
+2、存储的底层为什么是 map？？
+   这里主要是因为 我们有多个变量需要多个 Threadlocal 这时候的 this 就是多个 对应多个值
+

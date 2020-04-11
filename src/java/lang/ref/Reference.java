@@ -41,9 +41,9 @@ import sun.misc.SharedSecrets;
 
 public abstract class Reference<T> {
 
-    /* A Reference instance is in one of four possible internal states:
+    /* A Reference instance is in one of four possible internal states:  引用实例的四种状态
      *
-     *     Active: Subject to special treatment by the garbage collector.  Some
+     *     Active:  激活态  Subject to special treatment by the garbage collector.  Some
      *     time after the collector detects that the reachability of the
      *     referent has changed to the appropriate state, it changes the
      *     instance's state to either Pending or Inactive, depending upon
@@ -51,16 +51,16 @@ public abstract class Reference<T> {
      *     created.  In the former case it also adds the instance to the
      *     pending-Reference list.  Newly-created instances are Active.
      *
-     *     Pending: An element of the pending-Reference list, waiting to be
+     *     Pending:  等待中 An element of the pending-Reference list, waiting to be
      *     enqueued by the Reference-handler threadpool.  Unregistered instances
      *     are never in this state.
      *
-     *     Enqueued: An element of the queue with which the instance was
+     *     Enqueued: 入队 An element of the queue with which the instance was
      *     registered when it was created.  When an instance is removed from
      *     its ReferenceQueue, it is made Inactive.  Unregistered instances are
      *     never in this state.
      *
-     *     Inactive: Nothing more to do.  Once an instance becomes Inactive its
+     *     Inactive: 非激活 Nothing more to do.  Once an instance becomes Inactive its
      *     state will never change again.
      *
      * The state is encoded in the queue and next fields as follows:
@@ -219,7 +219,7 @@ public abstract class Reference<T> {
     }
 
     static {
-        ThreadGroup tg = Thread.currentThread().getThreadGroup();
+        ThreadGroup tg = Thread.currentThread().getThreadGroup(); // 初始化 线程组 处理 reference
         for (ThreadGroup tgn = tg;
              tgn != null;
              tg = tgn, tgn = tg.getParent());

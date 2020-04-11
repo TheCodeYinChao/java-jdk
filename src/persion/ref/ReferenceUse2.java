@@ -13,6 +13,7 @@ public class ReferenceUse2 {
         System.gc();  //还是不能gc掉
         System.runFinalization();
 
+        System.runFinalization();
         System.out.println(my.get());
     }
 }

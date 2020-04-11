@@ -104,7 +104,7 @@ import java.util.concurrent.locks.LockSupport;
  * {@link #getNow} that instead throw the CompletionException directly
  * in these cases.</li> </ul>
  *
- * @author Doug Lea
+ * @author Doug Lea  jdk8 新新特性 主要是丰富 future 的功能  提供 分段 CompletionStage 处理  提供结果 回调  function  流式编程风格  结果合并 。。
  * @since 1.8
  */
 public class CompletableFuture<T> implements Future<T>, CompletionStage<T> {

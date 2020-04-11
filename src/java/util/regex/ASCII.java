@@ -28,21 +28,21 @@ package java.util.regex;
 
 /**
  * Utility class that implements the standard C ctype functionality.
- *
+ * <a href="https://blog.csdn.net/weixin_43896318/article/details/103201598"> 详解</a>
  * @author Hong Zhang
  */
 
 final class ASCII {
 
-    static final int UPPER   = 0x00000100;
+    static final int UPPER   = 0x00000100;// 16进制表示  为什么？ 更简洁的标识二进制
 
-    static final int LOWER   = 0x00000200;
+    static final int LOWER   = 0x00000200;//空余的0？ 一是对齐，二是Java的int是4字节，32位二进制，对应8位十六进制。
 
-    static final int DIGIT   = 0x00000400;
+    static final int DIGIT   = 0x00000400;//为啥用的是1、2、4、8？为了贴合二进制。
 
-    static final int SPACE   = 0x00000800;
+    static final int SPACE   = 0x00000800;//"|"是啥？这不就是很多人从来不用的位运算符嘛……利用硬件资源，算起来更快啊……
 
-    static final int PUNCT   = 0x00001000;
+    static final int PUNCT   = 0x00001000;//为啥感觉数值不是连续的啊？本来就不是连续的啊……
 
     static final int CNTRL   = 0x00002000;
 

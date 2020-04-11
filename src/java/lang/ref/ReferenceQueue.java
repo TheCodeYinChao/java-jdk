@@ -97,7 +97,7 @@ public class ReferenceQueue<T> {
      * Polls this queue to see if a reference object is available.  If one is
      * available without further delay then it is removed from the queue and
      * returned.  Otherwise this method immediately returns <tt>null</tt>.
-     *
+     *  这里返回的是 Reference 的子类
      * @return  A reference object, if one was immediately available,
      *          otherwise <code>null</code>
      */

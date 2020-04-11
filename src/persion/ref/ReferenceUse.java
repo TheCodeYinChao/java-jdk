@@ -51,20 +51,21 @@ public class ReferenceUse {
     public static void main(String[] args) throws Exception{
         Bean bean = new Bean();
         bean.setId("111");
-        bean.setName("nihao ");
+        bean.setName("nihao");
         SoftReference t = new SoftReference(bean); //软
         Object o = t.get();
         System.out.println("o:"+o);
 
+
         Bean bean1= new Bean();
         bean1.setId("1112");
-        bean1.setName("nihao3 ");
+        bean1.setName("nihao3");
         WeakReference w = new WeakReference(bean1); //弱
-        bean1 =null;
-        System.out.println("o1: " +w.get());
+        bean1 = null; //当强引用不再建立联系时则 会 释放 弱引用的实例
         System.gc();
         System.runFinalization();
-        System.out.println("o1o: " +w.get());
+
+        System.out.println(w.get());
 
         Bean bean3= new Bean();
         bean3.setId("1114");
