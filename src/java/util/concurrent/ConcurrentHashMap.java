@@ -2367,7 +2367,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
     private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
         int n = tab.length, stride;
         if ((stride = (NCPU > 1) ? (n >>> 3) / NCPU : n) < MIN_TRANSFER_STRIDE)//计算桶数量让每个CPU处理的桶都一样多 桶少则默认一个
-            stride = MIN_TRANSFER_STRIDE; // subdivide range
+            stride = MIN_TRANSFER_STRIDE; // subdivide range 步长 就是把hash 桶分段
         if (nextTab == null) {            // initiating 扩容数组 nextTab
             try {
                 @SuppressWarnings("unchecked")
