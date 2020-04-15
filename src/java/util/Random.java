@@ -199,7 +199,7 @@ class Random implements Serializable {
         long oldseed, nextseed;
         AtomicLong seed = this.seed;
         do {
-            oldseed = seed.get();
+            oldseed = seed.get(); //问题主要发生在这里  多线程并发时不同系统取到的种子可能是同一个
             nextseed = (oldseed * multiplier + addend) & mask;
         } while (!seed.compareAndSet(oldseed, nextseed));
         return (int)(nextseed >>> (48 - bits));

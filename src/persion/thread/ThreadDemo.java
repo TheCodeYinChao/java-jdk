@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * description: ThreadDemo threadlocal 的探究   他所引起的 内存溢出  value  无法释放被强引用无法释放时会导致内存溢出
  *
- *
+ *<a href="https://www.cnblogs.com/xzwblog/p/7227509.html">threadlocal 的原理</a>
  * get 时会清除 或者手动remove
  * date: 2020/3/18 18:40 <br>
  * author: zyc <br>

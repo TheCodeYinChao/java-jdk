@@ -9,24 +9,50 @@ import java.util.concurrent.ConcurrentHashMap;
  * version: 1.0 <br>
  * <a  href="https://www.sohu.com/a/320372210_120176035">关联博文</a>
  *<a href="https://blog.csdn.net/u011392897/article/details/60479937">详解博客</a>
+ * <a href="https://www.cnblogs.com/softidea/p/10261414.html>关于扩容</a>
  */
 public class MapDemo {
     public static void main(String[] args) {
-//        test();
+        test();
 
 //        tableSizeFor();
-        resizeStamp();
+//        resizeStamp();
+//        runBit();
     }
+
+
+    public static void runBit(){
+
+        int runBit = 100 & 8;
+        System.out.println(runBit);
+    }
+
 
     public static void test(){
         ConcurrentHashMap <String,Object> concurrentHashMap = new ConcurrentHashMap<>(Integer.MAX_VALUE-5);
 
-        concurrentHashMap.put("a","你好");
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(;;){
+                    concurrentHashMap.put("a","你好");
+                }
+            }
+        });
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(;;){
+                    concurrentHashMap.put("b","你好");
+                }
+            }
+        });
+        t1.start();
+        t2.start();
 
+//        concurrentHashMap.get("a");
 
-        concurrentHashMap.get("a");
-
-        concurrentHashMap.remove("a");
+//        concurrentHashMap.remove("a");
     }
 
     /**

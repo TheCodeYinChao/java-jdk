@@ -2258,10 +2258,10 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
         if ((as = counterCells) != null || //counterCells 为空 则通过 basecount 来统计
             !U.compareAndSwapLong(this, BASECOUNT, b = baseCount, s = b + x)) {// 这里cas 失败 表面有竞争 则采用countercell 来统计
             CounterCell a; long v; int m;
-            boolean uncontended = true; //是否冲突 默认没有冲突
+            boolean uncontended = true; //是否冲突 默认没有冲突 即是否存在竞争
             if (as == null || (m = as.length - 1) < 0 ||
                 (a = as[ThreadLocalRandom.getProbe()/*获取随机数*/ & m]) == null ||
-                !(uncontended = //随机修改任意位置的值 失败则存在竞争
+                !(uncontended = //随机修改当前线程的hash求出来的位置的值 失败则存在竞争
                   U.compareAndSwapLong(a, CELLVALUE, v = a.value, v + x))) {
                 fullAddCount(x, uncontended);
                 return;
@@ -2382,8 +2382,8 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
         }
         int nextn = nextTab.length;
         ForwardingNode<K,V> fwd = new ForwardingNode<K,V>(nextTab);
-        boolean advance = true;
-        boolean finishing = false; // 扩容中收尾的线程把做个值设置为true，进行本轮扩容的收尾工作（两件事，重新检查一次所有hash桶，给属性赋新值）to ensure sweep before committing nextTab
+        boolean advance = true; // 首次推进为 true，如果等于 true，说明需要再次推进一个下标（i--），反之，如果是 false，那么就不能推进下标，需要将当前的下标处理完毕才能继续推进
+        boolean finishing = false; // 扩容中收尾的线程把做个值设置为true，进行本轮扩容的收尾工作（两件事，重新检查一次所有hash桶，给属性赋新值）说白了就是 等于true 是扩容结束啦
         for (int i = 0, bound = 0;;) {
             Node<K,V> f; int fh;
             while (advance) {//--------start 这一大段主要是计算是否扩容结束 已经扩容的时候确定线程对应负责的桶
@@ -2398,17 +2398,17 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
                          (this, TRANSFERINDEX, nextIndex,
                           nextBound = (nextIndex > stride ?
                                        nextIndex - stride : 0))) {
-                    bound = nextBound;
+                    bound = nextBound;// 这个值就是当前线程可以处理的最小当前区间最小下标
                     i = nextIndex - 1;
-                    advance = false;
+                    advance = false;//这里设置 false，是为了防止在没有成功处理一个桶的情况下却进行了推进，这样对导致漏掉某个桶。下面的 if (tabAt(tab, i) == f) 判断会出现这样的情况。
                 }
-            }
-            if (i < 0 || i >= n || i + n >= nextn) {
+            }//上面就是推进
+            if (i < 0 || i >= n || i + n >= nextn) {//1 小于零推进到最后啦完事啦   2 n是 老table的长度  TRANSFERINDEX推进转换的索引 3 nextn = 2n
                 int sc;
-                if (finishing) {
-                    nextTable = null;
-                    table = nextTab;
-                    sizeCtl = (n << 1) - (n >>> 1);
+                if (finishing) { // 如果完成了扩容
+                    nextTable = null; //清除nextTable
+                    table = nextTab; //指向新的table
+                    sizeCtl = (n << 1) - (n >>> 1); //计算新的扩容阀值
                     return;
                 }
                 if (U.compareAndSwapInt(this, SIZECTL, sc = sizeCtl, sc - 1)) {
@@ -2420,34 +2420,34 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
             }
             else if ((f = tabAt(tab, i)) == null)
                 advance = casTabAt(tab, i, null, fwd);
-            else if ((fh = f.hash) == MOVED)
-                advance = true; // already processed
+            else if ((fh = f.hash) == MOVED)// 如果不是 null 且 hash 值是 MOVED。
+                advance = true; // already processed// 说明别的线程已经处理过了，再次推进一个下标
             else {//--------end
                 synchronized (f) {
-                    if (tabAt(tab, i) == f) { //节点是首节点才行
-                        Node<K,V> ln, hn;//复制的时候有个高地位复制的问题，尽量复用节点提高复制的速度
-                        if (fh >= 0) {
-                            int runBit = fh & n;
-                            Node<K,V> lastRun = f;
+                    if (tabAt(tab, i) == f) { //节点是当前线程处理的节点 并发问题
+                        Node<K,V> ln, hn;//复制的时候有个高地位复制的问题，尽量复用节点提高复制的速度// low, height 高位桶，低位桶
+                        if (fh >= 0) { // 如果 f 的 hash 值大于 0 。TreeBin 的 hash 是 -2
+                            int runBit = fh & n;//1 或者0 因为 由于n的幂次方来决定的   如果是结果是0 ，Doug Lea 将其放在低位，反之放在高位，目的是将链表重新 hash，放到对应的位置上，让新的取于算法能够击中他。
+                            Node<K,V> lastRun = f;// 尾节点，且和头节点的 hash 值取于不相等
                             for (Node<K,V> p = f.next; p != null; p = p.next) {
                                 int b = p.hash & n;
-                                if (b != runBit) {
-                                    runBit = b;
-                                    lastRun = p;
+                                if (b != runBit) {// 如果节点的 hash 值和首节点的 hash 值取于结果不同
+                                    runBit = b; // 更新 runBit，用于下面判断 lastRun 该赋值给 ln 还是 hn。
+                                    lastRun = p;// 这个 lastRun 保证后面的节点与自己的取于值相同，避免后面没有必要的循环
                                 }
-                            }
-                            if (runBit == 0) {
+                            }//关于这块的比较大的疑问 ？？ //0 放原位置 //其他放 （原位置+oldCap）  位置 }为什么要分低位桶和高位桶 https://www.cnblogs.com/javazhiyin/p/10475302.html
+                            if (runBit == 0) {// 如果最后更新的 runBit 是 0 ，设置低位节点
                                 ln = lastRun;
                                 hn = null;
                             }
-                            else {
+                            else {// 如果最后更新的 runBit 是 1 ，设置高位节点
                                 hn = lastRun;
                                 ln = null;
                             }
-                            for (Node<K,V> p = f; p != lastRun; p = p.next) {
+                            for (Node<K,V> p = f; p != lastRun; p = p.next) {//第一个地位  最后一个高位
                                 int ph = p.hash; K pk = p.key; V pv = p.val;
                                 if ((ph & n) == 0)
-                                    ln = new Node<K,V>(ph, pk, pv, ln);
+                                    ln = new Node<K,V>(ph, pk, pv, ln);//这个顺序好像反过来啦
                                 else
                                     hn = new Node<K,V>(ph, pk, pv, hn);
                             }
@@ -2482,7 +2482,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
                                     ++hc;
                                 }
                             }
-                            ln = (lc <= UNTREEIFY_THRESHOLD) ? untreeify(lo) :
+                            ln = (lc <= UNTREEIFY_THRESHOLD) ? untreeify(lo) ://这里还会根据阀值变为链表结构
                                 (hc != 0) ? new TreeBin<K,V>(lo) : t;
                             hn = (hc <= UNTREEIFY_THRESHOLD) ? untreeify(hi) :
                                 (lc != 0) ? new TreeBin<K,V>(hi) : t;
@@ -2520,7 +2520,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
         return sum;
     }
 
-    // See LongAdder version for explanation 初始化CounterCell
+    // See LongAdder version for explanation 初始化CounterCell  刚进来wasUncontended=false 代表有激烈 竞争
     private final void fullAddCount(long x, boolean wasUncontended) {
         int h;
         if ((h = ThreadLocalRandom.getProbe()) == 0) {//==0 则初始化probe 的值 ， probe 就是随机数
