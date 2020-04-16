@@ -83,11 +83,11 @@ public class LongAdder extends Striped64 implements Serializable {
      */
     public void add(long x) {
         Cell[] as; long b, v; int m; Cell a;
-        if ((as = cells) != null || !casBase(b = base, b + x)) {
-            boolean uncontended = true;
+        if ((as = cells) != null || !casBase(b = base, b + x)) {//这是个升级的过程
+            boolean uncontended = true;//默认无竞争
             if (as == null || (m = as.length - 1) < 0 ||
                 (a = as[getProbe() & m]) == null ||
-                !(uncontended = a.cas(v = a.value, v + x)))
+                !(uncontended = a.cas(v = a.value, v + x)))//v更新失败有竞争多个线程更新cell中的值
                 longAccumulate(x, null, uncontended);
         }
     }

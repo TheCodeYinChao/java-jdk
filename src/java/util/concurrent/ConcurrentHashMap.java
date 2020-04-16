@@ -2269,13 +2269,13 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
             if (check <= 1)
                 return;
             s = sumCount();//统计元素个数
-        }
-        if (check >= 0) {
+        }//上面那部分主要是计数
+        if (check >= 0) {//下面这部分这是要去扩容
             Node<K,V>[] tab, nt; int n, sc;
             while (s >= (long)(sc = sizeCtl) && (tab = table) != null && //这是的sc值是加载因子求出来的那个值
                    (n = tab.length) < MAXIMUM_CAPACITY) {
                 int rs = resizeStamp(n);//生成一个唯一的扩容时间戳
-                if (sc < 0) {//说明已经有别的线程在扩容
+                if (sc < 0) {//说明线程扩容已经开始
                     if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||//1 高RESIZE_STAMP_SHIFT 和 rs 相同则不扩容  2  扩容已经结束啦 达最大扩容值啦
                         sc == rs + MAX_RESIZERS || (nt = nextTable) == null || //3 标识扩容线程已经达到最大值啦 4扩容结束
                         transferIndex <= 0) //transfer 任务已经被领完啦 没有剩余的hash桶来给自个扩容啦
@@ -2284,7 +2284,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
                         transfer(tab, nt);
                 }
                 else if (U.compareAndSwapInt(this, SIZECTL, sc,// SIZECTL正数没在扩容 则将rs设置为负数+2
-                                             (rs << RESIZE_STAMP_SHIFT) + 2)) //第一个去扩容的值
+                                             (rs << RESIZE_STAMP_SHIFT) + 2)) //第一个去扩容的值 这里是通过int 的越界编程负数
                     transfer(tab, null);
                 s = sumCount(); //从新计数 判断是否需要开启下一轮扩容
             }

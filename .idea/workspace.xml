@@ -6,14 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="threadlocal 探究 以及引用的探究">
-      <change afterPath="$PROJECT_DIR$/src/persion/collect/RandomDemo.java" afterDir="false" />
+    <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/persion/collect/LongAdderDemo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/collect/MapDemo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/collect/MapDemo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/util/Random.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/util/Random.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/persion/collect/MapDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persion/collect/MapDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/persion/thread/ThreadDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persion/thread/ThreadDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/util/concurrent/atomic/LongAdder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/util/concurrent/atomic/LongAdder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/util/concurrent/atomic/Striped64.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/util/concurrent/atomic/Striped64.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,23 +26,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="ThreadDemo.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/persion/thread/ThreadDemo.java">
+      <file leaf-file-name="MapDemo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/persion/collect/MapDemo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="10" column="74" selection-start-line="10" selection-start-column="74" selection-end-line="10" selection-end-column="74" />
+            <state relative-caret-position="499">
+              <caret line="45" column="39" lean-forward="true" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ThreadLocal.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/lang/ThreadLocal.java">
+      <file leaf-file-name="ConcurrentHashMap.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="200" column="33" selection-start-line="200" selection-start-column="33" selection-end-line="200" selection-end-column="33" />
+            <state relative-caret-position="191">
+              <caret line="2655" column="32" selection-start-line="2655" selection-start-column="24" selection-end-line="2655" selection-end-column="32" />
               <folding>
-                <element signature="e#7937#7938#0" expanded="true" />
-                <element signature="e#7974#7975#0" expanded="true" />
+                <element signature="e#32322#32323#0" expanded="true" />
+                <element signature="e#32373#32374#0" expanded="true" />
+                <element signature="e#44402#44403#0" expanded="true" />
+                <element signature="e#44450#44451#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -61,7 +61,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fork()</find>
       <find>Node</find>
       <find>execute</find>
       <find>static</find>
@@ -91,6 +90,7 @@
       <find>sync</find>
       <find>collideLong</find>
       <find>LongAdder</find>
+      <find>static{</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -99,9 +99,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/java/util/concurrent/locks/AbstractQueuedSynchronizer.java" />
-        <option value="$PROJECT_DIR$/src/persion/thread/ForkJoinDemo.java" />
-        <option value="$PROJECT_DIR$/src/persion/thread/TaskDemo.java" />
         <option value="$PROJECT_DIR$/src/java/lang/ref/package-info.java" />
         <option value="$PROJECT_DIR$/src/persion/ref/Bean.java" />
         <option value="$PROJECT_DIR$/src/persion/ref/People.java" />
@@ -145,11 +142,14 @@
         <option value="$PROJECT_DIR$/src/java/util/concurrent/locks/StampedLock.java" />
         <option value="$PROJECT_DIR$/src/persion/lock/SYNCDemo.java" />
         <option value="$PROJECT_DIR$/src/persion/collect/CustomHashMap.java" />
-        <option value="$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java" />
         <option value="$PROJECT_DIR$/src/persion/collect/MapDemo.java" />
         <option value="$PROJECT_DIR$/src/java/util/Random.java" />
         <option value="$PROJECT_DIR$/src/persion/collect/RandomDemo.java" />
         <option value="$PROJECT_DIR$/src/persion/thread/ThreadDemo.java" />
+        <option value="$PROJECT_DIR$/src/java/util/concurrent/atomic/LongAdder.java" />
+        <option value="$PROJECT_DIR$/src/persion/collect/LongAdderDemo.java" />
+        <option value="$PROJECT_DIR$/src/java/util/concurrent/atomic/Striped64.java" />
+        <option value="$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java" />
       </list>
     </option>
   </component>
@@ -169,10 +169,9 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="-7" />
+    <option name="width" value="1934" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -218,14 +217,7 @@
               <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="persion" type="462c0819:PsiDirectoryNode" />
-              <item name="thread" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-jdk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="persion" type="462c0819:PsiDirectoryNode" />
-              <item name="threadpool" type="462c0819:PsiDirectoryNode" />
+              <item name="collect" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-jdk" type="b2602c69:ProjectViewProjectNode" />
@@ -271,7 +263,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.RandomDemo">
+  <component name="RunManager" selected="Application.LongAdderDemo">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
     </configuration>
@@ -282,6 +274,17 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="persion.math.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+    </configuration>
+    <configuration name="LongAdderDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="persion.collect.LongAdderDemo" />
+      <module name="java-jdk" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="persion.collect.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -315,18 +318,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="persion.collect.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-    </configuration>
-    <configuration name="ThreadDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="persion.thread.ThreadDemo" />
-      <module name="java-jdk" />
-      <option name="VM_PARAMETERS" value="-Xmx1m -Xms1m -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=D:/logs" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="persion.thread.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -443,19 +434,19 @@
       <envs />
     </configuration>
     <list>
-      <item itemvalue="Application.ThreadDemo" />
       <item itemvalue="Application.ObjDemo" />
       <item itemvalue="Application.BigdecimalDemo" />
       <item itemvalue="Application.MapDemo" />
       <item itemvalue="Application.RandomDemo" />
+      <item itemvalue="Application.LongAdderDemo" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LongAdderDemo" />
         <item itemvalue="Application.RandomDemo" />
         <item itemvalue="Application.MapDemo" />
         <item itemvalue="Application.BigdecimalDemo" />
         <item itemvalue="Application.ObjDemo" />
-        <item itemvalue="Application.ThreadDemo" />
       </list>
     </recent_temporary>
   </component>
@@ -484,7 +475,7 @@
       <workItem from="1584931727140" duration="72628000" />
       <workItem from="1585881384979" duration="631000" />
       <workItem from="1586339300332" duration="13464000" />
-      <workItem from="1586489659487" duration="42680000" />
+      <workItem from="1586489659487" duration="53996000" />
     </task>
     <task id="LOCAL-00002" summary="threadlocal 探究 以及引用的探究">
       <created>1585556732362</created>
@@ -493,15 +484,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585556732362</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="thread local 回顾  threadrandom 深究">
+      <created>1586937411846</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1586937411846</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159781000" />
+    <option name="totallyTimeSpent" value="171097000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50160426" side_tool="true" weight="0.38820913" />
@@ -515,7 +512,7 @@
       <window_info id="Structure" order="1" sideWeight="0.5018797" side_tool="true" weight="0.1684492" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4983957" visible="true" weight="0.40823138" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4983957" visible="true" weight="0.16017798" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3280899" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
@@ -566,7 +563,7 @@
       <window_info anchor="right" id="Maven Projects" order="10" weight="0.32994652" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
       <window_info anchor="bottom" id="JRebel Executor" order="13" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49908924" weight="0.1684492" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4981203" visible="true" weight="0.19572192" />
       <window_info anchor="bottom" id="JRebel Console" order="14" side_tool="true" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -574,9 +571,9 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="9" />
-      <window_info id="Structure" order="1" sideWeight="0.50091076" side_tool="true" weight="0.16631016" />
+      <window_info id="Structure" order="1" sideWeight="0.5018797" side_tool="true" weight="0.1684492" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.4983957" visible="true" weight="0.28476083" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.4983957" visible="true" weight="0.40823138" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -614,7 +611,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="tj" />
     <MESSAGE value="threadlocal 探究 以及引用的探究" />
-    <option name="LAST_COMMIT_MESSAGE" value="threadlocal 探究 以及引用的探究" />
+    <MESSAGE value="thread local 回顾  threadrandom 深究" />
+    <option name="LAST_COMMIT_MESSAGE" value="thread local 回顾  threadrandom 深究" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -686,11 +684,17 @@
           <properties />
           <option name="timeStamp" value="106" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/util/concurrent/atomic/LongAdder.java</url>
+          <line>85</line>
+          <properties />
+          <option name="timeStamp" value="108" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="107" />
+      <option name="time" value="110" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -794,20 +798,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/java/util/List.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="110" column="37" lean-forward="true" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/util/TreeMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="111" column="16" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/util/AbstractMap.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -1073,31 +1063,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/atomic/Striped64.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="153" column="28" selection-start-line="153" selection-start-column="28" selection-end-line="153" selection-end-column="28" />
-          <folding>
-            <element signature="e#6242#6243#0" expanded="true" />
-            <element signature="e#6312#6313#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/atomic/LongAdder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="79" column="28" lean-forward="true" selection-start-line="79" selection-start-column="28" selection-end-line="79" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/persion/collect/MapDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="43" column="31" lean-forward="true" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/atomic/AtomicLong.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -1138,94 +1103,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/ThreadLocalRandom.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2765">
-          <caret line="240" column="55" selection-start-line="240" selection-start-column="51" selection-end-line="240" selection-end-column="55" />
-          <folding>
-            <element signature="e#7026#7027#0" expanded="true" />
-            <element signature="e#7089#7090#0" expanded="true" />
-            <element signature="e#12085#12086#0" expanded="true" />
-            <element signature="e#12125#12126#0" expanded="true" />
-            <element signature="e#36478#36479#0" expanded="true" />
-            <element signature="e#36545#36546#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/persion/collect/RandomDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="17" column="85" selection-start-line="17" selection-start-column="85" selection-end-line="17" selection-end-column="85" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="2525" column="25" lean-forward="true" selection-start-line="2525" selection-start-column="25" selection-end-line="2525" selection-end-column="25" />
-          <folding>
-            <element signature="e#32322#32323#0" expanded="true" />
-            <element signature="e#32373#32374#0" expanded="true" />
-            <element signature="e#44402#44403#0" expanded="true" />
-            <element signature="e#44450#44451#0" expanded="true" />
-            <element signature="e#48303#48304#0" expanded="true" />
-            <element signature="e#48354#48355#0" expanded="true" />
-            <element signature="e#65413#65414#0" expanded="true" />
-            <element signature="e#65460#65461#0" expanded="true" />
-            <element signature="e#93469#93470#0" expanded="true" />
-            <element signature="e#93526#93527#0" expanded="true" />
-            <element signature="e#93873#93874#0" expanded="true" />
-            <element signature="e#93960#93961#0" expanded="true" />
-            <element signature="e#100562#100592#1" expanded="true" />
-            <element signature="e#112084#112534#0" />
-            <element signature="e#112593#114487#0" />
-            <element signature="e#113189#114481#0" />
-            <element signature="e#118203#118204#0" expanded="true" />
-            <element signature="e#118240#118241#0" expanded="true" />
-            <element signature="e#135937#136271#0" />
-            <element signature="e#136277#140521#0" />
-            <element signature="e#140527#141397#0" />
-            <element signature="e#141403#142010#0" />
-            <element signature="e#142016#142629#0" />
-            <element signature="e#142635#143245#0" />
-            <element signature="e#143251#144874#0" />
-            <element signature="e#144880#146247#0" />
-            <element signature="e#146253#147591#0" />
-            <element signature="e#147597#149198#0" />
-            <element signature="e#149237#149611#0" />
-            <element signature="e#149237#149891#0" />
-            <element signature="e#149897#150467#0" />
-            <element signature="e#150473#151455#0" />
-            <element signature="e#151461#152570#0" />
-            <element signature="e#152576#153780#0" />
-            <element signature="e#153786#155013#0" />
-            <element signature="e#155019#156222#0" />
-            <element signature="e#156228#157419#0" />
-            <element signature="e#157425#157976#0" />
-            <element signature="e#157982#158947#0" />
-            <element signature="e#158953#160034#0" />
-            <element signature="e#160040#160850#0" />
-            <element signature="e#160856#162008#0" />
-            <element signature="e#162014#163212#0" />
-            <element signature="e#163218#164392#0" />
-            <element signature="e#164398#165560#0" />
-            <element signature="e#165566#166137#0" />
-            <element signature="e#166143#167118#0" />
-            <element signature="e#167124#168216#0" />
-            <element signature="e#168222#168976#0" />
-            <element signature="e#168982#170165#0" />
-            <element signature="e#170171#171383#0" />
-            <element signature="e#171389#172577#0" />
-            <element signature="e#172583#173759#0" />
-            <element signature="e#173765#174341#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/lang/ThreadLocal.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="205">
@@ -1237,10 +1114,93 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/thread/DES">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="55" lean-forward="true" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/persion/thread/ThreadDemo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="10" column="74" selection-start-line="10" selection-start-column="74" selection-end-line="10" selection-end-column="74" />
+        <state relative-caret-position="176">
+          <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/ThreadLocalRandom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3">
+          <caret line="977" column="3" lean-forward="true" selection-start-line="977" selection-start-column="3" selection-end-line="977" selection-end-column="3" />
+          <folding>
+            <element signature="e#7026#7027#0" expanded="true" />
+            <element signature="e#7089#7090#0" expanded="true" />
+            <element signature="e#12085#12086#0" expanded="true" />
+            <element signature="e#12125#12126#0" expanded="true" />
+            <element signature="e#36478#36479#0" expanded="true" />
+            <element signature="e#36545#36546#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/atomic/Striped64.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="770">
+          <caret line="255" column="41" selection-start-line="255" selection-start-column="41" selection-end-line="255" selection-end-column="41" />
+          <folding>
+            <element signature="e#4944#4945#0" expanded="true" />
+            <element signature="e#5029#5030#0" expanded="true" />
+            <element signature="e#6242#6243#0" expanded="true" />
+            <element signature="e#6312#6313#0" expanded="true" />
+            <element signature="e#6426#6427#0" expanded="true" />
+            <element signature="e#6496#6497#0" expanded="true" />
+            <element signature="e#6682#6683#0" expanded="true" />
+            <element signature="e#6749#6750#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/atomic/LongAdder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="90" column="26" lean-forward="true" selection-start-line="90" selection-start-column="26" selection-end-line="90" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/collect/RandomDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="13" column="14" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/collect/LongAdderDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/collect/MapDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="499">
+          <caret line="45" column="39" lean-forward="true" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/ConcurrentHashMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="2655" column="32" selection-start-line="2655" selection-start-column="24" selection-end-line="2655" selection-end-column="32" />
+          <folding>
+            <element signature="e#32322#32323#0" expanded="true" />
+            <element signature="e#32373#32374#0" expanded="true" />
+            <element signature="e#44402#44403#0" expanded="true" />
+            <element signature="e#44450#44451#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

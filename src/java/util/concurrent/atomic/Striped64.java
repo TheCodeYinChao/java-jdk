@@ -212,23 +212,23 @@ abstract class Striped64 extends Number {
      * @param wasUncontended false if CAS failed before call
      */
     final void longAccumulate(long x, LongBinaryOperator fn,
-                              boolean wasUncontended) {
+                              boolean wasUncontended) { //进来则是false
         int h;
-        if ((h = getProbe()) == 0) {
+        if ((h = getProbe()) == 0) {//==0则还未初始化
             ThreadLocalRandom.current(); // force initialization
             h = getProbe();
             wasUncontended = true;
         }
-        boolean collide = false;                // True if last slot nonempty
+        boolean collide = false;                // True if last slot nonempty 如果最后一个槽非空，则为真
         for (;;) {
-            Cell[] as; Cell a; int n; long v;
-            if ((as = cells) != null && (n = as.length) > 0) {
+            Cell[] as; Cell a; int n; long v; //n cell 的长度
+            if ((as = cells) != null && (n = as.length) > 0) {//cell已经初始化
                 if ((a = as[(n - 1) & h]) == null) {
                     if (cellsBusy == 0) {       // Try to attach new Cell
                         Cell r = new Cell(x);   // Optimistically create
-                        if (cellsBusy == 0 && casCellsBusy()) {
+                        if (cellsBusy == 0 && casCellsBusy()) {//这改变cellsbusy的值 是cellsBusy ！=0 而=1
                             boolean created = false;
-                            try {               // Recheck under lock
+                            try {               // Recheck under lock 再核对锁
                                 Cell[] rs; int m, j;
                                 if ((rs = cells) != null &&
                                     (m = rs.length) > 0 &&
@@ -237,28 +237,28 @@ abstract class Striped64 extends Number {
                                     created = true;
                                 }
                             } finally {
-                                cellsBusy = 0;
+                                cellsBusy = 0;//释放锁
                             }
                             if (created)
                                 break;
                             continue;           // Slot is now non-empty
                         }
                     }
-                    collide = false;
+                    collide = false;// 这个时候cellsbusy不等于0 走到这说明碰撞啦 但不是最后一个槽位
                 }
-                else if (!wasUncontended)       // CAS already known to fail
-                    wasUncontended = true;      // Continue after rehash
+                else if (!wasUncontended)       // CAS already known to fail 这个时候wasUncontended 是false已经不可能啦，因为多线程竞争才跑到这个地方的
+                    wasUncontended = true;      // Continue after rehash //给个刷新值
                 else if (a.cas(v = a.value, ((fn == null) ? v + x :
-                                             fn.applyAsLong(v, x))))
+                                             fn.applyAsLong(v, x))))//修改cell的值  hash桶中已经初始化啦
                     break;
-                else if (n >= NCPU || cells != as)
+                else if (n >= NCPU || cells != as)//数组长度大于CPU数量
                     collide = false;            // At max size or stale
-                else if (!collide)
+                else if (!collide)//是否有冲突
                     collide = true;
-                else if (cellsBusy == 0 && casCellsBusy()) {
+                else if (cellsBusy == 0 && casCellsBusy()) {//能到这一步证明竞争异常激烈
                     try {
                         if (cells == as) {      // Expand table unless stale
-                            Cell[] rs = new Cell[n << 1];
+                            Cell[] rs = new Cell[n << 1];//扩容cell数组
                             for (int i = 0; i < n; ++i)
                                 rs[i] = as[i];
                             cells = rs;
@@ -267,15 +267,15 @@ abstract class Striped64 extends Number {
                         cellsBusy = 0;
                     }
                     collide = false;
-                    continue;                   // Retry with expanded table
+                    continue;                   // Retry with expanded table //扩容之后你再试
                 }
-                h = advanceProbe(h);
+                h = advanceProbe(h); //这里的作用是当线程找了好久，发现所有Cell个数已经和CPU个数相同了，然后匹配到的Cell正在被其他线程使用//于是为了找到一个空闲的Cell，于是要重新计算hash值
             }
             else if (cellsBusy == 0 && cells == as && casCellsBusy()) {
                 boolean init = false;
                 try {                           // Initialize table
                     if (cells == as) {
-                        Cell[] rs = new Cell[2];
+                        Cell[] rs = new Cell[2]; //初始table 的时候数量为2
                         rs[h & 1] = new Cell(x);
                         cells = rs;
                         init = true;
@@ -286,7 +286,7 @@ abstract class Striped64 extends Number {
                 if (init)
                     break;
             }
-            else if (casBase(v = base, ((fn == null) ? v + x :
+            else if (casBase(v = base, ((fn == null) ? v + x : //这里就是没拿到 cell的执行权直接修改base
                                         fn.applyAsLong(v, x))))
                 break;                          // Fall back on using base
         }
