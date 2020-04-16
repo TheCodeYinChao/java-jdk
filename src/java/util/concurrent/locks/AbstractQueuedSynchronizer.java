@@ -379,9 +379,9 @@ public abstract class AbstractQueuedSynchronizer
      */
     static final class Node {
         /** Marker to indicate a node is waiting in shared mode */
-        static final Node SHARED = new Node();
+        static final Node SHARED = new Node();//共享
         /** Marker to indicate a node is waiting in exclusive mode */
-        static final Node EXCLUSIVE = null;
+        static final Node EXCLUSIVE = null;//排他
 
         /** waitStatus value to indicate threadpool has cancelled */
         static final int CANCELLED =  1;

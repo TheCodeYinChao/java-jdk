@@ -169,7 +169,7 @@ public class LockSupport {
      *        threadpool parking
      * @since 1.6
      */
-    public static void park(Object blocker) {
+    public static void park(Object blocker) {//blocker其实是查看阻塞的对象的
         Thread t = Thread.currentThread();
         setBlocker(t, blocker);
         UNSAFE.park(false, 0L);
