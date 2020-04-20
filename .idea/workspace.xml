@@ -8,9 +8,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/util/Arrays.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/util/Arrays.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/lock/AqsDemo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/lock/AqsDemo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/util/concurrent/locks/AbstractQueuedSynchronizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/util/concurrent/locks/AbstractQueuedSynchronizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/util/concurrent/locks/ReentrantLock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/util/concurrent/locks/ReentrantLock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/util/concurrent/locks/ReentrantReadWriteLock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/util/concurrent/locks/ReentrantReadWriteLock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/persion/lock/AqsDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persion/lock/AqsDemo.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -26,20 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="SYNCDemo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/persion/lock/SYNCDemo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AqsDemo.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AqsDemo.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/persion/lock/AqsDemo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+            <state relative-caret-position="703">
+              <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -47,70 +38,36 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractOwnableSynchronizer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/locks/AbstractOwnableSynchronizer.java">
+      <file leaf-file-name="CountDownLatch.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/CountDownLatch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="82" column="27" selection-start-line="82" selection-start-column="27" selection-end-line="82" selection-end-column="27" />
+            <state relative-caret-position="300">
+              <caret line="290" column="26" selection-start-line="290" selection-start-column="13" selection-end-line="290" selection-end-column="26" />
               <folding>
-                <element signature="e#1679#1680#0" expanded="true" />
-                <element signature="e#1724#1725#0" expanded="true" />
-                <element signature="e#2046#2047#0" expanded="true" />
-                <element signature="e#2089#2090#0" expanded="true" />
+                <element signature="e#5415#5416#0" expanded="true" />
+                <element signature="e#5472#5473#0" expanded="true" />
+                <element signature="e#9999#10000#0" expanded="true" />
+                <element signature="e#10036#10037#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReentrantLock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/locks/ReentrantLock.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="230" column="32" selection-start-line="230" selection-start-column="32" selection-end-line="230" selection-end-column="32" />
-              <folding>
-                <element signature="e#5636#5637#0" expanded="true" />
-                <element signature="e#5688#5689#0" expanded="true" />
-                <element signature="e#6928#6929#0" expanded="true" />
-                <element signature="e#6986#6987#0" expanded="true" />
-                <element signature="e#7199#7200#0" expanded="true" />
-                <element signature="e#7233#7234#0" expanded="true" />
-                <element signature="e#8259#8260#0" expanded="true" />
-                <element signature="e#8322#8323#0" expanded="true" />
-                <element signature="e#9243#9244#0" expanded="true" />
-                <element signature="e#9270#9271#0" expanded="true" />
-                <element signature="e#16134#16135#0" expanded="true" />
-                <element signature="e#16165#16166#0" expanded="true" />
-                <element signature="e#17827#17828#0" expanded="true" />
-                <element signature="e#17869#17870#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractQueuedSynchronizer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AbstractQueuedSynchronizer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/locks/AbstractQueuedSynchronizer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="862" column="131" selection-start-line="862" selection-start-column="131" selection-end-line="862" selection-end-column="131" />
+            <state relative-caret-position="498">
+              <caret line="992" column="31" lean-forward="true" selection-start-line="992" selection-start-column="31" selection-end-line="992" selection-end-column="31" />
               <folding>
+                <element signature="e#22839#22840#0" expanded="true" />
+                <element signature="e#22867#22868#0" expanded="true" />
+                <element signature="e#23097#23098#0" expanded="true" />
+                <element signature="e#23129#23130#0" expanded="true" />
                 <element signature="e#33252#33253#0" expanded="true" />
                 <element signature="e#33302#33303#0" expanded="true" />
-                <element signature="e#42175#42176#0" expanded="true" />
-                <element signature="e#42232#42233#0" expanded="true" />
-                <element signature="e#43349#43350#0" expanded="true" />
-                <element signature="e#43406#43407#0" expanded="true" />
-                <element signature="e#47233#47234#0" expanded="true" />
-                <element signature="e#47290#47291#0" expanded="true" />
+                <element signature="e#45330#45331#0" expanded="true" />
+                <element signature="e#45387#45388#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Condition.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/locks/Condition.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="485" column="9" selection-start-line="485" selection-start-column="9" selection-end-line="485" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -164,7 +121,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/java/lang/ref/Reference.java" />
         <option value="$PROJECT_DIR$/src/java/lang/ref/ReferenceQueue.java" />
         <option value="$PROJECT_DIR$/src/persion/ref/test/RefTestObj.java" />
         <option value="$PROJECT_DIR$/src/persion/ref/test/RefMainThread.java" />
@@ -212,9 +168,10 @@
         <option value="$PROJECT_DIR$/src/java/util/concurrent/locks/LockSupport.java" />
         <option value="$PROJECT_DIR$/src/java/util/Arrays.java" />
         <option value="$PROJECT_DIR$/src/java/util/concurrent/locks/Lock.java" />
-        <option value="$PROJECT_DIR$/src/persion/lock/AqsDemo.java" />
         <option value="$PROJECT_DIR$/src/java/util/concurrent/locks/ReentrantLock.java" />
+        <option value="$PROJECT_DIR$/src/java/util/concurrent/locks/ReentrantReadWriteLock.java" />
         <option value="$PROJECT_DIR$/src/java/util/concurrent/locks/AbstractQueuedSynchronizer.java" />
+        <option value="$PROJECT_DIR$/src/persion/lock/AqsDemo.java" />
       </list>
     </option>
   </component>
@@ -537,7 +494,7 @@
       <workItem from="1584931727140" duration="72628000" />
       <workItem from="1585881384979" duration="631000" />
       <workItem from="1586339300332" duration="13464000" />
-      <workItem from="1586489659487" duration="69682000" />
+      <workItem from="1586489659487" duration="71668000" />
     </task>
     <task id="LOCAL-00002" summary="threadlocal 探究 以及引用的探究">
       <created>1585556732362</created>
@@ -567,11 +524,18 @@
       <option name="project" value="LOCAL" />
       <updated>1587032097505</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="研究aqs">
+      <created>1587376675845</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1587376675845</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="186783000" />
+    <option name="totallyTimeSpent" value="188769000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="7" y="7" width="1920" height="1040" extended-state="0" />
@@ -596,8 +560,8 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4978678" weight="0.32921347" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2400906" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4978678" weight="0.32842582" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2400906" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4981203" visible="true" weight="0.18716289" />
       <window_info id="JRebel" order="7" side_tool="true" />
@@ -691,7 +655,8 @@
     <MESSAGE value="thread local 回顾  threadrandom 深究" />
     <MESSAGE value="这个 map是真的难" />
     <MESSAGE value="aqs 注释" />
-    <option name="LAST_COMMIT_MESSAGE" value="aqs 注释" />
+    <MESSAGE value="研究aqs" />
+    <option name="LAST_COMMIT_MESSAGE" value="研究aqs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -877,13 +842,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/PriorityBlockingQueue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4527">
-          <caret line="108" column="13" selection-start-line="108" selection-start-column="13" selection-end-line="108" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/atomic/AtomicBoolean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="467">
@@ -1240,17 +1198,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/locks/ReentrantReadWriteLock.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="215" column="29" selection-start-line="215" selection-start-column="29" selection-end-line="215" selection-end-column="29" />
-          <folding>
-            <element signature="e#7743#7744#0" expanded="true" />
-            <element signature="e#7770#7771#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/locks/LockSupport.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -1258,27 +1205,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/persion/lock/SYNCDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/locks/Condition.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="447">
           <caret line="485" column="9" selection-start-line="485" selection-start-column="9" selection-end-line="485" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/persion/lock/AqsDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1318,19 +1248,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/lock/SYNCDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/locks/ReentrantReadWriteLock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-316">
+          <caret line="411" column="32" selection-start-line="411" selection-start-column="32" selection-end-line="411" selection-end-column="32" />
+          <folding>
+            <element signature="e#26272#26273#0" expanded="true" />
+            <element signature="e#26326#26327#0" expanded="true" />
+            <element signature="e#27347#27348#0" expanded="true" />
+            <element signature="e#27392#27393#0" expanded="true" />
+            <element signature="e#33644#33645#0" expanded="true" />
+            <element signature="e#33689#33690#0" expanded="true" />
+            <element signature="e#35848#35849#0" expanded="true" />
+            <element signature="e#35887#35888#0" expanded="true" />
+            <element signature="e#43734#43735#0" expanded="true" />
+            <element signature="e#43773#43774#0" expanded="true" />
+            <element signature="e#58772#58773#0" expanded="true" />
+            <element signature="e#58837#58838#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/locks/AbstractQueuedSynchronizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="862" column="131" selection-start-line="862" selection-start-column="131" selection-end-line="862" selection-end-column="131" />
+        <state relative-caret-position="498">
+          <caret line="992" column="31" lean-forward="true" selection-start-line="992" selection-start-column="31" selection-end-line="992" selection-end-column="31" />
           <folding>
+            <element signature="e#22839#22840#0" expanded="true" />
+            <element signature="e#22867#22868#0" expanded="true" />
+            <element signature="e#23097#23098#0" expanded="true" />
+            <element signature="e#23129#23130#0" expanded="true" />
             <element signature="e#33252#33253#0" expanded="true" />
             <element signature="e#33302#33303#0" expanded="true" />
-            <element signature="e#42175#42176#0" expanded="true" />
-            <element signature="e#42232#42233#0" expanded="true" />
-            <element signature="e#43349#43350#0" expanded="true" />
-            <element signature="e#43406#43407#0" expanded="true" />
-            <element signature="e#47233#47234#0" expanded="true" />
-            <element signature="e#47290#47291#0" expanded="true" />
+            <element signature="e#45330#45331#0" expanded="true" />
+            <element signature="e#45387#45388#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/CountDownLatch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="290" column="26" selection-start-line="290" selection-start-column="13" selection-end-line="290" selection-end-column="26" />
+          <folding>
+            <element signature="e#5415#5416#0" expanded="true" />
+            <element signature="e#5472#5473#0" expanded="true" />
+            <element signature="e#9999#10000#0" expanded="true" />
+            <element signature="e#10036#10037#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persion/lock/AqsDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

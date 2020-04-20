@@ -220,7 +220,7 @@ public class ReentrantReadWriteLock
     /** Inner class providing writelock */
     private final WriteLock writerLock;
     /** Performs all synchronization mechanics */
-    final Sync sync;
+    final Sync sync;//关键还是这个玩意
 
     /**
      * Creates a new {@code ReentrantReadWriteLock} with
@@ -238,7 +238,7 @@ public class ReentrantReadWriteLock
      */
     public ReentrantReadWriteLock(boolean fair) {
         sync = fair ? new FairSync() : new NonfairSync();
-        readerLock = new ReadLock(this);
+        readerLock = new ReadLock(this);//读锁 写锁
         writerLock = new WriteLock(this);
     }
 
@@ -260,14 +260,14 @@ public class ReentrantReadWriteLock
          */
 
         static final int SHARED_SHIFT   = 16;
-        static final int SHARED_UNIT    = (1 << SHARED_SHIFT);
-        static final int MAX_COUNT      = (1 << SHARED_SHIFT) - 1;
-        static final int EXCLUSIVE_MASK = (1 << SHARED_SHIFT) - 1;
+        static final int SHARED_UNIT    = (1 << SHARED_SHIFT);//2^16
+        static final int MAX_COUNT      = (1 << SHARED_SHIFT) - 1;//2^16-1
+        static final int EXCLUSIVE_MASK = (1 << SHARED_SHIFT) - 1;//2^16-1
 
         /** Returns the number of shared holds represented in count  */
-        static int sharedCount(int c)    { return c >>> SHARED_SHIFT; }
+        static int sharedCount(int c)    { return c >>> SHARED_SHIFT; }//高16位 代表共享数量
         /** Returns the number of exclusive holds represented in count  */
-        static int exclusiveCount(int c) { return c & EXCLUSIVE_MASK; }
+        static int exclusiveCount(int c) { return c & EXCLUSIVE_MASK; }//低16位代表排他数量
 
         /**
          * A counter for per-threadpool read hold counts.
@@ -463,17 +463,17 @@ public class ReentrantReadWriteLock
              */
             Thread current = Thread.currentThread();
             int c = getState();
-            if (exclusiveCount(c) != 0 &&
-                getExclusiveOwnerThread() != current)
-                return -1;
-            int r = sharedCount(c);
-            if (!readerShouldBlock() &&
-                r < MAX_COUNT &&
+            if (exclusiveCount(c) != 0 &&//证明有写锁在工作
+                getExclusiveOwnerThread() != current)//工作的写锁不是本身
+                return -1; //则不能获取到锁 因为读写互斥
+            int r = sharedCount(c); //共享数量
+            if (!readerShouldBlock() &&//这里代表是否共享 同步队列正常而且同步对列的模式是排他模式则需要阻塞
+                r < MAX_COUNT &&//低16位最大值 也就是写锁最大量
                 compareAndSetState(c, c + SHARED_UNIT)) {
-                if (r == 0) {
+                if (r == 0) { //未有共享
                     firstReader = current;
                     firstReaderHoldCount = 1;
-                } else if (firstReader == current) {
+                } else if (firstReader == current) {//第一个共享是自己
                     firstReaderHoldCount++;
                 } else {
                     HoldCounter rh = cachedHoldCounter;
@@ -484,7 +484,7 @@ public class ReentrantReadWriteLock
                     rh.count++;
                 }
                 return 1;
-            }
+            }//上面都没通过 证明需要阻塞等待 一直到共享能出来
             return fullTryAcquireShared(current);
         }
 
@@ -499,7 +499,7 @@ public class ReentrantReadWriteLock
              * complicating tryAcquireShared with interactions between
              * retries and lazily reading hold counts.
              */
-            HoldCounter rh = null;
+            HoldCounter rh = null;//自旋
             for (;;) {
                 int c = getState();
                 if (exclusiveCount(c) != 0) {

@@ -945,7 +945,7 @@ public abstract class AbstractQueuedSynchronizer
      * Acquires in shared uninterruptible mode.
      * @param arg the acquire argument
      */
-    private void doAcquireShared(int arg) {
+    private void doAcquireShared(int arg) {//新建共享节点 放到 同步队列里面
         final Node node = addWaiter(Node.SHARED);
         boolean failed = true;
         try {
@@ -1279,7 +1279,7 @@ public abstract class AbstractQueuedSynchronizer
      *        and can represent anything you like.
      */
     public final void acquireShared(int arg) {
-        if (tryAcquireShared(arg) < 0)
+        if (tryAcquireShared(arg) < 0)//1 获取到 //-1 为获取到
             doAcquireShared(arg);
     }
 
