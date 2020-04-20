@@ -3207,11 +3207,11 @@ public class Arrays {
      */
     public static <T,U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType) {
         @SuppressWarnings("unchecked")
-        T[] copy = ((Object)newType == (Object)Object[].class)
-            ? (T[]) new Object[newLength]
-            : (T[]) Array.newInstance(newType.getComponentType(), newLength);
+        T[] copy = ((Object)newType == (Object)Object[].class)//类型是否默认
+            ? (T[]) new Object[newLength]//默认new一个object
+            : (T[]) Array.newInstance(newType.getComponentType(), newLength);//不默认则new一个特定类型的心数组
         System.arraycopy(original, 0, copy, 0,
-                         Math.min(original.length, newLength));
+                         Math.min(original.length, newLength));//将老数组的值合copy到新的数组里
         return copy;
     }
 
