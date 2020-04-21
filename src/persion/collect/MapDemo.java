@@ -10,6 +10,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * <a  href="https://www.sohu.com/a/320372210_120176035">关联博文</a>
  *<a href="https://blog.csdn.net/u011392897/article/details/60479937">详解博客</a>
  * <a href="https://www.cnblogs.com/softidea/p/10261414.html>关于扩容</a>
+ *
+ *
+ * 关于cas 的应用部分的思考
+ *
+ * 1 如何通过cas 解决并发问题
+ *  1 将cas 当做锁来用  2 将cas 直接操作目标地址对象
+ *
  */
 public class MapDemo {
     public static void main(String[] args) {
