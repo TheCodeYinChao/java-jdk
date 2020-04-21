@@ -102,7 +102,7 @@ import java.util.concurrent.locks.LockSupport;
  * @author Doug Lea and Bill Scherer and Michael Scott
  * @param <V> The type of objects that may be exchanged
  */
-public class Exchanger<V> {
+public class Exchanger<V> {//就是个并发协作工具  线程间数据交换
 
     /*
      * Overview: The core algorithm is, for an exchange "slot",

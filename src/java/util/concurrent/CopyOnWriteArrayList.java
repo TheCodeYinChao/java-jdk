@@ -434,14 +434,14 @@ public class CopyOnWriteArrayList<E>
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
-            Object[] elements = getArray();
+            Object[] elements = getArray();//获取原有数组
             int len = elements.length;
-            Object[] newElements = Arrays.copyOf(elements, len + 1);
-            newElements[len] = e;
-            setArray(newElements);
+            Object[] newElements = Arrays.copyOf(elements, len + 1);//cp新数组 长度加一
+            newElements[len] = e;//添加到新数组
+            setArray(newElements);//替换原有数组
             return true;
         } finally {
-            lock.unlock();
+            lock.unlock();//释放锁
         }
     }
 
@@ -1509,7 +1509,7 @@ public class CopyOnWriteArrayList<E>
             return removed;
         }
 
-        public boolean retainAll(Collection<?> c) {
+        public boolean retainAll(Collection<?> c) {//这里的比较 就是循环这比一遍
             if (c == null) throw new NullPointerException();
             boolean removed = false;
             final ReentrantLock lock = l.lock;
