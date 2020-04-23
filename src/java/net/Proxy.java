@@ -35,7 +35,7 @@ package java.net;
  * @author Jean-Christophe Collet
  * @since   1.5
  */
-public class Proxy {
+public class Proxy {//代理 这里主要是完成代理连接 ？  什么是代理连接  就是我a 注解 访问百度 通过 b主机代理 即 a---b---百度
 
     /**
      * Represents the proxy type.

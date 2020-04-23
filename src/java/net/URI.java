@@ -461,7 +461,7 @@ import java.lang.NullPointerException;  // for javadoc
  * href="URISyntaxException.html">URISyntaxException</a>
  */
 
-public final class URI
+public final class URI//资源标识
     implements Comparable<URI>, Serializable
 {
 

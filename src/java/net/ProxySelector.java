@@ -57,7 +57,7 @@ import sun.security.util.SecurityConstants;
  * @author Jean-Christophe Collet
  * @since 1.5
  */
-public abstract class ProxySelector {
+public abstract class ProxySelector {//代理选择器
     /**
      * The system wide proxy selector that selects the proxy server to
      * use, if any, when connecting to a remote object referenced by

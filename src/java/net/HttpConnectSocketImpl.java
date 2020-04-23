@@ -145,7 +145,7 @@ import java.util.Set;
         throws IOException
     {
         try {
-            return java.security.AccessController.doPrivileged(
+            return java.security.AccessController.doPrivileged(//特权机制 沙箱机制 限定代码的执行权限范围
                 new java.security.PrivilegedExceptionAction<Socket>() {
                     public Socket run() throws IOException {
                         return doTunnel(urlString, timeout);

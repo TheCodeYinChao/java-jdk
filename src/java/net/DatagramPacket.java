@@ -40,7 +40,7 @@ package java.net;
  * @since   JDK1.0
  */
 public final
-class DatagramPacket {
+class DatagramPacket {//udp的数据报
 
     /**
      * Perform class initialization

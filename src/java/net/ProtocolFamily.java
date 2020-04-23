@@ -31,7 +31,7 @@ package java.net;
  * @since 1.7
  */
 
-public interface ProtocolFamily {
+public interface ProtocolFamily {//协议 ip ip6
     /**
      * Returns the name of the protocol family.
      *

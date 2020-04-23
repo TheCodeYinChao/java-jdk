@@ -40,7 +40,7 @@ import java.util.List;
  * @author  Pavani Diwanji
  * @since   JDK1.0
  */
-public final class FileDescriptor {
+public final class FileDescriptor {//文档描述符 指的就是连接句柄
 
     private int fd;
 

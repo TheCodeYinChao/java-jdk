@@ -7,6 +7,12 @@ import java.util.concurrent.*;
  * 执行参数问题  核心线程数   队列长度  最大线程数  先填充核心线程数  ----当 满了之后 填充对列长度 ---- 当对列满啦 增加工作线程至最大线程数
  *
  * <a href="https://www.cnblogs.com/trust-freedom/p/6693601.html"> 链接博客</a>
+ *
+ * 线程的关闭 类推到所有的其他关闭问题  比如
+ * 1 直接关闭  不管有没有任务在执行都给你关了
+ * 2 优雅的关闭1  我等正在执行的任务执行完啦我再关
+ * 3 优雅的关闭2 我等正在执行的和已经提交的任务都完事啦我再关闭
+ *
  */
 public class Demo {
     public static void main(String[] args) {

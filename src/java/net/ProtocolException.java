@@ -35,7 +35,7 @@ import java.io.IOException;
  * @since   JDK1.0
  */
 public
-class ProtocolException extends IOException {
+class ProtocolException extends IOException {//协议异常
     private static final long serialVersionUID = -6098449442062388080L;
 
     /**

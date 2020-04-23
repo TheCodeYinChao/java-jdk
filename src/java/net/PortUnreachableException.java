@@ -32,7 +32,7 @@ package java.net;
  * @since   1.4
  */
 
-public class PortUnreachableException extends SocketException {
+public class PortUnreachableException extends SocketException {//端口不能得到异常
     private static final long serialVersionUID = 8462541992376507323L;
 
     /**
