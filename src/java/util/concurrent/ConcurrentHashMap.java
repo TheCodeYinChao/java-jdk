@@ -682,7 +682,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
      * never be used in index calculations because of table bounds.
      */
     static final int spread(int h) {
-        return (h ^ (h >>> 16)) & HASH_BITS;
+        return (h ^ (h >>> 16)) & HASH_BITS;//^	异或	两个位相同为0相异为1 ;  ~	取反	0变1，1变0 ;&	与	两个位都为1时，结果才为1
     }
 
     /**
@@ -838,7 +838,7 @@ public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
             throw new IllegalArgumentException();
         int cap = ((initialCapacity >= (MAXIMUM_CAPACITY >>> 1)) ?
                    MAXIMUM_CAPACITY :
-                   tableSizeFor(initialCapacity + (initialCapacity >>> 1) + 1));
+                   tableSizeFor(initialCapacity + (initialCapacity >>> 1) + 1));//或 与 模计算用
         this.sizeCtl = cap;
     }
 

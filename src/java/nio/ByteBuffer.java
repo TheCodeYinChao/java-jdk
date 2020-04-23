@@ -1065,7 +1065,7 @@ public abstract class ByteBuffer
      * @throws  ReadOnlyBufferException
      *          If this buffer is read-only
      */
-    public abstract ByteBuffer compact();
+    public abstract ByteBuffer compact();//不覆盖原来数据
 
     /**
      * Tells whether or not this byte buffer is direct.

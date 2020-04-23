@@ -325,7 +325,7 @@ public abstract class Buffer {
      *
      * @return  This buffer
      */
-    public final Buffer clear() {
+    public final Buffer clear() {//调整位置覆盖原数据
         position = 0;
         limit = capacity;
         mark = -1;
