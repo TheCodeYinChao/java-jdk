@@ -21,8 +21,8 @@ public class Demo {
 
     public static void threadPool(){
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+//        scheduledExecutorService.schedule()
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
