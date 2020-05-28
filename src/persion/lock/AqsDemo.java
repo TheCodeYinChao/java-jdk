@@ -25,6 +25,7 @@ public class AqsDemo {
         ReentrantLock reentrantLock = new ReentrantLock();
         Condition condition = reentrantLock.newCondition();
         reentrantLock.lock();
+        reentrantLock.tryLock();//区别
 
         condition.await();
 

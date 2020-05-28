@@ -64,5 +64,5 @@ package java.util;
  *
  * @since 1.4
  */
-public interface RandomAccess {
+public interface RandomAccess {//标记接口 比如标识是否是迭代器是否不是迭代器
 }
