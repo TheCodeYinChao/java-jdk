@@ -147,7 +147,7 @@ public interface Queue<E> extends Collection<E> {
      * immediately without violating capacity restrictions, returning
      * {@code true} upon success and throwing an {@code IllegalStateException}
      * if no space is currently available.
-     *
+     *队列已满则抛出异常
      * @param e the element to add
      * @return {@code true} (as specified by {@link Collection#add})
      * @throws IllegalStateException if the element cannot be added at this
@@ -166,7 +166,7 @@ public interface Queue<E> extends Collection<E> {
      * so immediately without violating capacity restrictions.
      * When using a capacity-restricted queue, this method is generally
      * preferable to {@link #add}, which can fail to insert an element only
-     * by throwing an exception.
+     * by throwing an exception. 队列已满则false
      *
      * @param e the element to add
      * @return {@code true} if the element was added to this queue, else
@@ -183,7 +183,7 @@ public interface Queue<E> extends Collection<E> {
     /**
      * Retrieves and removes the head of this queue.  This method differs
      * from {@link #poll poll} only in that it throws an exception if this
-     * queue is empty.
+     * queue is empty.//移除 队列头部 如果队列为null 异常
      *
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
@@ -191,7 +191,7 @@ public interface Queue<E> extends Collection<E> {
     E remove();
 
     /**
-     * Retrieves and removes the head of this queue,
+     * Retrieves and removes the head of this queue,//检索并移除头节点
      * or returns {@code null} if this queue is empty.
      *
      * @return the head of this queue, or {@code null} if this queue is empty
@@ -201,7 +201,7 @@ public interface Queue<E> extends Collection<E> {
     /**
      * Retrieves, but does not remove, the head of this queue.  This method
      * differs from {@link #peek peek} only in that it throws an exception
-     * if this queue is empty.
+     * if this queue is empty. 这个空的时候会抛出异常
      *
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
@@ -209,7 +209,7 @@ public interface Queue<E> extends Collection<E> {
     E element();
 
     /**
-     * Retrieves, but does not remove, the head of this queue,
+     * Retrieves, but does not remove, the head of this queue,去除不移除节点
      * or returns {@code null} if this queue is empty.
      *
      * @return the head of this queue, or {@code null} if this queue is empty

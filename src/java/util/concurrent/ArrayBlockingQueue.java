@@ -154,7 +154,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
      * Inserts element at current put position, advances, and signals.
      * Call only when holding lock.
      */
-    private void enqueue(E x) {
+    private void enqueue(E x) {//入队
         // assert lock.getHoldCount() == 1;
         // assert items[putIndex] == null;
         final Object[] items = this.items;
@@ -162,14 +162,14 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
         if (++putIndex == items.length)
             putIndex = 0;
         count++;
-        notEmpty.signal();
+        notEmpty.signal();//插入完成完成位置索引之后唤醒线程消费
     }
 
     /**
      * Extracts element at current take position, advances, and signals.
      * Call only when holding lock.
      */
-    private E dequeue() {
+    private E dequeue() {//出队
         // assert lock.getHoldCount() == 1;
         // assert items[takeIndex] != null;
         final Object[] items = this.items;
@@ -326,7 +326,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
-            if (count == items.length)
+            if (count == items.length)//队列长度已满
                 return false;
             else {
                 enqueue(e);
@@ -397,7 +397,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
 
     public E take() throws InterruptedException {
         final ReentrantLock lock = this.lock;
-        lock.lockInterruptibly();
+        lock.lockInterruptibly();//获取锁可中断
         try {
             while (count == 0)
                 notEmpty.await();

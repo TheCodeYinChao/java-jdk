@@ -444,7 +444,7 @@ public class Exchanger<V> {//就是个并发协作工具  线程间数据交换
     /**
      * Exchange function used until arenas enabled. See above for explanation.
      *
-     * @param item the item to exchange
+     * @param item the item to exchange 传进来的交换值
      * @param timed true if the wait is timed
      * @param ns if timed, the maximum wait time, else 0L
      * @return the other threadpool's item; or null if either the arena
@@ -452,7 +452,7 @@ public class Exchanger<V> {//就是个并发协作工具  线程间数据交换
      * TIMED_OUT if timed and timed out
      */
     private final Object slotExchange(Object item, boolean timed, long ns) {
-        Node p = participant.get();
+        Node p = participant.get();//第一次为默认初始化的node
         Thread t = Thread.currentThread();
         if (t.isInterrupted()) // preserve interrupt status so caller can recheck
             return null;
@@ -470,7 +470,7 @@ public class Exchanger<V> {//就是个并发协作工具  线程间数据交换
                 // create arena on contention, but continue until slot null
                 if (NCPU > 1 && bound == 0 &&
                     U.compareAndSwapInt(this, BOUND, 0, SEQ))
-                    arena = new Node[(FULL + 2) << ASHIFT];
+                    arena = new Node[(FULL + 2) << ASHIFT];//根据cpu数来决定初始化的数组 其实就是cas处理过来啦
             }
             else if (arena != null)
                 return null; // caller must reroute to arenaExchange
@@ -560,12 +560,12 @@ public class Exchanger<V> {//就是个并发协作工具  线程间数据交换
     @SuppressWarnings("unchecked")
     public V exchange(V x) throws InterruptedException {
         Object v;
-        Object item = (x == null) ? NULL_ITEM : x; // translate null args
+        Object item = (x == null) ? NULL_ITEM : x; // translate null args如果为null 则去默认值填充
         if ((arena != null ||
-             (v = slotExchange(item, false, 0L)) == null) &&
+             (v = slotExchange(item, false, 0L)) == null) &&//slot 和 arena是两种不同的模式 也是两个核心的方法 v 则为交换回来的值
             ((Thread.interrupted() || // disambiguates null return
               (v = arenaExchange(item, false, 0L)) == null)))
-            throw new InterruptedException();
+            throw new InterruptedException();//因为中断导致告知中断异常
         return (v == NULL_ITEM) ? null : (V)v;
     }
 
