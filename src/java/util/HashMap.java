@@ -454,6 +454,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                                                loadFactor);
         this.loadFactor = loadFactor;
         this.threshold = tableSizeFor(initialCapacity);
+
     }
 
     /**
@@ -625,42 +626,42 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                    boolean evict) {
         Node<K,V>[] tab; Node<K,V> p; int n, i;
         if ((tab = table) == null || (n = tab.length) == 0)
-            n = (tab = resize()).length;
-        if ((p = tab[i = (n - 1) & hash]) == null)
-            tab[i] = newNode(hash, key, value, null);
-        else {
+            n = (tab = resize()).length;//初始化并赋予n值
+        if ((p = tab[i = (n - 1) & hash]) == null)//n=数组长度 更具hash值确定元素位置 null时链表头端点为空
+            tab[i] = newNode(hash, key, value, null);//直接头端点新增
+        else {//这里需要操作单项链表 包括增加链表，转红黑树
             Node<K,V> e; K k;
             if (p.hash == hash &&
-                ((k = p.key) == key || (key != null && key.equals(k))))
-                e = p;
-            else if (p instanceof TreeNode)
+                ((k = p.key) == key || (key != null && key.equals(k))))//保证key无重复 1 hash相等 2 key==相等  3 key equals相等
+                e = p;//无需新增
+            else if (p instanceof TreeNode) // 这里证明是红黑树 超过阀值啦
                 e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
-            else {
-                for (int binCount = 0; ; ++binCount) {
-                    if ((e = p.next) == null) {
-                        p.next = newNode(hash, key, value, null);
-                        if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
-                            treeifyBin(tab, hash);
+            else {//这里就操作链表啦
+                for (int binCount = 0; ; ++binCount) {//桶数量，非索引值
+                    if ((e = p.next) == null) {//循环链表的尾部
+                        p.next = newNode(hash, key, value, null);//创建个新加点加进去
+                        if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st //阀值 8-1 = 7 实际链表长度只能到8
+                            treeifyBin(tab, hash);//转树形结构
                         break;
                     }
                     if (e.hash == hash &&
-                        ((k = e.key) == key || (key != null && key.equals(k))))
+                        ((k = e.key) == key || (key != null && key.equals(k))))//中间有相等的无需新增
                         break;
                     p = e;
                 }
             }
-            if (e != null) { // existing mapping for key
+            if (e != null) { // existing mapping for key//存在相同的节点
                 V oldValue = e.value;
-                if (!onlyIfAbsent || oldValue == null)
+                if (!onlyIfAbsent || oldValue == null)//根据属性来判断value是替换还是不替换值
                     e.value = value;
-                afterNodeAccess(e);
+                afterNodeAccess(e);//钩子函数  linkhashmap的扩展
                 return oldValue;
             }
         }
-        ++modCount;
-        if (++size > threshold)
-            resize();
-        afterNodeInsertion(evict);
+        ++modCount;//上面如果有重复不走下面逻辑，则这个modcount统计的是整个hashmap 结构变更的次数 因为删除也会++
+        if (++size > threshold)//threshold 扩容调整阀值  数组长度*加载因子（0.75）决定 size 这里值的是数组长度
+            resize();//这里就需要扩容啦 数组上的长度已经超过加载因子啦
+        afterNodeInsertion(evict);//钩子函数扩展用
         return null;
     }
 
@@ -675,43 +676,43 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      */
     final Node<K,V>[] resize() {
         Node<K,V>[] oldTab = table;
-        int oldCap = (oldTab == null) ? 0 : oldTab.length;
-        int oldThr = threshold;
+        int oldCap = (oldTab == null) ? 0 : oldTab.length;//旧尺寸
+        int oldThr = threshold;//旧扩容阀值
         int newCap, newThr = 0;
-        if (oldCap > 0) {
+        if (oldCap > 0) {//大于0 已经初始化过啦
             if (oldCap >= MAXIMUM_CAPACITY) {
                 threshold = Integer.MAX_VALUE;
-                return oldTab;
+                return oldTab;//超过最大容量限制啦 ，已数组最大长度标识
             }
             else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
                      oldCap >= DEFAULT_INITIAL_CAPACITY)
-                newThr = oldThr << 1; // double threshold
+                newThr = oldThr << 1; // double threshold//扩容一倍未超过最大限制 则扩容原来的一倍
         }
         else if (oldThr > 0) // initial capacity was placed in threshold
-            newCap = oldThr;
-        else {               // zero initial threshold signifies using defaults
+            newCap = oldThr;//扩容后的数组长度 ，代表newCap
+        else {               // zero initial threshold signifies using defaults//这里初始化
             newCap = DEFAULT_INITIAL_CAPACITY;
             newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
         }
-        if (newThr == 0) {
+        if (newThr == 0) {//恶意设置0
             float ft = (float)newCap * loadFactor;
             newThr = (newCap < MAXIMUM_CAPACITY && ft < (float)MAXIMUM_CAPACITY ?
                       (int)ft : Integer.MAX_VALUE);
-        }
+        }//新的阀值 新的 数组
         threshold = newThr;
         @SuppressWarnings({"rawtypes","unchecked"})
             Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];
         table = newTab;
-        if (oldTab != null) {
-            for (int j = 0; j < oldCap; ++j) {
+        if (oldTab != null) {//转移旧表元素
+            for (int j = 0; j < oldCap; ++j) {//这里++ j j++语意一样
                 Node<K,V> e;
                 if ((e = oldTab[j]) != null) {
                     oldTab[j] = null;
-                    if (e.next == null)
+                    if (e.next == null)//这个代表这个桶中只有一个元素
                         newTab[e.hash & (newCap - 1)] = e;
-                    else if (e instanceof TreeNode)
+                    else if (e instanceof TreeNode)//这个代表树挪
                         ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
-                    else { // preserve order
+                    else { // preserve order//尾插法挪链表
                         Node<K,V> loHead = null, loTail = null;
                         Node<K,V> hiHead = null, hiTail = null;
                         Node<K,V> next;
@@ -758,7 +759,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
         else if ((e = tab[index = (n - 1) & hash]) != null) {
             TreeNode<K,V> hd = null, tl = null;
             do {
-                TreeNode<K,V> p = replacementTreeNode(e, null);
+                TreeNode<K,V> p = replacementTreeNode(e, null);//转成树节点并形成双向链表
                 if (tl == null)
                     hd = p;
                 else {
@@ -768,7 +769,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                 tl = p;
             } while ((e = e.next) != null);
             if ((tab[index] = hd) != null)
-                hd.treeify(tab);
+                hd.treeify(tab);//转树开始
         }
     }
 
@@ -832,7 +833,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                         p = e;
                     } while ((e = e.next) != null);
                 }
-            }
+            }//先判断在不在 ，在的话执行移除
             if (node != null && (!matchValue || (v = node.value) == value ||
                                  (value != null && value.equals(v)))) {
                 if (node instanceof TreeNode)
@@ -1838,7 +1839,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                     root.next = first;
                     root.prev = null;
                 }
-                assert checkInvariants(root);
+                assert checkInvariants(root);//防御性检查师傅满足条件，防止并发修改
             }
         }
 
@@ -1910,23 +1911,23 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                 if (root == null) {
                     x.parent = null;
                     x.red = false;
-                    root = x;
+                    root = x;//首节点置为跟节点
                 }
                 else {
                     K k = x.key;
                     int h = x.hash;
                     Class<?> kc = null;
-                    for (TreeNode<K,V> p = root;;) {
+                    for (TreeNode<K,V> p = root;;) {//p指向遍历中的当前节点 x待插入节点
                         int dir, ph;
                         K pk = p.key;
-                        if ((ph = p.hash) > h)
+                        if ((ph = p.hash) > h)//这里通过hash来确定树的左边还是右边
                             dir = -1;
                         else if (ph < h)
                             dir = 1;
-                        else if ((kc == null &&
-                                  (kc = comparableClassFor(k)) == null) ||
-                                 (dir = compareComparables(kc, k, pk)) == 0)
-                            dir = tieBreakOrder(k, pk);
+                        else if ((kc == null && //如果hash值相等，那么判断k是否实现了comparable接口，
+                                  (kc = comparableClassFor(k)) == null) ||//如果实现了comparable接口就使用compareTo进行进行比较，
+                                 (dir = compareComparables(kc, k, pk)) == 0)//如果仍旧相等或者没有实现comparable接口，则在tieBreakOrder中比较
+                            dir = tieBreakOrder(k, pk);//确定左右位置
 
                         TreeNode<K,V> xp = p;
                         if ((p = (dir <= 0) ? p.left : p.right) == null) {
@@ -1941,7 +1942,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                     }
                 }
             }
-            moveRootToFront(tab, root);
+            moveRootToFront(tab, root);//移动根节点位桶的第一个元素
         }
 
         /**
@@ -2010,7 +2011,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
             }
         }
 
-        /**
+        /**移除涉及树的平衡 和相关的转换
          * Removes the given node, that must be present before this call.
          * This is messier than typical red-black deletion code because we
          * cannot swap the contents of an interior node with a leaf
@@ -2153,7 +2154,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
             }
 
             if (loHead != null) {
-                if (lc <= UNTREEIFY_THRESHOLD)
+                if (lc <= UNTREEIFY_THRESHOLD)//转成链表
                     tab[index] = loHead.untreeify(map);
                 else {
                     tab[index] = loHead;
@@ -2162,12 +2163,12 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                 }
             }
             if (hiHead != null) {
-                if (hc <= UNTREEIFY_THRESHOLD)
+                if (hc <= UNTREEIFY_THRESHOLD)//转成链表
                     tab[index + bit] = hiHead.untreeify(map);
                 else {
                     tab[index + bit] = hiHead;
                     if (loHead != null)
-                        hiHead.treeify(tab);
+                        hiHead.treeify(tab);//转成树
                 }
             }
         }
@@ -2211,38 +2212,38 @@ public class HashMap<K,V> extends AbstractMap<K,V>
             return root;
         }
 
-        static <K,V> TreeNode<K,V> balanceInsertion(TreeNode<K,V> root,
-                                                    TreeNode<K,V> x) {
-            x.red = true;
+        static <K,V> TreeNode<K,V> balanceInsertion(TreeNode<K,V> root,//https://www.cnblogs.com/mfrank/p/9227097.html
+                                                    TreeNode<K,V> x) {//x新增节点
+            x.red = true;//新增全设置为red
             for (TreeNode<K,V> xp, xpp, xppl, xppr;;) {
                 if ((xp = x.parent) == null) {
-                    x.red = false;
+                    x.red = false;//第一个条件，根节点为黑色
                     return x;
                 }
                 else if (!xp.red || (xpp = xp.parent) == null)
-                    return root;
-                if (xp == (xppl = xpp.left)) {
-                    if ((xppr = xpp.right) != null && xppr.red) {
+                    return root;//父级节点就是根节点
+                if (xp == (xppl = xpp.left)) {//xp父级位于x pp 的左边
+                    if ((xppr = xpp.right) != null && xppr.red) {//祖父级别的右节点不为空，
                         xppr.red = false;
                         xp.red = false;
                         xpp.red = true;
                         x = xpp;
                     }
-                    else {
-                        if (x == xp.right) {
+                    else {//祖父级别的有节点为空
+                        if (x == xp.right) {//左右
                             root = rotateLeft(root, x = xp);
                             xpp = (xp = x.parent) == null ? null : xp.parent;
                         }
                         if (xp != null) {
                             xp.red = false;
                             if (xpp != null) {
-                                xpp.red = true;
+                                xpp.red = true;//左左色不对
                                 root = rotateRight(root, xpp);
                             }
                         }
                     }
                 }
-                else {
+                else {//xp位于xpp 的右边
                     if (xppl != null && xppl.red) {
                         xppl.red = false;
                         xp.red = false;
@@ -2250,11 +2251,11 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                         x = xpp;
                     }
                     else {
-                        if (x == xp.left) {
+                        if (x == xp.left) {//右左
                             root = rotateRight(root, x = xp);
                             xpp = (xp = x.parent) == null ? null : xp.parent;
                         }
-                        if (xp != null) {
+                        if (xp != null) {//右右
                             xp.red = false;
                             if (xpp != null) {
                                 xpp.red = true;

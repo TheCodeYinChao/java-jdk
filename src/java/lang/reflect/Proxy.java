@@ -599,12 +599,12 @@ public class Proxy implements java.io.Serializable {
             }
 
             String proxyPkg = null;     // package to define proxy class in
-            int accessFlags = Modifier.PUBLIC | Modifier.FINAL;
+            int accessFlags = Modifier.PUBLIC | Modifier.FINAL;//这不就是个3吗 这样是不是快点
 
             /*
              * Record the package of a non-public proxy interface so that the
              * proxy class will be defined in the same package.  Verify that
-             * all non-public proxy interfaces are in the same package.
+             * all non-public proxy interfaces are in the same package. 找有没有公共的接口
              */
             for (Class<?> intf : interfaces) {
                 int flags = intf.getModifiers();
@@ -637,10 +637,10 @@ public class Proxy implements java.io.Serializable {
              * Generate the specified proxy class.
              */
             byte[] proxyClassFile = ProxyGenerator.generateProxyClass(
-                proxyName, interfaces, accessFlags);
+                proxyName, interfaces, accessFlags);//生成class文件
             try {
                 return defineClass0(loader, proxyName,
-                                    proxyClassFile, 0, proxyClassFile.length);
+                                    proxyClassFile, 0, proxyClassFile.length);//用loader 加载我们的class文件
             } catch (ClassFormatError e) {
                 /*
                  * A ClassFormatError here means that (barring bugs in the
