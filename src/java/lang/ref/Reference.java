@@ -83,29 +83,29 @@ public abstract class Reference<T> {
      * then the collector should treat the instance normally.
      *
      * To ensure that a concurrent collector can discover active Reference
-     * objects without interfering with application threads that may apply
-     * the enqueue() method to those objects, collectors should link
+     * objects without interfering with application threads that may apply 有了这些约束，收集器为了确定一个引用对象是否需要特别对待只需要检查next字段：
+     * the enqueue() method to those objects, collectors should link如果next字段是null这个实例就是活跃的；如果不为null，这收集器就应该正常对待这个实例了。
      * discovered objects through the discovered field. The discovered
      * field is also used for linking Reference objects in the pending list.
      */
 
-    private T referent;         /* Treated specially by GC */
+    private T referent;         /* Treated specially by GC 这个是实例化传过来的对象*/
 
-    volatile ReferenceQueue<? super T> queue;
+    volatile ReferenceQueue<? super T> queue;//队列就是finalizer中的全局变量共享 也可能是别的，ReferenceQueue.NULL SoftReference WeakReference 为空时会特殊对待，并且next=this
 
-    /* When active:   NULL
-     *     pending:   this
-     *    Enqueued:   next reference in queue (or this if last)
-     *    Inactive:   this
+    /* When active:   NULL 激活
+     *     pending:   this等待中
+     *    Enqueued:   next reference in queue (or this if last) 入队
+     *    Inactive:   this 非激活
      */
     @SuppressWarnings("rawtypes")
-    Reference next;
+    Reference next;//单向链表
 
     /* When active:   next element in a discovered reference list maintained by GC (or this if last)
      *     pending:   next element in the pending list (or null if last)
      *   otherwise:   NULL
      */
-    transient private Reference<T> discovered;  /* used by VM */
+    transient private Reference<T> discovered;  /* used by VM被VM引用的瞬态对象    */
 
 
     /* Object used to synchronize with the garbage collector.  The collector
@@ -119,8 +119,8 @@ public abstract class Reference<T> {
 
     /* List of References waiting to be enqueued.  The collector adds
      * References to this list, while the Reference-handler threadpool removes
-     * them.  This list is protected by the above lock object. The
-     * list uses the discovered field to link its elements.
+     * them.  This list is protected by the above lock object. The排队的引用集合。当处理引用的线程删除引用时候，收集器添加引用到这个集合。 这个集合受上面的对象锁保护。
+     * list uses the discovered field to link its elements.cms gc执行到mark阶段的最后时，会把需要gc的对象加入到Reference的pending list中。
      */
     private static Reference<Object> pending = null;
 
@@ -155,7 +155,7 @@ public abstract class Reference<T> {
         }
     }
 
-    /**
+    /**这个方法的任务就是将失去对象的Reference对象加入到所属的引用队列中。
      * Try handle pending {@link Reference} if there is one.<p>
      * Return {@code true} as a hint that there might be another
      * {@link Reference} pending or {@code false} when there are no more pending
@@ -177,12 +177,12 @@ public abstract class Reference<T> {
         try {
             synchronized (lock) {
                 if (pending != null) {
-                    r = pending;
+                    r = pending;//拿到pingding对列 //如果pending为null，则一直等待到pending赋值(由JVM负责notify或interrupt)
                     // 'instanceof' might throw OutOfMemoryError sometimes
                     // so do this before un-linking 'r' from the 'pending' chain...
                     c = r instanceof Cleaner ? (Cleaner) r : null;
                     // unlink 'r' from 'pending' chain
-                    pending = r.discovered;
+                    pending = r.discovered;//vm系统转移到转移到pending 因为discovered私有 pending是共享的
                     r.discovered = null;
                 } else {
                     // The waiting on the lock may cause an OutOfMemoryError
@@ -207,14 +207,14 @@ public abstract class Reference<T> {
             return true;
         }
 
-        // Fast path for cleaners
+        // Fast path for cleaners  //调用Cleaner实例的clean方法清理堆外内存 这个主要清除对外内存 我们可以自定义清除相关的东西来手动控制内存的释放比如我申请的对外内存
         if (c != null) {
             c.clean();
             return true;
         }
 
-        ReferenceQueue<? super Object> q = r.queue;
-        if (q != ReferenceQueue.NULL) q.enqueue(r);
+        ReferenceQueue<? super Object> q = r.queue;//获取pending的引用队列，如果构造时指定了引用队列，并将q入队
+        if (q != ReferenceQueue.NULL) q.enqueue(r);//接着入队
         return true;
     }
 
@@ -227,11 +227,11 @@ public abstract class Reference<T> {
         /* If there were a special system-only priority greater than
          * MAX_PRIORITY, it would be used here
          */
-        handler.setPriority(Thread.MAX_PRIORITY);
+        handler.setPriority(Thread.MAX_PRIORITY);//设置最大优先级
         handler.setDaemon(true);
         handler.start();
 
-        // provide access in SharedSecrets
+        // provide access in SharedSecrets//让这个线程能够访问
         SharedSecrets.setJavaLangRefAccess(new JavaLangRefAccess() {
             @Override
             public boolean tryHandlePendingReference() {

@@ -28,7 +28,7 @@ package java.lang.ref;
 /**
  * Reference queues, to which registered reference objects are appended by the
  * garbage collector after the appropriate reachability changes are detected.
- * 承装 重写 finalize() 执行的对象
+ *
  * @author   Mark Reinhold
  * @since    1.2
  */
@@ -51,20 +51,20 @@ public class ReferenceQueue<T> {
 
     static private class Lock { };
     private Lock lock = new Lock();
-    private volatile Reference<? extends T> head = null;
-    private long queueLength = 0;
+    private volatile Reference<? extends T> head = null;//在第一个位置的元素 这个队列是栈结构先进后出
+    private long queueLength = 0;//队列的长度
 
     boolean enqueue(Reference<? extends T> r) { /* Called only by Reference class */
         synchronized (lock) {
             // Check that since getting the lock this reference hasn't already been
             // enqueued (and even then removed)
-            ReferenceQueue<?> queue = r.queue;
+            ReferenceQueue<?> queue = r.queue;//这里所有的queue都是那个finalizer里面的queue
             if ((queue == NULL) || (queue == ENQUEUED)) {
                 return false;
             }
             assert queue == this;
             r.queue = ENQUEUED;
-            r.next = (head == null) ? r : head;
+            r.next = (head == null) ? r : head;//头插法往里延长队列
             head = r;
             queueLength++;
             if (r instanceof FinalReference) {

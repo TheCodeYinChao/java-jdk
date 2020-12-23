@@ -169,7 +169,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -181,7 +181,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -440,6 +440,7 @@
       <workItem from="1597743840404" duration="58000" />
       <workItem from="1606298353991" duration="215000" />
       <workItem from="1606401758724" duration="430000" />
+      <workItem from="1608290149779" duration="30000" />
     </task>
     <task id="LOCAL-00002" summary="threadlocal 探究 以及引用的探究">
       <created>1585556732362</created>
@@ -532,11 +533,18 @@
       <option name="project" value="LOCAL" />
       <updated>1606401780635</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="新增注释">
+      <created>1608290167206</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1608290167206</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="229010000" />
+    <option name="totallyTimeSpent" value="229040000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="7" y="7" width="1920" height="1040" extended-state="0" />
@@ -563,7 +571,7 @@
       <window_info anchor="bottom" id="Sequence" order="15" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="right" id="zoolytic" order="11" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4981203" visible="true" weight="0.2772384" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4981203" visible="true" weight="0.28047466" />
       <window_info id="JRebel" order="7" side_tool="true" />
       <window_info anchor="right" id="BPMNPalette" order="5" />
       <window_info anchor="right" id="Theme Preview" order="9" />
@@ -584,6 +592,7 @@
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info id="JRebel" order="7" side_tool="true" />
+      <window_info id="Image Layers" order="3" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.2400906" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -596,7 +605,6 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50160426" side_tool="true" weight="0.38731596" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3280899" />
-      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="11" side_tool="true" weight="0.32994652" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.23247033" />
       <window_info anchor="right" id="BPMNPalette" order="5" />
@@ -606,18 +614,18 @@
       <window_info id="Nl-Palette" order="6" />
       <window_info anchor="right" id="Maven Projects" order="10" weight="0.32994652" />
       <window_info anchor="right" id="zoolytic" order="12" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
       <window_info anchor="bottom" id="JRebel Executor" order="13" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4981203" visible="true" weight="0.27400216" />
       <window_info anchor="bottom" id="JRebel Console" order="14" side_tool="true" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="right" id="Properties" order="8" />
-      <window_info id="Image Layers" order="3" />
+      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info id="Structure" order="1" sideWeight="0.5018797" side_tool="true" weight="0.1684492" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
+      <window_info anchor="right" id="Properties" order="8" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4983957" weight="0.27406567" />
     </layout-to-restore>
   </component>

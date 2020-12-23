@@ -35,13 +35,13 @@ final class Finalizer extends FinalReference<Object> { /* Package-private; must 
                                                           same package as the Reference
                                                           class */
 
-    private static ReferenceQueue<Object> queue = new ReferenceQueue<>();
+    private static ReferenceQueue<Object> queue = new ReferenceQueue<>();//所有的finalizer共享
     private static Finalizer unfinalized = null;
     private static final Object lock = new Object();
 
     private Finalizer
         next = null,
-        prev = null;
+        prev = null;//finalizer 的双向链表
 
     private boolean hasBeenFinalized() {
         return (next == this);
@@ -57,7 +57,7 @@ final class Finalizer extends FinalReference<Object> { /* Package-private; must 
         }
     }
 
-    private void remove() {
+    private void remove() {//这个维护的是finalizer的刷高端队列
         synchronized (lock) {
             if (unfinalized == this) {
                 if (this.next != null) {
@@ -82,7 +82,7 @@ final class Finalizer extends FinalReference<Object> { /* Package-private; must 
         add();
     }
 
-    /* Invoked by VM */
+    /* Invoked by VM 当我们的jvm检测到我们的类中重写了 finale方法时，会调用本地方法register 初始化一个 finalizer并吧对象传入 finalizer中形成一个单项的链表结构*/
     static void register(Object finalizee) {
         new Finalizer(finalizee);
     }
@@ -93,16 +93,16 @@ final class Finalizer extends FinalReference<Object> { /* Package-private; must 
             remove();
         }
         try {
-            Object finalizee = this.get();
+            Object finalizee = this.get();//这个就是拿出我们的对象
             if (finalizee != null && !(finalizee instanceof Enum)) {
-                jla.invokeFinalize(finalizee);
+                jla.invokeFinalize(finalizee);//执行finalize()方法  --- System类中 sun.misc.JavaLangAccess.invokeFinalize
 
                 /* Clear stack slot containing this variable, to decrease
                    the chances of false retention with a conservative GC */
                 finalizee = null;
             }
         } catch (Throwable x) { }
-        super.clear();
+        super.clear();//将引用置为空方便对象回收， 这里可以看出第一次垃圾回收只是移除队列中的finalie对象，然后将其引用置为空，第二次gc是就会回收这个对象
     }
 
     /* Create a privileged secondary finalizer threadpool in the system threadpool
