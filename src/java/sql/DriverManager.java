@@ -557,7 +557,7 @@ public class DriverManager {
             } catch (Exception ex) {
                 result = false;
             }
-
+            //校验是不是同一个与当前所属 类的加载器，全盘委托
              result = ( aClass == driver.getClass() ) ? true : false;
         }
 
@@ -583,7 +583,7 @@ public class DriverManager {
         AccessController.doPrivileged(new PrivilegedAction<Void>() {
             public Void run() {
 
-                ServiceLoader<Driver> loadedDrivers = ServiceLoader.load(Driver.class);
+                ServiceLoader<Driver> loadedDrivers = ServiceLoader.load(Driver.class);//这里把service loader加进去，每一个类都是一个
                 Iterator<Driver> driversIterator = loadedDrivers.iterator();
 
                 /* Load these drivers, so that they can be instantiated.
@@ -596,7 +596,7 @@ public class DriverManager {
                  *
                  * Adding a try catch block to catch those runtime errors
                  * if driver not available in classpath but it's
-                 * packaged as service and that service is there in classpath.
+                 * packaged as service and that service is there in classpath. 这里是校验异常，加载进来不能用会抛出异常
                  */
                 try{
                     while(driversIterator.hasNext()) {
@@ -620,7 +620,7 @@ public class DriverManager {
             try {
                 println("DriverManager.Initialize: loading " + aDriver);
                 Class.forName(aDriver, true, //找到 aDriver的类
-                        ClassLoader.getSystemClassLoader());
+                        ClassLoader.getSystemClassLoader());//这里获取的系统类加载器就是appclassloader
             } catch (Exception ex) {
                 println("DriverManager.Initialize: load failed: " + ex);
             }
@@ -657,7 +657,7 @@ public class DriverManager {
 
         for(DriverInfo aDriver : registeredDrivers) {
             // If the caller does not have permission to load the driver then
-            // skip it.
+            // skip it.  // 检查Driver类有效性
             if(isDriverAllowed(aDriver.driver, callerCL)) {
                 try {
                     println("    trying " + aDriver.driver.getClass().getName());

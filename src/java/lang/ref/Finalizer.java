@@ -57,7 +57,7 @@ final class Finalizer extends FinalReference<Object> { /* Package-private; must 
         }
     }
 
-    private void remove() {//这个维护的是finalizer的刷高端队列
+    private void remove() {//这个维护的是finalizer的双端队列
         synchronized (lock) {
             if (unfinalized == this) {
                 if (this.next != null) {
@@ -206,7 +206,7 @@ final class Finalizer extends FinalReference<Object> { /* Package-private; must 
             running = true;
             for (;;) {
                 try {
-                    Finalizer f = (Finalizer)queue.remove();
+                    Finalizer f = (Finalizer)queue.remove();//这证明这各queue中记录的是需要被回收的对象
                     f.runFinalizer(jla);
                 } catch (InterruptedException x) {
                     // ignore and continue

@@ -33,7 +33,7 @@ package java.lang.ref;
  * @since    1.2
  */
 
-public class ReferenceQueue<T> {
+public class ReferenceQueue<T> {//他的作用是什么，其实就是对象被回收啦，会进入这个队列，我们不需要referenct轮训着来判断，有点类似epoll的机制，有事件产生会加入到某个地方，拿去这个地方直接处理事件
 
     /**
      * Constructs a new reference-object queue.
@@ -46,7 +46,7 @@ public class ReferenceQueue<T> {
         }
     }
 
-    static ReferenceQueue<Object> NULL = new Null<>();
+    static ReferenceQueue<Object> NULL = new Null<>();//当这个为Null时即没有可加入的队列，这个时候jvm会特殊对待
     static ReferenceQueue<Object> ENQUEUED = new Null<>();
 
     static private class Lock { };
@@ -63,7 +63,7 @@ public class ReferenceQueue<T> {
                 return false;
             }
             assert queue == this;
-            r.queue = ENQUEUED;
+            r.queue = ENQUEUED;//这里入队之后的状态改为了enqueued已经入队啦
             r.next = (head == null) ? r : head;//头插法往里延长队列
             head = r;
             queueLength++;
@@ -75,14 +75,14 @@ public class ReferenceQueue<T> {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")//出队则状态变为inactive  因为Active状态的话，GC器是要监视它的~ 所以要区别对待才会有其他几种状态 主要就是为了实现强软若需
     private Reference<? extends T> reallyPoll() {       /* Must hold lock */
         Reference<? extends T> r = head;
         if (r != null) {
             head = (r.next == r) ?
                 null :
                 r.next; // Unchecked due to the next field having a raw type in Reference
-            r.queue = NULL;
+            r.queue = NULL;//引用对列为空，next=this
             r.next = r;
             queueLength--;
             if (r instanceof FinalReference) {

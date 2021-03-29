@@ -30,7 +30,7 @@ package java.net;
  * is used by the classes {@code Socket} and
  * {@code ServerSocket} to create actual socket
  * implementations.
- *
+ *  创建 socket 和 serversocket 的实现类的工厂
  * @author  Arthur van Hoff
  * @see     Socket
  * @see     ServerSocket

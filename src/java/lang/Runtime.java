@@ -37,7 +37,7 @@ import sun.reflect.Reflection;
  * runtime can be obtained from the <code>getRuntime</code> method.
  * <p>
  * An application cannot create its own instance of this class.
- *
+ * https://blog.csdn.net/qq_30336433/article/details/89634366
  * @author  unascribed
  * @see     Runtime#getRuntime()
  * @since   JDK1.0

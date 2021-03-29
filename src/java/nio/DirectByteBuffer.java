@@ -86,7 +86,7 @@ class DirectByteBuffer
             this.capacity = capacity;
         }
 
-        public void run() {
+        public void run() {//解除，内存，释放内存
             if (address == 0) {
                 // Paranoia
                 return;
@@ -114,7 +114,7 @@ class DirectByteBuffer
 
     // Primary constructor
     //
-    DirectByteBuffer(int cap) {                   // package-private
+    DirectByteBuffer(int cap) {                   // package-private//包不能new需要继承
 
         super(-1, 0, cap, cap);
         boolean pa = VM.isDirectMemoryPageAligned();

@@ -91,7 +91,7 @@ public abstract class Reference<T> {
 
     private T referent;         /* Treated specially by GC 这个是实例化传过来的对象*/
 
-    volatile ReferenceQueue<? super T> queue;//队列就是finalizer中的全局变量共享 也可能是别的，ReferenceQueue.NULL SoftReference WeakReference 为空时会特殊对待，并且next=this
+    volatile ReferenceQueue<? super T> queue;//队列就是finalizer中的全局变量共享 也可能是别的，ReferenceQueue.NULL SoftReference WeakReference 为空时会特殊对待，并且next=this这个就是需要回收的
 
     /* When active:   NULL 激活
      *     pending:   this等待中
@@ -105,7 +105,7 @@ public abstract class Reference<T> {
      *     pending:   next element in the pending list (or null if last)
      *   otherwise:   NULL
      */
-    transient private Reference<T> discovered;  /* used by VM被VM引用的瞬态对象    */
+    transient private Reference<T> discovered;  /* used by VM被VM引用的瞬态对象   本对象实例在pendinglist中下一个节点的引用 */
 
 
     /* Object used to synchronize with the garbage collector.  The collector
@@ -161,7 +161,7 @@ public abstract class Reference<T> {
      * {@link Reference} pending or {@code false} when there are no more pending
      * {@link Reference}s at the moment and the program can do some other
      * useful work instead of looping.
-     *
+     *它就是源源不断的将pending list中的对象（他们都处于Pending状态）搬运到RQ中（则状态都改为Enqueued状态
      * @param waitForNotify if {@code true} and there was no pending
      *                      {@link Reference}, wait until notified from VM
      *                      or interrupted; if {@code false}, return immediately
@@ -182,7 +182,7 @@ public abstract class Reference<T> {
                     // so do this before un-linking 'r' from the 'pending' chain...
                     c = r instanceof Cleaner ? (Cleaner) r : null;
                     // unlink 'r' from 'pending' chain
-                    pending = r.discovered;//vm系统转移到转移到pending 因为discovered私有 pending是共享的
+                    pending = r.discovered;//vm系统转移到转移到pending 因为discovered私有 pending是共享的// 不断的移除pending list的头结点——pending
                     r.discovered = null;
                 } else {
                     // The waiting on the lock may cause an OutOfMemoryError
@@ -208,13 +208,13 @@ public abstract class Reference<T> {
         }
 
         // Fast path for cleaners  //调用Cleaner实例的clean方法清理堆外内存 这个主要清除对外内存 我们可以自定义清除相关的东西来手动控制内存的释放比如我申请的对外内存
-        if (c != null) {
-            c.clean();
-            return true;
+        if (c != null) {//http://www.voidcn.com/article/p-awqtptpk-bru.html
+            c.clean();// 如果此次移除的是Cleaner的话，就执行它的clean方法, 可控的gc释放对外内存
+            return true; // 不继续后面的事情了（也就是pending list中的Cleaner是不会进队的，尽管Cleaner是PhantomReference的子类，肯定初始化的时候绑定了队列，但是也不会进入队列了.
         }
 
-        ReferenceQueue<? super Object> q = r.queue;//获取pending的引用队列，如果构造时指定了引用队列，并将q入队
-        if (q != ReferenceQueue.NULL) q.enqueue(r);//接着入队
+        ReferenceQueue<? super Object> q = r.queue;//获取pending的引用队列，如果构造时指定了引用队列，并将q入队 // 获取到从pending list中移除的对象绑定的queue（即RQ）
+        if (q != ReferenceQueue.NULL) q.enqueue(r);//接着入队// 如果不是出于Active（即创建的时候调用的是构造器1）或者Inactive状态的话（看看我之前对API注释的翻译），就进队.
         return true;
     }
 
@@ -246,7 +246,7 @@ public abstract class Reference<T> {
      * Returns this reference object's referent.  If this reference object has
      * been cleared, either by the program or by the garbage collector, then
      * this method returns <code>null</code>.
-     *
+     *注释说的很清楚——如果强引用被切断——不论是被程序切断的（即源码5）还是通过GC（GC可不会那么费事），则本方法返回的就是null.
      * @return   The object to which this reference refers, or
      *           <code>null</code> if this reference object has been cleared
      */
@@ -257,7 +257,7 @@ public abstract class Reference<T> {
     /**
      * Clears this reference object.  Invoking this method will not cause this
      * object to be enqueued.
-     *
+     *进入RQ的是引用对象实例本身（例如SoftReference、WeakReference等），所以才叫引用队列嘛~，而不是引用对象实例持有的referent强引用（referent引用的就是堆内存中的对象）.
      * <p> This method is invoked only by Java code; when the garbage collector
      * clears references it does so directly, without invoking this method.
      */
@@ -275,7 +275,7 @@ public abstract class Reference<T> {
      * always return <code>false</code>.
      *
      * @return   <code>true</code> if and only if this reference object has
-     *           been enqueued
+     *           been enqueued我们来看如何判定一个元素在RQ中了.就是根据Reference对象实例的queue属性是否等于ReferenceQueue.ENQUEUED来判断的.
      */
     public boolean isEnqueued() {
         return (this.queue == ReferenceQueue.ENQUEUED);
@@ -299,13 +299,13 @@ public abstract class Reference<T> {
 
     /* -- Constructors -- */
 
-    Reference(T referent) {
+    Reference(T referent) {//这个不会出现pending状态
         this(referent, null);
     }
 
     Reference(T referent, ReferenceQueue<? super T> queue) {
         this.referent = referent;
-        this.queue = (queue == null) ? ReferenceQueue.NULL : queue;
+        this.queue = (queue == null) ? ReferenceQueue.NULL : queue;//而NULL和ENQUEUED是ReferenceQueue的静态常量. 仅仅起到标记作用，而并不能实际存储元素（即起到队列作用）
     }
 
 }

@@ -10,7 +10,16 @@
     <bookmark url="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.16.Final/netty-all-4.1.16.Final-sources.jar!/io/netty/channel/ChannelFuture.java" description="Channel channel();" line="170" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="" />
+    <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/lang/ref/Finalizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/lang/ref/Finalizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/lang/ref/Reference.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/lang/ref/Reference.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/lang/ref/ReferenceQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/lang/ref/ReferenceQueue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/net/SocketImplFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/net/SocketImplFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/nio/DirectByteBuffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/nio/DirectByteBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/sql/DriverManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/sql/DriverManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/util/ServiceLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/util/ServiceLoader.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,8 +36,8 @@
       <file leaf-file-name="Executors.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/Executors.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="502" column="79" selection-start-line="502" selection-start-column="71" selection-end-line="502" selection-end-column="79" />
+            <state relative-caret-position="234">
+              <caret line="499" column="7" lean-forward="true" selection-start-line="499" selection-start-column="7" selection-end-line="499" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -169,7 +178,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -182,6 +190,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -441,6 +450,8 @@
       <workItem from="1606298353991" duration="215000" />
       <workItem from="1606401758724" duration="430000" />
       <workItem from="1608290149779" duration="30000" />
+      <workItem from="1608720989006" duration="1328000" />
+      <workItem from="1616985728965" duration="1107000" />
     </task>
     <task id="LOCAL-00002" summary="threadlocal 探究 以及引用的探究">
       <created>1585556732362</created>
@@ -540,14 +551,22 @@
       <option name="project" value="LOCAL" />
       <updated>1608290167206</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="新增研究finalizer">
+      <created>1608721014130</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1608721014130</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="229040000" />
+    <option name="totallyTimeSpent" value="231475000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="7" y="7" width="1920" height="1040" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50160426" side_tool="true" weight="0.38731596" />
@@ -571,7 +590,7 @@
       <window_info anchor="bottom" id="Sequence" order="15" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="right" id="zoolytic" order="11" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4981203" visible="true" weight="0.28047466" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4981203" visible="true" weight="0.2880259" />
       <window_info id="JRebel" order="7" side_tool="true" />
       <window_info anchor="right" id="BPMNPalette" order="5" />
       <window_info anchor="right" id="Theme Preview" order="9" />
@@ -675,7 +694,8 @@
     <MESSAGE value="提交threadlocal的一点思考" />
     <MESSAGE value="lock trylock 区别" />
     <MESSAGE value="新增注释" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增注释" />
+    <MESSAGE value="新增研究finalizer" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增研究finalizer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1184,8 +1204,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/util/concurrent/Executors.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="502" column="79" selection-start-line="502" selection-start-column="71" selection-end-line="502" selection-end-column="79" />
+        <state relative-caret-position="234">
+          <caret line="499" column="7" lean-forward="true" selection-start-line="499" selection-start-column="7" selection-end-line="499" selection-end-column="7" />
         </state>
       </provider>
     </entry>
