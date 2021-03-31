@@ -573,7 +573,7 @@ class TaskQueue {
      * ordered on the nextExecutionTime field: The TimerTask with the lowest
      * nextExecutionTime is in queue[1] (assuming the queue is nonempty).  For
      * each node n in the heap, and each descendant of n, d,
-     * n.nextExecutionTime <= d.nextExecutionTime.
+     * n.nextExecutionTime <= d.nextExecutionTime. 构建堆的数组 小堆
      */
     private TimerTask[] queue = new TimerTask[128];
 
@@ -581,7 +581,7 @@ class TaskQueue {
      * The number of tasks in the priority queue.  (The tasks are stored in
      * queue[1] up to queue[size]).
      */
-    private int size = 0;
+    private int size = 0;//队列的数值
 
     /**
      * Returns the number of tasks currently on the queue.
@@ -595,7 +595,7 @@ class TaskQueue {
      */
     void add(TimerTask task) {
         // Grow backing store if necessary
-        if (size + 1 == queue.length)
+        if (size + 1 == queue.length)//初始128 扩容2倍
             queue = Arrays.copyOf(queue, 2*queue.length);
 
         queue[++size] = task;

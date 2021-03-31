@@ -503,7 +503,7 @@ public abstract class AbstractQueuedSynchronizer
         }
 
         Node(Thread thread, Node mode) {     // Used by addWaiter
-            this.nextWaiter = mode;
+            this.nextWaiter = mode;//同步对列这个代表模式排他还是共享， 否则是等待队列的下一个指针
             this.thread = thread;
         }
 
@@ -582,10 +582,10 @@ public abstract class AbstractQueuedSynchronizer
      */
     private Node enq(final Node node) {
         for (;;) {
-            Node t = tail;
+            Node t = tail;//先初始化，head=tail 然后入队 记住是同步队列的队尾
             if (t == null) { // Must initialize
                 if (compareAndSetHead(new Node()))
-                    tail = head;
+                    tail = head;//这里是初始状态
             } else {//这里由于并发被人给初始化了
                 node.prev = t;
                 if (compareAndSetTail(t, node)) {
@@ -599,10 +599,10 @@ public abstract class AbstractQueuedSynchronizer
     /**
      * Creates and enqueues node for current threadpool and given mode.
      *
-     * @param mode Node.EXCLUSIVE for exclusive, Node.SHARED for shared
+     * @param mode Node.EXCLUSIVE for exclusive, Node.SHARED for shared//模式代表节点的类型是排他还是共享
      * @return the new node
      */
-    private Node addWaiter(Node mode) {
+    private Node addWaiter(Node mode) {//这里 入队两种情况，判断是否为空 并不为空直接入队尾为空则初始化之后在入队为
         Node node = new Node(Thread.currentThread(), mode);
         // Try the fast path of enq; backup to full enq on failure
         Node pred = tail;

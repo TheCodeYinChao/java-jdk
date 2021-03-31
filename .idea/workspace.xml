@@ -12,6 +12,30 @@
   <component name="ChangeListManager">
     <list default="true" id="b7df6bc5-dd64-4f55-8acb-6621f22358ed" name="Default" comment="">
       <change afterPath="$PROJECT_DIR$/src/persion/timier/TimierDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$EntryIterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$EntryIterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$EntrySet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$EntrySet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$EntrySpliterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$EntrySpliterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$HashIterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$HashIterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$HashMapSpliterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$HashMapSpliterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$KeyIterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$KeyIterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$KeySet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$KeySet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$KeySpliterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$KeySpliterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$TreeNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$TreeNode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$ValueIterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$ValueIterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$ValueSpliterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$ValueSpliterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$Values.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap$Values.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/HashMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/java/util/concurrent/ThreadPoolExecutor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/java/util/concurrent/ThreadPoolExecutor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/lock/AqsDemo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/lock/AqsDemo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/ref/ReferenceUse2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/ref/ReferenceUse2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/thread/DemoField.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/thread/ForkJoinDemo$TaskDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/thread/ForkJoinDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/threadpool/Demo$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/threadpool/Demo$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/threadpool/Demo$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/threadpool/Demo$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/threadpool/Demo$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/threadpool/Demo$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java-jdk/persion/threadpool/Demo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java-jdk/persion/threadpool/Demo.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,31 +49,7 @@
     <option name="COMPILER_PROCESS_ADDITIONAL_VM_OPTIONS" value="-ea -Xmx2048m" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="TimierDemo.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/persion/timier/TimierDemo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="18" column="47" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#283#416#0" expanded="true" />
-                <element signature="e#415#416#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TimerTask.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/util/TimerTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -172,8 +172,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="7" />
-    <option name="y" value="7" />
+    <option name="x" value="2009" />
+    <option name="y" value="2" />
     <option name="width" value="1920" />
     <option name="height" value="1040" />
   </component>
@@ -498,7 +498,7 @@
       <workItem from="1608290149779" duration="30000" />
       <workItem from="1608720989006" duration="1328000" />
       <workItem from="1616985728965" duration="1107000" />
-      <workItem from="1616997295322" duration="2069000" />
+      <workItem from="1616997295322" duration="2226000" />
     </task>
     <task id="LOCAL-00002" summary="threadlocal 探究 以及引用的探究">
       <created>1585556732362</created>
@@ -612,15 +612,21 @@
       <option name="project" value="LOCAL" />
       <updated>1616997352318</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="timer 优先级对列">
+      <created>1617001198321</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1617001198321</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="233544000" />
+    <option name="totallyTimeSpent" value="233701000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="7" y="7" width="1920" height="1040" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50160426" side_tool="true" weight="0.38731596" />
@@ -640,7 +646,7 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.35447338" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3567384" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4978678" weight="0.32842582" />
       <window_info anchor="bottom" id="Sequence" order="15" />
       <window_info anchor="bottom" id="Terminal" order="7" />
@@ -750,7 +756,8 @@
     <MESSAGE value="新增注释" />
     <MESSAGE value="新增研究finalizer" />
     <MESSAGE value="增加相关修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加相关修改" />
+    <MESSAGE value="timer 优先级对列" />
+    <option name="LAST_COMMIT_MESSAGE" value="timer 优先级对列" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -911,13 +918,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/java/net/ConnectException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/net/ContentHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="433">
@@ -1259,10 +1259,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/util/Timer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="242" column="16" selection-start-line="242" selection-start-column="16" selection-end-line="242" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/persion/timier/TimierDemo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="18" column="47" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
+        <state relative-caret-position="440">
+          <caret line="21" column="17" lean-forward="true" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#283#416#0" expanded="true" />

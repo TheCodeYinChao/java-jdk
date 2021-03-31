@@ -45,28 +45,28 @@ public abstract class TimerTask implements Runnable {
     int state = VIRGIN;
 
     /**
-     * This task has not yet been scheduled.
+     * This task has not yet been scheduled.该任务尚未被安排。
      */
     static final int VIRGIN = 0;
 
     /**
      * This task is scheduled for execution.  If it is a non-repeating task,
-     * it has not yet been executed.
+     * it has not yet been executed.此任务计划执行。如果是一个非重复的任务，*它尚未被执行。
      */
     static final int SCHEDULED   = 1;
 
     /**
      * This non-repeating task has already executed (or is currently
-     * executing) and has not been cancelled.
+     * executing) and has not been cancelled.此非重复任务已经执行(或当前正在执行)正在执行)并且没有被取消。
      */
     static final int EXECUTED    = 2;
 
     /**
-     * This task has been cancelled (with a call to TimerTask.cancel).
+     * This task has been cancelled (with a call to TimerTask.cancel).该任务已被取消(通过调用TimerTask.cancel)。
      */
     static final int CANCELLED   = 3;
 
-    /**
+    /**下次执行时间也是 堆的实现数值
      * Next execution time for this task in the format returned by
      * System.currentTimeMillis, assuming this task is scheduled for execution.
      * For repeating tasks, this field is updated prior to each task execution.
@@ -76,7 +76,7 @@ public abstract class TimerTask implements Runnable {
     /**
      * Period in milliseconds for repeating tasks.  A positive value indicates
      * fixed-rate execution.  A negative value indicates fixed-delay execution.
-     * A value of 0 indicates a non-repeating task.
+     * A value of 0 indicates a non-repeating task.周期计算下次执行时间
      */
     long period = 0;
 
